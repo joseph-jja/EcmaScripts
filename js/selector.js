@@ -1,0 +1,43 @@
+// support for IE8 and above
+// simple module to select elements based on css styles
+(function(w, d) {
+  
+  var rquickExpr = /^#(?:([\w-]+)|(\w+)|\.([\w-]+))$/;
+  
+  function selector(expr, parent) {
+
+    var result, len;
+      
+    if ( arguments.length < 2 || typeof parent === 'undefined') {
+      parent = d;          
+    }
+        
+    if ( rquickExpr.test( expr ) ) {
+      // remove the leading #
+      result = parent.getElementById( expr.substring(1) );
+    } else {
+      result = parent.querySelectorAll( expr );
+    }
+      
+    this.elements = result;
+    
+    if ( result && result.length ) { 
+      this.length = result.length;
+    } else if ( result ) {
+      this.length = 1;
+    }
+    return this;
+  }
+  
+  if ( typeof define === 'function' && define.amd ) {
+    // AMD  
+    define(selector);
+  } else if ( typeof module !== 'undefined' && module.exports ) {
+    // common JS
+    module.exports = selector;
+  } else {
+    // vanilla JS
+    w.selector = selector;
+  }
+  
+})(window, document);
