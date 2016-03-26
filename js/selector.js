@@ -13,13 +13,16 @@
     }
         
     if ( rquickExpr.test( expr ) ) {
-      // remove the leading #
+      // remove the leading # and return array of 1 or 0
       result = parent.getElementById( expr.substring(1) );
+      result = ( result ? [ result ] : [] ); 
     } else {
       result = parent.querySelectorAll( expr );
     }
       
-    this.elements = result;
+    this.get = function( i ) { 
+      return result[ i ];
+    };
     
     if ( result && result.length ) { 
       this.length = result.length;
@@ -31,7 +34,7 @@
   
   if ( typeof define === 'function' && define.amd ) {
     // AMD  
-    define(selector);
+    define([], selector);
   } else if ( typeof module !== 'undefined' && module.exports ) {
     // common JS
     module.exports = selector;
