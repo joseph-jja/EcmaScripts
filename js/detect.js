@@ -39,3 +39,26 @@
 //IE6     JS 5.6
 //IE7 	   JS 5.6/5.7 and XMLHttpRequest though
 //IE8 	   JS 5.8 
+
+function detect() {
+
+  var i = 0, x = [];
+    browsers = [ { bProp: window.chrome, name: 'chrome' }, 
+                { bProp: window.safari, name: 'safari' },
+                { bProp: window.opera, name: 'opera' },
+                { bProp: window.mozInnerScreenX, name: 'firefox' }, 
+                { bProp: document.all, name: 'ie' } ];
+  
+  function check( x ) {
+      return typeof x.bProp !== 'undefined';
+  }
+
+  while ( browsers[ i ] ) { 
+    if ( check( browsers[ i ] ) ) { 
+      break;
+    }
+    i++;
+  }
+  return browsers[i].name;
+}
+
