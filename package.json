@@ -1,0 +1,25 @@
+{
+  "name": "javascripts",
+  "description": "Simple JavaScripts for the web",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joseph-jja/JavaScripts.git"
+  },
+  "author": "Joe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joseph-jja/JavaScripts/issues"
+  },
+  "homepage": "https://github.com/joseph-jja/JavaScripts#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^2.0.0",
+    "gulp-jsbeautifier": "^2.0.3"
+  }
+}
