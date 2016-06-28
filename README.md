@@ -1,3 +1,2 @@
-# j
-JavaScript scripts
+# JavaScript scripts
 Simple JavaScripts for the web
