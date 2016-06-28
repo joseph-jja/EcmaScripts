@@ -1,2 +1,3 @@
-# es6-javascripts
+# j
+JavaScript scripts
 Simple JavaScripts for the web
