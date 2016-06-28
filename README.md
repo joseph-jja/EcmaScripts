@@ -1,2 +1,2 @@
-# umd-javascripts
-Simple JavaScripts mostly UMD for the web
+# es6-javascripts
+Simple JavaScripts for the web
