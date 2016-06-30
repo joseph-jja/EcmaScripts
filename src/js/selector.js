@@ -1,5 +1,7 @@
 // support for IE8 and above
-// simple module to select elements based on css styles
+// simple module to select elements based on css style selectors
+// internally calls documenet.getElementById or querySelectorAll based on regex 
+// this is done in a UMD format
 (function(w, d) {
   
   var rquickExpr = /^#(?:([\w-]+)|(\w+)|\.([\w-]+))$/;
