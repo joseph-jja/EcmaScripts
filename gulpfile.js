@@ -13,7 +13,7 @@ gulp.task('babel', () => {
 gulp.task('default', () => {
 	return gulp.src("src/js/**/**.js")
 		.pipe(jsbeautify({
-
+config: './config/js-beautify.json'
 		}))
 		.pipe(gulp.dest('src/js'))
 		.pipe(gulp.dest('dist'));

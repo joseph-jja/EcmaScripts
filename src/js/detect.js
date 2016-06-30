@@ -44,7 +44,7 @@ function detect() {
 
     var i = 0,
         x = [];
-    browsers = [{
+    browsers = [ {
         bProp: window.chrome,
         name: 'chrome'
     }, {
@@ -59,17 +59,17 @@ function detect() {
     }, {
         bProp: document.all,
         name: 'ie'
-    }];
+    } ];
 
-    function check(x) {
+    function check( x ) {
         return typeof x.bProp !== 'undefined';
     }
 
-    while (browsers[i]) {
-        if (check(browsers[i])) {
+    while ( browsers[ i ] ) {
+        if ( check( browsers[ i ] ) ) {
             break;
         }
         i++;
     }
-    return browsers[i].name;
+    return browsers[ i ].name;
 }
