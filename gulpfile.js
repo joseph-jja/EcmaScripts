@@ -10,11 +10,12 @@ gulp.task('babel', () => {
 		.pipe(gulp.dest('dist'));
 });
 
-gulp.task('compile', () => {
+gulp.task('default', () => {
 	return gulp.src("src/js/**/**.js")
 		.pipe(jsbeautify({
 
 		}))
+		.pipe(gulp.dest('src/js'))
 		.pipe(gulp.dest('dist'));
 });
 
