@@ -1,18 +1,58 @@
-(function(w, d) {
+// module for checking data types 
 
-    function typeCheck(o, s, input) {
-        return (input instanceof o || (typeof input).toLowerCase() === s) ? true : false;
+export typeCheck = function ( o, s, input ) {
+        return ( input instanceof o || ( typeof input ).toLowerCase() === s ) ? true : false;
     };
 
-    if (typeof define === 'function' && define.amd) {
-        // AMD  
-        define([], typeCheck);
-    } else if (typeof module !== 'undefined' && module.exports) {
-        // common JS
-        module.exports = typeCheck;
-    } else {
-        // vanilla JS
-        w.typeCheck = typeCheck;
-    }
+    // only exists if it is not undefined
+export exists = function ( x ) {
+        var exists = false;
+        try {
+            exists = ( typeof x !== 'undefined' && x !== null );
+        } catch ( e ) {
+            exists = false;
+        }
+        return exists;
+    };
 
-})(window, document);
+export isString = function ( input ) {
+        return typeCheck( String, "string", input );
+    };
+
+export isNumber = function ( input ) {
+        return typeCheck( Number, "number", input );
+    };
+
+export isArray = function ( input ) {
+        var yes = typeCheck( Array, "array", input );
+        if ( !yes ) {
+            yes = ( Object.prototype.toString.apply( input ).toLowerCase().indexOf( "collection" ) !== -1 );
+        }
+        if ( !yes ) {
+            yes = ( Object.prototype.toString.apply( input ).toLowerCase().indexOf( "nodelist" ) !== -1 );
+        }
+        if ( !yes ) {
+            yes = ( ( typeof input.length ).toLowerCase() === "number" );
+        }
+        return yes;
+    };
+
+export isFunction = function ( input ) {
+        return typeCheck( Function, "function", input );
+    };
+
+export isObject = function ( input ) {
+        return typeCheck( Object, "object", input );
+    };
+
+export isRegExp = function ( input ) {
+        return typeCheck( RegExp, "regexp", input );
+    };
+
+export isInput = function ( input ) {
+        var inp = typeof input,
+            name = input.nodeName;
+        name = ( name ? name : "" );
+        return ( name.toLowerCase() === "input" || ( inp.toLowerCase() === "input" && typeof inp[ 'type' ] !== 'undefined' ) );
+    };
+
