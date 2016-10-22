@@ -2,11 +2,9 @@
 // simple module to select elements based on css style selectors
 // internally calls documenet.getElementById or querySelectorAll based on regex 
 // this is done in a UMD format
-(function(w, d) {
+var rquickExpr = /^#(?:([\w-]+)|(\w+)|\.([\w-]+))$/;
 
-    var rquickExpr = /^#(?:([\w-]+)|(\w+)|\.([\w-]+))$/;
-
-    function selector(expr, parent) {
+export selector function(expr, parent) {
 
         var result, len;
 
@@ -32,17 +30,6 @@
             this.length = 1;
         }
         return this;
-    }
+    };
 
-    if (typeof define === 'function' && define.amd) {
-        // AMD  
-        define([], selector);
-    } else if (typeof module !== 'undefined' && module.exports) {
-        // common JS
-        module.exports = selector;
-    } else {
-        // vanilla JS
-        w.selector = selector;
-    }
-
-})(window, document);
+    
