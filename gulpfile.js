@@ -11,11 +11,12 @@ gulp.task('tests', () => {
 
 gulp.task('default', () => {
 	return gulp.src("src/js/**/**.js")
-		.pipe(babel({
-			
-		}))
 		.pipe(jsbeautify({
 			config: './config/js-beautify.json'
+		}))
+		.pipe(gulp.dest('src'))
+		.pipe(babel({
+			
 		}))
 		.pipe(gulp.dest('js'));
 });
