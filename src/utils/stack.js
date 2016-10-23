@@ -17,6 +17,10 @@ stack.prototype.pop = function (key) {
     this.index--;
 };
 
+stack.prototype.get = function (key) {
+    return this.list[key];
+};
+
 stack.prototype.clear = function () {
     for (let o in this.list) {
         if (o && this.list[o]) {
