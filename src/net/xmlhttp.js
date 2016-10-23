@@ -5,7 +5,7 @@
  // returns xmlhttp request object
  //////////////////////////////////////////////////
  
-function Request() {
+function XmlHttp() {
      var xmlhttp = false;
      // try to use the default xml http request object first
      if ( window.XMLHttpRequest ) {
@@ -38,4 +38,4 @@ function Request() {
 }
 
 // newable request object that works in most browsers
-export Request;
+export XmlHttp;
