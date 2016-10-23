@@ -1,7 +1,7 @@
 // simple stack that a caller can call new on
 var stack = function() {
     this.index = 0;
-    this.list = [];
+    this.list = {};
 };
 
 stack.push = (key, obj, cb) => {
