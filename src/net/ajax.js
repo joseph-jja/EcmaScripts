@@ -56,6 +56,17 @@ export cancelRequest = function(ajaxObj) {
 
 export cancelAll = function() {
     var i;
-    for ( i =0; i < stack.
-    stack.pop('AJAX_' + ajaxObj.index);
+    for ( i in stack.list ) {
+	    let o = stack.list[i];
+	    if ( o ) { 
+		    try {
+                o.data.xmlhttp.abort();
+		        o.data = null;	
+                
+		    } catch (e) {
+		        // do something
+            }
+	    }
+    }
+    stack = new Stack();
 }
