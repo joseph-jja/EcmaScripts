@@ -63,7 +63,7 @@ export function cancelRequest(ajaxObj) {
 export function cancelAll() {
     var i;
     for (i in stack.list) {
-        let o = stack.list[i];
+        let o = stack.get(i);
         if (o) {
             try {
                 o.data.xmlhttp.abort();
@@ -72,6 +72,7 @@ export function cancelAll() {
                 // do something
             }
         }
+        stack.pop(i);
     }
     stack.index = 0;
     stack.list = {};
