@@ -1,10 +1,15 @@
-import * as xmlhttp from "./xmlhttp";
-import * as stack from "../utils/stack";
+import * as XmlHttp from "./xmlhttp";
+import * as Stack from "../utils/stack";
+
+// one stack for all instances
+var stack = new Stack();
 
 export makeRequest = function(type, cbFN, url, data, async, headers) {
-	var h, ajaxObj;
+	var h, ajaxObj, 
+	    xmlhttp = new XmlHttp(), 
+	    index = stack.index;
 	
-	xmlhttp.open(type, url, async);
+     xmlhttp.open(type, url, async);
     ajaxObj = this;
     if ( headers ) { 
     	for ( h in headers ) {
@@ -16,30 +21,35 @@ export makeRequest = function(type, cbFN, url, data, async, headers) {
         // so the call can use this in it
     	cbFN.call(ajaxObj);
         if ( ajaxObj.xmlhttp.readyState === 4 ) {
-            //stack.pop('AJAX_');
+            stack.pop('AJAX_' + index);
         }
     }
     if ( data == null ) { data = ""; }
     xmlhttp.send(data);
-    stack.push('AJAX_' + stack.index, this);
+    stack.push('AJAX_' + index, { data: this } );
+	
+    ajaxObj.index = index;
+    ajaxObj.xmlhttp = xmlhttp; 
+	
+    return ajaxObj; 
 };
 
 //send a post request, which creates the object
 //takes callback function, url and any data 
 export post = function(callbackFN, url, postData) {	
 	var headers = {"Content-Type": "application/x-www-form-urlencoded"};
-  makeRequest("POST", callbackFN, url, postData, true, headers);
+   return makeRequest("POST", callbackFN, url, postData, true, headers);
 };
 
 
 //do a get request, good for getting a file
 //takes callback function and  url 
 export get = function(callbackFN, url, getData) {	
-    makeRequest("GET", callbackFN, url + ( ( getData ) ? "?" + getData : "" ), null, true);
+    return makeRequest("GET", callbackFN, url + ( ( getData ) ? "?" + getData : "" ), null, true);
 };
 
 //this allows us to cancel this ajax request
-export cancelRequest = function() {
-    xmlhttp.abort();
-    //stack.unregister(ajaxObj);
+export cancelRequest = function(ajaxObj) {
+    ajaxObj.xmlhttp.abort();
+    stack.pop('AJAX_' + ajaxObj.index);
 }
