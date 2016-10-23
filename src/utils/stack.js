@@ -4,23 +4,23 @@ var stack = function() {
     this.list = {};
 };
 
-stack.push = (key, obj, cb) => {
+stack.push = function(key, obj, cb) {
         this.list[key] = { data: obj, callback: cb };
         this.index++;
 };
 
-stack.pop = (key) => {
+stack.pop = function(key) {
         this.list[key] = null;
         this.index--;
 };
 
-stack.clear () => {
+stack.clear = function() {
     for ( let o this.list ) {
        if ( o && this.list[o] ) {
           let obj = this.list[o];
           try { 
             obj.callback && obj.callback( obj );
-            obj.data && obj.data = undefined; 
+            if ( obj.data ) { obj.data = undefined; } 
           } catch (e) { 
               // do somehting with the exception?
           }  
