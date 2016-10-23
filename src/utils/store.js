@@ -11,10 +11,12 @@ Store.prototype.setItem = function(key, value) {
 			this.data.put(key, value);
 			keys.push(key);
 };
+
 Store.prototype.getItem = function(key) { 
-			return this.data.store[key];
+			return this.data.get(key);
 		};
-		self.removeItem = function(key) { 
+
+		Store.prototype.removeItem = function(key) { 
 			var i, len = self.length, idx; 
 			for ( i =0; i < len; i+=1 ) {
 				if ( keys[i] === key ) {
@@ -28,7 +30,8 @@ Store.prototype.getItem = function(key) {
 				self.length = keys.length;
 			}
 		};
-		self.key = function(index) { 
+		
+Store.prototype.key = function(index) { 
 			var key, i, len = self.length; 
 			if ( isNaN(index) || index < 0 || index > len ) { 
 				return undefined; 
@@ -41,10 +44,10 @@ Store.prototype.getItem = function(key) {
 			}
 			return key;
 		};
-		self.clear = function() { 
-			store = [];
+
+Store.prototype.clear = function() { 
+			this.data.clear();
 			keys = [];
-			self.length = keys.length;
 		};
-		return self;
-	};
+
+export { Store };
