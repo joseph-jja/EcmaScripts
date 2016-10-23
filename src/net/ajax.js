@@ -25,11 +25,11 @@ export makeRequest = function(type, cbFN, url, data, async, headers) {
         }
     }
     if ( data == null ) { data = ""; }
-    xmlhttp.send(data);
-    stack.push('AJAX_' + index, { data: this } );
-	
     ajaxObj.index = index;
     ajaxObj.xmlhttp = xmlhttp; 
+	
+    xmlhttp.send(data);
+    stack.push('AJAX_' + index, { data: ajaxObj } );
 	
     return ajaxObj; 
 };
@@ -51,5 +51,11 @@ export get = function(callbackFN, url, getData) {
 //this allows us to cancel this ajax request
 export cancelRequest = function(ajaxObj) {
     ajaxObj.xmlhttp.abort();
+    stack.pop('AJAX_' + ajaxObj.index);
+}
+
+export cancelAll = function() {
+    var i;
+    for ( i =0; i < stack.
     stack.pop('AJAX_' + ajaxObj.index);
 }
