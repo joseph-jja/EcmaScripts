@@ -1,5 +1,5 @@
 import * as xmlhttp from "./xmlhttp";
-//import * as stack from "../utils/stack";
+import * as stack from "../utils/stack";
 
 export makeRequest = function(type, cbFN, url, data, async, headers) {
 	var h, ajaxObj;
@@ -16,12 +16,12 @@ export makeRequest = function(type, cbFN, url, data, async, headers) {
         // so the call can use this in it
     	cbFN.call(ajaxObj);
         if ( ajaxObj.xmlhttp.readyState === 4 ) {
-            //stack.unregister(ajaxObj);
+            //stack.unregister('AJAX_');
         }
     }
     if ( data == null ) { data = ""; }
    	xmlhttp.send(data);
-    //stack.register(this);
+    stack.push('AJAX_', this);
 };
 
 //send a post request, which creates the object
@@ -39,7 +39,7 @@ export get = function(callbackFN, url, getData) {
 };
 
 //this allows us to cancel this ajax request
-cancelRequest = function() {
+export cancelRequest = function() {
     xmlhttp.abort();
     //stack.unregister(ajaxObj);
 }
