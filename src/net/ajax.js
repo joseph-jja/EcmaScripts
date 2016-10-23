@@ -62,11 +62,11 @@ export cancelAll = function() {
 		    try {
                 o.data.xmlhttp.abort();
 		        o.data = null;	
-                
 		    } catch (e) {
 		        // do something
             }
 	    }
     }
-    stack = new Stack();
+    stack.index = 0; 
+    stack.list = {};
 }
