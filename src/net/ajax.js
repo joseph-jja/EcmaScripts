@@ -16,12 +16,12 @@ export makeRequest = function(type, cbFN, url, data, async, headers) {
         // so the call can use this in it
     	cbFN.call(ajaxObj);
         if ( ajaxObj.xmlhttp.readyState === 4 ) {
-            //stack.unregister('AJAX_');
+            //stack.pop('AJAX_');
         }
     }
     if ( data == null ) { data = ""; }
-   	xmlhttp.send(data);
-    stack.push('AJAX_', this);
+    xmlhttp.send(data);
+    stack.push('AJAX_' + stack.index, this);
 };
 
 //send a post request, which creates the object
