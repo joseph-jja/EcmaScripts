@@ -1,5 +1,5 @@
-//this is for all the requests 
-var stack = () => {
+// simple stack that a caller can call new on
+var stack = function() {
     this.index = 0;
     this.list = [];
 };
