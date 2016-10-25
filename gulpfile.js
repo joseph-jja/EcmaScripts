@@ -1,25 +1,28 @@
-var gulp = require('gulp'), 
-    jsbeautify = require("gulp-jsbeautifier"),
-    fs = require("fs"),
-    babel = require("gulp-babel"), 
-jsConfig;
+var gulp = require( 'gulp' ),
+    jsbeautify = require( "gulp-jsbeautifier" ),
+    fs = require( "fs" ),
+    babel = require( "gulp-babel" ),
+    jsConfig;
 
-jsConfig = JSON.parse(fs.readFileSync('./config/js-beautify.json'));
+jsConfig = JSON.parse( fs.readFileSync( './config/js-beautify.json' ) );
 
 // todo implement a testing thing
 // jasmine + karma
-gulp.task('tests', () => {
+gulp.task( 'tests', () => {
 
-	return;
-});
+    return;
+} );
 
-gulp.task('default', () => {
-	return gulp.src("src/js/**/**.js")
-		.pipe(jsbeautify(jsConfig))
-		.pipe(gulp.dest('src'))
-		.pipe(babel({
-			
-		}))
-		.pipe(gulp.dest('js'));
-});
+gulp.task( 'default', () => {
+    gulp.src( "gulpfile.js" )
+        .pipe( jsbeautify( jsConfig ) )
+        .pipe( gulp.dest( '.' ) );
 
+    return gulp.src( "src/js/**/**.js" )
+        .pipe( jsbeautify( jsConfig ) )
+        .pipe( gulp.dest( 'src' ) )
+        .pipe( babel( {
+
+        } ) )
+        .pipe( gulp.dest( 'js' ) );
+} );
