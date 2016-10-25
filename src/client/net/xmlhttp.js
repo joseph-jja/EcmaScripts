@@ -7,7 +7,7 @@
  function XmlHttp() {
      var xmlhttp = false;
      // try to use the default xml http request object first
-     if (window.XMLHttpRequest) {
+     if ( window.XMLHttpRequest ) {
          xmlhttp = new window.XMLHttpRequest();
      } else {
          // fall back for IE here, conditional compilation for IE or later only
@@ -30,7 +30,7 @@
 			@end @*/
      }
      // last try is here
-     if (!xmlhttp && (typeof XMLHttpRequest !== 'undefined')) {
+     if ( !xmlhttp && ( typeof XMLHttpRequest !== 'undefined' ) ) {
          xmlhttp = new XMLHttpRequest();
      }
      return xmlhttp;

@@ -4,29 +4,29 @@
 // this is done in a UMD format
 var rquickExpr = /^#(?:([\w-]+)|(\w+)|\.([\w-]+))$/;
 
-export function selector(expr, parent) {
+export function selector( expr, parent ) {
 
     var result, len;
 
-    if (arguments.length < 2 || typeof parent === 'undefined') {
+    if ( arguments.length < 2 || typeof parent === 'undefined' ) {
         parent = d;
     }
 
-    if (rquickExpr.test(expr)) {
+    if ( rquickExpr.test( expr ) ) {
         // remove the leading # and return array of 1 or 0
-        result = parent.getElementById(expr.substring(1));
-        result = (result ? [result] : []);
+        result = parent.getElementById( expr.substring( 1 ) );
+        result = ( result ? [ result ] : [] );
     } else {
-        result = parent.querySelectorAll(expr);
+        result = parent.querySelectorAll( expr );
     }
 
-    this.get = function (i) {
-        return result[i];
+    this.get = function ( i ) {
+        return result[ i ];
     };
 
-    if (result && result.length) {
+    if ( result && result.length ) {
         this.length = result.length;
-    } else if (result) {
+    } else if ( result ) {
         this.length = 1;
     }
     return this;

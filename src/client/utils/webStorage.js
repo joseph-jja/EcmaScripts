@@ -2,45 +2,45 @@
 // sometimes this will fail like when a browser does not have cookies enabled for a site
 var storeEnabled, localEnabled, sessionStore, localStore;
 
-storeEnabled = (function () {
+storeEnabled = ( function () {
     var sEnabled = false;
-    if (window.sessionStorage) {
+    if ( window.sessionStorage ) {
         try {
-            window.sessionStorage.setItem("testData", "dunny");
-            window.sessionStorage.removeItem("testData");
+            window.sessionStorage.setItem( "testData", "dunny" );
+            window.sessionStorage.removeItem( "testData" );
             sEnabled = true;
-        } catch (e) {
+        } catch ( e ) {
 
         }
     }
     return sEnabled;
-})();
+} )();
 
 
 // here we check to see if local storage is enabled or not
-localEnabled = (function () {
+localEnabled = ( function () {
     var lEnabled = false;
     try {
-        if (window.localStorage) {
-            window.localStorage.setItem("testData", "dunny");
-            window.localStorage.removeItem("testData");
+        if ( window.localStorage ) {
+            window.localStorage.setItem( "testData", "dunny" );
+            window.localStorage.removeItem( "testData" );
             lEnabled = true;
         }
-    } catch (e) {
+    } catch ( e ) {
 
     }
     return localEnabled;
-})();
+} )();
 
 import * as store from "../../utils/store";
 
-if (storeEnabled) {
+if ( storeEnabled ) {
     sessionStore = window.sessionStorage;
 } else {
     sessionStore = new store();
 }
 
-if (localEnabled) {
+if ( localEnabled ) {
     localStore = window.localStorage;
 } else {
     localStore = new store();

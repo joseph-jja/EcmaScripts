@@ -5,24 +5,24 @@ function stack() {
     this.list = {};
 };
 
-stack.prototype.push = function (key, obj) {
-    this.list[key] = obj;
+stack.prototype.push = function ( key, obj ) {
+    this.list[ key ] = obj;
     this.index++;
 };
 
-stack.prototype.pop = function (key) {
-    this.list[key] = null;
+stack.prototype.pop = function ( key ) {
+    this.list[ key ] = null;
     this.index--;
 };
 
-stack.prototype.get = function (key) {
-    return this.list[key];
+stack.prototype.get = function ( key ) {
+    return this.list[ key ];
 };
 
 stack.prototype.clear = function () {
-    for (let o in this.list) {
-        if (o) {
-            this.list[o] = undefined;
+    for ( let o in this.list ) {
+        if ( o ) {
+            this.list[ o ] = undefined;
         }
         this.index = 0;
     }

@@ -7,26 +7,26 @@ function Store() {
         this.keys = [];
 }
 
-Store.prototype.setItem = function (key, value) {
-    this.data.put(key, value);
-    keys.push(key);
+Store.prototype.setItem = function ( key, value ) {
+    this.data.put( key, value );
+    keys.push( key );
 };
 
-Store.prototype.getItem = function (key) {
-    return this.data.get(key);
+Store.prototype.getItem = function ( key ) {
+    return this.data.get( key );
 };
 
-Store.prototype.removeItem = function (key) {
-    this.keys[key] = undefined;
-    this.data.pop(key);
+Store.prototype.removeItem = function ( key ) {
+    this.keys[ key ] = undefined;
+    this.data.pop( key );
 };
 
-Store.prototype.key = function (index) {
+Store.prototype.key = function ( index ) {
     var key, i, len = self.length;
-    if (isNaN(index) || index < 0 || index > len) {
+    if ( isNaN( index ) || index < 0 || index > len ) {
         return undefined;
     }
-    return this.keys[key];
+    return this.keys[ key ];
 };
 
 Store.prototype.clear = function () {

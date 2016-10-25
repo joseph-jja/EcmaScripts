@@ -18,11 +18,11 @@ gulp.task( 'default', () => {
         .pipe( jsbeautify( jsConfig ) )
         .pipe( gulp.dest( '.' ) );
 
-    return gulp.src( "src/js/**/**.js" )
+    gulp.src( "src/**/**.js" )
         .pipe( jsbeautify( jsConfig ) )
         .pipe( gulp.dest( 'src' ) )
         .pipe( babel( {
-
+            presets: [ 'es2015' ]
         } ) )
         .pipe( gulp.dest( 'js' ) );
 } );
