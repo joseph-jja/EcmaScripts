@@ -1,10 +1,13 @@
 var gulp = require( 'gulp' ),
     jsbeautify = require( "gulp-jsbeautifier" ),
     fs = require( "fs" ),
+    webpack = require( 'gulp-webpack' ),
     babel = require( "gulp-babel" ),
-    jsConfig;
+    jsConfig,
+    wpConfig;
 
 jsConfig = JSON.parse( fs.readFileSync( './config/js-beautify.json' ) );
+wpConfig = JSON.parse( fs.readFileSync( './config/webpack.js' ) );
 
 // todo implement a testing thing
 // jasmine + karma
@@ -24,5 +27,6 @@ gulp.task( 'default', () => {
         .pipe( babel( {
             presets: [ 'es2015' ]
         } ) )
+        .pipe( webpack( wpConfig ) )
         .pipe( gulp.dest( 'js' ) );
 } );
