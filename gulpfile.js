@@ -1,6 +1,10 @@
 var gulp = require('gulp'), 
-    jsbeautify = require("gulp-jsbeautifier");
-    babel = require("gulp-babel");
+    jsbeautify = require("gulp-jsbeautifier"),
+    fs = require("fs"),
+    babel = require("gulp-babel"), 
+jsConfig;
+
+jsConfig = JSON.parse(fs.readFileSync('./config/js-beautify.json'));
 
 // todo implement a testing thing
 // jasmine + karma
@@ -11,9 +15,7 @@ gulp.task('tests', () => {
 
 gulp.task('default', () => {
 	return gulp.src("src/js/**/**.js")
-		.pipe(jsbeautify({
-			config: './config/js-beautify.json'
-		}))
+		.pipe(jsbeautify(jsConfig))
 		.pipe(gulp.dest('src'))
 		.pipe(babel({
 			
