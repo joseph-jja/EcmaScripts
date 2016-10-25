@@ -1,5 +1,5 @@
 import * as XmlHttp from "./xmlhttp";
-import * as Stack from "../utils/stack";
+import * as Stack from "../../utils/stack";
 
 // one stack for all instances
 var stack = new Stack();

@@ -21,7 +21,7 @@ gulp.task( 'default', () => {
         .pipe( jsbeautify( jsConfig ) )
         .pipe( gulp.dest( '.' ) );
 
-    gulp.src( "src/**/**.js" )
+    return gulp.src( "src/**/**.js" )
         .pipe( jsbeautify( jsConfig ) )
         .pipe( gulp.dest( 'src' ) )
         .pipe( babel( {
