@@ -27,6 +27,7 @@ gulp.task( 'default', () => {
         .pipe( babel( {
             presets: [ 'es2015' ]
         } ) )
+        .pipe( gulp.dest( 'work' ) )
         .pipe( webpack( wpConfig ) )
         .pipe( gulp.dest( 'js' ) );
 } );
