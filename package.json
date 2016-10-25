@@ -21,6 +21,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^2.0.0",
-    "gulp-jsbeautifier": "^2.0.3"
+    "gulp-jsbeautifier": "^2.0.3",
+    "gulp-webpack": "^1.5.0"
   }
 }
