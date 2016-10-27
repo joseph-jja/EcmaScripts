@@ -4,7 +4,7 @@
   "version": "0.0.3",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -rf js work",
+    "clean": "rm -rf js work npm-debug.log",
     "build": "./node_modules/gulp/bin/gulp.js",
     "tests": "./node_modules/karma/bin/karma start config/karma.conf.js"
   },
