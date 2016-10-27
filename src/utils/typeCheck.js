@@ -61,6 +61,7 @@ export {
     isString,
     isNumber,
     isArray,
+    isFunction,
     isObject,
     isRegExp,
     isInput
