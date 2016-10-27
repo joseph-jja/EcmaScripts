@@ -9,17 +9,14 @@ var gulp = require( 'gulp' ),
 jsConfig = JSON.parse( fs.readFileSync( './config/js-beautify.json' ) );
 wpConfig = JSON.parse( fs.readFileSync( './config/webpack.js' ) );
 
-// todo implement a testing thing
-// jasmine + karma
-gulp.task( 'tests', () => {
-
-    return;
-} );
-
 gulp.task( 'default', () => {
     gulp.src( "gulpfile.js" )
         .pipe( jsbeautify( jsConfig ) )
         .pipe( gulp.dest( '.' ) );
+
+    gulp.src( "config/**" )
+        .pipe( jsbeautify( jsConfig ) )
+        .pipe( gulp.dest( 'config' ) );
 
     return gulp.src( "src/**/**.js" )
         .pipe( jsbeautify( jsConfig ) )

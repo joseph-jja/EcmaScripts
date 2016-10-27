@@ -1,5 +1,5 @@
 {
-    "context": ".", 
+    "context": ".",
     "output": {
         "filename": "wbScripts.js"
     }
