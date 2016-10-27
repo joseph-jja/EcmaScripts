@@ -13,28 +13,29 @@ module.exports = function ( config ) {
         frameworks: [ 'jasmine' ],
 
         preprocessors: {
-            '../src/**/**.js': [ 'babel' ],
-            '../tests/**/**.js': [ 'babel' ]
+            '../work/**/**.js': [ 'webpack' ],
+            '../tests/**/**.js': [ 'webpack' ]
         },
-        babelPreprocessor: {
-            options: {
-                presets: [ 'es2015' ],
-                sourceMap: 'inline',
-                "plugins": [ "transform-es2015-modules-umd" ]
-            },
-            filename: function ( file ) {
-                return file.originalPath.replace( /\.js$/, '.es5.js' );
-            },
-            sourceFileName: function ( file ) {
-                return file.originalPath;
+
+        webpack: {
+            
+        },
+
+        webpackMiddleware: {
+            // webpack-dev-middleware configuration
+            // i.e.
+            noInfo: true,
+            // and use stats to turn off verbose output
+            stats: {
+                // options i.e. 
+                chunks: false
             }
         },
 
         // list of files / patterns to load in the browser
         files: [
-            '../js/wbScripts.js',
             '../tests/**/**_spec.js', {
-                pattern: '../src/**/**.js',
+                pattern: '../work/**/**.js',
                 included: false,
                 nocache: true
             }

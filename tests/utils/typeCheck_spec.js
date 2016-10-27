@@ -1,4 +1,4 @@
-import * as tc from "../src/utils/typeCheck";
+var tc = require("../../work/utils/typeCheck");
 
 describe("type check utils tests suite", function() {
 
