@@ -1,7 +1,9 @@
+import * as typeCheck from "../../work/utils/typeCheck";
+
 describe("type check utils tests suite", function() {
 
   it("test shell", function() {
-    expect(true).toBe(true);
+    expect(typeCheck).not.toBe(undefined);
     });
 
 });

@@ -19,7 +19,8 @@ module.exports = function ( config ) {
         babelPreprocessor: {
             options: {
                 presets: [ 'es2015' ],
-                sourceMap: 'inline'
+                sourceMap: 'inline',
+                "plugins": [ "transform-es2015-modules-umd" ]
             },
             filename: function ( file ) {
                 return file.originalPath.replace( /\.js$/, '.es5.js' );
