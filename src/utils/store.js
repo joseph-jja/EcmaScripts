@@ -3,7 +3,7 @@
 import * as Stack from "./stack";
 
 function Store() {
-    this.data = new Store(),
+    this.data = new Stack(),
         this.keys = [];
 }
 

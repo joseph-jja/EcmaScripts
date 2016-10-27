@@ -1,8 +1,11 @@
 // this allows us to check to see if session storage is actually enabled by the browser
 // sometimes this will fail like when a browser does not have cookies enabled for a site
-var storeEnabled, localEnabled, sessionStore, localStore;
 
-storeEnabled = ( function () {
+import * as Store from "../../utils/store";
+
+var sessionEnabled, localEnabled, sessionStore, localStore;
+
+sessionEnabled = ( function () {
     var sEnabled = false;
     if ( window.sessionStorage ) {
         try {
@@ -29,21 +32,19 @@ localEnabled = ( function () {
     } catch ( e ) {
 
     }
-    return localEnabled;
+    return lEnabled;
 } )();
 
-import * as store from "../../utils/store";
-
-if ( storeEnabled ) {
+if ( sessionEnabled ) {
     sessionStore = window.sessionStorage;
 } else {
-    sessionStore = new store();
+    sessionStore = new Store();
 }
 
 if ( localEnabled ) {
     localStore = window.localStorage;
 } else {
-    localStore = new store();
+    localStore = new Store();
 }
 
 // used for testing mainly but can be a simple key - value store

@@ -1,25 +1,25 @@
 // simple stack that a caller can call new on
 // this should just be a push pop and get type thing
-function stack() {
+function Stack() {
     this.index = 0;
     this.list = {};
 };
 
-stack.prototype.push = function ( key, obj ) {
+Stack.prototype.push = function ( key, obj ) {
     this.list[ key ] = obj;
     this.index++;
 };
 
-stack.prototype.pop = function ( key ) {
+Stack.prototype.pop = function ( key ) {
     this.list[ key ] = null;
     this.index--;
 };
 
-stack.prototype.get = function ( key ) {
+Stack.prototype.get = function ( key ) {
     return this.list[ key ];
 };
 
-stack.prototype.clear = function () {
+Stack.prototype.clear = function () {
     for ( let o in this.list ) {
         if ( o ) {
             this.list[ o ] = undefined;
@@ -29,5 +29,5 @@ stack.prototype.clear = function () {
 };
 
 export {
-    stack
+    Stack
 };

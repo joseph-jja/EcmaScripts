@@ -1,13 +1,17 @@
 import * as XmlHttp from "./xmlhttp";
 import * as Stack from "../../utils/stack";
 
-// one stack for all instances
-var stack = new Stack();
+var stack;
 
 export function makeRequest( type, cbFN, url, data, async, headers ) {
     var h, ajaxObj,
         xmlhttp = new XmlHttp(),
         index = stack.index;
+
+    // one stack for all instances
+    if ( !stack ) {
+        stack = new Stack();
+    }
 
     xmlhttp.open( type, url, async );
     ajaxObj = this;
@@ -62,6 +66,9 @@ export function cancelRequest( ajaxObj ) {
 
 export function cancelAll() {
     var i;
+    if ( !stack ) {
+        return;
+    }
     for ( i in stack.list ) {
         let o = stack.get( i );
         if ( o ) {

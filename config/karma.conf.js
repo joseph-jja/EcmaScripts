@@ -32,6 +32,7 @@ module.exports = function ( config ) {
 
         // list of files / patterns to load in the browser
         files: [
+            '../js/wbScripts.js',
             '../tests/**/**_spec.js', {
                 pattern: '../src/**/**.js',
                 included: false,
