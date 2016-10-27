@@ -13,12 +13,19 @@ module.exports = function ( config ) {
         frameworks: [ 'jasmine' ],
 
         preprocessors: {
-            '../work/**/**.js': [ 'webpack' ],
+            '../src/**/**.js': [ 'webpack' ],
             '../tests/**/**.js': [ 'webpack' ]
         },
 
         webpack: {
-            
+            module: {
+                loaders: [ {
+                    loader: 'babel',
+                    query: {
+                        presets: [ 'es2015' ]
+                    }
+                } ]
+            }
         },
 
         webpackMiddleware: {
@@ -34,7 +41,7 @@ module.exports = function ( config ) {
 
         // list of files / patterns to load in the browser
         files: [
-            '../tests/**/**_spec.js', {
+            '../tests/**/**_spec*.js', {
                 pattern: '../work/**/**.js',
                 included: false,
                 nocache: true

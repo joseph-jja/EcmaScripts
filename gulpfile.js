@@ -14,6 +14,10 @@ gulp.task( 'default', () => {
         .pipe( jsbeautify( jsConfig ) )
         .pipe( gulp.dest( '.' ) );
 
+    gulp.src( "tests/**" )
+        .pipe( jsbeautify( jsConfig ) )
+        .pipe( gulp.dest( 'tests' ) );
+
     gulp.src( "config/**" )
         .pipe( jsbeautify( jsConfig ) )
         .pipe( gulp.dest( 'config' ) );
