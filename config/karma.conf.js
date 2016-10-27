@@ -13,7 +13,7 @@ module.exports = function ( config ) {
         frameworks: [ 'jasmine' ],
 
         preprocessors: {
-            '../src/**/**.js': [ 'webpack' ],
+            '../src/**/**.js': [ 'coverage', 'webpack' ],
             '../tests/**/**.js': [ 'webpack' ]
         },
 
@@ -58,8 +58,12 @@ module.exports = function ( config ) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: [ 'spec' ],
+        reporters: [ 'spec', 'coverage' ],
 
+        coverageReporter: {
+            type: 'html',
+            dir: '../coverage/'
+        },
 
         // web server port
         port: 9876,
