@@ -2,9 +2,11 @@ var tc = require("../../work/utils/typeCheck");
 
 describe("type check utils tests suite", function() {
 
-  it("test shell", function() {
-console.log(tc);
-    expect(tc).not.toBe(undefined);
+  it("exists method test", function() {
+    var x;
+    expect(tc.exists(x)).toBe(false);
+    x="3d movies";
+    expect(tc.exists(x)).toBeDefined();
     });
 
 });
