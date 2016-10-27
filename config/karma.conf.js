@@ -1,43 +1,13 @@
 // Karma configuration
 // Generated on Mon Oct 24 2016 19:15:27 GMT-0700 (PDT)
 
+var path = require( "path" );
+
 module.exports = function ( config ) {
     config.set( {
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: '..',
-
-
-        // frameworks to use
-        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: [ 'jasmine' ],
-
-        preprocessors: {
-            'src/**/**.js': [ 'coverage', 'webpack' ],
-            'tests/**/**.js': [ 'webpack' ]
-        },
-
-        webpack: {
-            module: {
-                loaders: [ {
-                    loader: 'babel',
-                    query: {
-                        presets: [ 'es2015' ]
-                    }
-                } ]
-            }
-        },
-
-        webpackMiddleware: {
-            // webpack-dev-middleware configuration
-            // i.e.
-            noInfo: true,
-            // and use stats to turn off verbose output
-            stats: {
-                // options i.e. 
-                chunks: false
-            }
-        },
 
         // list of files / patterns to load in the browser
         files: [
@@ -53,16 +23,61 @@ module.exports = function ( config ) {
         exclude: [],
 
 
+        // frameworks to use
+        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+        frameworks: [ 'jasmine' ],
+
+        preprocessors: {
+            'src/**/**.js': [ 'webpack' ],
+            'tests/**/**.js': [ 'webpack' ]
+        },
+
+        webpack: {
+            module: {
+                preLoaders: [ {
+                    test: /\.js$/,
+                    include: /tests/,
+                    exclude: /(node_modules|src)/,
+                    loader: 'babel',
+                    query: {
+                        presets: [ 'es2015' ]
+                    }
+                }, {
+                    test: /\.js$/,
+                    include: /src/,
+                    exclude: /(node_modules|tests)/,
+                    loader: 'babel-istanbul',
+                    query: {
+                        presets: [ 'es2015' ]
+                    }
+                }, ]
+            }
+        },
+
+        webpackMiddleware: {
+            // webpack-dev-middleware configuration
+            // i.e.
+            noInfo: true,
+            // and use stats to turn off verbose output
+            stats: {
+                // options i.e. 
+                chunks: false
+            }
+        },
+
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: [ 'spec', 'coverage' ],
+        reporters: [ 'spec', 'coverage', 'threshold' ],
 
         coverageReporter: {
-            type: 'html',
-            dir: 'coverage/'
+            dir: 'coverage/',
+            reporters: [ {
+                type: 'html',
+                subdir: 'report-html'
+            } ]
         },
 
         // web server port
