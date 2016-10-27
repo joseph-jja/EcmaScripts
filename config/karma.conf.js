@@ -13,8 +13,8 @@ module.exports = function ( config ) {
         frameworks: [ 'jasmine' ],
 
         preprocessors: {
-            '../js/**/*.js': [ 'babel' ],
-            '../tests/**/*.js': [ 'babel' ]
+            '../src/**/**.js': [ 'babel' ],
+            '../tests/**/**.js': [ 'babel' ]
         },
         babelPreprocessor: {
             options: {
@@ -33,7 +33,7 @@ module.exports = function ( config ) {
         // list of files / patterns to load in the browser
         files: [
             '../tests/**/**_spec.js', {
-                pattern: '../js/**/**.js',
+                pattern: '../src/**/**.js',
                 included: false,
                 nocache: true
             }
