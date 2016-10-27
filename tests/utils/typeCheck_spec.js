@@ -9,4 +9,11 @@ describe( "type check utils tests suite", function () {
         expect( tc.exists( x ) ).toBeDefined();
     } );
 
+    it( "string method test", function () {
+        var x = 123;
+        expect( tc.isString( x ) ).toBe( false );
+        x = "123";
+        expect( tc.isString( x ) ).toBeDefined();
+    } );
+
 } );
