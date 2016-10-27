@@ -10,6 +10,5 @@
 * run npm run build
 * build creates a work directory with babel preprocessed files
 * build creates js directory with webpack file
-* currently tests need to be written in common js :( 
 * npm run tests runs all the tests
 * npm run clear removes work and js directories
