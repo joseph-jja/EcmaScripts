@@ -37,14 +37,14 @@ module.exports = function ( config ) {
                 preLoaders: [ {
                     test: /\.js$/,
                     include: /tests/,
-                    exclude: /(node_modules|src)/,
+                    exclude: /(node_modules|work)/,
                     loader: 'babel',
                     query: {
                         presets: [ 'es2015' ]
                     }
                 }, {
                     test: /\.js$/,
-                    include: /src/,
+                    include: /work/,
                     exclude: /(node_modules|tests)/,
                     loader: 'babel-istanbul',
                     query: {
