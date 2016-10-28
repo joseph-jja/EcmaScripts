@@ -6,7 +6,6 @@
   "scripts": {
     "clean": "rm -rf js work npm-debug.log coverage",
     "build": "./node_modules/gulp/bin/gulp.js",
-    "instrument": "npm run build && ./node_modules/istanbul/lib/cli.js instrument work/ -o wtests && rm -rf work && mv wtests work",
     "tests": "./node_modules/karma/bin/karma start config/karma.conf.js"
   },
   "repository": {
