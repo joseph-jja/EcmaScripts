@@ -4,10 +4,12 @@ var gulp = require( 'gulp' ),
     webpack = require( 'gulp-webpack' ),
     babel = require( "gulp-babel" ),
     jsConfig,
-    wpConfig;
+    wpConfig, 
+    bblConfig;
 
 jsConfig = JSON.parse( fs.readFileSync( './config/js-beautify.json' ) );
 wpConfig = JSON.parse( fs.readFileSync( './config/webpack.js' ) );
+bblConfig = JSON.parse( fs.readFileSync( './config/babel-config.json' ) );
 
 gulp.task( 'default', () => {
     gulp.src( "gulpfile.js" )
@@ -25,9 +27,7 @@ gulp.task( 'default', () => {
     return gulp.src( "src/**/**.js" )
         .pipe( jsbeautify( jsConfig ) )
         .pipe( gulp.dest( 'src' ) )
-        .pipe( babel( {
-            presets: [ 'es2015' ]
-        } ) )
+        .pipe( babel( bblConfig ) )
         .pipe( gulp.dest( 'work' ) )
         .pipe( webpack( wpConfig ) )
         .pipe( gulp.dest( 'js' ) );
