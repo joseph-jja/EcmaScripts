@@ -6,9 +6,23 @@
 * may use handlebars as templating or simple strings TBD
 
 ### Flow
-* write modules in es6 in src
-* run npm run build
-* build creates a work directory with babel preprocessed files
-* build creates js directory with webpack file
-* npm run tests runs all the tests
-* npm run clear removes work and js directories
+* write modules in es6 in src dir
+* write tests in es6 in tests dir
+
+#### commands
+* npm run clean 
+ * remove npm-debug.log
+ * remove work directory 
+ * remove js directory 
+* npm run build
+ * creates work directory with babel compiled files
+ * creates js directory with webpack output
+* npm run tests
+ *runs all the tests
+* npm run instrument
+ * instruments the files for coverage 
+ * after running this if you run the tests it will create a coverage file of the files post babel
+
+#### TODO
+* sourcemaps 
+* instrument source files
