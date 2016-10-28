@@ -46,11 +46,11 @@ function rtrim( instr ) {
 };
 
 function trim( inStr ) {
-    return self.ltrim( self.rtrim( inStr ) );
+    return ltrim( rtrim( inStr ) );
 };
 
 function isEmpty( inStr ) {
-    return ( self.trim( inStr ) === "" );
+    return ( trim( inStr ) === "" );
 };
 
 export {

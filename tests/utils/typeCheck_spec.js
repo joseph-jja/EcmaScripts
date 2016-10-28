@@ -15,7 +15,7 @@ describe( "type check utils tests suite", function () {
         x = "123";
         expect( tc.isString( x ) ).toBe( true );
     } );
-    
+
     it( "number method test", function () {
         var x = 123;
         expect( tc.isNumber( x ) ).toBe( true );
