@@ -50,7 +50,7 @@ module.exports = function ( config ) {
                     query: {
                         presets: [ 'es2015' ]
                     }
-                }, ]
+                } ]
             }
         },
 
