@@ -9,6 +9,13 @@ describe( "type check utils tests suite", function () {
         expect( tc.exists( x ) ).toBeDefined();
     } );
 
+    it( "string method test", function () {
+        var x = 123;
+        expect( tc.isString( x ) ).toBe( false );
+        x = "123";
+        expect( tc.isString( x ) ).toBe( true );
+    } );
+    
     it( "number method test", function () {
         var x = 123;
         expect( tc.isNumber( x ) ).toBe( true );
@@ -39,5 +46,12 @@ describe( "type check utils tests suite", function () {
             "s": "123"
         };
         expect( tc.isObject( x ) ).toBeDefined();
+    } );
+
+    it( "regexp method test", function () {
+        var x = 123;
+        expect( tc.isRegExp( x ) ).toBe( false );
+        x = /^a/;
+        expect( tc.isRegExp( x ) ).toBe( true );
     } );
 } );
