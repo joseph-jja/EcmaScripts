@@ -28,7 +28,7 @@ module.exports = function ( config ) {
         frameworks: [ 'jasmine' ],
 
         preprocessors: {
-            'src/**/**.js': [ 'webpack' ],
+            'work/**/**.js': [ 'webpack' ],
             'tests/**/**.js': [ 'webpack' ]
         },
 
