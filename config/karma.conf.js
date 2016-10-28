@@ -36,7 +36,6 @@ module.exports = function ( config ) {
             module: {
                 preLoaders: [ {
                     test: /\.js$/,
-                    include: /tests/,
                     exclude: /(node_modules|work)/,
                     loader: 'babel',
                     query: {
@@ -44,7 +43,6 @@ module.exports = function ( config ) {
                     }
                 }, {
                     test: /\.js$/,
-                    include: /work/,
                     exclude: /(node_modules|tests)/,
                     loader: 'babel-istanbul',
                     query: {

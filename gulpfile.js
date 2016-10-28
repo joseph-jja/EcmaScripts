@@ -4,7 +4,7 @@ var gulp = require( 'gulp' ),
     webpack = require( 'gulp-webpack' ),
     babel = require( "gulp-babel" ),
     jsConfig,
-    wpConfig, 
+    wpConfig,
     bblConfig;
 
 jsConfig = JSON.parse( fs.readFileSync( './config/js-beautify.json' ) );
