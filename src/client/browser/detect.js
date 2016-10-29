@@ -73,3 +73,5 @@ function detect() {
     }
     return browsers[ i ].name;
 }
+
+export { detect };
