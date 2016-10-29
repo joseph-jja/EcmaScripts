@@ -3,10 +3,13 @@ var gulp = require( 'gulp' ),
     fs = require( "fs" ),
     webpack = require( 'gulp-webpack' ),
     babel = require( "gulp-babel" ),
+    eslint = require('gulp-eslint'), 
+    elntConfig,
     jsConfig,
     wpConfig,
     bblConfig;
 
+elntConfig = JSON.parse( fs.readFileSync( './config/eslint.json' ) );
 jsConfig = JSON.parse( fs.readFileSync( './config/js-beautify.json' ) );
 wpConfig = JSON.parse( fs.readFileSync( './config/webpack.js' ) );
 bblConfig = JSON.parse( fs.readFileSync( './config/babel-config.json' ) );
