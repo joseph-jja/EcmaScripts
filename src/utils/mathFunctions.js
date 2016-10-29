@@ -275,4 +275,4 @@ MathFunctions = {};
 
     };
 
-export Math;
+export { MathFunctions };
