@@ -12,6 +12,10 @@ module.exports = function ( config ) {
         // list of files / patterns to load in the browser
         files: [
             'tests/**/**_spec*.js', {
+                pattern: 'src/**/**.js',
+                included: false,
+                nocache: true
+            }, {
                 pattern: 'work/**/**.js',
                 included: false,
                 nocache: true
@@ -28,6 +32,7 @@ module.exports = function ( config ) {
         frameworks: [ 'jasmine' ],
 
         preprocessors: {
+            'src/**/**.js': [ 'webpack' ],
             'work/**/**.js': [ 'webpack' ],
             'tests/**/**.js': [ 'webpack' ]
         },
