@@ -19,9 +19,6 @@
  * creates js directory with webpack output
 * npm run tests
  *runs all the tests
-* npm run instrument
- * instruments the files for coverage 
- * after running this if you run the tests it will create a coverage file of the files post babel
 
 #### TODO
 * sourcemaps 
