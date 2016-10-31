@@ -32,7 +32,7 @@ module.exports = function ( config ) {
         frameworks: [ 'jasmine' ],
 
         preprocessors: {
-            'src/**/**.js': [ 'webpack' ],
+            'src/**/**.js': [ 'babel', 'webpack' ],
             'work/**/**.js': [ 'webpack' ],
             'tests/**/**.js': [ 'webpack' ]
         },
