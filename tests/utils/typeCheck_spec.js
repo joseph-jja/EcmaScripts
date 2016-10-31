@@ -1,4 +1,4 @@
-import * as tc from "../../work/utils/typeCheck";
+import * as tc from "../../src/utils/typeCheck";
 
 describe( "type check utils tests suite", function () {
 
