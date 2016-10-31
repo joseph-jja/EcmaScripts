@@ -49,7 +49,7 @@ if ( localEnabled ) {
 
 // used for testing mainly but can be a simple key - value store
 export function createKeyStore() {
-    return new store();
+    return new Store();
 };
 
 export {
