@@ -1,6 +1,6 @@
 {
-  "rules":{
-    "camelcase": 1,
-    "quotes": 0
-  }
+    "rules": {
+        "camelcase": 1,
+        "quotes": 0
+    }
 }
