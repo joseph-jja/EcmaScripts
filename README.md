@@ -18,8 +18,8 @@
  * creates work directory with babel compiled files
  * creates js directory with webpack output
 * npm run tests
- *runs all the tests
+ * runs all the tests
 
 #### TODO
 * sourcemaps 
-* instrument source files
+* eliminate work directory 
