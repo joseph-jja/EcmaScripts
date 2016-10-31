@@ -10,6 +10,11 @@ describe( "tests on web storage object", function () {
         expect( ws.localEnabled ).toEqual( true );
     } );
 
+    xit( "create store test", function () {
+        var store = ws.createKeyStore();
+        expect( store.getItem( 'empty' ) ).toEqual( null );
+    } );
+
     it( "set and remove item from session test", function () {
         ws.sessionStore.setItem( "testData", "dunny" );
         expect( ws.sessionStore.getItem( "testData" ) ).toEqual( "dunny" );
