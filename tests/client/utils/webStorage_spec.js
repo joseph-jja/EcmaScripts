@@ -1,4 +1,4 @@
-import * as ws from "../../../src/client/utils/webStorage";
+import * as ws from "client/utils/webStorage";
 
 describe( "tests on web storage object", function () {
 
@@ -10,9 +10,9 @@ describe( "tests on web storage object", function () {
         expect( ws.localEnabled ).toEqual( true );
     } );
 
-    xit( "create store test", function () {
+    it( "create store test", function () {
         var store = ws.createKeyStore();
-        expect( store.getItem( 'empty' ) ).toEqual( null );
+        expect( store.getItem( 'empty' ) ).toEqual( undefined );
     } );
 
     it( "set and remove item from session test", function () {

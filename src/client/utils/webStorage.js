@@ -38,18 +38,18 @@ localEnabled = ( function () {
 if ( sessionEnabled ) {
     sessionStore = window.sessionStorage;
 } else {
-    sessionStore = new Store();
+    sessionStore = new Store.Store();
 }
 
 if ( localEnabled ) {
     localStore = window.localStorage;
 } else {
-    localStore = new Store();
+    localStore = new Store.Store();
 }
 
 // used for testing mainly but can be a simple key - value store
 export function createKeyStore() {
-    return new Store();
+    return new Store.Store();
 };
 
 export {

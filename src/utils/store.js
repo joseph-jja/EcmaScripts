@@ -1,9 +1,9 @@
 // if either of these are not enabled then we create an object that 
 // one can new and get an instance of a javascript interface to this object
-import * as Stack from "commonUtils/stack";
+import * as stack from "commonUtils/stack";
 
 function Store() {
-    this.data = new Stack(),
+    this.data = new stack.Stack(),
         this.keys = [];
 }
 
