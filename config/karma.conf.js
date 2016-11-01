@@ -62,7 +62,8 @@ module.exports = function ( config ) {
             resolve: {
                 root: source,
                 alias: {
-                    commonUtils: "utils"
+                    commonUtils: "utils",
+                    client: "client"
                 }
             }
         },
