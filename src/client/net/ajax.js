@@ -1,17 +1,12 @@
 import * as XmlHttp from "client/net/xmlhttp";
 import * as Stack from "commonUtils/stack";
 
-var stack;
+var stack = new Stack.Stack();
 
 export function makeRequest( type, cbFN, url, data, async, headers ) {
     var h, ajaxObj,
         xmlhttp = new XmlHttp(),
         index = stack.index;
-
-    // one stack for all instances
-    if ( !stack ) {
-        stack = new Stack();
-    }
 
     xmlhttp.open( type, url, async );
     ajaxObj = this;
@@ -73,13 +68,11 @@ export function cancelAll() {
         let o = stack.get( i );
         if ( o ) {
             try {
-                o.data.xmlhttp.abort();
-                o.data = null;
+                cancelRequest( o.data );
             } catch ( e ) {
                 // do something
             }
         }
-        stack.pop( i );
     }
     stack.index = 0;
     stack.list = {};
