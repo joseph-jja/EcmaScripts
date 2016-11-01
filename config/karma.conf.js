@@ -4,6 +4,10 @@
 var path = require( "path" );
 
 module.exports = function ( config ) {
+
+    var source = path.resolve( "./src" ),
+        tests = path.resolve( "./tests" );
+
     config.set( {
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -54,6 +58,12 @@ module.exports = function ( config ) {
                         presets: [ 'es2015' ]
                     }
                 } ]
+            },
+            resolve: {
+                root: source,
+                alias: {
+                    commonUtils: "utils"
+                }
             }
         },
 

@@ -1,6 +1,6 @@
 //css methods
-import * as selector from './selector';
-import * as typeCheck from '../../utils/typeCheck';
+import * as selector from 'client/dom/selector';
+import * as typeCheck from 'commonUtils/typeCheck';
 
 let addClass = function ( obj, cls ) {
     var cssCls = obj.className;

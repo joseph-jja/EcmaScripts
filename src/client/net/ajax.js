@@ -1,5 +1,5 @@
-import * as XmlHttp from "./xmlhttp";
-import * as Stack from "../../utils/stack";
+import * as XmlHttp from "client/net/xmlhttp";
+import * as Stack from "commonUtils/stack";
 
 var stack;
 
