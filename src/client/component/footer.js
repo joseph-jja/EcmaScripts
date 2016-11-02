@@ -45,10 +45,10 @@ function createFooter() {
     return build_footer;
 }
 
-function setFooter( footer ) {
+function setFooter( footerParent ) {
     var loc, ft;
     if ( footer ) {
-        ft = dom.createElement( "ul", footer );
+        ft = dom.createElement( "ul", footerParent );
         if ( ft ) {
             ft.innerHTML = createFooter();
         }
