@@ -22,3 +22,4 @@
 
 #### TODO
 * sourcemaps 
+* remove work directory again, seems webpack config does not work without it

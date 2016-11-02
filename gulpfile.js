@@ -31,6 +31,7 @@ gulp.task( 'default', () => {
         .pipe( jsbeautify( jsConfig ) )
         .pipe( gulp.dest( 'src' ) )
         .pipe( babel( bblConfig ) )
+        .pipe( gulp.dest( 'work' ) )
         .pipe( webpack( wpConfig ) )
         .pipe( gulp.dest( 'js' ) );
 } );
