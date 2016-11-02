@@ -19,10 +19,6 @@ module.exports = function ( config ) {
                 pattern: 'src/**/**.js',
                 included: false,
                 nocache: true
-            }, {
-                pattern: 'work/**/**.js',
-                included: false,
-                nocache: true
             }
         ],
 
@@ -37,7 +33,6 @@ module.exports = function ( config ) {
 
         preprocessors: {
             'src/**/**.js': [ 'babel', 'webpack' ],
-            'work/**/**.js': [ 'webpack' ],
             'tests/**/**.js': [ 'webpack' ]
         },
 
