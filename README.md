@@ -22,4 +22,3 @@
 
 #### TODO
 * sourcemaps 
-* eliminate work directory 
