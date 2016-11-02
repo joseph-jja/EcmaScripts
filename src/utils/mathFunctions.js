@@ -128,7 +128,10 @@ MathFunctions.areaOfTrapizoid = function ( height, abase, bbase ) {
 
 /* compute average */
 MathFunctions.average = function () {
-    var sum = MathFunctions.add( arguments );
+    var sum = 0;
+    Object.keys( arguments ).forEach( ( e ) => {
+        sum = MathFunctions.add( sum, arguments[ e ] );
+    } );
     return MathFunctions.divide( sum, arguments.length );
 };
 
