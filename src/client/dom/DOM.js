@@ -1,12 +1,15 @@
 //
 //
 //DOM methods 
-import * as selector from 'client/dom/selector';
+import * as Selector from 'client/dom/selector';
 import * as typeCheck from 'commonUtils/typeCheck';
 import * as CSS from 'client/dom/CSS';
 
+var selector = Selector.selector;
+console.log( selector );
+
 let createElement = function ( type, parent, options ) {
-    var obj, pObj, sel = selector;
+    var obj, pObj;
 
     pObj = document.body;
     if ( parent && typeCheck.isString( parent ) ) {
@@ -195,8 +198,8 @@ let screen = {
 
 let toggleDisplay = function ( objName ) {
     var obj = objName;
-    if ( wb.isString( objName ) ) {
-        obj = wb.selector( "#" + objName ).get( 0 );
+    if ( typeCheck.isString( objName ) ) {
+        obj = selector( "#" + objName ).get( 0 );
     }
     if ( obj ) {
         var state = css.getComputedStyle( objName, 'display' );
