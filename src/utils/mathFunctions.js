@@ -23,7 +23,7 @@
  * extend the Math object in JavaScript
  * the Math object is static, so you do not call new on it, just set a reference to it
  */
-MathFunctions = {};
+var MathFunctions = {};
 
 /**
  * add(x,y, ...)                Returns x + y [can handle more than 2 parameters ]
@@ -275,6 +275,4 @@ MathFunctions.generateGUID = function () {
 
 };
 
-export {
-    MathFunctions
-};
+export default MathFunctions;
