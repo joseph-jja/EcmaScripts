@@ -2,7 +2,7 @@
 // prototype of that object to the new other object
 // however with javascript base objects, this does not work the same
 
-DateFunctions = {};
+var DateFunctions = {};
 
 // month names the the last day of the month, short name for week day and also long name if someone wants it
 DateFunctions.monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
@@ -34,17 +34,17 @@ DateFunctions.weekDayNames = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thur
 } )();
 
 // get the first day of the current month
-DateFunctions.getFirstOfMonthDayOfWeek = function () {
+DateFunctions.getFirstOfMonthDayOfWeek = function ( dIn ) {
     var fomd,
-        today = new Date().getDate(); // day of the month
+        today = ( dIn ? dIn : new Date() ); // day of the month
     today.setDate( 1 );
     fomd = today.getDay(); // day of the week
     return fomd;
 };
 
 // get the number of days in the month
-DateFunctions.getDaysInMonth = function () {
-    var today = new Date();
+DateFunctions.getDaysInMonth = function ( dIn ) {
+    var today = ( dIn ? dIn : new Date() ); // day of the month
     var month = today.getMonth();
     var year = today.getFullYear();
     if ( month == 1 ) {
@@ -73,6 +73,4 @@ DateFunctions.setFullDate = function ( m, d, y ) {
     return today;
 };
 
-export {
-    DateFunctions
-};
+export default DateFunctions;
