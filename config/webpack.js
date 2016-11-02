@@ -1,17 +1,21 @@
-{
-    "context": ".",
+var path = require( "path" );
+
+module.exports = {
+    "context": path.resolve( "." ),
+    "entry": {
+        "footer": "./src/client/components/footer"
+    },
     "output": {
-        "filename": "wbScripts.js"
+        "filename": "[name].js"
     },
     "resolve": {
-        "root": "./src",
-        "modulesDirectories": [ "node_modules" ],
+        "root": [ path.resolve( "./src" ) ],
         "alias": {
             "commonUtils": "utils",
             "client": "client"
         }
     },
-    "modules": {
+    "module": {
         "loaders": [ {
             "loader": "babel",
             "query": {
