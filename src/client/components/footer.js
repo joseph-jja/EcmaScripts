@@ -1,5 +1,4 @@
 import dom from "client/DOM/DOM";
-import * as events from "client/DOM/events";
 import df from "commonUtils/dateFunctions";
 
 function createFooter() {
