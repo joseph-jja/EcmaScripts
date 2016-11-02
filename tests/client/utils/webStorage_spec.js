@@ -21,7 +21,11 @@ describe( "tests on web storage object", function () {
         expect( store.key( 'a' ) ).toBe( undefined );
 
         store.removeItem( "testData" );
-        expect( store.getItem( "testData" ) ).toBe( null );
+        expect( store.getItem( "testData" ) ).toBe( undefined );
+
+        store.setItem( "testData", "dunny" );
+        store.clear();
+        expect( store.getItem( "testData" ) ).toBe( undefined );
     } );
 
     it( "set and remove item from session test", function () {

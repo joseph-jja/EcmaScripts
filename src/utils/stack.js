@@ -11,7 +11,7 @@ Stack.prototype.push = function ( key, obj ) {
 };
 
 Stack.prototype.pop = function ( key ) {
-    this.list[ key ] = null;
+    this.list[ key ] = undefined;
     this.index--;
 };
 
@@ -23,8 +23,8 @@ Stack.prototype.clear = function () {
     for ( let o in this.list ) {
         if ( o ) {
             this.list[ o ] = undefined;
+            this.index--;
         }
-        this.index = 0;
     }
 };
 

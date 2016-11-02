@@ -27,7 +27,7 @@ Store.prototype.key = function ( key ) {
 
 Store.prototype.clear = function () {
     this.data.clear();
-    keys = [];
+    this.keys = [];
 };
 
 export {
