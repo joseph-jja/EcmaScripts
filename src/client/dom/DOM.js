@@ -63,7 +63,7 @@ let html = function ( ele, content, index ) {
         return;
     }
     ele = x[ index ];
-    
+
     name = new String( ele.tagName ).toLowerCase();
     if ( content || content === "" ) {
         ( function ( content, ele ) {
@@ -84,7 +84,7 @@ let html = function ( ele, content, index ) {
     } else if ( typeCheck.isString( ele.innerHTML ) ) {
         return ele.innerHTML;
     }
-    
+
 };
 
 /////////////////////////////////////////////////////////////////////
