@@ -2,32 +2,40 @@
 // simple module to select elements based on css style selectors
 // internally calls documenet.getElementById or querySelectorAll based on regex 
 // this is done in a UMD format
+import * as typeCheck from "commonUtils/typeCheck"; 
+
 var rquickExpr = /^#(?:([\w-]+)|(\w+)|\.([\w-]+))$/;
 
-export function selector( expr, parent ) {
+export default function selector( expr, parent ) {
 
-    var result, len;
+    var result, y, self = {}, pObj = parent;
 
-    if ( arguments.length < 2 || typeof parent === 'undefined' ) {
-        parent = d;
+    self.length = 0; 
+    
+    if ( ! typeCheck.exists( parent ) ) {
+    	pObj = document;
     }
-
+    
     if ( rquickExpr.test( expr ) ) {
         // remove the leading # and return array of 1 or 0
-        result = parent.getElementById( expr.substring( 1 ) );
+        result = pObj.getElementById( expr.substring( 1 ) );
         result = ( result ? [ result ] : [] );
     } else {
-        result = parent.querySelectorAll( expr );
+        result = pObj.querySelectorAll( expr );
     }
 
-    this.get = function ( i ) {
+    self.get = function ( i ) {
         return result[ i ];
     };
 
     if ( result && result.length ) {
-        this.length = result.length;
+        self.length = result.length;
     } else if ( result ) {
-        this.length = 1;
+    	self.length = 1;
     }
-    return this;
+    for ( y = 0; y < self.length; y++ ) {
+    	self[y] = result[y];
+    }
+    return self;
 };
+

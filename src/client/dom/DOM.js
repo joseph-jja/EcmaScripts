@@ -1,12 +1,9 @@
 //
 //
 //DOM methods 
-import * as Selector from 'client/dom/selector';
+import selector from 'client/dom/selector';
 import * as typeCheck from 'commonUtils/typeCheck';
 import * as CSS from 'client/dom/CSS';
-
-var selector = Selector.selector;
-console.log( selector );
 
 let createElement = function ( type, parent, options ) {
     var obj, pObj;
@@ -53,9 +50,41 @@ let createElement = function ( type, parent, options ) {
     return obj;
 };
 
-let setContent = function ( ele, content ) {
-    var x = selector( ele );
-    x.html( content );
+let html = function ( ele, content, index ) {
+    var ele, name, x = selector( ele );
+
+    if ( x.length <= 0 ) {
+        return;
+    }
+    if ( !index ) {
+        index = 0;
+    }
+    if ( index >= x.length || !x[ index ] ) {
+        return;
+    }
+    ele = x[ index ];
+    
+    name = new String( ele.tagName ).toLowerCase();
+    if ( content || content === "" ) {
+        ( function ( content, ele ) {
+            if ( typeCheck.isString( content ) || typeCheck.isNumber( content ) ) {
+                if ( typeCheck.isInput( name ) || typeCheck.isInput( ele ) ) {
+                    ele.value = content;
+                } else {
+                    // assume innerHTML will work
+                    ele.innerHTML = content;
+                }
+            } else if ( ele && typeCheck.isObject( content ) ) {
+                ele.appendChild( content );
+            }
+        } )( content, ele );
+    }
+    if ( typeCheck.isInput( name ) || typeCheck.isInput( ele ) ) {
+        return ele.value;
+    } else if ( typeCheck.isString( ele.innerHTML ) ) {
+        return ele.innerHTML;
+    }
+    
 };
 
 /////////////////////////////////////////////////////////////////////
@@ -197,12 +226,12 @@ let screen = {
 };
 
 let toggleDisplay = function ( objName ) {
-    var obj = objName;
+    var state, obj = objName;
     if ( typeCheck.isString( objName ) ) {
         obj = selector( "#" + objName ).get( 0 );
     }
     if ( obj ) {
-        var state = css.getComputedStyle( objName, 'display' );
+        state = CSS.getComputedStyle( objName, 'display' );
         if ( state === "block" ) {
             obj.style.display = "none";
         } else if ( state === "none" ) {
@@ -215,7 +244,7 @@ let toggleDisplay = function ( objName ) {
 
 export {
     createElement,
-    setContent,
+    html,
     getTextFieldCursorPosition,
     setTextFieldCursorPosition,
     loadScript,

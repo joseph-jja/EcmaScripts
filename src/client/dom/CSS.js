@@ -1,5 +1,5 @@
 //css methods
-import * as selector from 'client/dom/selector';
+import selector from 'client/dom/selector';
 import * as typeCheck from 'commonUtils/typeCheck';
 
 let addClass = function ( obj, cls ) {
