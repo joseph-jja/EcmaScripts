@@ -20,6 +20,7 @@ describe( "string utils tests suite", function () {
     it( "trim a string test", function () {
         var x = '   abcdef   ';
         expect( tc.trim( x ) ).toEqual( 'abcdef' );
+        expect( tc.trim() ).toBe( undefined );
     } );
 
     it( "empty string test", function () {

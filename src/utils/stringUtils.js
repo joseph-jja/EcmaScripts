@@ -30,8 +30,8 @@ function replaceAll( inStr, oStr, nStr ) {
 };
 
 function removeDoubleSpaces( instr ) {
-    while ( instr.match( /\s\s/ ) ) {
-        instr = instr ? instr.replace( /\s\s/g, ' ' ) : instr;
+    while ( instr && instr.match( /\s\s/ ) ) {
+        instr = instr.replace( /\s\s/g, ' ' );
     }
     return instr;
 };
