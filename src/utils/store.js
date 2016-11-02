@@ -4,12 +4,12 @@ import * as stack from "commonUtils/stack";
 
 function Store() {
     this.data = new stack.Stack(),
-        this.keys = [];
+        this.keys = {};
 }
 
 Store.prototype.setItem = function ( key, value ) {
-    this.data.put( key, value );
-    keys.push( key );
+    this.data.push( key, value );
+    this.keys[ key ] = value;
 };
 
 Store.prototype.getItem = function ( key ) {
@@ -21,11 +21,7 @@ Store.prototype.removeItem = function ( key ) {
     this.data.pop( key );
 };
 
-Store.prototype.key = function ( index ) {
-    var key, i, len = self.length;
-    if ( isNaN( index ) || index < 0 || index > len ) {
-        return undefined;
-    }
+Store.prototype.key = function ( key ) {
     return this.keys[ key ];
 };
 

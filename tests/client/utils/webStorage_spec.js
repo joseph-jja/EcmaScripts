@@ -13,6 +13,15 @@ describe( "tests on web storage object", function () {
     it( "create store test", function () {
         var store = ws.createKeyStore();
         expect( store.getItem( 'empty' ) ).toEqual( undefined );
+
+        store.setItem( "testData", "dunny" );
+        expect( store.getItem( "testData" ) ).toEqual( "dunny" );
+
+        expect( store.key( "testData" ) ).toEqual( "dunny" );
+        expect( store.key( 'a' ) ).toBe( undefined );
+
+        store.removeItem( "testData" );
+        expect( store.getItem( "testData" ) ).toBe( null );
     } );
 
     it( "set and remove item from session test", function () {
