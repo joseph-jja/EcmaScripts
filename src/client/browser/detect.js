@@ -211,7 +211,8 @@ function detect() {
         base.touchEnabled = true;
     }   
 
-    let i = 0,
+	function getBrowserName() {
+    var i = 0,
         x = [];
     
     let browsers = [ {
@@ -242,6 +243,11 @@ function detect() {
         i++;
     }
     return browsers[ i ].name;
+	}
+	
+	base.browserName = getBrowserName();
+	
+	return base;
 }
 
 export {
