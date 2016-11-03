@@ -14,7 +14,7 @@ function createFooter() {
     // last modified date
     lastmoddate = Date.parse( document.lastModified );
 
-    if ( ( lastmoddate != undefined ) && ( lastmoddate != 0 ) ) {
+    if ( ( lastmoddate !== undefined ) && ( lastmoddate !== 0 ) ) {
         // the document.lastModified returns time in EST 
         // this will convert the time to PST as that is where I live
         moddate = new Date( lastmoddate - 3600 );

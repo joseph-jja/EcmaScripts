@@ -21,6 +21,7 @@ module.exports = {
     "module": {
         "loaders": [ {
             "loader": "babel",
+            exclude: /node_modules/,
             "query": {
                 "presets": [ "es2015" ]
             }
