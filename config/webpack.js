@@ -1,4 +1,5 @@
-var path = require( "path" );
+var path = require( "path" ),
+    webpack = require( "webpack" );;
 
 module.exports = {
     "eslint": {
@@ -32,5 +33,12 @@ module.exports = {
                 "parser": "babel-eslint"
             }
         } ]
-    }
+    },
+    plugins: [
+        /*new webpack.optimize.UglifyJsPlugin( {
+            compress: {
+                warnings: false
+            }
+        } )*/
+    ]
 };
