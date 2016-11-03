@@ -2,7 +2,7 @@ var path = require( "path" );
 
 module.exports = {
     "eslint": {
-        "rules": {
+        "env": {
             "browser": true,
             "node": true,
             "es6": true
