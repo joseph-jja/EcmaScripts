@@ -42,7 +42,7 @@
 import base from 'client/utils/base';
 
 function detect() {
-    
+
     // ie version
     var isInternetExplorer = false,
         nav,
@@ -51,8 +51,8 @@ function detect() {
 
     nav = win.navigator;
     rawVersion = nav.appVersion; // raw app version string
-    
- // in theory this should work for all versions of IE3 on up
+
+    // in theory this should work for all versions of IE3 on up
     // start with IE as it is the easiest to detect
     // version 3 was the first version to support JScript
     /*@cc_on @*/
@@ -209,45 +209,45 @@ function detect() {
     // detect touch
     if ( doc.documentElement && ( 'ontouchstart' in doc.documentElement || 'touchstart' in doc.documentElement ) ) {
         base.touchEnabled = true;
-    }   
-
-	function getBrowserName() {
-    var i = 0,
-        x = [];
-    
-    let browsers = [ {
-        bProp: window.chrome,
-        name: 'chrome'
-    }, {
-        bProp: window.safari,
-        name: 'safari'
-    }, {
-        bProp: window.opera,
-        name: 'opera'
-    }, {
-        bProp: window.mozInnerScreenX,
-        name: 'firefox'
-    }, {
-        bProp: document.all,
-        name: 'ie'
-    } ];
-
-    function check( x ) {
-        return typeof x.bProp !== 'undefined';
     }
 
-    while ( browsers[ i ] ) {
-        if ( check( browsers[ i ] ) ) {
-            break;
+    function getBrowserName() {
+        var i = 0,
+            x = [];
+
+        let browsers = [ {
+            bProp: window.chrome,
+            name: 'chrome'
+        }, {
+            bProp: window.safari,
+            name: 'safari'
+        }, {
+            bProp: window.opera,
+            name: 'opera'
+        }, {
+            bProp: window.mozInnerScreenX,
+            name: 'firefox'
+        }, {
+            bProp: document.all,
+            name: 'ie'
+        } ];
+
+        function check( x ) {
+            return typeof x.bProp !== 'undefined';
         }
-        i++;
+
+        while ( browsers[ i ] ) {
+            if ( check( browsers[ i ] ) ) {
+                break;
+            }
+            i++;
+        }
+        return browsers[ i ].name;
     }
-    return browsers[ i ].name;
-	}
-	
-	base.browserName = getBrowserName();
-	
-	return base;
+
+    base.browserName = getBrowserName();
+
+    return base;
 }
 
 export {

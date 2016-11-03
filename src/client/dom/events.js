@@ -102,24 +102,24 @@ if ( document.createEvent ) {
 
 //call this to add an onload event handler
 let addOnLoad = function ( fn ) {
-        base.onLoadEventStack.push( fn );
-    };
+    base.onLoadEventStack.push( fn );
+};
 
-    //here we do our detault onload event handler
+//here we do our detault onload event handler
 let doOnLoad = function () {
-        // call all the onload functions in the stack
-        var s, stackSize, olFN, wboles = base.onLoadEventStack;
+    // call all the onload functions in the stack
+    var s, stackSize, olFN, wboles = base.onLoadEventStack;
 
-        stackSize = wboles.length;
-        for ( s = 0; s < stackSize; s += 1 ) {
-            olFN = wboles[ s ];
-            if ( olFN && ( typeof olFN ).toLowerCase() === 'function' ) {
-                olFN();
-            }
+    stackSize = wboles.length;
+    for ( s = 0; s < stackSize; s += 1 ) {
+        olFN = wboles[ s ];
+        if ( olFN && ( typeof olFN ).toLowerCase() === 'function' ) {
+            olFN();
         }
-    };
+    }
+};
 
-    //default onload event handler
+//default onload event handler
 let addEvent( window, 'load', self.doOnLoad, false );
 
 export {
@@ -130,5 +130,8 @@ export {
     getTarget,
     getEvent,
     createEvent,
-    fireEvent, addOnLoad, doOnLoad, addEvent
+    fireEvent,
+    addOnLoad,
+    doOnLoad,
+    addEvent
 };
