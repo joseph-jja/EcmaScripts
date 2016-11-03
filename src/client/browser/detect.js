@@ -39,6 +39,7 @@
 //IE6     JS 5.6
 //IE7 	   JS 5.6/5.7 and XMLHttpRequest though
 //IE8 	   JS 5.8 
+import base from 'client/utils/base';
 
 function detect() {
 
