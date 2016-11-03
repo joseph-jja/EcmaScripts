@@ -2,15 +2,7 @@ var path = require( "path" );
 
 module.exports = {
     "eslint": {
-        "env": {
-            "browser": true,
-            "node": true,
-            "es6": true
-        },
-        "rules": {
-            "camelcase": 1,
-            "quotes": 0
-        }
+        "configFile": path.resolve( "./config/eslint.cfg" )
     },
     "context": path.resolve( "." ),
     "entry": {
