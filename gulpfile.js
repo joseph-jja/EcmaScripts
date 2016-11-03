@@ -4,9 +4,11 @@ var gulp = require( 'gulp' ),
     webpack = require( 'gulp-webpack' ),
     jsConfig,
     wpConfig = require( "./config/webpack" ),
-    bblConfig;
+    eslint = require( "gulp-eslint" ),
+    eslintCfg;
 
 jsConfig = JSON.parse( fs.readFileSync( './config/js-beautify.json' ) );
+eslintCfg = fs.readFileSync( './config/eslint.cfg' );
 
 gulp.task( 'default', () => {
     gulp.src( "gulpfile.js" )
@@ -15,6 +17,7 @@ gulp.task( 'default', () => {
 
     gulp.src( "tests/**" )
         .pipe( jsbeautify( jsConfig ) )
+        .pipe( eslint( eslintCfg ) )
         .pipe( gulp.dest( 'tests' ) );
 
     gulp.src( "config/**" )
