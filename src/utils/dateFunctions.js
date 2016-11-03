@@ -47,11 +47,11 @@ DateFunctions.getDaysInMonth = function ( dIn ) {
     var today = ( dIn ? dIn : new Date() ); // day of the month
     var month = today.getMonth();
     var year = today.getFullYear();
-    if ( month == 1 ) {
-        if ( ( year % 4 ) == 0 ) {
-            if ( ( year % 400 ) == 0 ) {
+    if ( month === 1 ) {
+        if ( ( year % 4 ) === 0 ) {
+            if ( ( year % 400 ) === 0 ) {
                 return 29;
-            } else if ( ( year % 100 ) == 0 ) {
+            } else if ( ( year % 100 ) === 0 ) {
                 return 28;
             } else {
                 return 29;

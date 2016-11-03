@@ -180,7 +180,7 @@ let loadScript = function ( scriptURL, options, jsonpOptions ) {
                     }
                 };
                 // taken in part from jquery
-                script.onload = script.onreadystatechange = function ( _, isAbort ) {
+                script.onload = script.onreadystatechange = function ( x, isAbort ) {
                     if ( isAbort || !script.readyState || /loaded|complete/.test( script.readyState ) ) {
                         remove();
                         if ( !isAbort ) {
