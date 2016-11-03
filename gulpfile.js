@@ -2,13 +2,10 @@ var gulp = require( 'gulp' ),
     jsbeautify = require( "gulp-jsbeautifier" ),
     fs = require( "fs" ),
     webpack = require( 'gulp-webpack' ),
-    eslint = require( 'gulp-eslint' ),
-    elntConfig,
     jsConfig,
     wpConfig = require( "./config/webpack" ),
     bblConfig;
 
-elntConfig = JSON.parse( fs.readFileSync( './config/eslint.json' ) );
 jsConfig = JSON.parse( fs.readFileSync( './config/js-beautify.json' ) );
 
 gulp.task( 'default', () => {

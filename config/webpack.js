@@ -1,6 +1,17 @@
 var path = require( "path" );
 
 module.exports = {
+    "eslint": {
+        "rules": {
+            "browser": true,
+            "node": true,
+            "es6": true
+        },
+        "rules": {
+            "camelcase": 1,
+            "quotes": 0
+        }
+    },
     "context": path.resolve( "." ),
     "entry": {
         "footer": "./src/client/components/footer"
@@ -21,6 +32,10 @@ module.exports = {
             "query": {
                 "presets": [ "es2015" ]
             }
+        } ],
+        "postLoaders": [ {
+            loader: "eslint",
+            exclude: /node_modules/
         } ]
     }
 }
