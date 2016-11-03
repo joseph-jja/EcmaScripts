@@ -23,19 +23,17 @@ export default function selector( expr, parent ) {
         result = ( result ? [ result ] : [] );
     } else {
         result = pObj.querySelectorAll( expr );
+        result = ( result ? result : [] );
     }
+
+    self.length = result.length;
 
     self.get = function ( i ) {
         return result[ i ];
     };
 
-    if ( result && result.length ) {
-        self.length = result.length;
-    } else if ( result ) {
-        self.length = 1;
-    }
     for ( y = 0; y < self.length; y++ ) {
         self[ y ] = result[ y ];
     }
     return self;
-};
+}
