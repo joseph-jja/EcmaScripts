@@ -25,10 +25,12 @@ module.exports = {
             "query": {
                 "presets": [ "es2015" ]
             }
-        } ],
-        "postLoaders": [ {
+        }, {
             loader: "eslint",
-            exclude: /node_modules/
+            exclude: /node_modules/,
+            "query": {
+                "parser": "babel-eslint"
+            }
         } ]
     }
 };
