@@ -43,6 +43,15 @@ describe( "math functions tests", function () {
         expect( +r ).toEqual( 2.8 );
     } );
 
+    it( "test conversions", function () {
+    	
+    	expect( MF.convertFromBaseTenToBaseX( 16, 12 ) ).toEqual( 'C' );
+    	expect( MF.convertFromBaseTenToBaseX( 8, 12 ) ).toEqual( '14' );
+    	expect( MF.convertFromBaseXToBaseTen( 10, 'F' ) ).toEqual( 15 );
+        
+        
+    });
+    
     it( "test computePerimeter", function () {
         expect( MF.computePerimeter( 0, 0, 10, 0, 10, 10, 0, 10, 2 ) ).toEqual( 40 );
         expect( MF.computePerimeterByLength( 10, 10, 10, 10 ) ).toEqual( 40 );
