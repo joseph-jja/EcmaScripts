@@ -19,7 +19,8 @@ export default function selector( expr, parent ) {
         result = ( result ? [ result ] : [] );
     } else {
         result = pObj.querySelectorAll( expr );
-        result = ( result ? result : [] );
+        console.log( pObj );
+        result = ( result && result.length > 0 ? result : [] );
     }
 
     self.length = result.length;
