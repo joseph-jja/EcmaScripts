@@ -2,14 +2,14 @@ import dom from "client/dom/DOM";
 import df from "commonUtils/dateFunctions";
 
 function createFooter() {
-    var month_array, day_of_week,
+    var monthNM, dayOfTheWeek,
         dt = new Date(),
-        lastmoddate, build_footer = "",
+        lastmoddate, buildFooter = "",
         moddate, ampm,
         monthstring, today, daynow;
 
-    day_of_week = dt.weekDayShortNames;
-    month_array = dt.monthShortNames;
+    dayOfTheWeek = dt.weekDayShortNames;
+    monthNM = dt.monthShortNames;
 
     // last modified date
     lastmoddate = Date.parse( document.lastModified );
@@ -23,25 +23,25 @@ function createFooter() {
         ampm = ( moddate.getHours() > 12 ) ? " PM PST" : " AM PST";
 
         // this is the string that displays the month
-        monthstring = day_of_week[ moddate.getDay() ] + ", " + month_array[ moddate.getMonth() ] + " " + moddate.getDate() + ", " + moddate.getFullYear();
+        monthstring = dayOfTheWeek[ moddate.getDay() ] + ", " + monthNM[ moddate.getMonth() ] + " " + moddate.getDate() + ", " + moddate.getFullYear();
         // + " at " +  moddate.getHours() + ":" + moddate.getMinutes() + ":" + moddate.getSeconds(); 
 
         // display the date
-        build_footer = build_footer + "<li>";
-        build_footer = build_footer + "Last modified on " + monthstring + ".";
-        build_footer = build_footer + "</li>";
+        buildFooter = buildFooter + "<li>";
+        buildFooter = buildFooter + "Last modified on " + monthstring + ".";
+        buildFooter = buildFooter + "</li>";
     }
-    daynow = day_of_week[ dt.getDay() ] + ", " + month_array[ dt.getMonth() ] + " " + dt.getDate() + ", " + dt.getFullYear();
+    daynow = dayOfTheWeek[ dt.getDay() ] + ", " + monthNM[ dt.getMonth() ] + " " + dt.getDate() + ", " + dt.getFullYear();
 
-    build_footer = build_footer + "<li>";
-    build_footer = build_footer + "Today is " + daynow;
-    build_footer = build_footer + "</li>";
+    buildFooter = buildFooter + "<li>";
+    buildFooter = buildFooter + "Today is " + daynow;
+    buildFooter = buildFooter + "</li>";
 
-    build_footer = build_footer + "<li>";
-    build_footer = build_footer + "Copyright " + dt.getFullYear();
-    build_footer = build_footer + "</li>";
+    buildFooter = buildFooter + "<li>";
+    buildFooter = buildFooter + "Copyright " + dt.getFullYear();
+    buildFooter = buildFooter + "</li>";
 
-    return build_footer;
+    return buildFooter;
 }
 
 function setFooter( footerParent ) {
@@ -67,4 +67,5 @@ function setFooter( footerParent ) {
     }
 }
 
-export default setFooter;
+// implement the footer :) 
+setFooter( "footer" );

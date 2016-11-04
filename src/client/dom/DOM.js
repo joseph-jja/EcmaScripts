@@ -48,7 +48,7 @@ let createElement = function ( type, parent, options ) {
         }
     }
     if ( options[ 'className' ] ) {
-    	CSS.addClass(obj, options.className);
+        CSS.addClass( obj, options.className );
     }
     return obj;
 };

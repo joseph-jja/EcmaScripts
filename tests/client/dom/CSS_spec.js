@@ -19,10 +19,10 @@ describe( "tests on CSS object", function () {
 
         expect( css.hasClass( x, 'silly-puddy' ) ).toBe( false );
     } );
-    
+
     it( "another css test", function () {
         var r, x = dom.createElement( 'div', undefined, {
-            id: 'domCreateTest', 
+            id: 'domCreateTest',
             'className': 'world-class'
         } );
 

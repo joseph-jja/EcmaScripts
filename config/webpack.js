@@ -35,10 +35,28 @@ module.exports = {
         } ]
     },
     plugins: [
-        /*new webpack.optimize.UglifyJsPlugin( {
+        new webpack.optimize.UglifyJsPlugin( {
+            maxLineLen: 10000,
             compress: {
-                warnings: false
+                "sequences": false,
+                "properties": false,
+                "dead_code": true,
+                "drop_debugger": true,
+                "unsafe": false,
+                "conditionals": false,
+                "comparisons": false,
+                "evaluate": false,
+                "booleans": false,
+                "loops": false,
+                "unused": false,
+                "hoist_funs": false,
+                "hoist_vars": true,
+                "if_return": false,
+                "join_vars": true,
+                "cascade": false,
+                "warnings": false,
+                "side_effects": false
             }
-        } )*/
+        } )
     ]
 };
