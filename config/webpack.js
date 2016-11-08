@@ -2,6 +2,7 @@ var path = require( "path" ),
     webpack = require( "webpack" );;
 
 module.exports = {
+    "devtool": "source-map",
     "eslint": {
         "configFile": path.resolve( "./config/eslint.cfg" )
     },
@@ -12,7 +13,8 @@ module.exports = {
     },
     "output": {
         "filename": "[name].js",
-        "chunkFilename": "bundle.js"
+        "chunkFilename": "bundle.js",
+        "sourceMapFilename": "[file].source.map"
     },
     "resolve": {
         "root": [ path.resolve( "./src" ) ],
