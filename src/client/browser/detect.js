@@ -72,7 +72,7 @@ function detect() {
 
         // detect IE by JScript version
         /*@cc_on 
-		@if (@_jscript_version >= 1.0) 
+        @if (@_jscript_version >= 1.0) 
 			base.version = 3.0;
 		@end
 		@if (@_jscript_version >= 3.0) 
@@ -102,26 +102,26 @@ function detect() {
 		@if (@_jscript_version >= 10) 
 			base.version = 10.0;
 		@end @*/
-	    
-	if ( document.compatMode ) {
-		base.version = 6.0;
-	}
-	if ( window.XMLHttpRequest ) {
-		base.version = 7.0;
-	}
-	if ( document.querySelector ) {
-		base.version = 8.0;
-	}
-	 // finally compatible with other browsers!
-	if ( document.addEventListener ) {
-		base.version = 9.0;
-	}
-	 if ( window.atob ) {
-		base.version = 10.0;
-	 }
-	    
-	 base.docMode = ( document.documentMode ) ? document.documentMode: base.version;
-   
+
+        if ( document.compatMode ) {
+            base.version = 6.0;
+        }
+        if ( window.XMLHttpRequest ) {
+            base.version = 7.0;
+        }
+        if ( document.querySelector ) {
+            base.version = 8.0;
+        }
+        // finally compatible with other browsers!
+        if ( document.addEventListener ) {
+            base.version = 9.0;
+        }
+        if ( window.atob ) {
+            base.version = 10.0;
+        }
+
+        base.docMode = ( document.documentMode ) ? document.documentMode : base.version;
+
         if ( win.ActiveXObject ) {
             base.hasActiveX = true;
         }
