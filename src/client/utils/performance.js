@@ -1,16 +1,19 @@
+import {
+    exists
+} from 'commonUtils/typeCheck';
+
 var copy, timings, startTime,
     hasPerformanceMetrics,
-    metrics;
+    getMetrics, metrics = {};
 
-hasPerformanceMetrics = ( typeof performance !== 'undefined' && performance.timing ) ? true : false;
+hasPerformanceMetrics = ( ( exists( performance ) && exists( performance.timing ) ) ? true : false );
 
 if ( hasPerformanceMetrics ) {
 
     timings = performance.timing;
     startTime = timings.navigationStart;
-    metrics = {};
 
-    function copy() {
+    copy = function () {
         var prop;
 
         // now copy over the metrics
@@ -22,7 +25,7 @@ if ( hasPerformanceMetrics ) {
         }
     };
 
-    function getMetrics( callback ) {
+    getMetrics = function ( callback ) {
         var mem;
 
         copy();
@@ -51,6 +54,6 @@ if ( hasPerformanceMetrics ) {
 
 export {
     hasPerformanceMetrics,
-    metrics,
-    getMetrics
+    getMetrics,
+    metrics
 };

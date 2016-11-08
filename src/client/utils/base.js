@@ -3,14 +3,13 @@
  * this is just the definition of the object itself
  */
 // ie version
-var isInternetExplorer = false,
-    nav,
-    self, rawVersion;
+var nav, self,
+    rawVersion;
 
 nav = window.navigator;
 rawVersion = nav.appVersion; // raw app version string
 
-var self = {
+export default self = {
     // capabilities detected means we have detected the browser
     // based on certain uniquiness in the browser version like window.opera 
     capabilitiesDetected: false,
@@ -68,5 +67,3 @@ var self = {
     scriptLoadStack: [],
     scriptLocation: ""
 };
-
-export default self;

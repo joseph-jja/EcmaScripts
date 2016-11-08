@@ -1,7 +1,8 @@
 //below is the calendar object
-import dom from 'client/dom/DOM';
-import css from 'client/dom/CSS';
-import events from 'client/dom/events';
+import * as typeCheck from 'commonUtils/typeCheck';
+import * as css from 'client/dom/CSS';
+import * as dom from 'client/dom/DOM';
+import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import WBDate from 'commonUtils/dateFunctions';
 
@@ -10,7 +11,7 @@ export default function Calendar( parentID, options ) {
     var handles, getHeaderRow, getCalendarRows, self;
 
     // a reference to the date
-    this.date = new WBDate();
+    this.date = new Date();
 
     // calendar id
     this.id = ( options && options.id ) ? options.id : "";
@@ -36,12 +37,12 @@ export default function Calendar( parentID, options ) {
 
     // this is a private function for building the header
     getHeaderRow = function ( dateObj ) {
-        var i, result, hl = dateObj.weekDayShortNames.length;
+        var i, result, hl = WBDate.weekDayShortNames.length;
 
         result = '<tr class="header">';
 
         for ( i = 0; i < hl; i += 1 ) {
-            result += "<th>" + dateObj.weekDayShortNames[ i ] + "</th>";
+            result += "<th>" + WBDate.weekDayShortNames[ i ] + "</th>";
         }
         result += "</tr>";
 
@@ -52,9 +53,9 @@ export default function Calendar( parentID, options ) {
     getCalendarRows = function ( dateObj ) {
         var i, x, sd, last, day;
 
-        sd = dateObj.getFirstOfMonthDayOfWeek();
-        last = dateObj.getDaysInMonth();
-        day = dateObj.getDate();
+        sd = WBDate.getFirstOfMonthDayOfWeek( this.date );
+        last = WBDate.getDaysInMonth( this.date );
+        day = self.date.getDate();
 
         var result = "<tr>";
         for ( i = 0; i < sd; i += 1 ) {
@@ -85,14 +86,14 @@ export default function Calendar( parentID, options ) {
         caldata += '<td class="mlarrow">&lt;</td>';
         caldata += '<td><form><select class="monthSelection">';
 
-        ml = dateObj.monthNames.length;
+        ml = WBDate.monthNames.length;
         for ( i = 0; i < ml; i += 1 ) {
-            var selected = ( dateObj.getMonth() == i ) ? 'selected="true"' : "";
-            caldata += '<option ' + selected + ' value="' + i + '">' + dateObj.monthNames[ i ] + '</option>';
+            var selected = ( self.date.getMonth() == i ) ? 'selected="true"' : "";
+            caldata += '<option ' + selected + ' value="' + i + '">' + WBDate.monthNames[ i ] + '</option>';
         }
         caldata += '</select></form></td>';
 
-        caldata += '<td class="calyear">' + dateObj.getFullYear() + '</td>';
+        caldata += '<td class="calyear">' + self.date.getFullYear() + '</td>';
         caldata += '<td class="mrarrow">&gt;</td>';
         caldata += '<td class="yrarrow">&gt;&gt;</td>';
         caldata += '</tr></table>';
@@ -106,13 +107,9 @@ export default function Calendar( parentID, options ) {
     this.render = function () {
         var result, selectObjs, callback, _self, tds,
             yeadTD, p, content, x, yearTD,
-            parentObj, wbSel, wbEvt, wbDom, wbCss;
+            parentObj;
 
-        wbSel = selector;
-        wbEvt = events;
-        wbDom = dom;
-        wbCss = css;
-        parentObj = wbSel( "#" + this.parentID ).get( 0 );
+        parentObj = selector( "#" + this.parentID ).get( 0 );
         if ( !parentObj ) {
             throw ( "Could not get parent element to attach calendar to!" );
         }
@@ -124,26 +121,26 @@ export default function Calendar( parentID, options ) {
             _self = this;
 
             // add click event
-            callBack = function ( evt ) {
+            callback = function ( evt ) {
                 _self.handleClick( evt, _self );
             };
-            wbEvt.addEvent( parentObj, 'click', callBack, false );
+            events.addEvent( parentObj, 'click', callback, false );
 
             result = buildCalendarFrame( this.date );
-            wbDom.setContent( parentObj, result );
+            dom.html( parentObj, result );
 
             // need to handle the select onchange event
-            selectObjs = wbSel( "select", parentObj );
-            selectObjs.get( 0 ).onchange = function ( evt ) {
-                _self.handleClick( evt, _self );
-            };
-            this.handle.selection = selectObjs.get( 0 );
+            selectObjs = selector( "select", parentObj );
+            //selectObjs.get( 0 ).onchange = function ( evt ) {
+            //    _self.handleClick( evt, _self );
+            //};
+            //this.handle.selection = selectObjs.get( 0 );
 
             // ok now we setup the handle to the year table data element
-            tds = wbSel( "td", parentObj );
+            tds = selector( "td", parentObj );
             yearTD = false;
             for ( p = 0; p < tds.length; p += 1 ) {
-                if ( wbCss.hasClass( tds.get( p ), "calyear" ) ) {
+                if ( css.hasClass( tds.get( p ), "calyear" ) ) {
                     yearTD = tds.get( p );
                     break;
                 }
@@ -155,11 +152,11 @@ export default function Calendar( parentID, options ) {
         }
         this.handle.selection.selectedIndex = this.date.getMonth();
 
-        wbDom.setContent( this.handle.year, this.date.getFullYear() );
+        dom.html( this.handle.year, this.date.getFullYear() );
 
         if ( !this.handle.content ) {
             // this will work for now, but should really get the class name
-            content = wbSel( "#" + this.parentID + "content", parentObj );
+            content = selector( "#" + this.parentID + "content", parentObj );
             if ( !content ) {
                 throw ( "Could not build calendar frame" );
             }
@@ -168,30 +165,28 @@ export default function Calendar( parentID, options ) {
 
         // build the inner calendar
         var innerCal = '<table class="calendar">' + getHeaderRow( this.date ) + getCalendarRows( this.date ) + '</table>';
-        wbDom.setContent( this.handle.content, innerCal );
+        dom.html( this.handle.content, innerCal );
     };
 
     // the handle click callback function
     this.handleClick = function ( evt, calObj ) {
         var name, checkClass, e = events.getEvent( evt ),
             tgt = events.getTarget();
-        wbSel = selector,
-            wbCss = css;
 
-        checkClass = function ( wbSel, wbCss, tgt, calObj, obj ) {
+        checkClass = function ( tgt, calObj, obj ) {
             var tMain, dMain, dContent, nYear, nMon;
 
-            dContent = wbSel( tgt ).findParent( "div" );
+            dContent = dom.findParent( tgt, "div" );
             if ( !dContent ) {
                 return;
             }
-            if ( wbCss.hasClass( tgt, "selected" ) || wbCss.hasClass( tgt, "unselected" ) ) {
+            if ( css.hasClass( tgt, "selected" ) || css.hasClass( tgt, "unselected" ) ) {
                 if ( !isNaN( tgt.innerHTML ) ) {
-                    tMain = wbSel( dContent ).findParent( "table" );
+                    tMain = dom.findParent( dContent, "table" );
                     if ( !tMain ) {
                         return;
                     }
-                    dMain = wbSel( tMain ).findParent( "div" );
+                    dMain = dom.findParent( tMain, "div" );
                     if ( !dMain ) {
                         return;
                     }
@@ -202,18 +197,18 @@ export default function Calendar( parentID, options ) {
                         obj.userCallBackFN( calObj );
                     }
                 }
-            } else if ( wbCss.hasClass( tgt, "ylarrow" ) ) {
+            } else if ( css.hasClass( tgt, "ylarrow" ) ) {
                 nYear = calObj.date.getFullYear();
                 calObj.date.setFullYear( ( +nYear ) - 1 );
                 calObj.render();
-            } else if ( wbCss.hasClass( tgt, "mlarrow" ) ) {
+            } else if ( css.hasClass( tgt, "mlarrow" ) ) {
                 nMon = calObj.date.getMonth();
                 calObj.date.setMonth( ( +nMon ) - 1 );
                 calObj.render();
-            } else if ( wbCss.hasClass( tgt, "mrarrow" ) ) {
+            } else if ( css.hasClass( tgt, "mrarrow" ) ) {
                 nMon = calObj.date.getMonth();
                 calObj.date.setMonth( ( +nMon ) + 1 );
-                calObj.render();
+                calObj.css();
             } else if ( wbCss.hasClass( tgt, "yrarrow" ) ) {
                 nYear = calObj.date.getFullYear();
                 calObj.date.setFullYear( ( +nYear ) + 1 );
@@ -224,11 +219,11 @@ export default function Calendar( parentID, options ) {
         name = tgt.nodeName.toUpperCase();
         if ( name === 'TD' ) {
             // get the parent table
-            var tbl = wbSel( tgt ).findParent( "table" );
+            var tbl = dom.findParent( tgt, "table" );
             if ( !tbl ) {
                 return;
             }
-            checkClass( wbSel, wbCss, tgt, calObj, this );
+            checkClass( tgt, calObj, this );
         } else if ( name === 'SELECT' ) {
             var nMon = tgt.selectedIndex;
             calObj.date.setMonth( nMon );
@@ -238,7 +233,7 @@ export default function Calendar( parentID, options ) {
 };
 
 Calendar.prototype.getCalendarDate = function () {
-    return this.date.monthNames[ this.date.getMonth() ] + " " + this.date.getDate() + ", " + this.date.getFullYear();
+    return WBDate.monthNames[ this.date.getMonth() ] + " " + this.date.getDate() + ", " + this.date.getFullYear();
 };
 
 Calendar.prototype.setCalendarDate = function ( mm, dd, yyyy ) {

@@ -41,7 +41,7 @@
 //IE8 	   JS 5.8 
 import base from 'client/utils/base';
 
-function detect() {
+export default function detect() {
 
     // ie version
     var isInternetExplorer = false,
@@ -269,7 +269,3 @@ function detect() {
 
     return base;
 }
-
-export {
-    detect
-};

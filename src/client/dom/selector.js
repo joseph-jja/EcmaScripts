@@ -18,8 +18,11 @@ export default function selector( expr, parent ) {
         result = pObj.getElementById( expr.substring( 1 ) );
         result = ( result ? [ result ] : [] );
     } else {
-        result = pObj.querySelectorAll( expr );
-        console.log( pObj );
+        let qEle = expr;
+        if ( expr instanceof HTMLElement ) {
+            qEle = expr.nodeName.toLowerCase();
+        }
+        result = pObj.querySelectorAll( qEle );
         result = ( result && result.length > 0 ? result : [] );
     }
 

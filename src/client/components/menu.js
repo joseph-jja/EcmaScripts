@@ -1,7 +1,7 @@
 import * as typeCheck from 'commonUtils/typeCheck';
-import css from 'client/dom/CSS';
-import dom from 'client/dom/DOM';
-import events from 'client/dom/events';
+import * as css from 'client/dom/CSS';
+import * as dom from 'client/dom/DOM';
+import * as events from 'client/dom/events';
 import * as storage from 'client/utils/webStorage';
 import * as metrics from 'client/utils/performance';
 import * as selector from 'client/dom/selector';
@@ -70,7 +70,7 @@ if ( storage.sessionEnabled &&
         key = getCurrentKey();
         xtitle = document.title;
 
-        prop = metrics();
+        prop = metrics.metrics;
 
         mix.push( {
             'name': "Dom Content Load Start",
@@ -131,8 +131,8 @@ if ( storage.sessionEnabled &&
             render();
         }
     };
-    if ( typeof metrics.getMetrics !== 'undefined' ) {
-        metrics.getMetrics( SITE.addMetrics );
+    if ( metrics.hasPerformanceMetrics && typeof metrics.getMetrics !== 'undefined' ) {
+        metrics.getMetrics( addMetrics );
     }
 }
 
@@ -183,8 +183,19 @@ export function extendedMenu() {
     return menu;
 }
 
+function showMenu() {
+    var nav = document.getElementById( "nav_bar" );
+    if ( nav.style.display === 'none' ) {
+        nav.style.display = 'block';
+        css.addClass( nav, "moved-menu" );
+    } else {
+        nav.style.display = 'none';
+        css.removeClass( nav, "moved-menu" );
+    }
+}
+
 export function makeIcon() {
-    var icon, dom = dom;
+    var icon;
     icon = dom.createElement( "span",
         document.body, {
             "id": "nav_menu_mini"
@@ -192,5 +203,4 @@ export function makeIcon() {
     icon.innerHTML = "Navigation";
     events.addEvent( icon, 'click', showMenu );
 }
-
-events.addEvent( window, 'load', makeIcon );
+events.addOnLoad( makeIcon );
