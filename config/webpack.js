@@ -7,7 +7,8 @@ module.exports = {
     },
     "context": path.resolve( "." ),
     "entry": {
-        "footer": "./src/client/components/footer"
+        "footer": "./src/client/components/footer",
+        "navigation": "./src/client/components/navigation"
     },
     "output": {
         "filename": "[name].js"

@@ -120,7 +120,7 @@ let doOnLoad = function () {
 };
 
 //default onload event handler
-let addEvent( window, 'load', self.doOnLoad, false );
+addEvent( window, 'load', self.doOnLoad, false );
 
 export {
     addEvent,
@@ -132,6 +132,5 @@ export {
     createEvent,
     fireEvent,
     addOnLoad,
-    doOnLoad,
-    addEvent
+    doOnLoad
 };
