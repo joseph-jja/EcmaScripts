@@ -138,13 +138,12 @@ if ( storage.sessionEnabled &&
 
 
 //new location thig for select items
-function new_location() {
+function changeLocation() {
     var optionsindex = document.forms[ 0 ].altSubject.selectedIndex;
-    var location = allLinks[ optionsindex - 1 ][ 0 ];
+    var loc = allLinks[ optionsindex - 1 ][ 0 ];
 }
 
-//not used
-function print_menu( menuArray ) {
+function render( menuArray ) {
     var i, menu = "",
         mlen;
     mlen = menuArray.length;
@@ -161,34 +160,15 @@ function print_menu( menuArray ) {
     return menu;
 }
 
-function changeStyles( querystring ) {
-    var links = document.getElementsByTagName( "link" );
-    var llen = links.length;
-    for ( var i = 0; i < llen; i++ ) {
-        var xi = links[ i ];
-        var xh = xi.href;
-        var csxhidx = xh.indexOf( "classic_style.css" );
-        var tdxhidx = xh.indexOf( "dark_style.css" );
-        if ( csxhidx != -1 ) {
-            xi.href = xh.substring( 0, csxhidx ) + "dark_style.css";
-            break;
-        } else if ( tdxhidx != -1 ) {
-            xi.href = xh.substring( 0, tdxhidx ) + "classic_style.css";
-            break;
-        }
-    }
-}
-//changeStyles(urlpadding);
-
-function basic_menu() {
+export function basicMenu() {
     var nav = document.getElementById( "nav_bar" );
     if ( nav ) {
-        nav.innerHTML = print_menu( allLinks );
+        nav.innerHTML = render( allLinks );
     }
 }
 
 //extended menu 
-function extended_menu() {
+export function extendedMenu() {
     var i, menu = "",
         mlen,
         subdirpage = splitstr[ splitstr.length - 2 ] + "/" + currentpage;
@@ -203,110 +183,7 @@ function extended_menu() {
     return menu;
 }
 
-//single select object for email form
-function email_dropdown_select() {
-    var i, data = "";
-    data += '<b><select name="altSubject">';
-    data += '<option value=""></option>';
-    for ( i = 0; i < allLinks.length; i++ ) {
-        data += '<option value="' + allLinks[ i ][ 0 ] + urlpadding + '">' + allLinks[ i ][ 1 ] + '</option>';
-    }
-    data += '</select></b>';
-    data += '<b><input type="button" value="Go" onClick="new_location()"></b>';
-    return data;
-}
-
-
-function showHideMainMenu( divobjID, liobjID ) {
-    var i, menus, lis, objID, liobj,
-        oldDIVStyle, oldLIStyle;
-    menus = document.getElementsByTagName( 'ul' );
-    lis = document.getElementsByTagName( 'li' );
-
-    objID = document.getElementById( divobjID );
-    liobj = document.getElementById( liobjID );
-
-    if ( ( objID == null ) || ( liobj == null ) ) {
-        return;
-    }
-
-    oldDIVStyle = objID.style.display;
-    oldLIStyle = liobj.style.display;
-
-    for ( i = 0; i < menus.length; i++ ) {
-        if ( menus[ i ].id.substring( 0, 5 ) == divobjID.substring( 0, 5 ) ) {
-            menus[ i ].style.display = 'none';
-        }
-    }
-    for ( i = 0; i < lis.length; i++ ) {
-        if ( lis[ i ].id.substring( 0, 3 ) == liobjID.substring( 0, 3 ) ) {
-            css.replaceClass( lis[ i ], "expanded", "collapsed" );
-        }
-    }
-
-    objID.style.display = oldDIVStyle;
-    liobj.style.display = oldLIStyle;
-
-    if ( objID.style.display == 'block' ) {
-        objID.style.display = 'none';
-        css.replaceClass( liobj, "expanded", "collapsed" );
-    } else if ( objID.style.display == 'none' ) {
-        objID.style.display = 'block';
-        css.replaceClass( liobj, "collapsed", "expanded" );
-    } else {
-        objID.style.display = 'block';
-        css.replaceClass( liobj, "expanded", "collapsed" );
-    }
-}
-
-function expandUL( objName, hrefObj ) {
-    var i, divs, dObj, hrefs;
-    divs = document.getElementsByTagName( "ul" );
-    for ( i = 0; i < divs.length; i++ ) {
-        if ( css.hasClass( divs[ i ], "tree_child_hidden" ) ) {
-            divs[ i ].style.display = "none";
-        }
-    }
-
-    dObj = document.getElementById( objName );
-    if ( dObj ) {
-        if ( dObj.style.display == "block" ) {
-            dObj.style.display = "none";
-        } else {
-            dObj.style.display = "block";
-        }
-    }
-
-    hrefs = selector( "span.toplevel" );
-    for ( i = 0; i < hrefs.length; i++ ) {
-        css.replaceClass( hrefs.get( i ), "expanded", "collapsed" );
-    }
-    if ( hrefObj ) {
-        css.addClass( hrefObj, "expanded" );
-    }
-}
-
-function showTextDiv( selected ) {
-    var i, obj, dataobj, hrefs;
-    obj = document.getElementById( selected );
-    dataobj = document.getElementById( "adata" );
-    if ( obj ) {
-        dataobj.innerHTML = obj.innerHTML;
-    }
-
-    hrefs = document.getElementsByName( "tabs" );
-    if ( hrefs ) {
-        for ( i = 0; i < hrefs.length; i++ ) {
-            css.replaceClass( hrefs[ i ], "selected_tab", "tablike" );
-        }
-        if ( selected + 1 < hrefs.length ) {
-            css.replaceClass( hrefs[ i ], "tablike", "selected_tab" );
-        }
-    }
-
-}
-
-function makeIcon() {
+export function makeIcon() {
     var icon, dom = dom;
     icon = dom.createElement( "span",
         document.body, {
@@ -314,19 +191,6 @@ function makeIcon() {
         } );
     icon.innerHTML = "Navigation";
     events.addEvent( icon, 'click', showMenu );
-}
-
-function showMenu() {
-    var dom = dom,
-        css = css,
-        nav = document.getElementById( "nav_bar" );
-    if ( nav.style.display === 'none' ) {
-        nav.style.display = 'block';
-        css.addClass( nav, "moved-menu" );
-    } else {
-        nav.style.display = 'none';
-        css.removeClass( nav, "moved-menu" );
-    }
 }
 
 events.addEvent( window, 'load', makeIcon );

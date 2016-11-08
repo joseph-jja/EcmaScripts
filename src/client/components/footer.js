@@ -1,6 +1,5 @@
 import * as dom from "client/dom/DOM";
 import df from "commonUtils/dateFunctions";
-import * as events from 'client/dom/events';
 
 function createFooter() {
     var monthNM, dayOfTheWeek,
@@ -44,8 +43,7 @@ function createFooter() {
 
     return buildFooter;
 }
-
-function setFooter( footerParent ) {
+export default function setFooter( footerParent ) {
     var loc, ft;
     if ( footer ) {
         ft = dom.createElement( "ul", footerParent );
@@ -67,8 +65,3 @@ function setFooter( footerParent ) {
         }
     }
 }
-
-// implement the footer :) 
-events.addOnLoad( () => {
-    setFooter( "footer" );
-} );

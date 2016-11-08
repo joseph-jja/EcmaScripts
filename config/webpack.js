@@ -2,14 +2,13 @@ var path = require( "path" ),
     webpack = require( "webpack" );;
 
 module.exports = {
+    "entry": {
+        "index": "./src/client/pages/index"
+    },
+    "context": path.resolve( "." ),
     "devtool": "source-map",
     "eslint": {
         "configFile": path.resolve( "./config/eslint.cfg" )
-    },
-    "context": path.resolve( "." ),
-    "entry": {
-        "footer": "./src/client/components/footer",
-        "navigation": "./src/client/components/navigation"
     },
     "output": {
         "filename": "[name].js",
