@@ -69,4 +69,4 @@ var self = {
     scriptLocation: ""
 };
 
-export defaukt self;
+export default self;
