@@ -105,7 +105,7 @@ let findParent = function ( slctr, pslctr, i ) {
     }
 
     node = cElmnt.get( 0 );
-    if ( i && i < thcElmntis.length ) {
+    if ( i && i < cElmnt.length ) {
         node = cElmnt.get( i );
     }
 
@@ -178,7 +178,7 @@ let findParent = function ( slctr, pslctr, i ) {
         return;
     };
 
-    getParent( node, selector );
+    getParent( node, slctr );
 
     return pNode;
 };
