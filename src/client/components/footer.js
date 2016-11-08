@@ -1,5 +1,6 @@
-import dom from "client/dom/DOM";
+import * as dom from "client/dom/DOM";
 import df from "commonUtils/dateFunctions";
+import * as events from 'client/dom/events';
 
 function createFooter() {
     var monthNM, dayOfTheWeek,
@@ -68,4 +69,6 @@ function setFooter( footerParent ) {
 }
 
 // implement the footer :) 
-setFooter( "footer" );
+events.addOnLoad( () => {
+    setFooter( "footer" );
+} );

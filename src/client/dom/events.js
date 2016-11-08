@@ -109,7 +109,6 @@ let addOnLoad = function ( fn ) {
 let doOnLoad = function () {
     // call all the onload functions in the stack
     var s, stackSize, olFN, wboles = base.onLoadEventStack;
-
     stackSize = wboles.length;
     for ( s = 0; s < stackSize; s += 1 ) {
         olFN = wboles[ s ];
@@ -120,7 +119,7 @@ let doOnLoad = function () {
 };
 
 //default onload event handler
-addEvent( window, 'load', self.doOnLoad, false );
+addEvent( window, 'load', doOnLoad, false );
 
 export {
     addEvent,

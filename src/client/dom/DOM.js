@@ -46,9 +46,9 @@ let createElement = function ( type, parent, options ) {
                 // do nothing, IE does not allow setting some options and will error out :(
             }
         }
-    }
-    if ( options[ 'className' ] ) {
-        CSS.addClass( obj, options.className );
+        if ( options[ 'className' ] ) {
+            CSS.addClass( obj, options.className );
+        }
     }
     return obj;
 };

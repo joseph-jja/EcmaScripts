@@ -11,7 +11,8 @@ module.exports = {
         "navigation": "./src/client/components/navigation"
     },
     "output": {
-        "filename": "[name].js"
+        "filename": "[name].js",
+        "chunkFilename": "bundle.js"
     },
     "resolve": {
         "root": [ path.resolve( "./src" ) ],
