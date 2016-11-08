@@ -102,6 +102,24 @@ function detect() {
 		@if (@_jscript_version >= 10) 
 			base.version = 10.0;
 		@end @*/
+	    
+	if ( document.compatMode ) {
+		base.version = 6.0;
+	}
+	if ( window.XMLHttpRequest ) {
+		base.version = 7.0;
+	}
+	if ( document.querySelector ) {
+		base.version = 8.0;
+	}
+	 // finally compatible with other browsers!
+	if ( document.addEventListener ) {
+		base.version = 9.0;
+	}
+	 if ( window.atob ) {
+		base.version = 10.0;
+	 }
+	    
         if ( win.ActiveXObject ) {
             base.hasActiveX = true;
         }
