@@ -1,3 +1,5 @@
+import MF from 'commonUtils/mathFunctions';
+
 //parent object for all clock types
 //sort of abstract class
 function Clock() {
@@ -112,7 +114,7 @@ function BinaryClock() {
     // this sets a column of data based on the time part that is passed in
     setColumnData = function ( column, timeComponent ) {
         var diff, bhlen, j, tdid, tdObj, d, trd, on,
-            binaryTime = WebBrowser.math.convertFromBaseTenToBaseX( 2, timeComponent );
+            binaryTime = MF.convertFromBaseTenToBaseX( 2, timeComponent );
 
         bhlen = binaryTime.toString().length;
         diff = rows - bhlen;

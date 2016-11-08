@@ -45,7 +45,7 @@ function createFooter() {
 }
 export default function setFooter( footerParent ) {
     var loc, ft;
-    if ( footer ) {
+    if ( footerParent ) {
         ft = dom.createElement( "ul", footerParent );
         if ( ft ) {
             ft.innerHTML = createFooter();

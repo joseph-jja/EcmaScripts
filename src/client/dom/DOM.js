@@ -5,8 +5,6 @@ import selector from 'client/dom/selector';
 import * as typeCheck from 'commonUtils/typeCheck';
 import * as CSS from 'client/dom/CSS';
 
-var multiElement = /^([a-zA-Z]*)?(#[\w\-]+)?([a-zA-Z]*)?(\.[\w\-]+)?([a-zA-Z0-9]*)?/i;
-
 let createElement = function ( type, parent, options ) {
     var obj, pObj;
 
@@ -94,16 +92,19 @@ let html = function ( ele, content, index ) {
 
 let findParent = function ( slctr, pslctr, i ) {
     var node,
-        result, j,
-        cElmnt, setNext,
-        getParent, pNode, findEnd, checkNodes;
+        cElmnt,
+        getParent, pNode;
 
+    // this will be all the siblings of the same type and the element
+    // so if this is a div and there are siblings divs we get 
+    // all the sibling divs assuming slctr = div
     cElmnt = selector( slctr );
 
     if ( cElmnt.length <= 0 ) {
         return undefined;
     }
 
+    // this will get us the first in the list unless an index has been passed 
     node = cElmnt.get( 0 );
     if ( i && i < cElmnt.length ) {
         node = cElmnt.get( i );
@@ -113,72 +114,26 @@ let findParent = function ( slctr, pslctr, i ) {
         return undefined;
     }
 
-    setNext = function ( node, input, part ) {
-        var nStr = input,
-            i;
-        i = part.length;
-        pNode = node;
-        if ( input.length === i ) {
-            return "";
-        }
-        return typeCheck.ltrim( nStr.substring( nStr.indexOf( part ) + part.length ) );
-    };
+    getParent = function ( node, pNodeName ) {
+        var prnt, inStr;
 
-    checkNodes = function ( parts, node, nStr ) {
-        var name, cls, id, boolExp, n;
-
-        if ( parts[ 2 ] ) {
-            // id
-            id = parts[ 2 ].substring( 1 );
-            boolExp = ( node.id && node.id === id );
-            n = parts[ 2 ];
-        } else if ( parts[ 1 ] && !parts[ 4 ] ) {
-            // just element
-            name = parts[ 1 ];
-            boolExp = ( node.nodeName && node.nodeName.toLowerCase() === name );
-            n = parts[ 1 ];
-        } else if ( parts[ 1 ] && parts[ 4 ] ) {
-            // element type and class
-            name = parts[ 1 ].toLowerCase();
-            cls = parts[ 4 ].substring( 1 );
-            boolExp = ( node.nodeName && node.nodeName.toLowerCase() === name && node.className.indexOf( cls ) !== -1 );
-            n = parts[ 4 ];
-        } else if ( parts[ 4 ] ) {
-            // just class 
-            cls = parts[ 4 ].substring( 1 );
-            boolExp = ( node.className.indexOf( cls ) !== -1 );
-            n = parts[ 4 ];
-        } else {
-            throw ( "Unsupported selector " + nStr );
-        }
-        if ( boolExp && n ) {
-            nStr = setNext( node, nStr, n );
-        }
-        return nStr;
-    };
-
-    getParent = function ( node, select ) {
-        var parts, i, reg, id, name, cls, inStr;
-
+        // no node :( 
         if ( !node ) {
             pNode = null;
             return;
         }
-        inStr = select;
-        parts = multiElement.exec( inStr );
-        if ( parts[ 0 ] === "" ) {
-            return;
-        }
-
-        inStr = checkNodes( parts, node, inStr );
-
-        if ( !pNode && node ) {
-            getParent( node.parentNode, inStr );
+        prnt = node.parentNode;
+        if ( prnt ) {
+            if ( prnt.nodeName.toLowerCase() !== pNodeName ) {
+                getParent( prnt, pNodeName );
+            } else {
+                pNode = prnt;
+            }
         }
         return;
     };
 
-    getParent( node, slctr );
+    getParent( node, pslctr );
 
     return pNode;
 };

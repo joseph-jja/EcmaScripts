@@ -176,7 +176,7 @@ export default function Calendar( parentID, options ) {
             tgt = events.getTarget();
 
         checkClass = function ( tgt, calObj, obj ) {
-            var tMain, dMain, dContent, nYear, nMon;
+            var dContent, nYear, nMon;
 
             dContent = dom.findParent( tgt, "div" );
             if ( !dContent ) {
@@ -184,14 +184,6 @@ export default function Calendar( parentID, options ) {
             }
             if ( css.hasClass( tgt, "selected" ) || css.hasClass( tgt, "unselected" ) ) {
                 if ( !isNaN( tgt.innerHTML ) ) {
-                    tMain = dom.findParent( dContent, "table" );
-                    if ( !tMain ) {
-                        return;
-                    }
-                    dMain = dom.findParent( tMain, "div" );
-                    if ( !dMain ) {
-                        return;
-                    }
                     // this is the div
                     calObj.date.setDate( tgt.innerHTML );
                     calObj.render();
@@ -211,7 +203,7 @@ export default function Calendar( parentID, options ) {
                 nMon = calObj.date.getMonth();
                 calObj.date.setMonth( ( +nMon ) + 1 );
                 calObj.css();
-            } else if ( wbCss.hasClass( tgt, "yrarrow" ) ) {
+            } else if ( css.hasClass( tgt, "yrarrow" ) ) {
                 nYear = calObj.date.getFullYear();
                 calObj.date.setFullYear( ( +nYear ) + 1 );
                 calObj.render();
