@@ -120,6 +120,8 @@ function detect() {
 		base.version = 10.0;
 	 }
 	    
+	 base.docMode = ( document.documentMode ) ? document.documentMode: base.version;
+   
         if ( win.ActiveXObject ) {
             base.hasActiveX = true;
         }
