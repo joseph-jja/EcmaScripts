@@ -53,8 +53,8 @@ export default function Calendar( parentID, options ) {
     getCalendarRows = function ( dateObj ) {
         var i, x, sd, last, day;
 
-        sd = WBDate.getFirstOfMonthDayOfWeek( this.date );
-        last = WBDate.getDaysInMonth( this.date );
+        sd = WBDate.getFirstOfMonthDayOfWeek( self.date );
+        last = WBDate.getDaysInMonth( self.date );
         day = self.date.getDate();
 
         var result = "<tr>";
@@ -107,9 +107,11 @@ export default function Calendar( parentID, options ) {
     this.render = function () {
         var result, selectObjs, callback, _self, tds,
             yeadTD, p, content, x, yearTD,
-            parentObj;
+            parentObj, po;
 
-        parentObj = selector( "#" + this.parentID ).get( 0 );
+        // actual dom reference object
+        po = selector( "#" + this.parentID );
+        parentObj = po.get( 0 );
         if ( !parentObj ) {
             throw ( "Could not get parent element to attach calendar to!" );
         }
@@ -127,14 +129,14 @@ export default function Calendar( parentID, options ) {
             events.addEvent( parentObj, 'click', callback, false );
 
             result = buildCalendarFrame( this.date );
-            dom.html( parentObj, result );
+            dom.html( po, result );
 
             // need to handle the select onchange event
             selectObjs = selector( "select", parentObj );
-            //selectObjs.get( 0 ).onchange = function ( evt ) {
-            //    _self.handleClick( evt, _self );
-            //};
-            //this.handle.selection = selectObjs.get( 0 );
+            selectObjs.get( 0 ).onchange = function ( evt ) {
+                _self.handleClick( evt, _self );
+            };
+            this.handle.selection = selectObjs.get( 0 );
 
             // ok now we setup the handle to the year table data element
             tds = selector( "td", parentObj );
@@ -165,7 +167,7 @@ export default function Calendar( parentID, options ) {
 
         // build the inner calendar
         var innerCal = '<table class="calendar">' + getHeaderRow( this.date ) + getCalendarRows( this.date ) + '</table>';
-        dom.html( this.handle.content, innerCal );
+        dom.html( content, innerCal );
     };
 
     // the handle click callback function

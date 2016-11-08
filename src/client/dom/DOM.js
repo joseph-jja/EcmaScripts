@@ -5,6 +5,8 @@ import selector from 'client/dom/selector';
 import * as typeCheck from 'commonUtils/typeCheck';
 import * as CSS from 'client/dom/CSS';
 
+var multiElement = /^([a-zA-Z]*)?(#[\w\-]+)?([a-zA-Z]*)?(\.[\w\-]+)?([a-zA-Z0-9]*)?/i;
+
 let createElement = function ( type, parent, options ) {
     var obj, pObj;
 
@@ -88,6 +90,97 @@ let html = function ( ele, content, index ) {
         return ele.innerHTML;
     }
 
+};
+
+let findParent = function ( slctr, pslctr, i ) {
+    var node,
+        result, j,
+        cElmnt, setNext,
+        getParent, pNode, findEnd, checkNodes;
+
+    cElmnt = selector( slctr );
+
+    if ( cElmnt.length <= 0 ) {
+        return undefined;
+    }
+
+    node = cElmnt.get( 0 );
+    if ( i && i < thcElmntis.length ) {
+        node = cElmnt.get( i );
+    }
+
+    if ( !node ) {
+        return undefined;
+    }
+
+    setNext = function ( node, input, part ) {
+        var nStr = input,
+            i;
+        i = part.length;
+        pNode = node;
+        if ( input.length === i ) {
+            return "";
+        }
+        return typeCheck.ltrim( nStr.substring( nStr.indexOf( part ) + part.length ) );
+    };
+
+    checkNodes = function ( parts, node, nStr ) {
+        var name, cls, id, boolExp, n;
+
+        if ( parts[ 2 ] ) {
+            // id
+            id = parts[ 2 ].substring( 1 );
+            boolExp = ( node.id && node.id === id );
+            n = parts[ 2 ];
+        } else if ( parts[ 1 ] && !parts[ 4 ] ) {
+            // just element
+            name = parts[ 1 ];
+            boolExp = ( node.nodeName && node.nodeName.toLowerCase() === name );
+            n = parts[ 1 ];
+        } else if ( parts[ 1 ] && parts[ 4 ] ) {
+            // element type and class
+            name = parts[ 1 ].toLowerCase();
+            cls = parts[ 4 ].substring( 1 );
+            boolExp = ( node.nodeName && node.nodeName.toLowerCase() === name && node.className.indexOf( cls ) !== -1 );
+            n = parts[ 4 ];
+        } else if ( parts[ 4 ] ) {
+            // just class 
+            cls = parts[ 4 ].substring( 1 );
+            boolExp = ( node.className.indexOf( cls ) !== -1 );
+            n = parts[ 4 ];
+        } else {
+            throw ( "Unsupported selector " + nStr );
+        }
+        if ( boolExp && n ) {
+            nStr = setNext( node, nStr, n );
+        }
+        return nStr;
+    };
+
+    getParent = function ( node, select ) {
+        var parts, i, reg, id, name, cls, inStr;
+
+        if ( !node ) {
+            pNode = null;
+            return;
+        }
+        inStr = select;
+        parts = multiElement.exec( inStr );
+        if ( parts[ 0 ] === "" ) {
+            return;
+        }
+
+        inStr = checkNodes( parts, node, inStr );
+
+        if ( !pNode && node ) {
+            getParent( node.parentNode, inStr );
+        }
+        return;
+    };
+
+    getParent( node, selector );
+
+    return pNode;
 };
 
 /////////////////////////////////////////////////////////////////////
@@ -248,6 +341,7 @@ let toggleDisplay = function ( objName ) {
 export {
     createElement,
     html,
+    findParent,
     getTextFieldCursorPosition,
     setTextFieldCursorPosition,
     loadScript,

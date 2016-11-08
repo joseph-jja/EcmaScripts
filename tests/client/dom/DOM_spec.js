@@ -19,4 +19,22 @@ describe( "tests on DOM object", function () {
 
         dom.toggleDisplay( 'domCreateTest' );
     } );
+
+    it( "find parent node test", function () {
+        var r, x = dom.createElement( 'div', undefined, {
+            id: 'domCreateTest'
+        } );
+
+        r = dom.createElement( 'div', x, {
+            id: 'domDivNode'
+        } );
+
+        x = r;
+        r = dom.createElement( 'span', x, {
+            id: 'domSpanNode'
+        } );
+        console.log( document.body );
+
+        expect( dom.findParent( r, 'div' ) ).not.toBe( undefined );
+    } );
 } );

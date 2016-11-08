@@ -94,7 +94,7 @@ DigitalClock.prototype.runClock = function () {
     clock = document.getElementById( this.clockId );
 
     // no clock return
-    if ( clock === "" ) {
+    if ( !clock ) {
         return false;
     }
     clock.innerHTML = this.clockText + getClockFormat( this.showSeconds );

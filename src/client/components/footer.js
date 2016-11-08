@@ -8,8 +8,8 @@ function createFooter() {
         moddate, ampm,
         monthstring, today, daynow;
 
-    dayOfTheWeek = dt.weekDayShortNames;
-    monthNM = dt.monthShortNames;
+    dayOfTheWeek = df.weekDayShortNames;
+    monthNM = df.monthShortNames;
 
     // last modified date
     lastmoddate = Date.parse( document.lastModified );
