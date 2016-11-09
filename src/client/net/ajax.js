@@ -1,36 +1,35 @@
-import * as XmlHttp from "client/net/xmlhttp";
+import XmlHttp from "client/net/xmlhttp";
 import * as Stack from "commonUtils/stack";
 
 var stack = new Stack.Stack();
 
 export function makeRequest( type, cbFN, url, data, async, headers ) {
-    var h, ajaxObj,
-        xmlhttp = new XmlHttp(),
-        index = stack.index;
+    var h, ajaxObj = {};
 
-    xmlhttp.open( type, url, async );
-    ajaxObj = this;
+    ajaxObj.xmlhttp = XmlHttp();
+    ajaxObj.index = stack.index;
+
+    ajaxObj.xmlhttp.open( type, url, async );
     if ( headers ) {
         for ( h in headers ) {
-            xmlhttp.setRequestHeader( h, headers[ h ] );
+            ajaxObj.xmlhttp.setRequestHeader( h, headers[ h ] );
         }
     }
-    xmlhttp.onreadystatechange = function () {
+    ajaxObj.xmlhttp.onreadystatechange = function () {
         // the call asigns this callback to our ajax object
         // so the call can use this in it
         cbFN.call( ajaxObj );
         if ( ajaxObj.xmlhttp.readyState === 4 ) {
-            stack.pop( 'AJAX_' + index );
+            stack.pop( 'AJAX_' + ajaxObj.index );
         }
-    }
-    if ( data == null ) {
+    };
+
+    if ( data === null ) {
         data = "";
     }
-    ajaxObj.index = index;
-    ajaxObj.xmlhttp = xmlhttp;
 
-    xmlhttp.send( data );
-    stack.push( 'AJAX_' + index, {
+    ajaxObj.xmlhttp.send( data );
+    stack.push( 'AJAX_' + ajaxObj.index, {
         data: ajaxObj
     } );
 

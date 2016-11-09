@@ -4,7 +4,7 @@
  // and safari, konqueror, and gecko based browsers
  // returns xmlhttp request object
  //////////////////////////////////////////////////
- function XmlHttp() {
+ export default function XmlHttp() {
      var xmlhttp = false;
      // try to use the default xml http request object first
      if ( window.XMLHttpRequest ) {
@@ -35,8 +35,3 @@
      }
      return xmlhttp;
  }
-
- // newable request object that works in most browsers
- export {
-     XmlHttp
- };

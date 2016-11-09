@@ -1,8 +1,8 @@
 //functions for xml processing
 import * as stringUtils from 'commonUtils/stringUtils';
+import ajax from 'client/net/ajax';
 
-var self = {},
-    tAttributes = "attributes";
+var tAttributes = "attributes";
 
 function isTextNode( inStr ) {
     return ( inStr === "#text" );
@@ -41,9 +41,9 @@ function processAttributes( node ) {
 };
 
 // this has been updated to handle attributes, but that does not work right now
-self.simpleRSSToJSON = function ( obj ) {
+export function simpleRSSToJSON( obj ) {
     var jdata = {},
-        i, j, cName, nodeCT, cNode,
+        i, j, nodeCT, cNode,
         name, attrs, val, setAttrs, checkNode;
 
     setAttrs = function ( jdata, val, name ) {
@@ -65,7 +65,6 @@ self.simpleRSSToJSON = function ( obj ) {
         // current node name, although we don't use this
         // it is not used because the top level node is #document in an xml document 
         // we don't care about the #document node, we want the rss and on down the line
-        cName = obj.nodeName;
         nodeCT = obj.childNodes.length;
         while ( j < nodeCT ) {
             // name of the current node
@@ -80,7 +79,7 @@ self.simpleRSSToJSON = function ( obj ) {
                 // this happens when you have a carriage return, tab or space between a closing tag and opening tag
                 if ( checkNode( j, nodeCT, obj, name ) ) {
                     // duplicately named child nodes, in the case of RSS this would be the item elements
-                    jdata[ name ][ i ] = self.simpleRSSToJSON.call( this, cNode );
+                    jdata[ name ][ i ] = simpleRSSToJSON.call( this, cNode );
                     i += 1;
                     attrs = processAttributes( cNode );
                     if ( attrs ) {
@@ -91,7 +90,7 @@ self.simpleRSSToJSON = function ( obj ) {
                     val = cNode.childNodes[ 0 ].nodeValue;
                     setAttrs( jdata, val, name );
                 } else {
-                    jdata[ name ] = self.simpleRSSToJSON.call( this, cNode );
+                    jdata[ name ] = simpleRSSToJSON.call( this, cNode );
                     attrs = processAttributes( cNode );
                     if ( attrs ) {
                         jdata[ name ][ tAttributes ] = attrs;
@@ -110,9 +109,9 @@ self.simpleRSSToJSON = function ( obj ) {
 
 // creates an XML document fragment given a JSON object
 // json lists such as items[0] .. items[1] will be converted to <items></items>... <items></items>
-self.jsonToXML = function ( json, pNode ) {
+export function jsonToXML( json, pNode ) {
     var string = '',
-        i, j, attrs, wbs = WebBrowser.string,
+        i, attrs,
         idx = 0,
         childNodeType, r, h,
         ct = 0,
@@ -141,13 +140,13 @@ self.jsonToXML = function ( json, pNode ) {
             for ( h in attrs ) {
                 r += h + '="' + attrs[ h ] + '" ';
             }
-            r = wbs.rtrim( r ); // remove trailing space
-            string += makeXMLtag( i, self.jsonToXML( json[ i ], i ), r );
+            r = stringUtils.rtrim( r ); // remove trailing space
+            string += makeXMLtag( i, jsonToXML( json[ i ], i ), r );
         } else if ( childNodeType === 'object' ) {
             if ( isNaN( i ) ) {
-                string += makeXMLtag( i, self.jsonToXML( json[ i ], i ) );
+                string += makeXMLtag( i, jsonToXML( json[ i ], i ) );
             } else if ( pNode ) {
-                string += self.jsonToXML( json[ i ], i );
+                string += jsonToXML( json[ i ], i );
                 if ( idx + 1 < ct ) {
                     string += makeXMLtag( pNode, '' );
                 }
@@ -162,10 +161,10 @@ self.jsonToXML = function ( json, pNode ) {
 
 // this parses any XML document into a JSON object
 // it puts the attributes for a node in an object called attributes
-self.xml2json = function ( xmlNode ) {
+export function xml2json( xmlNode ) {
     var j, nodeCT, nodeContent,
         hscn, node, name, value,
-        attrs, cnodes, wb = WebBrowser.string;
+        attrs, cnodes;
 
     if ( xmlNode.hasChildNodes() ) {
         j = 0;
@@ -178,7 +177,7 @@ self.xml2json = function ( xmlNode ) {
             value = node.nodeValue;
             attrs = processAttributes( node );
             if ( node.hasChildNodes() ) {
-                cnodes = self.xml2json( node );
+                cnodes = xml2json( node );
                 if ( !nodeContent[ name ] ) {
                     nodeContent[ name ] = ( hscn ) ? [] : {};
                 }
@@ -199,7 +198,7 @@ self.xml2json = function ( xmlNode ) {
                         nodeContent[ name ][ tAttributes ] = attrs;
                     }
                 }
-            } else if ( !stringUtils.empty( value ) ) {
+            } else if ( !stringUtils.isEmpty( value ) ) {
                 if ( isTextNode( name ) && nodeContent[ name ] ) {
                     nodeContent[ name ] += value;
                 } else {
@@ -223,11 +222,77 @@ self.xml2json = function ( xmlNode ) {
     }
 };
 
-self.transformXML = function ( xmlURL, xsltURL, resultObj ) {
+export function getAsXMLDocument( xmlString ) {
+
+    var xmlDocument = null,
+        xmlInput, isDOMParserCapable,
+        parser, bFound, i, objXML;
+
+    xmlInput = xmlString;
+
+    isDOMParserCapable = function () {
+        try {
+            return ( DOMParser ) ? true : false;
+        } catch ( e ) {
+            return false;
+        }
+    };
+
+    if ( isDOMParserCapable() ) {
+        // then try this
+        try {
+            parser = new DOMParser();
+            xmlDocument = parser.parseFromString( xmlInput, "text/xml" );
+        } catch ( e ) {
+            if ( document.implementation && document.implementation.createDocument ) {
+                xmlDocument = document.implementation.createDocument( "", "", xmlInput );
+            }
+        }
+    } else if ( window.ActiveXObject ) {
+        // IE and active X reject browsers
+        /*@cc_on @*/
+        /*@if (@_jscript_version >= 5)
+        // JScript gives us Conditional compilation, we can cope with old IE versions.
+        // and security blocked creation of the objects.
+        // because MS keeps adding XML implementations
+        // we loop through to find one
+        var ARR_ACTIVEX = [ "MSXML.DOMDocument.6.0", "MSXML.DOMDocument.3.0", "MSXML2.DOMDocument", "Microsoft.XmlDom"];
+
+                // bFound is false because we have not found one
+        bFound = false;
+        for (i=0; i < ARR_ACTIVEX.length && !bFound; i++) {
+            try {
+                //try to create the object, it will cause an
+                //error if it doesn't work
+                objXML = new ActiveXObject(ARR_ACTIVEX[i]);
+
+                //if it gets to this point, the string worked,
+                //so save it
+                xmlParserStr = ARR_ACTIVEX[i];
+                bFound = true;
+            } catch (objException) {
+                // do nothing
+            }
+        }
+        // we found our XML parser
+        if ( bFound ) {
+            // create the active x object
+            xmlDocument = new ActiveXObject(ARR_ACTIVEX[i]);
+            xmlDocument.async = false;
+            // actually load the XML string using loadXML
+            xmlDocument.loadXML(xmlInput);
+        }
+        @end @*/
+    }
+    return xmlDocument;
+
+}
+
+export function transformXML( xmlString, xsltString, resultObj ) {
 
     // get the XML Document and the XSLT Document
-    var xmlStr = getXMLHttpData( xmlURL ),
-        xsltStr = getXMLHttpData( xsltURL ),
+    var xmlStr = getAsXMLDocument( xmlString ),
+        xsltStr = getAsXMLDocument( xsltString ),
         completed = false,
         domParser, xmlDomDoc,
         xsltDomDoc, xmlxslt, doc;
@@ -255,50 +320,46 @@ self.transformXML = function ( xmlURL, xsltURL, resultObj ) {
         }
     }
 
-    // if the web browser is IE then we will fall here
+    // if the web brselfowser is IE then we will fall here
     if ( !completed ) {
         /*@cc_on @*/
         /*@if (@_jscript_version >= 5)
-	                // JScript gives us Conditional compilation, we can cope with old IE versions.
-	                // and security blocked creation of the objects.
-	                var ARR_ACTIVEX = ["MSXML4.DOMDocument", "MSXML3.DOMDocument",
-	                                "MSXML2.DOMDocument", "MSXML.DOMDocument", "Microsoft.XmlDom"]
-	                var xmlParserStr = "";
-	                var bFound = false;
-	                for (var i=0; i < ARR_ACTIVEX.length && !bFound; i++) {
-	                        try {
-	                                //try to create the object, it will cause an
-	                                //error if it doesn't work
-	                                var objXML = new ActiveXObject(ARR_ACTIVEX[i]);
+	   // JScript gives us Conditional compilation, we can cope with old IE versions.
+	   // and security blocked creation of the objects.
+	   var ARR_ACTIVEX = ["MSXML4.DOMDocument", "MSXML3.DOMDocument",
+                            "MSXML2.DOMDocument", "MSXML.DOMDocument", "Microsoft.XmlDom"]
+            var xmlParserStr = "";
+            var bFound = false;
+            for (var i=0; i < ARR_ACTIVEX.length && !bFound; i++) {
+                try {
+                        //try to create the object, it will cause an
+                        //error if it doesn't work
+                        var objXML = new ActiveXObject(ARR_ACTIVEX[i]);
 
-	                                //if it gets to this point, the string worked,
-	                                //so save it
-	                                xmlParserStr = ARR_ACTIVEX[i];
-	                                bFound = true;
-	                        } catch (objException) {
-	                                // do nothing
-	                        }
-	                }
-	                // so we have found the xml parser string name
-	                if ( bFound ) {
-	                        // create objects, make them async comm, and then load documents
-	                        var xmlxslt = new ActiveXObject(ARR_ACTIVEX[i]);
-	                        var xmldata = new ActiveXObject(ARR_ACTIVEX[i]);
-	                        xmldata.async = false;
-	                        xmlxslt.async = false;
-	                        xmldata.loadXML(xmlStr);
-	                        xmlxslt.loadXML(xsltStr);
+                        //if it gets to this point, the string worked,
+                        //so save it
+                        xmlParserStr = ARR_ACTIVEX[i];
+                        bFound = true;
+                } catch (objException) {
+                        // do nothing
+                }
+            }
+            // so we have found the xml parser string name
+            if ( bFound ) {
+                // create objects, make them async comm, and then load documents
+                var xmlxslt = new ActiveXObject(ARR_ACTIVEX[i]);
+                var xmldata = new ActiveXObject(ARR_ACTIVEX[i]);
+                xmldata.async = false;
+                xmlxslt.async = false;
+                xmldata.loadXML(xmlStr);
+                xmlxslt.loadXML(xsltStr);
 
-	                        // transform the documents
-	                        var doc = xmldata.transformNode(xmlxslt);
-	                        resultObj.innerHTML = doc;
-	                        completed = true;
-	                }
-	                @end @*/
+                // transform the documents
+                var doc = xmldata.transformNode(xmlxslt);
+                resultObj.innerHTML = doc;
+                completed = true;
+            }
+            @end @*/
     }
     return completed;
 };
-
-
-
-export default self;

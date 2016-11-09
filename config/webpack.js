@@ -5,7 +5,8 @@ var path = require( "path" ),
 
 module.exports = {
     "entry": {
-        "index": "./src/client/pages/index"
+        "index": "./src/client/pages/index",
+        "tropicalFish": "./src/client/pages/tropicalFish"
     },
     "context": path.resolve( "." ),
     "devtool": "source-map",
