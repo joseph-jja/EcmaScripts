@@ -100,7 +100,6 @@ let findParent = function ( slctr, pslctr, i ) {
     // so if this is a div and there are siblings divs we get 
     // all the sibling divs assuming slctr = div
     cElmnt = selector( slctr );
-
     if ( cElmnt.length <= 0 ) {
         return undefined;
     }

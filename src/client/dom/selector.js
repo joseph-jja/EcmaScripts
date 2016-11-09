@@ -27,7 +27,7 @@ export default function selector( expr, parent ) {
     // html element so lets figure out what it is    
     if ( expr instanceof HTMLElement ) {
         if ( expr.id ) {
-            qEle += "#" + expr.id;
+            qEle = "#" + expr.id;
         } else {
             qEle = expr.nodeName.toLowerCase();
             if ( expr.className.length > 0 ) {

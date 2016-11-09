@@ -33,7 +33,6 @@ describe( "tests on DOM object", function () {
         r = dom.createElement( 'span', x, {
             id: 'domSpanNode'
         } );
-        console.log( document.body );
 
         expect( dom.findParent( r, 'div' ) ).not.toBe( undefined );
     } );
