@@ -232,8 +232,7 @@ export default function detect() {
     }
 
     function getBrowserName() {
-        var i = 0,
-            x = [];
+        var i;
 
         let browsers = [ {
             bProp: window.chrome,
@@ -256,11 +255,10 @@ export default function detect() {
             return typeof x.bProp !== 'undefined';
         }
 
-        while ( browsers[ i ] ) {
+        for ( i in browsers ) {
             if ( check( browsers[ i ] ) ) {
                 break;
             }
-            i++;
         }
         return browsers[ i ].name;
     }
