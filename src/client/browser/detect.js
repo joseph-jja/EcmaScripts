@@ -251,12 +251,8 @@ export default function detect() {
             name: 'ie'
         } ];
 
-        function check( x ) {
-            return typeof x.bProp !== 'undefined';
-        }
-
         for ( i in browsers ) {
-            if ( check( browsers[ i ] ) ) {
+            if ( typeof browsers[ i ].bProp !== 'undefined' ) {
                 break;
             }
         }
