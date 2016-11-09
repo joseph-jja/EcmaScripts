@@ -175,7 +175,7 @@ let getTextFieldCursorPosition = function ( obj ) {
 //Parameter:    pos - the new position to set the cursor in this field to
 //Returns:              nada
 /////////////////////////////////////////////////////////////////////
-let setTextFieldCursorPosition = function ( obj, pos ) {
+let setTextFieldCursorPosition = function ( obj, pos, epos ) {
     var textFieldRange;
     // only work with text fields
     if ( obj.type !== "text" ) {
@@ -189,7 +189,7 @@ let setTextFieldCursorPosition = function ( obj, pos ) {
         textFieldRange.select();
     } else if ( obj.selectionStart ) {
         obj.selectionStart = pos;
-        obj.selectionEnd = pos;
+        obj.selectionEnd = ( epos || pos );
     } else {
         // do nothing ?createElement
         throw ( "Unsupported browser!" );
