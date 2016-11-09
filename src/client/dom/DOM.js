@@ -65,7 +65,7 @@ let html = function ( ele, content, index ) {
     if ( index >= x.length || !x[ index ] ) {
         return;
     }
-    ele = x[ index ];
+    ele = x.get( index );
 
     name = new String( ele.tagName ).toLowerCase();
     if ( content || content === "" ) {
@@ -90,6 +90,7 @@ let html = function ( ele, content, index ) {
 
 };
 
+// allow pslctr to be a selector object
 let findParent = function ( slctr, pslctr, i ) {
     var node,
         cElmnt,

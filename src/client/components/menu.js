@@ -21,7 +21,7 @@ if ( typeCheck.isArray( commandline ) && commandline.length > 1 ) {
 }
 
 currentpage = splitstr[ splitstr.length - 1 ];
-if ( currentpage == "" ) {
+if ( currentpage === "" ) {
     currentpage = "index.html";
 }
 
@@ -149,8 +149,8 @@ function render( menuArray ) {
     mlen = menuArray.length;
     for ( i = 0; i < mlen; i++ ) {
         var type = typeof menuArray[ i ][ 0 ];
-        if ( type.toLowerCase() != "object" ) {
-            if ( currentpage != menuArray[ i ][ 0 ] ) {
+        if ( type.toLowerCase() !== "object" ) {
+            if ( currentpage !== menuArray[ i ][ 0 ] ) {
                 menu += '<a href="' + menuArray[ i ][ 0 ] + urlpadding + '" title="' + menuArray[ i ][ 2 ] + '">' + menuArray[ i ][ 1 ] + '</a>';
             } else {
                 menu += '<div id="url-menu-active">' + menuArray[ i ][ 1 ] + '</div>';
@@ -174,7 +174,7 @@ export function extendedMenu() {
         subdirpage = splitstr[ splitstr.length - 2 ] + "/" + currentpage;
     mlen = allLinks.length;
     for ( i = 0; i < mlen; i++ ) {
-        if ( subdirpage != allLinks[ i ][ 0 ] ) {
+        if ( subdirpage !== allLinks[ i ][ 0 ] ) {
             menu += '<a href="../' + allLinks[ i ][ 0 ] + urlpadding + '" title="' + allLinks[ i ][ 2 ] + '">' + allLinks[ i ][ 1 ] + '</a>';
         } else {
             menu += '<div id="url-menu-active">' + allLinks[ i ][ 1 ] + '</div>';

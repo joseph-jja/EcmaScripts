@@ -36,7 +36,7 @@ export default function Calendar( parentID, options ) {
     this.userCallBackFN = null;
 
     // this is a private function for building the header
-    getHeaderRow = function ( dateObj ) {
+    getHeaderRow = function () {
         var i, result, hl = WBDate.weekDayShortNames.length;
 
         result = '<tr class="header">';
@@ -53,22 +53,22 @@ export default function Calendar( parentID, options ) {
     getCalendarRows = function ( dateObj ) {
         var i, x, sd, last, day;
 
-        sd = WBDate.getFirstOfMonthDayOfWeek( self.date );
-        last = WBDate.getDaysInMonth( self.date );
-        day = self.date.getDate();
+        sd = WBDate.getFirstOfMonthDayOfWeek( dateObj );
+        last = WBDate.getDaysInMonth( dateObj );
+        day = dateObj.getDate();
 
         var result = "<tr>";
         for ( i = 0; i < sd; i += 1 ) {
             result += "<td>&nbsp;</td>";
         }
         for ( i = 1; i <= last; i += 1 ) {
-            if ( i == day ) {
+            if ( i === day ) {
                 result += '<td class="selected">' + i + "</td>";
             } else {
                 result += '<td class="unselected">' + i + "</td>";
             }
             x = i + sd;
-            if ( ( x % 7 ) == 0 ) {
+            if ( ( x % 7 ) === 0 ) {
                 result += "</tr><tr>";
             }
         }
@@ -88,12 +88,12 @@ export default function Calendar( parentID, options ) {
 
         ml = WBDate.monthNames.length;
         for ( i = 0; i < ml; i += 1 ) {
-            var selected = ( self.date.getMonth() == i ) ? 'selected="true"' : "";
+            var selected = ( dateObj.getMonth() === i ) ? 'selected="true"' : "";
             caldata += '<option ' + selected + ' value="' + i + '">' + WBDate.monthNames[ i ] + '</option>';
         }
         caldata += '</select></form></td>';
 
-        caldata += '<td class="calyear">' + self.date.getFullYear() + '</td>';
+        caldata += '<td class="calyear">' + dateObj.getFullYear() + '</td>';
         caldata += '<td class="mrarrow">&gt;</td>';
         caldata += '<td class="yrarrow">&gt;&gt;</td>';
         caldata += '</tr></table>';
@@ -166,7 +166,7 @@ export default function Calendar( parentID, options ) {
         }
 
         // build the inner calendar
-        var innerCal = '<table class="calendar">' + getHeaderRow( this.date ) + getCalendarRows( this.date ) + '</table>';
+        var innerCal = '<table class="calendar">' + getHeaderRow() + getCalendarRows( this.date ) + '</table>';
         dom.html( content, innerCal );
     };
 
@@ -202,7 +202,7 @@ export default function Calendar( parentID, options ) {
             } else if ( css.hasClass( tgt, "mrarrow" ) ) {
                 nMon = calObj.date.getMonth();
                 calObj.date.setMonth( ( +nMon ) + 1 );
-                calObj.css();
+                calObj.render();
             } else if ( css.hasClass( tgt, "yrarrow" ) ) {
                 nYear = calObj.date.getFullYear();
                 calObj.date.setFullYear( ( +nYear ) + 1 );

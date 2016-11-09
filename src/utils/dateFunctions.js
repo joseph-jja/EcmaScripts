@@ -36,7 +36,7 @@ DateFunctions.weekDayNames = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thur
 // get the first day of the current month
 DateFunctions.getFirstOfMonthDayOfWeek = function ( dIn ) {
     var fomd,
-        today = ( dIn ? dIn : new Date() ); // day of the month
+        today = ( dIn ? new Date( dIn.getTime() ) : new Date() ); // day of the month
     today.setDate( 1 );
     fomd = today.getDay(); // day of the week
     return fomd;
@@ -44,7 +44,7 @@ DateFunctions.getFirstOfMonthDayOfWeek = function ( dIn ) {
 
 // get the number of days in the month
 DateFunctions.getDaysInMonth = function ( dIn ) {
-    var today = ( dIn ? dIn : new Date() ); // day of the month
+    var today = ( dIn ? new Date( dIn.getTime() ) : new Date() ); // day of the month
     var month = today.getMonth();
     var year = today.getFullYear();
     if ( month === 1 ) {

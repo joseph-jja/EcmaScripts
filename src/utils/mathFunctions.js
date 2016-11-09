@@ -226,7 +226,7 @@ MathFunctions.convertFromBaseXToBaseTen = function ( xbase, inval ) {
 
     function valueToInt( x ) {
         for ( var p = 0; p < MathFunctions.hexidecimal.length; p += 1 ) {
-            if ( MathFunctions.hexidecimal[ p ] == x ) {
+            if ( MathFunctions.hexidecimal[ p ] === x ) {
                 return p;
             }
         }
