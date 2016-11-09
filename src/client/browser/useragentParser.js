@@ -1,9 +1,10 @@
-import * as detect from "./detect";
+import dtct from "./detect";
 
 var browser = [],
     os = [],
     uaCleaned, rules = [],
-    result, parse;
+    result,
+    detect = dtct();
 
 uaCleaned = detect.userAgent.toLowerCase();
 uaCleaned = uaCleaned.replace( /_/, "." );
@@ -20,7 +21,7 @@ function getVersion( map, uaString, version ) {
     return nVer;
 };
 
-parse = function ( map, cb, uaString ) {
+function parse( map, cb, uaString ) {
     var name, version, search, idx = -1,
         i, ilen, uaString;
 
@@ -101,6 +102,10 @@ browser = [ {
     search: "touchpad",
     name: "Touchpad",
     version: "touchpad"
+}, {
+    search: "phantomjs",
+    name: "PhantomJS",
+    version: "phantomjs"
 }, {
     search: "safari",
     name: "Safari",
@@ -269,6 +274,4 @@ result = parse( os, rules[ "os" ], uaCleaned );
 detect.uaOS = result.name;
 detect.uaOSVersion = result.version;
 
-export {
-    detect
-};
+export default detect;
