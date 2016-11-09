@@ -13,13 +13,16 @@ events.addOnLoad( ( onloadFN => {
     menu.basicMenu();
     footer( 'footer' );
 
-    //onclick toggleUL
-    let toplevel = selector( "span.toplevel ul" );
+    // onclick toggleUL setup
+    let toplevel = selector( "span.toplevel" );
     let i = 0,
         len = toplevel.length;
+
     for ( i = 0; i < len; i++ ) {
-        let ulEle = toplevel.get( i );
-        let spanEle = findParent( ulEle, 'span' );
+        // we know the DOM here
+        let spanEle = toplevel.get( i );
+        let liParent = spanEle.parentNode;
+        let ulEle = selector( 'ul.tree_child_hidden', liParent ).get( 0 );
         events.addEvent( spanEle, 'click', () => {
             toggleUL( ulEle.id, spanEle );
         }, false );
