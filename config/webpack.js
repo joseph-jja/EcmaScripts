@@ -1,5 +1,7 @@
 var path = require( "path" ),
-    webpack = require( "webpack" );;
+    webpack = require( "webpack" ),
+    fs = require( 'fs' ),
+    babelConfig = JSON.parse( fs.readFileSync( 'config/babel-config.json' ) );
 
 module.exports = {
     "entry": {
@@ -26,9 +28,7 @@ module.exports = {
         "loaders": [ {
             "loader": "babel",
             exclude: /node_modules/,
-            "query": {
-                "presets": [ "es2015" ]
-            }
+            "query": babelConfig
         }, {
             loader: "eslint",
             exclude: /node_modules/,

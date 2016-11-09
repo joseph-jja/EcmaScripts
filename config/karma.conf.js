@@ -1,7 +1,7 @@
 // Karma configuration
-// Generated on Mon Oct 24 2016 19:15:27 GMT-0700 (PDT)
-
-var path = require( "path" );
+var path = require( "path" ),
+    fs = require( 'fs' ),
+    babelConfig = JSON.parse( fs.readFileSync( 'config/babel-config.json' ) );
 
 module.exports = function ( config ) {
 
@@ -42,16 +42,12 @@ module.exports = function ( config ) {
                     test: /\.js$/,
                     exclude: /(node_modules)/,
                     loader: 'babel',
-                    query: {
-                        presets: [ 'es2015' ]
-                    }
+                    query: babelConfig
                 }, {
                     test: /\.js$/,
                     exclude: /(node_modules|tests)/,
                     loader: 'babel-istanbul',
-                    query: {
-                        presets: [ 'es2015' ]
-                    }
+                    query: babelConfig
                 } ]
             },
             resolve: {
@@ -98,7 +94,7 @@ module.exports = function ( config ) {
 
 
         // level of logging
-        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+        // possible values: config.LOG_DISABLE || config.LOG_ERROR || conGenerated on Mon Oct 24 2016 19:15:27 GMT-0700 (PDT)fig.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
         logLevel: config.LOG_INFO,
 
 
