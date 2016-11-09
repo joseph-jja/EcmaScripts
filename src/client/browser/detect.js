@@ -113,7 +113,7 @@ export default function detect() {
             base.version = 8.0;
         }
         // finally compatible with other browsers!
-        if ( document.addEventListener ) {
+        if ( document.addEventListener && document.getElementsByClassName ) {
             base.version = 9.0;
         }
         if ( window.atob ) {
@@ -232,7 +232,7 @@ export default function detect() {
     }
 
     function getBrowserName() {
-        var i;
+        var i, name;
 
         let browsers = [ {
             bProp: window.chrome,
@@ -253,10 +253,11 @@ export default function detect() {
 
         for ( i in browsers ) {
             if ( typeof browsers[ i ].bProp !== 'undefined' ) {
+                name = browsers[ i ].name;
                 break;
             }
         }
-        return browsers[ i ].name;
+        return name;
     }
 
     base.browserName = getBrowserName();

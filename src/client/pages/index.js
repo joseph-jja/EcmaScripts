@@ -23,7 +23,7 @@ if ( !dt.capabilitiesDetected ) {
     capabilities += "WARNING: Your browser version information was detected from useragent string only or not at all! ";
     capabilities += "<br />If you have problems viewing this site, please get a supported browser.";
 }
-detected = 'Detected Name/Version = ' + dt.name + ' ' + dt.version + '.';
+detected = 'Detected Name = ' + dt.name + ' ' + dt.version + '.';
 detected += '<br /><br />Stated OS = ' + dt.OS + '.';
 detected += '<br />Stated Name - Version = ' + dt.name + ' - ' + dt.appVersion;
 detected += '<br /><br />Spoofable OS = ' + dt.uaOS + ( dt.uaOSVersion ? "(" + dt.uaOSVersion + ")" : "" ) + '.';
