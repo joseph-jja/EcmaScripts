@@ -1,8 +1,8 @@
-# JavaScript scripts - so far untested 
+# JavaScript scripts - test coverage varies but threshold is about 50% on files that have tests
 
 * using es6 and babel this will be some scripts for my personal website
-* will create all tests in jasmine 2 with karma and babel 
-* will use nodejs to render server side data 
+* all tests are done in jasmine 2 with karma, webpack, and babel 
+* may use nodejs to render server side data
 * may use handlebars as templating or simple strings TBD
 
 ### Flow
@@ -15,10 +15,9 @@
  * remove work directory 
  * remove js directory 
 * npm run build
- * creates work directory with babel compiled files
- * creates js directory with webpack output
+ * gulp is used to beautify js files, test files, config files and run eslint on test files
+ * webpack runs eslint and babel and creates js directory with output files 
 * npm run tests
  * runs all the tests
+ * karma + webpack + babel + jasmine for tests
 
-#### TODO
-* sourcemaps 
