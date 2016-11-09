@@ -7,6 +7,7 @@ module.exports = {
     "entry": {
         "index": "./src/client/pages/index",
         "performance": "./src/client/pages/performance",
+        "programs": "./src/client/pages/programs",
         "tropicalFish": "./src/client/pages/tropicalFish"
     },
     "context": path.resolve( "." ),
