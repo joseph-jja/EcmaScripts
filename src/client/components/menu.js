@@ -4,7 +4,7 @@ import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
 import * as storage from 'client/utils/webStorage';
 import * as metrics from 'client/utils/performance';
-import * as selector from 'client/dom/selector';
+import selector from 'client/dom/selector';
 
 //try to declare global variables 
 var loc = document.location.href,

@@ -116,7 +116,7 @@ export default function detect() {
         if ( document.addEventListener && document.getElementsByClassName ) {
             base.version = 9.0;
         }
-        
+
         if ( window.atob ) {
             base.version = 10.0;
         }

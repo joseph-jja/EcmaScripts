@@ -6,6 +6,7 @@ var path = require( "path" ),
 module.exports = {
     "entry": {
         "index": "./src/client/pages/index",
+        "performance": "./src/client/pages/performance",
         "tropicalFish": "./src/client/pages/tropicalFish"
     },
     "context": path.resolve( "." ),
