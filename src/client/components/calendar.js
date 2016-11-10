@@ -167,7 +167,7 @@ export default function Calendar( parentID, options ) {
 
         // build the inner calendar
         var innerCal = '<table class="calendar">' + getHeaderRow() + getCalendarRows( this.date ) + '</table>';
-        dom.html( content, innerCal );
+        dom.html( this.handle.content, innerCal );
     };
 
     // the handle click callback function

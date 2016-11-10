@@ -1,6 +1,5 @@
 //functions for xml processing
 import * as stringUtils from 'commonUtils/stringUtils';
-import ajax from 'client/net/ajax';
 
 var tAttributes = "attributes";
 
