@@ -5,6 +5,7 @@ var path = require( "path" ),
 
 module.exports = {
     "entry": {
+        "canvasTest": "./src/client/pages/canvasTest",
         "index": "./src/client/pages/index",
         "performance": "./src/client/pages/performance",
         "programs": "./src/client/pages/programs",
@@ -23,7 +24,7 @@ module.exports = {
     "resolve": {
         "root": [ path.resolve( "./src" ) ],
         "alias": {
-            "commonUtils": "utils",
+            "utils": "utils",
             "client": "client"
         }
     },

@@ -2,7 +2,7 @@
 // simple module to select elements based on css style selectors
 // internally calls documenet.getElementById or querySelectorAll based on regex 
 // this is done in a UMD format
-import * as typeCheck from 'commonUtils/typeCheck';
+import * as typeCheck from 'utils/typeCheck';
 
 var rquickExpr = /^#(?:([\w-]+)|(\w+)|\.([\w-]+))$/;
 

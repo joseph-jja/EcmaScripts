@@ -1,4 +1,4 @@
-import * as store from "commonUtils/store";
+import * as store from "utils/store";
 
 describe( "type check utils tests suite", function () {
 

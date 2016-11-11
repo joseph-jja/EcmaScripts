@@ -1,5 +1,5 @@
 //functions for xml processing
-import * as stringUtils from 'commonUtils/stringUtils';
+import * as stringUtils from 'utils/stringUtils';
 
 var tAttributes = "attributes";
 

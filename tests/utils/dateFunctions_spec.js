@@ -1,4 +1,4 @@
-import DF from "commonUtils/dateFunctions";
+import DF from "utils/dateFunctions";
 
 describe( "date functions tests", function () {
 

@@ -1,4 +1,4 @@
-import MF from 'commonUtils/mathFunctions';
+import MF from 'utils/mathFunctions';
 
 //parent object for all clock types
 //sort of abstract class

@@ -2,7 +2,7 @@
 //
 //DOM methods 
 import selector from 'client/dom/selector';
-import * as typeCheck from 'commonUtils/typeCheck';
+import * as typeCheck from 'utils/typeCheck';
 import * as CSS from 'client/dom/CSS';
 
 let createElement = function ( type, parent, options ) {

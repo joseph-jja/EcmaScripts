@@ -1,11 +1,12 @@
 import * as dom from 'client/dom/DOM';
-import mathFunctions from 'commonUtils/mathFunctions';
+import MF from "utils/mathFunctions";
 import {
     exists
-} from 'commonUtils/typeCheck';
+} from 'utils/typeCheck';
 
 function setProperties( canvas ) {
 
+    console.log( MF );
     canvas.clear = function () {
         this.ctx.clearRect( 0, 0, this.width, this.height );
     };
@@ -38,7 +39,7 @@ function setProperties( canvas ) {
             offsetY = startY + oy;
             cx.translate( offsetX, offsetY );
             // take degrees and convert to radians
-            cx.rotate( mathFunctions.degreesToRadians( rotateAngle ) );
+            cx.rotate( MF.degreesToRadians( rotateAngle ) );
         }
         cx.moveTo( startX - offsetX, startY - offsetY );
         cx.lineTo( endX - offsetX, endY - offsetY );
@@ -96,7 +97,7 @@ function setProperties( canvas ) {
             offsetY = y;
             cx.translate( offsetX, offsetY );
             // take degrees and convert to radians
-            cx.rotate( mathFunctions.degreesToRadians( rotateAngle ) );
+            cx.rotate( MF.degreesToRadians( rotateAngle ) );
         }
         // this line is for a konqueror bug in circle and arc 
         // where konqueror starts from point 0,0 so you need to moveTo
@@ -147,7 +148,7 @@ function setProperties( canvas ) {
             offsetY = ym;
             cx.translate( offsetX, offsetY );
             // take degrees and convert to radians
-            cx.rotate( mathFunctions.degreesToRadians( rotateAngle ) );
+            cx.rotate( MF.degreesToRadians( rotateAngle ) );
         }
 
         // this line is for a konqueror bug in circle and arc
@@ -190,7 +191,7 @@ function setProperties( canvas ) {
             offsetY = Math.round( y + ( height / 2 ) );
             cx.translate( offsetX, offsetY );
             // take degrees and convert to radians
-            cx.rotate( mathFunctions.degreesToRadians( rotateAngle ) );
+            cx.rotate( MF.degreesToRadians( rotateAngle ) );
         }
 
         stroke = ( ( fillStrokeClear ) ? fillStrokeClear : "stroke" );
@@ -230,7 +231,7 @@ function setProperties( canvas ) {
             offsetY = ( ay + by + cy ) / 3;
             ctx.translate( offsetX, offsetY );
             // take degrees and convert to radians
-            ctx.rotate( mathFunctions.degreesToRadians( rotateAngle ) );
+            ctx.rotate( MF.degreesToRadians( rotateAngle ) );
         }
 
         stroke = ( ( fillStrokeClear ) ? fillStrokeClear : "stroke" );
@@ -256,7 +257,7 @@ function setProperties( canvas ) {
 
         psize = size / 2;
         // from a^2 + b^2 = c^2 solve for c
-        c = mathFunctions.sqrt( mathFunctions.square( size ) - mathFunctions.square( psize ) );
+        c = MF.pythagorean( size, psize );
 
         if ( orientation === "down" ) {
             this.triangle( ax, ay, ax + size, ay, ax + psize, ay + c, options );
@@ -285,7 +286,7 @@ function setProperties( canvas ) {
         stroke = ( ( fillStrokeClear ) ? fillStrokeClear : "stroke" );
 
         // from a^2 + b^2 = c^2 solve for c 
-        c = mathFunctions.sqrt( mathFunctions.square( size ) - mathFunctions.square( psize ) );
+        c = MF.pythagorean( size, psize );
 
         cx.save();
         cx.beginPath();
@@ -294,7 +295,7 @@ function setProperties( canvas ) {
             offsetX = ax;
             offsetY = ay;
             cx.translate( offsetX, offsetY );
-            cx.rotate( mathFunctions.degreesToRadians( rotateAngle ) );
+            cx.rotate( MF.degreesToRadians( rotateAngle ) );
         }
         // move to starting postion from center
         cx.moveTo( ax + psize - size - offsetX, ay - c - offsetY );
@@ -335,7 +336,7 @@ function setProperties( canvas ) {
         stroke = ( ( fillStrokeClear ) ? fillStrokeClear : "stroke" );
 
         psize = size / 2;
-        c = mathFunctions.sqrt( mathFunctions.pow( size, 2 ) + mathFunctions.pow( psize, 2 ) );
+        c = Math.sqrt( MF.pow( size, 2 ) + MF.pow( psize, 2 ) );
 
         cx = this.ctx;
         cx.save();
@@ -343,7 +344,7 @@ function setProperties( canvas ) {
             offsetX = x;
             offsetY = y;
             cx.translate( offsetX, offsetY );
-            cx.rotate( mathFunctions.degreesToRadians( rotateAngle ) );
+            cx.rotate( MF.degreesToRadians( rotateAngle ) );
         }
 
         cx.beginPath();
@@ -374,7 +375,7 @@ function setProperties( canvas ) {
 
 // setup canvas and context
 // will set up all the methods on this object
-export default function create( id, parent, width, height ) {
+export function create( id, parent, width, height ) {
     var cvs = {
             canvas: null,
             ctx: null,
@@ -382,6 +383,7 @@ export default function create( id, parent, width, height ) {
             height: 0
         },
         result;
+    console.log( MF );
 
     cvs.canvas = dom.createElement( "canvas", parent, {
         "id": id

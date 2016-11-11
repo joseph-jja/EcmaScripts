@@ -1,4 +1,4 @@
-import MF from "commonUtils/mathFunctions";
+import MF from "utils/mathFunctions";
 
 describe( "math functions tests", function () {
 
@@ -20,6 +20,10 @@ describe( "math functions tests", function () {
 
     it( "test cube", function () {
         expect( MF.cube( 3 ) ).toEqual( 27 );
+    } );
+
+    it( "test square", function () {
+        expect( MF.square( 3 ) ).toEqual( 9 );
     } );
 
     it( "test average", function () {

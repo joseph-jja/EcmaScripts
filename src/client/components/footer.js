@@ -1,5 +1,5 @@
 import * as dom from "client/dom/DOM";
-import df from "commonUtils/dateFunctions";
+import df from "utils/dateFunctions";
 
 function createFooter() {
     var monthNM, dayOfTheWeek,

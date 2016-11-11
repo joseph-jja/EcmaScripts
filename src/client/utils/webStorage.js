@@ -1,7 +1,7 @@
 // this allows us to check to see if session storage is actually enabled by the browser
 // sometimes this will fail like when a browser does not have cookies enabled for a site
 
-import * as Store from "commonUtils/store";
+import * as Store from "utils/store";
 
 var sessionEnabled, localEnabled, sessionStore, localStore;
 

@@ -1,6 +1,6 @@
 import {
     exists
-} from 'commonUtils/typeCheck';
+} from 'utils/typeCheck';
 
 var copy, timings, startTime,
     hasPerformanceMetrics,

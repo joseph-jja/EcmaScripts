@@ -1,4 +1,4 @@
-import * as tc from "commonUtils/stringUtils";
+import * as tc from "utils/stringUtils";
 
 describe( "string utils tests suite", function () {
 

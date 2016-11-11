@@ -121,9 +121,14 @@ MathFunctions.areaOfTriangle = function ( base, height ) {
 
 /* compute area of a trapizoid */
 MathFunctions.areaOfTrapizoid = function ( height, abase, bbase ) {
-    var a1 = MathFunctions.add( abase, bbase );
-    var a2 = MathFunctions.divide( a1, 2 );
+    var a1, a2;
+    a1 = MathFunctions.add( abase, bbase );
+    a2 = MathFunctions.divide( a1, 2 );
     return MathFunctions.multiply( height, a2 );
+};
+
+MathFunctions.pythagorean = function ( size, psize ) {
+    return Math.sqrt( MathFunctions.square( size ) - MathFunctions.square( psize ) );
 };
 
 /* compute average */

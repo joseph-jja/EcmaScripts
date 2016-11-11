@@ -1,5 +1,5 @@
 import XmlHttp from "client/net/xmlhttp";
-import * as Stack from "commonUtils/stack";
+import * as Stack from "utils/stack";
 
 var stack = new Stack.Stack();
 
