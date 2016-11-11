@@ -4,7 +4,7 @@ import * as css from 'client/dom/CSS';
 import * as events from 'client/dom/events';
 import * as ajax from 'client/net/ajax';
 import selector from 'client/dom/selector';
-import * as xml from 'client/utils/xml';
+import * as xml from 'client/browser/xml';
 
 // components
 import footer from 'client/components/footer';

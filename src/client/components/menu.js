@@ -2,8 +2,8 @@ import * as typeCheck from 'utils/typeCheck';
 import * as css from 'client/dom/CSS';
 import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
-import * as storage from 'client/utils/webStorage';
-import * as metrics from 'client/utils/performance';
+import * as storage from 'client/browser/webStorage';
+import * as metrics from 'client/browser/performance';
 import selector from 'client/dom/selector';
 
 //try to declare global variables 

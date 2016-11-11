@@ -1,4 +1,4 @@
-import base from 'client/utils/base';
+import base from 'client/browser/base';
 
 var addEvent,
     removeEvent,

@@ -1,4 +1,4 @@
-import dtct from "./detect";
+import dtct from "client/browser/detect";
 
 var browser = [],
     os = [],

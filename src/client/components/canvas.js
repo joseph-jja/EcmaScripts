@@ -1,8 +1,8 @@
 import * as dom from 'client/dom/DOM';
-import MF from "utils/mathFunctions";
 import {
     exists
 } from 'utils/typeCheck';
+import MF from "utils/mathFunctions";
 
 function setProperties( canvas ) {
 
@@ -336,7 +336,7 @@ function setProperties( canvas ) {
         stroke = ( ( fillStrokeClear ) ? fillStrokeClear : "stroke" );
 
         psize = size / 2;
-        c = Math.sqrt( MF.pow( size, 2 ) + MF.pow( psize, 2 ) );
+        c = Math.sqrt( Math.pow( size, 2 ) + Math.pow( psize, 2 ) );
 
         cx = this.ctx;
         cx.save();
