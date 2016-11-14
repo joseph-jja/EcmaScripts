@@ -6,6 +6,7 @@ import MF from "utils/mathFunctions";
 
 function setProperties( canvas ) {
 
+
     canvas.clear = function () {
         this.ctx.clearRect( 0, 0, this.width, this.height );
     };
@@ -382,6 +383,9 @@ export function create( id, parent, width, height ) {
             height: 0
         },
         result;
+
+    // make math stuff global 
+    window.MF = MF;
 
     cvs.canvas = dom.createElement( "canvas", parent, {
         "id": id
