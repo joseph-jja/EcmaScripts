@@ -5,12 +5,12 @@ function Stack() {
     this.list = {};
 };
 
-Stack.prototype.push = function ( key, obj ) {
+Stack.prototype.add = function ( key, obj ) {
     this.list[ key ] = obj;
     this.index++;
 };
 
-Stack.prototype.pop = function ( key ) {
+Stack.prototype.remove = function ( key ) {
     this.list[ key ] = undefined;
     this.index--;
 };
