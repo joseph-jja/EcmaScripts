@@ -20,12 +20,13 @@ Stack.prototype.get = function ( key ) {
 };
 
 Stack.prototype.clear = function () {
+    // need to make sure we don't create any memory leaks
     for ( let o in this.list ) {
         if ( o ) {
             this.list[ o ] = undefined;
-            this.index--;
         }
     }
+    this.index = 0;
 };
 
 export {
