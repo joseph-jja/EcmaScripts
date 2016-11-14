@@ -4,11 +4,11 @@ import * as stack from "utils/stack";
 
 function Store() {
     this.data = new stack.Stack(),
-        this.keys = {};
+    this.keys = {};
 }
 
 Store.prototype.setItem = function ( key, value ) {
-    this.data.push( key, value );
+    this.data.add( key, value );
     this.keys[ key ] = value;
 };
 
@@ -18,7 +18,7 @@ Store.prototype.getItem = function ( key ) {
 
 Store.prototype.removeItem = function ( key ) {
     this.keys[ key ] = undefined;
-    this.data.pop( key );
+    this.data.remove( key );
 };
 
 Store.prototype.key = function ( key ) {
