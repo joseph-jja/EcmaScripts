@@ -50,7 +50,7 @@ function trim( inStr ) {
 };
 
 function isEmpty( inStr ) {
-    return ( trim( inStr ) === "" );
+    return ( !inStr || trim( inStr ) === "" );
 };
 
 export {
