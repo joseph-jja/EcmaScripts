@@ -1,4 +1,4 @@
-import * as ws from "client/utils/webStorage";
+import * as ws from "client/browser/webStorage";
 
 describe( "tests on web storage object", function () {
 

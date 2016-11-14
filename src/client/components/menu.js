@@ -108,7 +108,7 @@ if ( storage.sessionEnabled &&
         if ( key === 'performance' ) {
             function render() {
                 var x, xlen, xkey, xdata, xresult = "",
-                    xjson, xitem, y, xdlen, element, ytitle, 
+                    xjson, xitem, y, xdlen, element, ytitle,
                     store = storage.sessionStore;
                 xlen = store.length;
                 for ( x = 0; x < xlen; x += 1 ) {
@@ -133,7 +133,10 @@ if ( storage.sessionEnabled &&
         }
     };
     if ( metrics.hasPerformanceMetrics && typeof metrics.getMetrics !== 'undefined' ) {
-        metrics.getMetrics( addMetrics, { key: getCurrentKey(), title: document.title } );
+        metrics.getMetrics( addMetrics, {
+            key: getCurrentKey(),
+            title: document.title
+        } );
     }
 }
 

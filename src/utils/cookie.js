@@ -57,7 +57,7 @@ function set( name, value, options ) {
     data += checkOption( options, 'path', true );
     data += checkOption( options, 'domain', true );
 
-    isServer = ( typeof options.server !== 'undefined' );
+    isServer = ( ( checkOption( options, 'server' ) !== '' ) ? true : false );
 
     data += checkOption( options, 'expires', true );
     data += checkOption( options, 'Max-Age', true );
