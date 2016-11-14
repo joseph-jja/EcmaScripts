@@ -62,13 +62,13 @@ if ( storage.sessionEnabled &&
         return key;
     };
 
-    function addMetrics() {
+    function addMetrics( optns ) {
         var key, prop, mix = [],
             i, len, data = "",
             store, sdata, render, xtitle;
 
-        key = getCurrentKey();
-        xtitle = document.title;
+        key = optns.key;
+        xtitle = optns.title;
 
         prop = metrics.metrics;
 
@@ -108,7 +108,8 @@ if ( storage.sessionEnabled &&
         if ( key === 'performance' ) {
             function render() {
                 var x, xlen, xkey, xdata, xresult = "",
-                    xjson, xitem, y, xdlen, element, ytitle;
+                    xjson, xitem, y, xdlen, element, ytitle, 
+                    store = storage.sessionStore;
                 xlen = store.length;
                 for ( x = 0; x < xlen; x += 1 ) {
                     xkey = store.key( x );
@@ -132,7 +133,7 @@ if ( storage.sessionEnabled &&
         }
     };
     if ( metrics.hasPerformanceMetrics && typeof metrics.getMetrics !== 'undefined' ) {
-        metrics.getMetrics( addMetrics );
+        metrics.getMetrics( addMetrics, { key: getCurrentKey(), title: document.title } );
     }
 }
 
