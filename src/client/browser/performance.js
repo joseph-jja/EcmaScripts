@@ -25,7 +25,7 @@ if ( hasPerformanceMetrics ) {
         }
     };
 
-    getMetrics = function ( callback, cbArgs ) {
+    getMetrics = function ( callback, cbOptns ) {
         var mem;
 
         copy();
@@ -46,7 +46,7 @@ if ( hasPerformanceMetrics ) {
             metrics.pageLoadTime = metrics[ 'loadEventEnd' ];
 
             if ( callback ) {
-                callback( cbArgs );
+                callback( cbOptns );
             }
         }
     };
