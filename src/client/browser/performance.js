@@ -31,7 +31,7 @@ if ( hasPerformanceMetrics ) {
         copy();
         if ( metrics[ 'loadEventEnd' ] <= 0 ) {
             setTimeout( function () {
-                getMetrics( callback );
+                getMetrics( callback, cbOptns );
             }, 100 );
         } else {
 

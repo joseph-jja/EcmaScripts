@@ -20,7 +20,7 @@ export function makeRequest( type, cbFN, url, data, async, headers ) {
         // so the call can use this in it
         cbFN.call( ajaxObj );
         if ( ajaxObj.xmlhttp.readyState === 4 ) {
-            stack.pop( 'AJAX_' + ajaxObj.index );
+            stack.get( 'AJAX_' + ajaxObj.index );
         }
     };
 
@@ -29,7 +29,7 @@ export function makeRequest( type, cbFN, url, data, async, headers ) {
     }
 
     ajaxObj.xmlhttp.send( data );
-    stack.push( 'AJAX_' + ajaxObj.index, {
+    stack.add( 'AJAX_' + ajaxObj.index, {
         data: ajaxObj
     } );
 
@@ -55,7 +55,7 @@ export function get( callbackFN, url, getData ) {
 //this allows us to cancel this ajax request
 export function cancelRequest( ajaxObj ) {
     ajaxObj.xmlhttp.abort();
-    stack.pop( 'AJAX_' + ajaxObj.index );
+    stack.get( 'AJAX_' + ajaxObj.index );
 }
 
 export function cancelAll() {
