@@ -1,6 +1,6 @@
 import mathFunctions from 'utils/mathFunctions';
-import CellRender from 'client/dom/CellRender';
-import Grid from 'client/dom/Grid';
+import CellRender from 'client/components/letters/CellRender';
+import Grid from 'client/components/letters/Grid';
 
 //the character render engine
 	//this can be used to create a character on the grid
