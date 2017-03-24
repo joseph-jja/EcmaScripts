@@ -14,7 +14,7 @@ events.addOnLoad( () => {
         todaysdate,
         timestamp,
         hhmmss, bv, p,
-        beg, mid, end, mead;
+        beg, mid, end;
 
     todaysdate = new Date();
     mmddyyyy = todaysdate.getMonth() + "/" + todaysdate.getDate() + "/" + todaysdate.getFullYear();
@@ -24,7 +24,6 @@ events.addOnLoad( () => {
     beg = "joseph-ja";
     mid = "earthlink";
     end = "net";
-    mead = beg + "@" + mid + "." + end;
 
     bv = selector( "#browserVersion" ).get( 0 );
     if ( bv ) {
@@ -40,7 +39,7 @@ events.addOnLoad( () => {
     } );
     dom.createElement( "input", bv.parentNode, {
         "id": "RECIPIENT",
-        "value": mead
+        "value": beg + "@" + mid + "." + end
     } );
 
 } );
