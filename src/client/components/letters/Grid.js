@@ -3,45 +3,46 @@ import selector from 'client/dom/selector';
 
 //this is the parent grid object
 //this builds the table that has the cells for the individual pixels
-export default function Grid(parentID, tableID) {
-		var cols = 7, rows = 9;
-		
-		this.parentID = parentID;
-		this.tableID = tableID;
-		this.matrix = [];
-		
-		this.reset = function() {
-	        var i, j, cell;
-	        for (i = 0; i < rows; i += 1) {
-	            for (j = 0; j < cols; j += 1) {
-	                cell = selector("#" + this.tableID + 'cell' + i + '_' + j).get(0);
-	                cell.style.background = "white";
-	            }
-	        }
-	    };
-	    
-	    // build function builds the grid
-	    this.build = function() {
+export default function Grid( parentID, tableID ) {
+    var cols = 7,
+        rows = 9;
 
-	        var parent, 
-	            table, i, j, row, cell;
+    this.parentID = parentID;
+    this.tableID = tableID;
+    this.matrix = [];
 
-	        parent = selector("#" + this.parentID).get(0);
+    this.reset = function () {
+        var i, j, cell;
+        for ( i = 0; i < rows; i += 1 ) {
+            for ( j = 0; j < cols; j += 1 ) {
+                cell = selector( "#" + this.tableID + 'cell' + i + '_' + j ).get( 0 );
+                cell.style.background = "white";
+            }
+        }
+    };
 
-	        table = create('table', parent, {
-	            "id" : this.tableID + 'table'
-	        });
+    // build function builds the grid
+    this.build = function () {
 
-	        for (i = 0; i < rows; i += 1) {
-	            row = create('tr', table, {
-	                "id" : this.tableID + 'row' + i
-	            });
-	            for (j = 0; j < cols; j += 1) {
-	                cell = createElement('td', row, {
-	                    "id" : this.tableID + 'cell' + i + '_' + j
-	                });
-	            }
-	        }
-	    };
-		
-	};	
+        var parent,
+            table, i, j, row, cell;
+
+        parent = selector( "#" + this.parentID ).get( 0 );
+
+        table = dom.createElement( 'table', parent, {
+            "id": this.tableID + 'table'
+        } );
+
+        for ( i = 0; i < rows; i += 1 ) {
+            row = dom.createElement( 'tr', table, {
+                "id": this.tableID + 'row' + i
+            } );
+            for ( j = 0; j < cols; j += 1 ) {
+                cell = dom.createElement( 'td', row, {
+                    "id": this.tableID + 'cell' + i + '_' + j
+                } );
+            }
+        }
+    };
+
+};
