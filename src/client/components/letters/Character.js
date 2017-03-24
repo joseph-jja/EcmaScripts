@@ -29,4 +29,4 @@ Character.prototype.render = function () {
         tbl.index = tbl.bhlen;
         tbl.startTimer();
     }
-}
+};

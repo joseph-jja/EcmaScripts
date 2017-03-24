@@ -23,6 +23,22 @@ letters.push( alphabet7by9[ "R" ] );
 letters.push( alphabet7by9[ "L" ] );
 letters.push( alphabet7by9[ "D" ] );
 
+function reload() {
+
+    // build them all
+    for ( var x = 0; x < letters.length; x += 1 ) {
+        var t = new Character( "container", 'tbl' + x );
+        t.matrix = letters[ x ];
+        t.reset();
+    }
+    // build them all
+    for ( var x = 0; x < letters.length; x += 1 ) {
+        var t = new Character( "container", 'tbl' + x );
+        t.matrix = letters[ x ];
+        t.render();
+    }
+}
+
 function pageLoadFN() {
 
     menu.basicMenu();
@@ -44,23 +60,12 @@ function pageLoadFN() {
         var y = r.get( 0 ).innerHTML;
         r.get( 0 ).innerHTML = y;
     }
-}
 
-function reload() {
-
-    // build them all
-    for ( var x = 0; x < letters.length; x += 1 ) {
-        var t = new Character( "container", 'tbl' + x );
-        t.matrix = letters[ x ];
-        t.reset();
-    }
-    // build them all
-    for ( var x = 0; x < letters.length; x += 1 ) {
-        var t = new Character( "container", 'tbl' + x );
-        t.matrix = letters[ x ];
-        t.render();
+    let reloadButton = selector( '#reloadAnimation' );
+    if ( reloadButton.length > 0 ) {
+        events.addEvent( reloadButton.get( 0 ), 'click', reload );
     }
 }
+
 
 events.addOnLoad( pageLoadFN );
-events.addEvent( '#reloadAnimation', 'click', reload );
