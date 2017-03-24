@@ -59,13 +59,14 @@ fish.BrowserFish = function ( name ) {
     this.idName = name;
     this.getId = function () {
         return this.idName;
-    }
+    };
+
     this.setId = function ( name ) {
         this.idName = name;
-    }
+    };
 
     return this;
-}
+};
 
 // get the fish based on direction
 fish.BrowserFish.prototype.getFish = function () {
@@ -77,6 +78,7 @@ fish.BrowserFish.prototype.getFish = function () {
         alert( "Sorry, your browser is completely unsupported!" );
         return false;
     }
+
     this.fishObj = this.get( "#" + this.getId() ).get( 0 );
     if ( this.lr_direction ) {
         this.fishObj.innerHTML = fish.SWIMMING_FISH_IMAGE;
@@ -86,7 +88,7 @@ fish.BrowserFish.prototype.getFish = function () {
         return true;
     }
     return false;
-}
+};
 
 // get the count to be added for the left right positioning
 fish.BrowserFish.prototype.getXPos = function () {
@@ -109,7 +111,7 @@ fish.BrowserFish.prototype.getXPos = function () {
         }
     }
     return this.xcount;
-}
+};
 
 // get the count to be added for the top and bottom positioning
 fish.BrowserFish.prototype.getYPos = function () {
@@ -127,7 +129,7 @@ fish.BrowserFish.prototype.getYPos = function () {
         }
     }
     return this.ycount;
-}
+};
 
 // set the new position of the fish object
 fish.BrowserFish.prototype.setPosition = function () {
@@ -154,7 +156,7 @@ fish.BrowserFish.prototype.setPosition = function () {
     } else {
         this.fishObj.style.top = this.ypos + "px";
     }
-}
+};
 
 // this function hides the fish no matter which direction
 fish.BrowserFish.prototype.hideFish = function () {
@@ -165,7 +167,7 @@ fish.BrowserFish.prototype.hideFish = function () {
     if ( this.fishObj.style ) {
         this.fishObj.style.visibility = "hidden";
     }
-}
+};
 
 // this function shows the fish no matter which direction
 fish.BrowserFish.prototype.showFish = function () {
@@ -175,7 +177,7 @@ fish.BrowserFish.prototype.showFish = function () {
     if ( this.fishObj.style ) {
         this.fishObj.style.visibility = "visible";
     }
-}
+};
 
 // this function stops the fish no matter which direction it is going
 fish.BrowserFish.prototype.stopfish = function () {
@@ -188,7 +190,7 @@ fish.BrowserFish.prototype.stopfish = function () {
         this.runtimerid = '';
     }
     return true;
-}
+};
 
 // this starts the fish, but the caller must call setTimeout on
 // thier own
@@ -228,7 +230,7 @@ fish.BrowserFish.prototype.runfish = function () {
         return true;
     }
     return false;
-}
+};
 
 fish.BrowserFish.prototype.startfish = function () {
 
@@ -242,6 +244,6 @@ fish.BrowserFish.prototype.startfish = function () {
 
     // now call timeout function.  this works
     this.runtimerid = window.setInterval( swimfn, fish.SWIMMING_FISH_TIMEOUT );
-}
+};
 
 export default fish;

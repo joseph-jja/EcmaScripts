@@ -11,9 +11,11 @@ module.exports = {
         "fishPictures": "./src/client/pages/fishPictures",
         "index": "./src/client/pages/index",
         "helloWorld": "./src/client/pages/helloWorld",
+        "myLinks": "./src/client/pages/myLinks",
         "performance": "./src/client/pages/performance",
         "programmingLanguages": "./src/client/pages/programmingLanguages",
         "programs": "./src/client/pages/programs",
+        "resume": "./src/client/pages/resume",
         "tropicalFish": "./src/client/pages/tropicalFish"
     },
     "context": path.resolve( "." ),
