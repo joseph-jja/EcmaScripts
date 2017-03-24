@@ -12,6 +12,7 @@ module.exports = {
         "index": "./src/client/pages/index",
         "helloWorld": "./src/client/pages/helloWorld",
         "performance": "./src/client/pages/performance",
+        "programmingLanguages": "./src/client/pages/programmingLanguages",
         "programs": "./src/client/pages/programs",
         "tropicalFish": "./src/client/pages/tropicalFish"
     },
