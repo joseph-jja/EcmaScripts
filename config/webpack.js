@@ -6,6 +6,7 @@ var path = require( "path" ),
 module.exports = {
     "entry": {
         "canvasTest": "./src/client/pages/canvasTest",
+        "emailForm": "./src/client/pages/emailForm",
         "fishPictures": "./src/client/pages/fishPictures",
         "index": "./src/client/pages/index",
         "helloWorld": "./src/client/pages/helloWorld",
