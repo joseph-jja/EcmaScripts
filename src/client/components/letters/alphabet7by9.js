@@ -1,4 +1,4 @@
-export const alphabet7by9 = {};
+let alphabet7by9 = {};
 
 alphabet7by9[ 'A' ] = [ 63, 72, 72, 72, 63 ];
 alphabet7by9[ 'B' ] = [ 127, 73, 73, 73, 54 ];
@@ -28,4 +28,4 @@ alphabet7by9[ 'Y' ] = [ 112, 8, 15, 8, 112 ];
 alphabet7by9[ 'Z' ] = [ 67, 69, 73, 81, 97 ];
 alphabet7by9[ ' ' ] = [ 0, 0, 0, 0, 0, 0 ];
 
-console.log( alphabet7by9 );
+export default alphabet7by9;
