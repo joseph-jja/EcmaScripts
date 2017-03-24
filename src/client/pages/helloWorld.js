@@ -5,7 +5,7 @@ import selector from 'client/dom/selector';
 import footer from 'client/components/footer';
 import * as menu from 'client/components/menu';
 
-import * as alphabet7by9 from "client/components/letters/alphabet7by9";
+import alphabet7by9 from "client/components/letters/alphabet7by9";
 import Character from "client/components/letters/Character";
 
 // any letter can be described as a series of 5 numbers
@@ -22,8 +22,6 @@ letters.push( alphabet7by9[ "O" ] );
 letters.push( alphabet7by9[ "R" ] );
 letters.push( alphabet7by9[ "L" ] );
 letters.push( alphabet7by9[ "D" ] );
-
-console.log( alphabet7by9[ "L" ] );
 
 function pageLoadFN() {
 
@@ -65,3 +63,4 @@ function reload() {
 }
 
 events.addOnLoad( pageLoadFN );
+events.addEvent( '#reloadAnimation', 'click', reload );
