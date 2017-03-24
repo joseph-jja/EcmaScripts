@@ -8,6 +8,7 @@ module.exports = {
         "canvasTest": "./src/client/pages/canvasTest",
         "fishPictures": "./src/client/pages/fishPictures",
         "index": "./src/client/pages/index",
+        "helloWorld": "./src/client/pages/helloWorld",
         "performance": "./src/client/pages/performance",
         "programs": "./src/client/pages/programs",
         "tropicalFish": "./src/client/pages/tropicalFish"
