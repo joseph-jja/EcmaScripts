@@ -43,5 +43,8 @@
     "karma-threshold-reporter": "^0.1.15",
     "karma-webpack": "^1.8.0",
     "webpack": "^1.13.3"
+  },
+  "optionalDependencies": {
+    "phantomjs-prebuilt": "^2.1.x"
   }
 }
