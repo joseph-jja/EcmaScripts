@@ -1,10 +1,11 @@
-var gulp = require( 'gulp' ),
+const gulp = require( 'gulp' ),
     jsbeautify = require( "gulp-jsbeautifier" ),
     fs = require( "fs" ),
     webpack = require( 'gulp-webpack' ),
-    jsConfig,
     wpConfig = require( "./config/webpack" ),
-    eslint = require( "gulp-eslint" ),
+    eslint = require( "gulp-eslint" );
+
+let jsConfig,
     eslintCfg;
 
 jsConfig = JSON.parse( fs.readFileSync( './config/js-beautify.json' ) );
