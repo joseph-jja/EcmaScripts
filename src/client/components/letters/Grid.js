@@ -4,7 +4,7 @@ import selector from 'client/dom/selector';
 //this is the parent grid object
 //this builds the table that has the cells for the individual pixels
 export default function Grid( parentID, tableID ) {
-    var cols = 7,
+    const cols = 7,
         rows = 9;
 
     this.parentID = parentID;
@@ -12,7 +12,7 @@ export default function Grid( parentID, tableID ) {
     this.matrix = [];
 
     this.reset = function () {
-        var i, j, cell;
+        let i, j, cell;
         for ( i = 0; i < rows; i += 1 ) {
             for ( j = 0; j < cols; j += 1 ) {
                 cell = selector( "#" + this.tableID + 'cell' + i + '_' + j ).get( 0 );
@@ -24,8 +24,8 @@ export default function Grid( parentID, tableID ) {
     // build function builds the grid
     this.build = function () {
 
-        var parent,
-            table, i, j, row, cell;
+        let parent,
+            table, i, j, row;
 
         parent = selector( "#" + this.parentID ).get( 0 );
 
@@ -38,7 +38,7 @@ export default function Grid( parentID, tableID ) {
                 "id": this.tableID + 'row' + i
             } );
             for ( j = 0; j < cols; j += 1 ) {
-                cell = dom.createElement( 'td', row, {
+                dom.createElement( 'td', row, {
                     "id": this.tableID + 'cell' + i + '_' + j
                 } );
             }

@@ -13,11 +13,9 @@ function reverse( inStr ) {
 
 function replaceAll( inStr, oStr, nStr ) {
     // js does not allow us to change the string passed in
-    var sStr, ilen, idx, olen, nlen, found, outStr = inStr;
-    ilen = inStr.length;
+    let sStr, idx, olen, found, outStr = inStr;
     idx = inStr.indexOf( oStr );
     olen = oStr.length;
-    nlen = nStr.length;
     found = ( idx !== -1 );
     while ( found ) {
         outStr = outStr.substring( 0, idx ) + nStr + outStr.substring( idx + olen );

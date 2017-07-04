@@ -26,8 +26,6 @@ if ( hasPerformanceMetrics ) {
     };
 
     getMetrics = function ( callback, cbOptns ) {
-        var mem;
-
         copy();
         if ( metrics[ 'loadEventEnd' ] <= 0 ) {
             setTimeout( function () {
