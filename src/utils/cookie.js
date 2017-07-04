@@ -89,7 +89,8 @@ function length() {
     return dc = ( cookieData || document.cookie ).length;
 };
 
-export {get,
+export {
+    get,
     set,
     remove,
     count,
