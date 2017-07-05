@@ -16,6 +16,10 @@ gulp.task( 'default', () => {
         .pipe( jsbeautify( jsConfig ) )
         .pipe( gulp.dest( '.' ) );
 
+    gulp.src( "server.js" )
+        .pipe( jsbeautify( jsConfig ) )
+        .pipe( gulp.dest( '.' ) );
+
     gulp.src( "tests/**" )
         .pipe( jsbeautify( jsConfig ) )
         .pipe( eslint( eslintCfg ) )
