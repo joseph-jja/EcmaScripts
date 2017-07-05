@@ -104,7 +104,7 @@ module.exports = function ( config ) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: [ 'PhantomJS' ],
+        browsers: [ 'PhantomJS2' ],
         phantomjsLauncher: {
             // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
             exitOnResourceError: true
