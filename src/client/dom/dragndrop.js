@@ -97,6 +97,7 @@ export default function dragndrop() {
         events.addEvent( document, "mouseup", dnd.mouseup, false );
         dnd.isInitialized = true;
     };
+
     self.findDragableParent = function ( element ) {
         var dnd = self;
         if ( !element || !element.nodeName || element.nodeName.toLowerCase() === "body" ) {
@@ -107,65 +108,71 @@ export default function dragndrop() {
         }
         return element;
     };
+
     self.mousemove = function ( evt ) {
-            find( evt, "dragableCoverMask" );
-            cleanSelection();
-            return false;
-        },
-        self.mouseup = function ( evt ) {
-            var dnd;
+        find( evt, "dragableCoverMask" );
+        cleanSelection();
+        return false;
+    };
 
-            dnd = find( evt, "currentDragObject" );
+    self.mouseup = function ( evt ) {
+        var dnd;
 
-            // hide and stop
-            dnd.dragableCoverMask.style.display = "none";
-            dnd.currentDragObject = null;
+        dnd = find( evt, "currentDragObject" );
+
+        // hide and stop
+        dnd.dragableCoverMask.style.display = "none";
+        dnd.currentDragObject = null;
+        dnd.moving = false;
+
+        cleanSelection();
+    };
+
+    self.mousedown = function ( evt ) {
+        var dnd, e, tgt;
+
+        dnd = self,
+            e = events.getEvent( evt );
+        tgt = events.getTarget();
+
+        // set the current draggable object by using the target objects id
+        tgt = dnd.findDragableParent( tgt );
+        if ( !dnd.dragableObjects[ tgt.id ] ) {
             dnd.moving = false;
-            cleanSelection();
-        },
-        self.mousedown = function ( evt ) {
-            var dnd, e, tgt;
-
-            dnd = self,
-                e = events.getEvent( evt );
-            tgt = events.getTarget();
-
-            // set the current draggable object by using the target objects id
-            tgt = dnd.findDragableParent( tgt );
-            if ( !dnd.dragableObjects[ tgt.id ] ) {
-                dnd.moving = false;
-                return false;
-            }
-            dnd.currentDragObject = dnd.dragableObjects[ tgt.id ];
-            document.body.appendChild( dnd.currentDragObject );
-
-            // need to calculate the difference between the event position
-            // and the position of the corner of the object
-            dnd.posX = events.getEventPosX();
-            dnd.posY = events.getEventPosY();
-            dnd.offsetX = dnd.posX - dnd.currentDragObject.offsetLeft;
-            dnd.offsetY = dnd.posY - dnd.currentDragObject.offsetTop;
-
-            // draggable mask object
-            let dcm = dnd.dragableCoverMask;
-            dcm.style.position = "absolute";
-            dcm.style.display = "block";
-            dcm.style.border = "2px solid black";
-            dcm.style.left = dnd.currentDragObject.offsetLeft + "px";
-            dcm.style.top = dnd.currentDragObject.offsetTop + "px";
-            dcm.style.width = dnd.currentDragObject.offsetWidth + "px";
-            dcm.style.height = dnd.currentDragObject.offsetHeight + "px";
-            dcm.style.zIndex = 100000;
-
-            // were on the move
-            dnd.moving = true;
             return false;
-        },
-        self.setDragable = function ( moveObjID, eventObjID ) {
-            toggleDrag( true, moveObjID, eventObjID );
-        },
-        self.setNONDragable = function ( moveObjID, eventObjID ) {
-            toggleDrag( false, moveObjID, eventObjID );
-        };
+        }
+        dnd.currentDragObject = dnd.dragableObjects[ tgt.id ];
+        document.body.appendChild( dnd.currentDragObject );
+
+        // need to calculate the difference between the event position
+        // and the position of the corner of the object
+        dnd.posX = events.getEventPosX();
+        dnd.posY = events.getEventPosY();
+        dnd.offsetX = dnd.posX - dnd.currentDragObject.offsetLeft;
+        dnd.offsetY = dnd.posY - dnd.currentDragObject.offsetTop;
+
+        // draggable mask object
+        let dcm = dnd.dragableCoverMask;
+        dcm.style.position = "absolute";
+        dcm.style.display = "block";
+        dcm.style.border = "2px solid black";
+        dcm.style.left = dnd.currentDragObject.offsetLeft + "px";
+        dcm.style.top = dnd.currentDragObject.offsetTop + "px";
+        dcm.style.width = dnd.currentDragObject.offsetWidth + "px";
+        dcm.style.height = dnd.currentDragObject.offsetHeight + "px";
+        dcm.style.zIndex = 100000;
+
+        // were on the move
+        dnd.moving = true;
+        return false;
+    };
+
+    self.setDragable = function ( moveObjID, eventObjID ) {
+        toggleDrag( true, moveObjID, eventObjID );
+    };
+
+    self.setNONDragable = function ( moveObjID, eventObjID ) {
+        toggleDrag( false, moveObjID, eventObjID );
+    };
     return self;
 }
