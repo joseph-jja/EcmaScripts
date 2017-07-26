@@ -13,10 +13,9 @@ export default function dragndrop() {
         offsetY = 0,
         posX = 0,
         posY = 0,
-        isInitialized = false,
-        find, clearSelection, toggleDrag;
+        isInitialized = false;
 
-    find = function ( evt, dndRef ) {
+    let find = function ( evt, dndRef ) {
 
         var dnd = self,
             e, tgt;
@@ -24,7 +23,7 @@ export default function dragndrop() {
         e = events.getEvent( evt );
         tgt = events.getTarget();
 
-        if ( dnd.moving && dnd.dragableCoverMask.id == tgt.id ) {
+        if ( dnd.moving && dnd.dragableCoverMask.id === tgt.id ) {
 
             dnd.posX = events.getEventPosX();
             dnd.posY = events.getEventPosY();
@@ -39,7 +38,7 @@ export default function dragndrop() {
         return dnd;
     };
 
-    cleanSelection = function () {
+    let cleanSelection = function () {
         var select;
 
         if ( window.getSelection ) {
@@ -57,14 +56,14 @@ export default function dragndrop() {
         }
     };
 
-    toggleDrag = function ( toggleOn, moveObjID, eventObjID ) {
+    let toggleDrag = function ( toggleOn, moveObjID, eventObjID ) {
         // object being moved
-        var obj = wb( "#" + moveObjID ).get( 0 ),
+        var obj = selector( "#" + moveObjID ).get( 0 ),
             dndEvtObjID, evtObj,
             // find event target object or its the same as the object being moved
             dndEvtObjID = ( eventObjID ) ? eventObjID : moveObjID;
 
-        evtObj = wb( "#" + dndEvtObjID ).get( 0 );
+        evtObj = selector( "#" + dndEvtObjID ).get( 0 );
         if ( !obj || !evtObj ) {
             return;
         }
@@ -77,20 +76,20 @@ export default function dragndrop() {
             // stack of things
             self.dragableObjects[ evtObj.id ] = null;
             // remove event
-            events.removeEvent( evtObj, "mousedown", selfp.mousedown, false );
+            events.removeEvent( evtObj, "mousedown", self.mousedown, false );
         }
     };
 
-    self.dragableObjects: []
+    self.dragableObjects = [];
 
     self.initialize = function () {
         var dnd = self;
         if ( dnd.isInitialized ) {
             return;
         }
-        dnd.dragableCoverMask = wb( "#" + "_$_dragndrop_$_" ).get( 0 );
+        dnd.dragableCoverMask = selector( "#" + "_$_dragndrop_$_" ).get( 0 );
         if ( !dnd.dragableCoverMask ) {
-            dnd.dragableCoverMask = wbDom.createElement( "div", document.body );
+            dnd.dragableCoverMask = dom.createElement( "div", document.body );
             dnd.dragableCoverMask.id = "_$_dragndrop_$_";
         }
         dnd.dragableCoverMask.style.display = "none";
@@ -148,7 +147,7 @@ export default function dragndrop() {
             dnd.offsetY = dnd.posY - dnd.currentDragObject.offsetTop;
 
             // draggable mask object
-            dcm = dnd.dragableCoverMask;
+            let dcm = dnd.dragableCoverMask;
             dcm.style.position = "absolute";
             dcm.style.display = "block";
             dcm.style.border = "2px solid black";

@@ -100,11 +100,15 @@ export default function wbWindow( title, x, y, width, height, winID ) {
 
         // IE6 does not support button.type? BUG!!
         //button.type = "button";
-        var bclass, phtml, button, opts = {
-            "className": "WebWindowButton",
-            "name": name,
-            "id": name + winID
-        };
+        let bclass,
+            phtml,
+            button,
+            opts = {
+                "className": "WebWindowButton",
+                "name": name,
+                "id": name + winID
+            };
+
         button = dom.createElement( "button", parent, opts );
         button.innerHTML = value;
         button.onclick = fn;
