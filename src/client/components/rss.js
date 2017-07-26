@@ -1,7 +1,7 @@
 import * as ajax from 'client/net/ajax';
 import * as xml from 'client/browser/xml';
-import * as stringUtils from "utils/stringUtils";
-import * as dom from "client/dom/DOM";
+import * as stringUtils from 'utils/stringUtils';
+import * as dom from 'client/dom/DOM';
 
 import MF from "utils/mathFunctions";
 import selector from 'client/dom/selector';
@@ -98,7 +98,7 @@ let saveData = function () {
 
     let xmlData = '',
         c,
-        wbStringRA = stringUtils.replaceAllimport MF from "utils/mathFunctions";
+        wbStringRA = stringUtils.replaceAll;
 
     xmlData = xml.jsonToXML( jsonDATA );
     xmlData = wbStringRA( xmlData, "&", "&amp;amp;" );
@@ -123,7 +123,7 @@ let getRSSItem = function ( index ) {
 };
 
 let processData = function () {
-    if ( this.xmlhttp.readyState == 4 ) {
+    if ( this.xmlhttp.readyState === 4 ) {
         let data = this.xmlhttp.responseText;
 
         // get the xml document
@@ -139,7 +139,7 @@ let getFeed = function () {
     var feedFile = document.getElementById( "feedInputID" );
     if ( feedFile &&
         feedFile.value &&
-        ( feedFile.value.substring( feedFile.value.length - 3 ) == 'xml' ) ) {
+        ( feedFile.value.substring( feedFile.value.length - 3 ) === 'xml' ) ) {
         ajax.get( processData, feedFile.value );
     } else {
         var feedError = document.getElementById( "feedData" );
@@ -150,5 +150,9 @@ let getFeed = function () {
 };
 
 export {
-    getFeed
-}
+    getFeed,
+    clearAll,
+    updateRecord,
+    insertRecord,
+    saveData
+};

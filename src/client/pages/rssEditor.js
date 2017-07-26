@@ -2,6 +2,7 @@ import selector from 'client/dom/selector';
 import * as events from 'client/dom/events';
 
 // components
+import * as rss from 'client/components/rss';
 import wbWindow from 'client/components/wbWindow';
 import footer from 'client/components/footer';
 import * as menu from 'client/components/menu';
@@ -10,17 +11,6 @@ function doOnLoadStuff() {
 
     menu.basicMenu();
     footer( 'footer' );
-
-    var d = selector( "#insertDate" ).get( 0 );
-    if ( d ) {
-        events.addEvent( d, "click", function () {
-            var dt = selector( "#pubDateID" ).get( 0 );
-            if ( dt ) {
-                dt.innerHTML = new Date();
-            }
-            return true;
-        } );
-    }
 
     // make dragable editor
     var win1 = new wbWindow( "RSS Editor", 145, 225, 'auto', 350, "rssEditWindow" );
@@ -38,6 +28,19 @@ function doOnLoadStuff() {
     // make dragable viewer
     var win3 = new wbWindow( "RSS Output", 145, 600, 'auto', 175, "rssOutput" );
     win3.windowArea.innerHTML = '<form><textarea id="feedOutput" cols="85" rows="7"></textarea></form>';
+
+    events.addEvent( selector( "#insertDate" ).get( 0 ), "click", function () {
+        var dt = selector( "#pubDateID" ).get( 0 );
+        if ( dt ) {
+            dt.innerHTML = new Date();
+        }
+        return true;
+    } );
+
+    events.addEvent( selector( "#clearAllID" ).get( 0 ), "click", rss.clearAll );
+    events.addEvent( selector( "#updateRecordID" ).get( 0 ), "click", rss.updateRecord );
+    events.addEvent( selector( "#insertRecordID" ).get( 0 ), "click", rss.insertRecord );
+    events.addEvent( selector( "#saveDataID" ).get( 0 ), "click", rss.saveData );
 }
 
 events.addOnLoad( doOnLoadStuff );
