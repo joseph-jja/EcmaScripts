@@ -23,22 +23,17 @@ function selectFile( evt, callback ) {
     reader.onload = ( ( fileObj ) => {
         return ( e ) => {
             // could this be more confusing?  but works
-            callback( e.target.result )
+            callback( e.target.result );
         };
     } )( filename );
 
     reader.readAsText( filename );
 }
 
-function saveFile( data, filename, type, elementID ) {
-    // TODO implement
-    let eleObj = document.getElementById( elementID ),
-        file = new Blob( [ data ], {
-            type: type
-        } );
+function saveFile( data, filename ) {
 
-    eleObj.href = URL.createObjectURL( filename );
-    eleObj.download = filename;
+    let content = "data:application/octet-stream," + encodeURIComponent( data );
+    window.open( content, filename );
 }
 
 export {
