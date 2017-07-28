@@ -1,5 +1,6 @@
 import selector from 'client/dom/selector';
 import * as events from 'client/dom/events';
+import * as dom from 'client/dom/DOM';
 
 // components
 import * as rss from 'client/components/rss';
@@ -12,11 +13,7 @@ function doOnLoadStuff() {
     footer( 'footer' );
 
     events.addEvent( selector( "#insertDate" ).get( 0 ), "click", function () {
-        var dt = selector( "#pubDateID" ).get( 0 );
-        if ( dt ) {
-            dt.innerHTML = new Date();
-        }
-        return true;
+        dom.html( "#pubDateID", new Date() );
     } );
 
     events.addEvent( selector( "#clearAllID" ).get( 0 ), "click", rss.clearAll );
