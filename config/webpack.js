@@ -17,6 +17,7 @@ module.exports = {
         "programs": "./src/client/pages/programs",
         "resume": "./src/client/pages/resume",
         "rssEditor": "./src/client/pages/rssEditor",
+        "textEditor": "./src/client/pages/textEditor",
         "tropicalFish": "./src/client/pages/tropicalFish"
     },
     "context": path.resolve( "." ),
