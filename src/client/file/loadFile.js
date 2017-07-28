@@ -30,8 +30,15 @@ function selectFile( evt, callback ) {
     reader.readAsText( filename );
 }
 
-function saveFile() {
+function saveFile( data, filename, type, elementID ) {
     // TODO implement
+    let eleObj = document.getElementById( elementID ),
+        file = new Blob( [ data ], {
+            type: type
+        } );
+
+    eleObj.href = URL.createObjectURL( filename );
+    eleObj.download = filename;
 }
 
 export {
