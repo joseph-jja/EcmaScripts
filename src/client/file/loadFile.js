@@ -1,4 +1,7 @@
-function handleFileSelect(evt) {
+// your event callback for the file upload input field would call this
+// first argument is the event 
+// second argument is the callback to call that will be in the format of callback( data );
+function selectFile(evt, callback) {
 
     if ( ! evt.target || evt.target.files ) { 
         return;
@@ -14,11 +17,10 @@ function handleFileSelect(evt) {
         return;     
     }
     let reader = new FileReader();
-    reader.onload = ( fileData ) {
-        
-    };
+    reader.onload = callback;
+    reader.readAsText(filename);
   }
   
   export { 
-    handleFileSelect;
+    selectFile;
   };
