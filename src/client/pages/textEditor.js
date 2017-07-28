@@ -20,6 +20,15 @@ function doOnLoadStuff() {
             uploadFileObj.value = '';
         } );
     }, false );
+
+
+    let downloadFileObj = selector( "#download-file" ).get( 0 );
+
+    events.addEvent( downloadFileObj, "click", () => {
+        let data = dom.html( '#text-editor-id' );
+        file.saveFile( data, 'saved.html' );
+    }, false );
+
 }
 
 events.addOnLoad( doOnLoadStuff );
