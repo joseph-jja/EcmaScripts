@@ -16,7 +16,7 @@ function doOnLoadStuff() {
     let uploadFileObj = selector( "#feedInputID" ).get( 0 );
     events.addEvent( uploadFileObj, "change", ( e ) => {
         return file.selectFile( e, function ( data ) {
-            //rss.;
+            rss.processData( data );
             uploadFileObj.value = '';
         } );
     }, false );

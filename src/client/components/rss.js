@@ -1,4 +1,3 @@
-import * as ajax from 'client/net/ajax';
 import * as xml from 'client/browser/xml';
 import * as stringUtils from 'utils/stringUtils';
 import * as dom from 'client/dom/DOM';
@@ -6,8 +5,7 @@ import * as dom from 'client/dom/DOM';
 import MF from "utils/mathFunctions";
 import selector from 'client/dom/selector';
 
-let result = '',
-    jsonDATA = {},
+let jsonDATA = {},
     lastUpdated = -1,
     count = -1;
 
@@ -122,36 +120,15 @@ let getRSSItem = function ( index ) {
 
 };
 
-let processData = function () {
-    if ( this.xmlhttp.readyState === 4 ) {
-        let data = this.xmlhttp.responseText;
-
-        // get the xml document
-        let xmlDoc = this.getAsXMLDocument();
-
-        jsonDATA = xml.simpleRSSToJSON( xmlDoc );
-        processJSON( jsonDATA );
-    }
-};
-
-let getFeed = function () {
-
-    var feedFile = document.getElementById( "feedInputID" );
-    if ( feedFile &&
-        feedFile.value &&
-        ( feedFile.value.substring( feedFile.value.length - 3 ) === 'xml' ) ) {
-        ajax.get( processData, feedFile.value );
-    } else {
-        var feedError = document.getElementById( "feedData" );
-        if ( feedError ) {
-            feedError.innerHTML = selector( "#errorMsg" ).get( 0 ).innerHTML;
-        }
-    }
-};
+function processData( data ) {
+    // now we have a JSON object
+    let xmlDoc = xml.getAsXMLDocument( data );
+    let parsedJSON = xml.simpleRSSToJSON( xmlDoc )
+    processJSON( parsedJSON );
+}
 
 export {
     processData,
-    getFeed,
     clearAll,
     updateRecord,
     insertRecord,
