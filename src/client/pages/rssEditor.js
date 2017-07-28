@@ -23,6 +23,8 @@ function doOnLoadStuff() {
 
     // make dragable viewer
     var win2 = new wbWindow( "RSS Feed", 145, 30, 'auto', 175, "rssData" );
+    // TODO remove this window and combine all windows and use fieldsets for separation
+    //<form><fieldset><legend>RSS Feed</legend> ....
     win2.windowArea.innerHTML = '<form><input type="file" name="feedInput" id="feedInputID"><button type="button" onclick="getFeed();">Load Feed</button></form><div style="height: 100px;text-align:left;overflow-y: scroll;" id="feedData"></div>';
 
     // make dragable viewer
