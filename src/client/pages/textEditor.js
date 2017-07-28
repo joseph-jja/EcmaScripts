@@ -1,5 +1,6 @@
 import selector from 'client/dom/selector';
 import * as events from 'client/dom/events';
+import * as dom from 'client/dom/DOM';
 
 // components
 import * as file from 'client/file/loadFile';
@@ -11,16 +12,14 @@ function doOnLoadStuff() {
     menu.basicMenu();
     footer( 'footer' );
 
-    let uploadFileObj = document.getElementById( 'upload-file' );
+    let uploadFileObj = selector( "#upload-file" ).get( 0 );
 
-    uploadFileObj.addEventListener( 'change', ( e ) => {
-        file.selectFile( e, function ( data ) {
-            document.getElementById( 'text-editor-id' ).innerHTML = data;
+    events.addEvent( uploadFileObj, "change", ( e ) => {
+        return file.selectFile( e, function ( data ) {
+            dom.html( '#text-editor-id', data );
             uploadFileObj.value = '';
         } );
     }, false );
-
-
 }
 
 events.addOnLoad( doOnLoadStuff );

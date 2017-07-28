@@ -150,6 +150,7 @@ let getFeed = function () {
 };
 
 export {
+    processData,
     getFeed,
     clearAll,
     updateRecord,

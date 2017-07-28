@@ -30,6 +30,11 @@ function selectFile( evt, callback ) {
     reader.readAsText( filename );
 }
 
+function saveFile() {
+    // TODO implement
+}
+
 export {
-    selectFile
+    selectFile,
+    saveFile
 };

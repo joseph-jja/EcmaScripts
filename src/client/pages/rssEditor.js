@@ -6,11 +6,20 @@ import * as dom from 'client/dom/DOM';
 import * as rss from 'client/components/rss';
 import footer from 'client/components/footer';
 import * as menu from 'client/components/menu';
+import * as file from 'client/file/loadFile';
 
 function doOnLoadStuff() {
 
     menu.basicMenu();
     footer( 'footer' );
+
+    let uploadFileObj = selector( "#feedInputID" ).get( 0 );
+    events.addEvent( uploadFileObj, "change", ( e ) => {
+        return file.selectFile( e, function ( data ) {
+            //rss.;
+            uploadFileObj.value = '';
+        } );
+    }, false );
 
     events.addEvent( selector( "#insertDate" ).get( 0 ), "click", function () {
         dom.html( "#pubDateID", new Date() );
