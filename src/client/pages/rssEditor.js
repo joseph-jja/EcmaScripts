@@ -22,7 +22,7 @@ function doOnLoadStuff() {
     }, false );
 
     events.addEvent( selector( "#insertDate" ).get( 0 ), "click", function () {
-        dom.html( "#pubDateID", new Date() );
+        dom.html( "#pubDateID", new Date().toString() );
     } );
 
     events.addEvent( selector( "#clearAllID" ).get( 0 ), "click", rss.clearAll );

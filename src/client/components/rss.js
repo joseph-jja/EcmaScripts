@@ -1,9 +1,10 @@
 import * as xml from 'client/browser/xml';
 import * as stringUtils from 'utils/stringUtils';
 import * as dom from 'client/dom/DOM';
+import * as events from 'client/dom/events';
 
-import MF from "utils/mathFunctions";
 import selector from 'client/dom/selector';
+import MF from "utils/mathFunctions";
 
 let jsonDATA = {},
     lastUpdated = -1,
@@ -14,20 +15,32 @@ const elementLen = elements.length;
 
 let clearAll = function () {
     for ( let i = 0; i < elementLen; i += 1 ) {
-        let o = selector( "#" + elements[ i ] );
-        if ( o.length > 0 ) {
-            o.get( 0 ).innerHTML = '';
-        }
+        dom.html( "#" + elements[ i ], '' );
     }
+};
+
+let getRSSItem = function ( index ) {
+
+    let item;
+
+    lastUpdated = index;
+    item = jsonDATA.rss.channel.item[ index ];
+
+    dom.html( "#titleID", item.title.text, 0 );
+    dom.html( "#descriptionID", item.description.text );
+    dom.html( "#guidID", item.guid.text );
+    dom.html( "#pubDateID", item.pubDate.text );
+
 };
 
 let processJSON = function ( json ) {
 
     let items = json.rss.channel.item,
-        result = '<ul>',
+        result = '<ul id="rssfeedItemElements">',
         i = 0;
+
     for ( let t in items ) {
-        result += '<li onclick="getRSSItem(' + i + ');" >';
+        result += `<li  id="rssFeedItem_${i}">`;
         result += items[ t ].title.text + '</li>';
         i += 1;
     }
@@ -45,10 +58,10 @@ let updateRecord = function () {
 
     item = jsonDATA.rss.channel.item[ lastUpdated ];
 
-    item.title.text = selector( "#titleID" ).html();
-    item.description.text = selector( "#descriptionID" ).html();
+    item.title.text = dom.html( "#titleID" );
+    item.description.text = dom.html( "#descriptionID" );
 
-    item.guid.text = selector( "#guidID" ).html();
+    item.guid.text = dom.html( "#guidID" );
     x = new Date().getTime();
     y = MF.convertFromBaseTenToBaseX( 16, x );
 
@@ -107,24 +120,16 @@ let saveData = function () {
     c.innerHTML = '&lt;?xml version="1.0" encoding="utf-8"?&gt;' + xmlData;
 };
 
-let getRSSItem = function ( index ) {
-
-    var item;
-    lastUpdated = index;
-    item = jsonDATA.rss.channel.item[ index ];
-
-    dom.html( "#titleID", item.title.text, 0 );
-    dom.html.html( "#descriptionID", item.description.text );
-    dom.html( "#guidID", item.guid.text );
-    dom.html( "#pubDateID", item.pubDate.text );
-
-};
-
 function processData( data ) {
     // now we have a JSON object
     let xmlDoc = xml.getAsXMLDocument( data );
-    let parsedJSON = xml.simpleRSSToJSON( xmlDoc )
-    processJSON( parsedJSON );
+    jsonDATA = xml.simpleRSSToJSON( xmlDoc );
+    processJSON( jsonDATA );
+    events.addEvent( selector( "#rssfeedItemElements" ).get( 0 ), "click", ( e ) => {
+        let tgt = events.getTarget( e );
+        let id = tgt.id.replace( 'rssFeedItem_', '' );
+        getRSSItem( id );
+    } );
 }
 
 export {
