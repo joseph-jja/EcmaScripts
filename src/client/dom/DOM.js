@@ -73,6 +73,8 @@ let html = function ( ele, content, index ) {
             if ( typeCheck.isString( content ) || typeCheck.isNumber( content ) ) {
                 if ( typeCheck.isInput( name ) || typeCheck.isInput( ele ) ) {
                     ele.value = content;
+                } else if ( typeCheck.isTextarea( ele ) ) {
+                    ele.value = content;
                 } else {
                     // assume innerHTML will work
                     ele.innerHTML = content;
@@ -83,6 +85,8 @@ let html = function ( ele, content, index ) {
         } )( content, ele );
     }
     if ( typeCheck.isInput( name ) || typeCheck.isInput( ele ) ) {
+        return ele.value;
+    } else if ( typeCheck.isTextarea( ele ) ) {
         return ele.value;
     } else if ( typeCheck.isString( ele.innerHTML ) ) {
         return ele.innerHTML;

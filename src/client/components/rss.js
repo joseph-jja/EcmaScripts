@@ -77,6 +77,15 @@ let updateRecord = function () {
 
 let insertRecord = function () {
 
+    let title = dom.html( "#titleID" );
+    let description = dom.html( "#descriptionID" );
+    let guid = dom.html( "#guidID" );
+    let pubDate = dom.html( "#pubDateID" );
+
+    if ( stringUtils.isEmpty( title ) || stringUtils.isEmpty( description ) || stringUtils.isEmpty( pubDate ) ) {
+        return;
+    }
+
     // move all the items
     for ( let i = count; i > 0; i -= 1 ) {
         jsonDATA.rss.channel.item[ i ] = jsonDATA.rss.channel.item[ i - 1 ];

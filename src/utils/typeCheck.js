@@ -48,6 +48,13 @@ function isRegExp( input ) {
     return typeCheck( RegExp, "regexp", input );
 };
 
+function isTextarea( input ) {
+    var inp = typeof input,
+        name = input.nodeName;
+    name = ( name ? name : "" );
+    return ( name.toLowerCase() === "textarea" );
+};
+
 function isInput( input ) {
     var inp = typeof input,
         name = input.nodeName;
@@ -64,5 +71,6 @@ export {
     isFunction,
     isObject,
     isRegExp,
+    isTextarea,
     isInput
 };
