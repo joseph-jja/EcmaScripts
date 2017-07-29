@@ -4,7 +4,7 @@ import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
 
 import selector from 'client/dom/selector';
-import MF from "utils/mathFunctions";
+import MathFunctions from "utils/mathFunctions";
 
 let jsonDATA = {},
     lastUpdated = -1,
@@ -61,9 +61,14 @@ let updateRecord = function () {
     item.title.text = dom.html( "#titleID" );
     item.description.text = dom.html( "#descriptionID" );
 
-    item.guid.text = dom.html( "#guidID" );
     x = new Date().getTime();
-    y = MF.convertFromBaseTenToBaseX( 16, x );
+    y = MathFunctions.convertFromBaseTenToBaseX( 16, x );
+    y = ( y + '' ).repeat( 5 );
+    let guidID = '{' + y.substring( 0, 8 ) + '-' +
+        y.substring( 8, 12 ) + '-' + y.substring( 12, 15 ) +
+        '-' + y.substring( 15, 19 ) + '-' +
+        y.substring( 15, 19 ) + '-' + y.substring( 20, 30 ) + '}';
+    item.guid.text = dom.html( "#guidID", guidID );
 
     p = dom.html( "#pubDateID" );
     if ( p !== "" ) {
