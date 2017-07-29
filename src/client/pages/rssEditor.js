@@ -18,6 +18,11 @@ function doOnLoadStuff() {
         return file.selectFile( e, function ( data ) {
             rss.processData( data );
             uploadFileObj.value = '';
+            events.addEvent( selector( "#rssfeedItemElements" ).get( 0 ), "click", ( ev ) => {
+                let tgt = events.getTarget( ev );
+                let id = tgt.id.replace( 'rssFeedItem_', '' );
+                rss.getRSSItem( id );
+            } );
         } );
     }, false );
 

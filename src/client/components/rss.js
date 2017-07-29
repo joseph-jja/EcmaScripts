@@ -134,11 +134,6 @@ function processData( data ) {
     let xmlDoc = xml.getAsXMLDocument( data );
     jsonDATA = xml.simpleRSSToJSON( xmlDoc );
     processJSON( jsonDATA );
-    events.addEvent( selector( "#rssfeedItemElements" ).get( 0 ), "click", ( e ) => {
-        let tgt = events.getTarget( e );
-        let id = tgt.id.replace( 'rssFeedItem_', '' );
-        getRSSItem( id );
-    } );
 }
 
 export {
@@ -146,5 +141,6 @@ export {
     clearAll,
     updateRecord,
     insertRecord,
-    saveData
+    saveData,
+    getRSSItem
 };
