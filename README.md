@@ -21,3 +21,5 @@
  * runs all the tests
  * karma + webpack + babel + jasmine for tests
 
+## TODO
+* fix client/dom/toggleUl.js to be generic instead of hard coded classes
