@@ -23,3 +23,9 @@
 
 ## TODO
 * fix client/dom/toggleUl.js to be generic instead of hard coded classes
+* add comments / docs to components
+* make components more generic less styles / id specific
+* HTML abstraction?
+* move event bindings to pages
+* check imports
+* update view page.html 
