@@ -35,7 +35,7 @@ addOnLoad( () => {
         }
     }
 
-    html( "#nav_bar", menu.extendedMenu() );
+    menu.extendedMenu();
     footer( 'footer' );
     runfish();
 

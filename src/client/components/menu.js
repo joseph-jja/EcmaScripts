@@ -26,22 +26,22 @@ if ( currentpage === "" ) {
 }
 
 allLinks = [
-    [ "index.html", "Main Page", "The index page" ],
+    [ "index.html", "The Main Page" ],
     //["about_me.html", "About Me", "A page about me"],
-    [ "tropical_fish.html", "Tropical Fish", "My tropical fish information page" ],
-    [ "fish_pictures/index.html", "Fish Pictures", "My tropical fish picture page" ],
-    [ "fish_log.html", "Fish Log", "An attempt at a fish keeping log" ],
+    [ "tropical_fish.html", "My Tropical Fish Information Page" ],
+    [ "fish_pictures/index.html", "My tropical Fish Pictures Page" ],
+    [ "fish_log.html", "An attempt at a fish keeping log" ],
     //                  ["computers.html", "Computers", "Some computer stuff"],
-    [ "programs.html", "Software", "Some programs that I have written" ],
-    [ "programming_languages.html", "Programming", "My little writeup on how programming languages are similar" ],
+    [ "programs.html", "Some programs that I have written" ],
+    [ "programming_languages.html", "My little writeup on how programming languages are similar" ],
     //   ["FreeBSD_cdrom.html", "FreeBSD CDROM", "My HOWTO on creating a FreeBSD live CDROM"], 
-    [ "resume_default.html", "Resume", "An ActiveX / Mozilla XSLTProcessor / AJAX version of my resume" ],
+    [ "resume_default.html", "An ActiveX / Mozilla XSLTProcessor / AJAX version of my resume" ],
     //["resume_bstg.html", "Alternate AJAX Resume", "An ActiveX / Mozilla XSLTProcessor / AJAX version of my resume"], 
-    [ "email_form.html", "Email Me", "How you can email me" ],
-    [ "helloworld.html", "Hello World", "Cool Hello World" ],
-    [ "canvas_test.html", "Canvas Test", "If your browser supports the Canvas Object" ],
+    [ "email_form.html", "How you can email me" ],
+    [ "helloworld.html", "Cool-ish :P Hello World" ],
+    [ "canvas_test.html", "If your browser supports the Canvas Object" ],
     //["javascript:changeStyles(];", "Change Style", "Change CSS Files"], 
-    [ "my_links.html", "Offsite Links", "Some of the off site links related to this site." ]
+    [ "my_links.html", "Some of the off site links related to this site." ]
 ];
 
 if ( storage.sessionEnabled &&
@@ -141,26 +141,29 @@ if ( storage.sessionEnabled &&
 }
 
 
-//new location thig for select items
+//new location thing for select items
 function changeLocation() {
-    var optionsindex = document.forms[ 0 ].altSubject.selectedIndex;
-    var loc = allLinks[ optionsindex - 1 ][ 0 ];
+    let selectOption = document.getElementById( 'url-navigation' ),
+        optionsindex = selectOption.selectedIndex,
+        loc = selectOption[ optionsindex ].value;
+    document.location = loc;
 }
 
 function render( menuArray ) {
-    var i, menu = "",
+    let i, menu = '<select id="url-navigation">',
         mlen;
     mlen = menuArray.length;
     for ( i = 0; i < mlen; i++ ) {
-        var type = typeof menuArray[ i ][ 0 ];
+        let type = typeof menuArray[ i ][ 0 ];
         if ( type.toLowerCase() !== "object" ) {
             if ( currentpage !== menuArray[ i ][ 0 ] ) {
-                menu += '<a href="' + menuArray[ i ][ 0 ] + urlpadding + '" title="' + menuArray[ i ][ 2 ] + '">' + menuArray[ i ][ 1 ] + '</a>';
+                menu += `<option value="${menuArray[ i ][ 0 ]}${urlpadding}">${menuArray[ i ][ 1 ]}</option>`;
             } else {
-                menu += '<div id="url-menu-active">' + menuArray[ i ][ 1 ] + '</div>';
+                menu += `<option selected>${menuArray[ i ][ 1 ]}</option>`;
             }
         }
     }
+    menu += '</select>';
     return menu;
 }
 
@@ -168,20 +171,34 @@ export function basicMenu() {
     var nav = document.getElementById( "nav_bar" );
     if ( nav ) {
         nav.innerHTML = render( allLinks );
+        let selectObj = document.getElementById( 'url-navigation' );
+        if ( selectObj ) {
+            events.addEvent( selectObj, 'change', changeLocation );
+        }
     }
 }
 
 //extended menu 
 export function extendedMenu() {
-    var i, menu = "",
+    var i, menu = '<select id="url-navigation">',
         mlen,
         subdirpage = splitstr[ splitstr.length - 2 ] + "/" + currentpage;
     mlen = allLinks.length;
     for ( i = 0; i < mlen; i++ ) {
         if ( subdirpage !== allLinks[ i ][ 0 ] ) {
-            menu += '<a href="../' + allLinks[ i ][ 0 ] + urlpadding + '" title="' + allLinks[ i ][ 2 ] + '">' + allLinks[ i ][ 1 ] + '</a>';
+            menu += `<option value="../${allLinks[ i ][ 0 ]}${urlpadding}">${allLinks[ i ][ 1 ]}</option>`;
         } else {
-            menu += '<div id="url-menu-active">' + allLinks[ i ][ 1 ] + '</div>';
+            menu += `<option value="../${allLinks[ i ][ 0 ]}${urlpadding}" selected>${allLinks[ i ][ 1 ]}</option>`;
+        }
+    }
+    menu += '</select>';
+
+    let nav = document.getElementById( "nav_bar" );
+    if ( nav ) {
+        nav.innerHTML = menu;
+        let selectObj = document.getElementById( 'url-navigation' );
+        if ( selectObj ) {
+            events.addEvent( selectObj, 'change', changeLocation );
         }
     }
     return menu;
