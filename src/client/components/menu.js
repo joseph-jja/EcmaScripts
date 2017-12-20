@@ -150,7 +150,7 @@ function changeLocation() {
 }
 
 function render( menuArray ) {
-    let i, menu = '<span class="url-wrapper"><select id="url-navigation">',
+    let i, menu = '<div class="url-wrapper"><select id="url-navigation">',
         mlen;
     mlen = menuArray.length;
     for ( i = 0; i < mlen; i++ ) {
@@ -163,7 +163,7 @@ function render( menuArray ) {
             }
         }
     }
-    menu += '</select></span>';
+    menu += '</select></div>';
     return menu;
 }
 
@@ -180,7 +180,7 @@ export function basicMenu() {
 
 //extended menu 
 export function extendedMenu() {
-    var i, menu = '<span class="url-wrapper"><select id="url-navigation">',
+    var i, menu = '<div class="url-wrapper"><select id="url-navigation">',
         mlen,
         subdirpage = splitstr[ splitstr.length - 2 ] + "/" + currentpage;
     mlen = allLinks.length;
@@ -191,7 +191,7 @@ export function extendedMenu() {
             menu += `<option value="../${allLinks[ i ][ 0 ]}${urlpadding}" selected>${allLinks[ i ][ 1 ]}</option>`;
         }
     }
-    menu += '</select></span>';
+    menu += '</select></div>';
 
     let nav = document.getElementById( "nav_bar" );
     if ( nav ) {
