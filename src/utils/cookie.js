@@ -6,8 +6,8 @@ function findCookieByName( cookieName, cookieData ) {
 
     // this will throw if in server mode and there is no document object :) 
     const dc = ( cookieData || document.cookie ),
-         cookies = dc.split( ";" ),
-         dclen = cookies.length;
+        cookies = dc.split( ";" ),
+        dclen = cookies.length;
     for ( let x = 0; x < dclen; x += 1 ) {
         ck = cookies[ x ].match( /([^=]+)=/i );
         if ( ck instanceof Array ) {
