@@ -29,6 +29,7 @@ gulp.task( 'default', () => {
 
     return gulp.src( "src/**/**.js" )
         .pipe( jsbeautify( jsConfig ) )
+        .pipe( eslint( eslintCfg ) )
         .pipe( gulp.dest( 'src' ) )
         .pipe( webpack( wpConfig ) )
         .pipe( gulp.dest( 'js' ) );
