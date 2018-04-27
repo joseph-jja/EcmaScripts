@@ -41,21 +41,22 @@ module.exports = function ( config ) {
                 loaders: [ {
                     test: /\.js$/,
                     exclude: /(node_modules)/,
-                    loader: 'babel',
+                    loader: 'babel-loader',
                     query: babelConfig
                 }, {
                     test: /\.js$/,
                     exclude: /(node_modules|tests)/,
-                    loader: 'babel-istanbul',
+                    loader: 'babel-istanbul-loader',
                     query: babelConfig
                 } ]
             },
             resolve: {
-                root: source,
-                alias: {
-                    commonUtils: "utils",
-                    client: "client"
+                //"root": [ path.resolve( "./src" ) ],
+                "alias": {
+                    "utils": path.resolve( "src/utils" ),
+                    "client": path.resolve( "src/client" )
                 }
+
             }
         },
 
