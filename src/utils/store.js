@@ -3,8 +3,8 @@
 import * as stack from "utils/stack";
 
 function Store() {
-    this.data = new stack.Stack(),
-        this.keys = {};
+    this.data = new stack.Stack();
+    this.keys = {};
 }
 
 Store.prototype.setItem = function ( key, value ) {

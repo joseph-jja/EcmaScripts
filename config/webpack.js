@@ -2,6 +2,7 @@ var path = require( "path" ),
     webpack = require( "webpack" ),
     fs = require( 'fs' ),
     baseDir = process.cwd(),
+    UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' ),
     babelConfig = JSON.parse( fs.readFileSync( `${baseDir}/config/babel-config.json` ) );
 
 module.exports = {
@@ -39,12 +40,12 @@ module.exports = {
         }
     },
     "module": {
-        "loaders": [ {
-            "loader": "babel",
+        "rules": [ {
+            "loader": "babel-loader",
             exclude: /node_modules/,
             "query": babelConfig
         }, {
-            loader: "eslint",
+            loader: "eslint-loader",
             exclude: /node_modules/,
             "query": {
                 "parser": "babel-eslint"
@@ -52,28 +53,30 @@ module.exports = {
         } ]
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin( {
-            maxLineLen: 10000,
-            compress: {
-                "sequences": false,
-                "properties": false,
-                "dead_code": true,
-                "drop_debugger": true,
-                "unsafe": false,
-                "conditionals": false,
-                "comparisons": false,
-                "evaluate": false,
-                "booleans": false,
-                "loops": false,
-                "unused": false,
-                "hoist_funs": false,
-                "hoist_vars": true,
-                "if_return": false,
-                "join_vars": true,
-                "cascade": false,
-                "warnings": false,
-                "side_effects": false
+/*
+        new UglifyJsPlugin( {
+            uglifyOptions: {
+                maxLineLen: 10000,
+                compress: {
+                    "sequences": false,
+                    "properties": false,
+                    "dead_code": true,
+                    "drop_debugger": true,
+                    "unsafe": false,
+                    "conditionals": false,
+                    "comparisons": false,
+                    "evaluate": false,
+                    "booleans": false,
+                    "loops": false,
+                    "unused": false,
+                    "hoist_funs": false,
+                    "hoist_vars": true,
+                    "if_return": false,
+                    "join_vars": true,
+                    "warnings": false,
+                    "side_effects": false
+                }
             }
-        } )
+        } )*/
     ]
 };

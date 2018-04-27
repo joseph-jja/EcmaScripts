@@ -43,8 +43,9 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-spec-reporter": "0.0.32",
     "karma-threshold-reporter": "^0.1.15",
-    "karma-webpack": "^2.0.13",
-    "webpack": "^1.x"
+    "karma-webpack": "^3.x",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.x"
   },
   "optionalDependencies": {
     "phantomjs-prebuilt": "^2.1.x"
