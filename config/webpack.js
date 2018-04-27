@@ -40,7 +40,7 @@ module.exports = {
         }
     },
     "module": {
-        "rules": [ {
+        "loaders": [ {
             "loader": "babel-loader",
             exclude: /node_modules/,
             "query": babelConfig
@@ -53,7 +53,6 @@ module.exports = {
         } ]
     },
     plugins: [
-/*
         new UglifyJsPlugin( {
             uglifyOptions: {
                 maxLineLen: 10000,
@@ -77,6 +76,6 @@ module.exports = {
                     "side_effects": false
                 }
             }
-        } )*/
+        } )
     ]
 };
