@@ -1,4 +1,4 @@
-import MF from "commonUtils/mathFunctions";
+import MF from "utils/mathFunctions";
 
 describe( "math functions tests", function () {
 
