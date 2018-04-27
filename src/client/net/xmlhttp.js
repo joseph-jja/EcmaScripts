@@ -1,10 +1,10 @@
- //////////////////////////////////////////////////
- // create the xml http request object
- // this works with opera, IE 6+, mozilla 1.7
- // and safari, konqueror, and gecko based browsers
- // returns xmlhttp request object
- //////////////////////////////////////////////////
- export default function XmlHttp() {
+//////////////////////////////////////////////////
+// create the xml http request object
+// this works with opera, IE 6+, mozilla 1.7
+// and safari, konqueror, and gecko based browsers
+// returns xmlhttp request object
+//////////////////////////////////////////////////
+export default function XmlHttp() {
      var xmlhttp = false;
      // try to use the default xml http request object first
      if ( window.XMLHttpRequest ) {

@@ -1,16 +1,14 @@
-var decode, encode;
-
-decode = ( typeof decodeURIComponent !== "undefined" ) ? decodeURIComponent : unescape;
-encode = ( typeof encodeURIComponent !== "undefined" ) ? encodeURIComponent : escape;
+const decode = ( typeof decodeURIComponent !== "undefined" ) ? decodeURIComponent : unescape;
+const encode = ( typeof encodeURIComponent !== "undefined" ) ? encodeURIComponent : escape;
 
 function findCookieByName( cookieName, cookieData ) {
-    var cookies, dc, x, dclen, ck, ckidx, name, value;
+    let ck, ckidx, name, value;
 
     // this will throw if in server mode and there is no document object :) 
-    dc = ( cookieData || document.cookie );
-    cookies = dc.split( ";" );
-    dclen = cookies.length;
-    for ( x = 0; x < dclen; x += 1 ) {
+    const dc = ( cookieData || document.cookie ),
+         cookies = dc.split( ";" ),
+         dclen = cookies.length;
+    for ( let x = 0; x < dclen; x += 1 ) {
         ck = cookies[ x ].match( /([^=]+)=/i );
         if ( ck instanceof Array ) {
             try {
@@ -82,11 +80,11 @@ function remove( name ) {
 };
 
 function count( cookieData ) {
-    return dc = ( cookieData || document.cookie ).split( ";" ).length;
+    return ( cookieData || document.cookie ).split( ";" ).length;
 };
 
-function length() {
-    return dc = ( cookieData || document.cookie ).length;
+function length( cookieData ) {
+    return ( cookieData || document.cookie ).length;
 };
 
 export {

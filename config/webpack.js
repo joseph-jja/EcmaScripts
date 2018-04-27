@@ -1,7 +1,8 @@
 var path = require( "path" ),
     webpack = require( "webpack" ),
     fs = require( 'fs' ),
-    babelConfig = JSON.parse( fs.readFileSync( 'config/babel-config.json' ) );
+    baseDir =process.cwd(),
+    babelConfig = JSON.parse( fs.readFileSync( `${baseDir}/config/babel-config.json` ) );
 
 module.exports = {
     "entry": {
