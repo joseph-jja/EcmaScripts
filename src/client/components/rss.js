@@ -1,9 +1,7 @@
 import * as xml from 'client/browser/xml';
 import * as stringUtils from 'utils/stringUtils';
 import * as dom from 'client/dom/DOM';
-import * as events from 'client/dom/events';
 
-import selector from 'client/dom/selector';
 import MathFunctions from "utils/mathFunctions";
 
 let jsonDATA = {},
@@ -84,7 +82,6 @@ let insertRecord = function () {
 
     let title = dom.html( "#titleID" );
     let description = dom.html( "#descriptionID" );
-    let guid = dom.html( "#guidID" );
     let pubDate = dom.html( "#pubDateID" );
 
     if ( stringUtils.isEmpty( title ) || stringUtils.isEmpty( description ) || stringUtils.isEmpty( pubDate ) ) {
