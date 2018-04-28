@@ -2,14 +2,14 @@ const decode = ( typeof decodeURIComponent !== "undefined" ) ? decodeURIComponen
 const encode = ( typeof encodeURIComponent !== "undefined" ) ? encodeURIComponent : escape;
 
 function findCookieByName( cookieName, cookieData ) {
-    let ck, ckidx, name, value;
+    let name, value;
 
     // this will throw if in server mode and there is no document object :) 
     const dc = ( cookieData || document.cookie ),
         cookies = dc.split( ";" ),
         dclen = cookies.length;
     for ( let x = 0; x < dclen; x += 1 ) {
-        ck = cookies[ x ].match( /([^=]+)=/i );
+        let ck = cookies[ x ].match( /([^=]+)=/i );
         if ( ck instanceof Array ) {
             try {
                 name = decode( ck[ 1 ] );
@@ -19,7 +19,6 @@ function findCookieByName( cookieName, cookieData ) {
             }
         } else {
             name = decode( cookies[ x ] );
-            value = "";
         }
         if ( name === cookieName ) {
             break;
@@ -74,7 +73,7 @@ function remove( name ) {
     var exists, now = new Date();
     exists = findCookieByName( name );
     now.setFullYear( 1970 );
-    set( name, "", {
+    set( name, undefined, {
         expires: now
     } );
 };
