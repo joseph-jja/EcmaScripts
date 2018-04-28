@@ -1,10 +1,11 @@
+const DB_SUCCESS = 200, 
+      DB_ERROR = 500;
+
 let SQLQuery;
 
     if ( typeof window.indexedDB !== 'undefined' ) {
 
         SQLQuery = function ( name ) {
-            this.success = 200;
-            this.error = 500;
             this.isOpen = false;
             if ( typeof name !== 'undefined' ) {
                 this.name = name;
@@ -23,35 +24,35 @@ let SQLQuery;
         function processRequest( self, request, callback ) {
 
             request.onerror = function ( evt ) {
-                callback( evt, self.error );
+                callback( evt, DB_ERROR );
             };
 
             request.onsuccess = function ( evt ) {
-                callback( evt, self.success );
+                callback( evt, DB_SUCCESS );
             };
         }
 
         SQLQuery.prototype.open = function ( name, version, callback ) {
-            var self, iDB = window.indexedDB.open( name, version );
+            const iDB = window.indexedDB.open( name, version );
 
             this.name = name;
             this.version = version;
-            self = this;
+            let self = this;
 
             iDB.onerror = function ( evt ) {
-                callback( evt, self.error );
+                callback( evt, DB_ERROR );
             };
 
             iDB.onsuccess = function ( evt ) {
-                var db = evt.target.result;
+                const db = evt.target.result;
                 self.isOpen = true;
-                callback( evt, self.success );
+                callback( evt, DB_SUCCESS );
                 self.iDB = db;
             };
 
             iDB.onupgradeneeded = function ( evt ) {
-                var db = evt.target.result;
-                callback( evt, self.success );
+                const db = evt.target.result;
+                callback( evt, DB_SUCCESS );
                 self.iDB = db;
             };
         };
@@ -68,7 +69,7 @@ let SQLQuery;
         };
 
         SQLQuery.prototype.createObjectStore = function ( name, keypath, callback ) {
-            var request = this.iDB.createObjectStore( name, keypath );
+            const request = this.iDB.createObjectStore( name, keypath );
             processRequest( this, request, callback );
         };
 
@@ -79,12 +80,12 @@ let SQLQuery;
         SQLQuery.prototype.add = function ( storeName, data, callback ) {
             var self = this;
             this.open( this.name, this.version, function ( evt, err ) {
-                var request, db = evt.target.result;
-                if ( err === self.success ) {
-                    request = getObjectStore( db, storeName, "readwrite" ).add( data );
+                const db = evt.target.result;
+                if ( err === DB_SUCCESS ) {
+                    const request = getObjectStore( db, storeName, "readwrite" ).add( data );
                     processRequest( self, request, callback );
                 } else {
-                    callback( evt, self.error );
+                    callback( evt, DB_ERROR );
                 }
             } );
         };
@@ -93,13 +94,12 @@ let SQLQuery;
         SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
             var self = this;
             this.open( this.name, this.version, function ( evt, err ) {
-                var request;
                 self.iDB = evt.target.result;
-                if ( err === self.success ) {
-                    request = getObjectStore( self.iDB, storeName, "readonly" ).get( key );
+                if ( err === DB_SUCCESS ) {
+                    const request = getObjectStore( self.iDB, storeName, "readonly" ).get( key );
                     processRequest( self, request, callback );
                 } else {
-                    callback( evt, self.error );
+                    callback( evt, DB_ERROR );
                 }
             } );
         };
@@ -108,16 +108,15 @@ let SQLQuery;
         SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
             var self = this;
             this.open( this.name, this.version, function ( evt, err ) {
-                var request;
                 self.iDB = evt.target.result;
-                if ( err === self.success ) {
-                    request = getObjectStore( self.iDB, storeName, "readonly" ).get( key );
+                if ( err === DB_SUCCESS) {
+                    const request = getObjectStore( self.iDB, storeName, "readonly" ).get( key );
                     processRequest( self, request, function ( revt, status ) {
-                        var urequest = getObjectStore( self.iDB, storeName, "readwrite" ).put( data );
+                        const urequest = getObjectStore( self.iDB, storeName, "readwrite" ).put( data );
                         processRequest( self, urequest, callback );
                     } );
                 } else {
-                    callback( evt, self.error );
+                    callback( evt, DB_ERROR );
                 }
             } );
         };
@@ -125,14 +124,13 @@ let SQLQuery;
         SQLQuery.prototype.remove = function ( storeName, key, callback ) {
             var self = this;
             this.open( this.name, this.version, function ( evt, err ) {
-                var request;
                 self.iDB = evt.target.result;
-                if ( err === self.success ) {
+                if ( err === DB_SUCCESS ) {
                     /* jshint -W024 */
-                    request = getObjectStore( self.iDB, storeName, "readwrite" ).delete( key );
+                    const request = getObjectStore( self.iDB, storeName, "readwrite" ).delete( key );
                     processRequest( self, request, callback );
                 } else {
-                    callback( evt, self.error );
+                    callback( evt, DB_ERROR );
                 }
             } );
         };
@@ -140,14 +138,14 @@ let SQLQuery;
         SQLQuery.prototype.list = function ( storeName, callback ) {
             var self = this;
             this.open( this.name, this.version, function ( evt, status ) {
-                var db, store, lb, data = [];
-                if ( status === self.success ) {
-                    db = evt.target.result;
-                    lb = window.IDBKeyRange.lowerBound( 0 );
+                if ( status === DB_SUCCESS ) {
+                    const db = evt.target.result;
+                    const lb = window.IDBKeyRange.lowerBound( 0 );
 
-                    store = db.transaction( storeName ).objectStore( storeName );
+                    const store = db.transaction( storeName ).objectStore( storeName );
                     store.openCursor( lb ).onsuccess = function ( osevt ) {
-                        var cursor = osevt.target.result;
+                        let data = [];
+                        const cursor = osevt.target.result;
                         if ( cursor ) {
                             data.push( {
                                 'key': cursor.key,
