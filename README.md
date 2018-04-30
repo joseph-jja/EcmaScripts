@@ -1,4 +1,4 @@
-# JavaScript scripts - test coverage varies but threshold is about 50% on files that have tests
+# EcmaScripts with test coverage varies but threshold is about 50% on files that have tests
 
 * using es6 and babel this will be some scripts for my personal website
 * all tests are done in jasmine 2 with karma, webpack, and babel 
@@ -25,7 +25,6 @@
 * fix client/dom/toggleUl.js to be generic instead of hard coded classes
 * add comments / docs to components
 * make components more generic less styles / id specific
-* HTML abstraction?
+* HTML template abstraction 
 * move event bindings to pages
-* check imports
 * update view page.html 
