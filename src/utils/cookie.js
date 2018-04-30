@@ -34,7 +34,7 @@ function get( name, cookieData ) {
 
 function checkOption( options, opt, useVal ) {
 
-    var result = '';
+    let result = '';
 
     if ( typeof options !== 'undefined' && options[ opt ] ) {
         result = ";" + opt + ( useVal ? "=" + options[ opt ] : '' );
@@ -43,7 +43,7 @@ function checkOption( options, opt, useVal ) {
 }
 
 function set( name, value, options ) {
-    var ename, evalue, data,
+    let ename, evalue, data,
         isServer;
 
     ename = encode( name );
@@ -70,7 +70,7 @@ function set( name, value, options ) {
 };
 
 function remove( name ) {
-    var exists, now = new Date();
+    let exists, now = new Date();
     exists = findCookieByName( name );
     now.setFullYear( 1970 );
     set( name, undefined, {
