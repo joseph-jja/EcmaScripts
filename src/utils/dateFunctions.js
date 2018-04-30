@@ -2,7 +2,7 @@
 // prototype of that object to the new other object
 // however with javascript base objects, this does not work the same
 
-var DateFunctions = {};
+let DateFunctions = {};
 
 // month names the the last day of the month, short name for week day and also long name if someone wants it
 DateFunctions.monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
@@ -14,12 +14,12 @@ DateFunctions.weekDayNames = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thur
 // some javascript implementations do not have getFullYear
 // so we test for that and then implement that
 ( function () {
-    var d = new Date();
+    let d = new Date();
     if ( typeof d.getFullYear === 'undefined' ) {
         Date.prototype.getFullYear = function () {
             // get year returns year from 100
             // year epoch is 1900
-            var year = this.getYear();
+            let year = this.getYear();
             return ( +year ) + 1900;
         };
     }
@@ -35,7 +35,7 @@ DateFunctions.weekDayNames = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thur
 
 // get the first day of the current month
 DateFunctions.getFirstOfMonthDayOfWeek = function ( dIn ) {
-    var fomd,
+    let fomd,
         today = ( dIn ? new Date( dIn.getTime() ) : new Date() ); // day of the month
     today.setDate( 1 );
     fomd = today.getDay(); // day of the week
@@ -44,9 +44,9 @@ DateFunctions.getFirstOfMonthDayOfWeek = function ( dIn ) {
 
 // get the number of days in the month
 DateFunctions.getDaysInMonth = function ( dIn ) {
-    var today = ( dIn ? new Date( dIn.getTime() ) : new Date() ); // day of the month
-    var month = today.getMonth();
-    var year = today.getFullYear();
+    let today = ( dIn ? new Date( dIn.getTime() ) : new Date() ); // day of the month
+    let month = today.getMonth();
+    let year = today.getFullYear();
     if ( month === 1 ) {
         if ( ( year % 4 ) === 0 ) {
             if ( ( year % 400 ) === 0 ) {
@@ -66,7 +66,7 @@ DateFunctions.getDaysInMonth = function ( dIn ) {
 
 // simple method to set the date given m - d - y
 DateFunctions.setFullDate = function ( m, d, y ) {
-    var today = new Date();
+    let today = new Date();
     today.setMonth( m );
     today.setDate( d );
     today.setFullYear( y );
