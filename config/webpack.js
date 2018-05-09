@@ -12,8 +12,9 @@ module.exports = {
         "fishLog": "./src/client/pages/fishLog",
         "fishPictures": "./src/client/pages/fishPictures",
         "index": "./src/client/pages/index",
-        "helloWorld": "./src/client/pages/helloWorld",
         "myLinks": "./src/client/pages/myLinks",
+        "helloWorld": "./src/client/pages/helloWorld",
+        "indexDBTaskList": "./src/client/pages/indexDBTaskList",
         "performance": "./src/client/pages/performance",
         "programmingLanguages": "./src/client/pages/programmingLanguages",
         "programs": "./src/client/pages/programs",
@@ -34,6 +35,7 @@ module.exports = {
     },
     "resolve": {
         "alias": {
+            "db": path.resolve( "src/db" ),
             "utils": path.resolve( "src/utils" ),
             "client": path.resolve( "src/client" )
         }
