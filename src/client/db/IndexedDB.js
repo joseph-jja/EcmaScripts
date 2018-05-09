@@ -1,18 +1,20 @@
 const DB_SUCCESS = 200,
     DB_ERROR = 500;
 
-let SQLQuery;
+function SQLQuery( name ) {
+    this.isOpen = false;
+    if ( typeof name !== 'undefined' ) {
+        this.name = name;
+    }
+    this.version = 1;
+    this.iDB = undefined;
+};
+
+SQLQuery.prototype.hasIndexedDBSupport = function () {
+    return ( typeof window.indexedDB !== 'undefined' );
+}
 
 if ( typeof window.indexedDB !== 'undefined' ) {
-
-    SQLQuery = function ( name ) {
-        this.isOpen = false;
-        if ( typeof name !== 'undefined' ) {
-            this.name = name;
-        }
-        this.version = 1;
-        this.iDB = undefined;
-    };
 
     // DRY the code
     function getObjectStore( db, storeName, mode ) {

@@ -1,8 +1,8 @@
-import selector from 'client/dom/selector';
 import * as events from 'client/dom/events';
-
-import * as Idb from 'client/db/IndexedDB';
 import * as Constants from 'db/constants';
+
+import selector from 'client/dom/selector';
+import Idb from 'client/db/IndexedDB';
 
 import {
     getButtonCell,
