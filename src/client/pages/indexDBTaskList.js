@@ -5,6 +5,9 @@ import * as menu from 'client/components/menu';
 import TaskList from 'client/components/tasks/taskList';
 
 events.addOnLoad( ( onloadFN ) => {
-    menu.basicMenu();
-    footer( 'footer' );
+
+    const TL = new TaskList();
+    TL.initialize();
+    //menu.basicMenu();
+    //footer( 'footer' );
 } );
