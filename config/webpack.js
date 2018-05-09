@@ -56,6 +56,7 @@ module.exports = {
     },
     plugins: [
         new UglifyJsPlugin( {
+            sourceMap: true,
             uglifyOptions: {
                 maxLineLen: 10000,
                 compress: {
