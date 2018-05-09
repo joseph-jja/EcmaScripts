@@ -34,6 +34,7 @@ module.exports = {
         "sourceMapFilename": "[file].source.map"
     },
     "resolve": {
+        "modules": [ path.join( __dirname, "src" ) ],
         "alias": {
             "db": path.resolve( "src/db" ),
             "utils": path.resolve( "src/utils" ),

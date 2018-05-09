@@ -21,9 +21,9 @@ function TaskList() {
     function editTask() {}
 
     this.initialize = function () {
-        events.addEvent( '#filterDisplay', 'change', processFilter, false );
-        events.addEvent( '#addTaskID', 'click', addTask, false );
-        events.addEvent( 'button.edit-task', 'click', editTask, false );
+        //events.addEvent( '#filterDisplay', 'change', processFilter, false );
+        //events.addEvent( '#addTaskID', 'click', addTask, false );
+        //events.addEvent( 'button.edit-task', 'click', editTask, false );
         this.render();
     }
 
