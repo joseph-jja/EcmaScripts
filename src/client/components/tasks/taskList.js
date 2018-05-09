@@ -31,6 +31,9 @@ function TaskList() {
         let db, content;
 
         db = new Idb( Constants.DBName );
+        if ( !db.hasIndexedDBSupport() ) {
+            return;
+        }
 
         db.list( Constants.StoreName, ( data ) => {
             let rows = [],
@@ -156,5 +159,4 @@ function TaskList() {
 
 }
 
-export
-default TaskList;
+export default TaskList;
