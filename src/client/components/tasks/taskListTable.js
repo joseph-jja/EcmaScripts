@@ -34,4 +34,4 @@ export {
     getTable,
     getCell,
     getButtonCell
-}
+};
