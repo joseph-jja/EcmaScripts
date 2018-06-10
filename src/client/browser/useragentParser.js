@@ -14,7 +14,7 @@ function getVersion( map, uaString, version ) {
         idx;
     if ( map.search !== map.version ) {
         idx = uaString.indexOf( map.version ) + map.version.length + 1;
-        if ( idx != -1 ) {
+        if ( idx !== -1 ) {
             nVer = parseFloat( uaString.substr( idx ), 10 );
         }
     }
