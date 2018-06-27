@@ -35,7 +35,7 @@ allLinks = [
     [ "programs.html", "Some programs that I have written" ],
     [ "programming_languages.html", "My little writeup on how programming languages are similar" ],
     //   ["FreeBSD_cdrom.html", "FreeBSD CDROM", "My HOWTO on creating a FreeBSD live CDROM"], 
-    [ "resume_default.html", "An ActiveX / Mozilla XSLTProcessor / AJAX version of my resume" ],
+    [ "resume_default.html", "A Web Version of My Resume" ],
     //["resume_bstg.html", "Alternate AJAX Resume", "An ActiveX / Mozilla XSLTProcessor / AJAX version of my resume"], 
     [ "email_form.html", "How you can email me" ],
     [ "helloworld.html", "Cool-ish :P Hello World" ],
