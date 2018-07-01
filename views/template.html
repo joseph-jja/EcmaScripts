@@ -39,6 +39,9 @@
         height: 2em;
         bottom: 0px;
       }
+        #pageName {
+            text-transform: capitalize    
+        }
     </style>  
     <link rel="stylesheet" href="wb/wb.css">
     <link rel="stylesheet" href="classic_style-min.css">
@@ -46,13 +49,13 @@
   <body>
     <header>
         <nav id="nav_bar"></nav>
-        <span id="pageTitle">{{pagename}}</span>
+        <span id="pageName">{{pagename}}</span>
         <span id="digiclock" class="digitalclock"></span>
     </header>
     <div id="container">
     
     </div>
     <footer id="pageStats"><span>{{footer}}</span></footer>
-    <script type="text/javascript" src="js/{{scriptName}}.js"></script>
+    <script type="text/javascript" src="js/{{pageName}}.js"></script>
   </body>
 </html>
