@@ -50,8 +50,10 @@
         <span id="digiclock" class="digitalclock"></span>
     </header>
     <nav id="nav-bar"></nav>
-    <div id="container">
-        {{containerTemplate}}
+    <div class="WebWindowMain">
+        <div class="WebWindowTitle">{{wwTitle}}</div>
+        <div id="container" class="WebWindowArea">{{wwContainer}}</div>
+        <div id="footer" class="WebWindowFooter">{{wwFooter}}</div>    
     </div>
     <footer id="page-stats"><span>{{footer}}</span></footer>
     <script type="text/javascript" src="js/{{pageName}}.js"></script>
