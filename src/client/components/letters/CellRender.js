@@ -16,7 +16,7 @@ CellRender.prototype.startTimer = function () {
     var runClock = function () {
         tblObj.runClock();
     };
-    this.timerID = window.setInterval( runClock, 500 );
+    this.timerID = window.setInterval( runClock, 1500 );
 };
 
 // need to stop the timer

@@ -5,6 +5,10 @@ var path = require( "path" ),
     UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' ),
     babelConfig = JSON.parse( fs.readFileSync( `${baseDir}/config/babel-config.json` ) );
 
+const eslintConfig = fs.readFileSync( path.resolve( "./config/eslint.json" ) ).toString();
+
+const esJSON = JSON.parse( eslintConfig );
+
 module.exports = {
     "entry": {
         "canvasTest": "./src/client/pages/canvasTest",
@@ -25,9 +29,6 @@ module.exports = {
     },
     "context": path.resolve( "." ),
     "devtool": "source-map",
-    "eslint": {
-        "configFile": path.resolve( "./config/eslint.cfg" )
-    },
     "output": {
         "filename": "[name].js",
         "chunkFilename": "bundle.js",
@@ -49,9 +50,9 @@ module.exports = {
         }, {
             loader: "eslint-loader",
             exclude: /node_modules/,
-            "query": {
+            options: Object.assign( {}, {
                 "parser": "babel-eslint"
-            }
+            }, esJSON )
         } ]
     },
     plugins: [
