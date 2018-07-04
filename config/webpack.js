@@ -30,8 +30,8 @@ module.exports = {
     "context": path.resolve( "." ),
     "devtool": "source-map",
     "output": {
-        "filename": "[name].js",
-        "chunkFilename": "bundle.js",
+        "filename": "js/[name].js",
+        "chunkFilename": "[file].bundle.js",
         "sourceMapFilename": "[file].source.map"
     },
     "resolve": {
@@ -43,10 +43,13 @@ module.exports = {
         }
     },
     "module": {
-        "loaders": [ {
-            "loader": "babel-loader",
+        "rules": [ {
+            test: /\.js$/,
             exclude: /node_modules/,
-            "query": babelConfig
+            use: {
+                loader: "babel-loader",
+                options: babelConfig
+            }
         }, {
             loader: "eslint-loader",
             exclude: /node_modules/,
@@ -56,7 +59,7 @@ module.exports = {
         } ]
     },
     plugins: [
-        new UglifyJsPlugin( {
+        /*new UglifyJsPlugin( {
             sourceMap: true,
             uglifyOptions: {
                 maxLineLen: 10000,
@@ -80,6 +83,6 @@ module.exports = {
                     "side_effects": false
                 }
             }
-        } )
+        } )*/
     ]
 };

@@ -39,5 +39,5 @@ gulp.task( 'default', () => {
         .pipe( eslint( eslintCfg ) )
         .pipe( gulp.dest( 'src' ) )
         .pipe( webpack( webpackConfig ) )
-        .pipe( gulp.dest( 'js' ) );
+        .pipe( gulp.dest( '.' ) );
 } );
