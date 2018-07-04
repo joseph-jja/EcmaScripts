@@ -23,7 +23,7 @@
  * extend the Math object in JavaScript
  * the Math object is static, so you do not call new on it, just set a reference to it
  */
-let MathFunctions = {};
+const MathFunctions = {};
 
 /**
  * add(x,y, ...)                Returns x + y [can handle more than 2 parameters ]

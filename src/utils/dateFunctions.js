@@ -2,7 +2,7 @@
 // prototype of that object to the new other object
 // however with javascript base objects, this does not work the same
 
-let DateFunctions = {};
+const DateFunctions = {};
 
 // month names the the last day of the month, short name for week day and also long name if someone wants it
 DateFunctions.monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
