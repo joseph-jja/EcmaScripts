@@ -13,48 +13,51 @@ import * as menu from 'client/components/menu';
 
 var jsonData = {};
 
-function clickCallBack() {
-    var ih, xitem, g, anchorTags, xlen;
+function onFishTabsChanged() {
+    const spanTags = selector( "#fishdataContentArea span.selection-tied" ),
+        selectOption = selector( "#fish_tabs" ).get( 0 );
 
-    ih = this.innerHTML;
-    xitem = jsonData[ 'tropical_fish' ][ 'fish_data' ];
-    xlen = xitem.length;
-    for ( g = 0; g < xlen; g += 1 ) {
-        if ( xitem[ g ].name[ '#text' ] === ih ) {
-            selector( "#fishdataContentArea" ).get( 0 ).innerHTML = xitem[ g ].comment[ '#text' ];
-        }
+    let optionsindex, sloc, optn, selectedSpan;
+
+    for ( let i = 0, end = spanTags.length; i < end; i++ ) {
+        spanTags.get( i ).style.display = 'none';
     }
-    anchorTags = selector( '#container span.selected' );
-    xlen = anchorTags.length;
-    for ( g = 0; g < xlen; g += 1 ) {
-        css.removeClass( anchorTags.get( g ), 'selected' );
-    }
-    this.className += " selected";
+
+    optionsindex = selectOption.selectedIndex;
+    optn = selectOption[ optionsindex ];
+    sloc = optn.value;
+
+    selectedSpan = selector( '#' + sloc ).get( 0 );
+    selectedSpan.style.display = 'block';
 }
 
 function processJSON() {
-    var i, name, data, parent,
-        li, anchor, fish,
-        anchorTags, len;
+    let i, name, data, parent,
+        fish,
+        anchorTags, len,
+        container;
 
     parent = selector( "#fish_tabs" ).get( 0 );
+    container = selector( '#fishdataContentArea' ).get( 0 );
     parent.innerHTML = '';
     fish = jsonData[ 'tropical_fish' ][ 'fish_data' ];
     len = fish.length;
     for ( i = 0; i < len; i += 1 ) {
         name = fish[ i ][ 'name' ][ '#text' ];
         data = fish[ i ][ 'comment' ][ '#text' ];
-        li = dom.createElement( 'li', parent );
-        anchor = dom.createElement( 'span', li, {
-            "className": "toplevel collapsed",
-            "id": name.toLowerCase()
+        const option = dom.createElement( 'option', parent );
+        option.value = name.toLowerCase().replace( /\ /g, '-' );
+        option.text = name;
+        const span = dom.createElement( 'span', container, {
+            "id": name.toLowerCase().replace( /\ /g, '-' ),
+            'innerHTML': data,
         } );
-        anchor.innerHTML = name;
-        anchor.onclick = clickCallBack;
+        css.addClass( span, 'selection-tied' );
+        if ( i > 0 ) {
+            span.style.display = 'none';
+        }
     }
-    dom.html( "#fishdataContentArea", jsonData[ 'tropical_fish' ][ 'fish_data' ][ 0 ].comment[ '#text' ] );
-    anchorTags = selector( 'span.toplevel' );
-    css.addClass( anchorTags.get( 0 ), 'selected' );
+    events.addEvent( parent, 'change', onFishTabsChanged );
 }
 
 function getXMLDocument() {

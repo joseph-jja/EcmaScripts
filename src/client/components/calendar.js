@@ -1,10 +1,10 @@
 //below is the calendar object
+import WBDate from 'utils/dateFunctions';
+import selector from 'client/dom/selector';
 import * as typeCheck from 'utils/typeCheck';
 import * as css from 'client/dom/CSS';
 import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
-import selector from 'client/dom/selector';
-import WBDate from 'utils/dateFunctions';
 
 export default function Calendar( parentID, options ) {
 
