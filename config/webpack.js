@@ -59,7 +59,7 @@ module.exports = {
         } ]
     },
     plugins: [
-        /*new UglifyJsPlugin( {
+        new UglifyJsPlugin( {
             sourceMap: true,
             uglifyOptions: {
                 maxLineLen: 10000,
@@ -83,6 +83,6 @@ module.exports = {
                     "side_effects": false
                 }
             }
-        } )*/
+        } )
     ]
 };
