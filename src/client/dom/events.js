@@ -79,7 +79,7 @@ if ( document.createEvent ) {
     createEvent = function ( name, obj, options ) {
         var evt;
         evt = document.createEvent( "Event" );
-        if ( !event ) {
+        if ( !evt ) {
             return undefined;
         }
         if ( !options ) {
