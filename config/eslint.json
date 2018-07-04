@@ -56,48 +56,6 @@
         "dot-notation": 0,
 
         "space-unary-ops": 0
-    },
-
-    "globals": {
-        "jQuery": 1,
-        "require": 1,
-        "define": 1,
-        "document": 1,
-        "window": 1,
-        "console": 1,
-        "JSON": 1,
-        "google": 1,
-        "setInterval": 1,
-        "clearInterval": 1,
-
-        "describe": 1,
-        "it": 1,
-        "xit": 1,
-        "expect": 1,
-        "beforeEach": 1,
-        "afterEach": 1,
-        "beforeAll": 1,
-        "afterAll": 1,
-        "spyOn": 1,
-        "loadJSONFixtures": 1,
-        "loadFixtures": 1,
-        "setFixtures": 1,
-        "getJSONFixture": 1,
-        "jasmine": 1,
-        "loadStyleFixtures": 1,
-        "preCondition": 1,
-        "affix": 1,
-
-        "escape": 1,
-
-        "assetsServer": 1,
-        "commonAssetsServer": 1,
-        "isYAQF": 1,
-        "Modernizr": 1,
-        "pdpAssetServer": 1,
-        "secureServer": 1,
-        "ssp": 1,
-        "unsecureServer": 1
     }
 
 }
