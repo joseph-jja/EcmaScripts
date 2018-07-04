@@ -209,15 +209,16 @@ MathFunctions.hexidecimal = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
  * not so good at converting from base 10 to base 10
  * up to base 16 or HEX */
 MathFunctions.convertFromBaseTenToBaseX = function ( xbase, inval ) {
-    let remainder = MathFunctions.hexidecimal[ inval % xbase ];
-    while ( inval >= xbase ) {
-        let r1 = MathFunctions.subtract( inval, ( inval % xbase ) );
-        let inval = MathFunctions.divide( r1, xbase );
+    let xinval = inval;
+    let remainder = MathFunctions.hexidecimal[ xinval % xbase ];
+    while ( xinval >= xbase ) {
+        let r1 = MathFunctions.subtract( xinval, ( xinval % xbase ) );
+        xinval = MathFunctions.divide( r1, xbase );
         // in this case we do not want to add we want to append the strings together
-        if ( inval >= xbase ) {
-            remainder = MathFunctions.hexidecimal[ inval % xbase ] + remainder;
+        if ( xinval >= xbase ) {
+            remainder = MathFunctions.hexidecimal[ xinval % xbase ] + remainder;
         } else {
-            remainder = MathFunctions.hexidecimal[ inval ] + remainder;
+            remainder = MathFunctions.hexidecimal[ xinval ] + remainder;
         }
     }
     return remainder;
