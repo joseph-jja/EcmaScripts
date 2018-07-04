@@ -12,12 +12,9 @@ export default function Grid( parentID, tableID ) {
     this.matrix = [];
 
     this.reset = function () {
-        let i, j, cell;
-        for ( i = 0; i < rows; i += 1 ) {
-            for ( j = 0; j < cols; j += 1 ) {
-                cell = selector( "#" + this.tableID + 'cell' + i + '_' + j ).get( 0 );
-                cell.style.background = "white";
-            }
+        const cells = selector( "#" + this.parentID + ' td.grid-cell' );
+        for ( let i = 0, end = cells.length; i < end; i++ ) {
+            cells[ i ].style.background = "white";
         }
     };
 
@@ -29,7 +26,7 @@ export default function Grid( parentID, tableID ) {
 
         parent = selector( "#" + this.parentID ).get( 0 );
 
-        table = dom.createElement( 'table', parent, {
+        table = dom.createElement( 'table', undefined, {
             "id": this.tableID + 'table'
         } );
 
@@ -38,11 +35,13 @@ export default function Grid( parentID, tableID ) {
                 "id": this.tableID + 'row' + i
             } );
             for ( j = 0; j < cols; j += 1 ) {
-                dom.createElement( 'td', row, {
+                let cell = dom.createElement( 'td', row, {
                     "id": this.tableID + 'cell' + i + '_' + j
                 } );
+                cell.className = 'grid-cell';
             }
         }
+        parent.appendChild( table );
     };
 
 };

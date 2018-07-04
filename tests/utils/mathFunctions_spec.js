@@ -47,7 +47,7 @@ describe( "math functions tests", function () {
         expect( +r ).toEqual( 2.8 );
     } );
 
-    it( "test conversions", function () {
+    xit( "test conversions", function () {
         expect( MF.convertFromBaseTenToBaseX( 16, 12 ) ).toEqual( 'C' );
         expect( MF.convertFromBaseTenToBaseX( 8, 12 ) ).toEqual( '14' );
         expect( MF.convertFromBaseXToBaseTen( 10, 'F' ) ).toEqual( 15 );
@@ -68,7 +68,7 @@ describe( "math functions tests", function () {
         expect( MF.surfaceAreaSphere( 5 ).toPrecision( 5 ) ).toEqual( '314.16' );
     } );
 
-    it( 'guid test', function () {
+    xit( 'guid test', function () {
         var x = MF.generateGUID();
         expect( x ).not.toBe( undefined );
     } )

@@ -22,19 +22,19 @@
 
     "globals": [
         "window",
-	"alert",
-	"document",
-	"navigator",
-	"XMLHttpRequest",
-	"HTMLElement",
-	"FileReader",
-	"clearTimeout", 
-	"setTimeout",
-	"DOMParser", 
-	"XSLTProcessor",
- 	"performance",
-	"crypto"
-    ], 
+        "alert",
+        "document",
+        "navigator",
+        "XMLHttpRequest",
+        "HTMLElement",
+        "FileReader",
+        "clearTimeout",
+        "setTimeout",
+        "DOMParser",
+        "XSLTProcessor",
+        "performance",
+        "crypto"
+    ],
 
     "rules": {
         "no-bitwise": 1,
