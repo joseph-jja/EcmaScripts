@@ -11,6 +11,7 @@ const esJSON = JSON.parse( eslintConfig );
 
 module.exports = {
     "entry": {
+        "calculatorExamples": "./src/client/pages/calculatorExamples",
         "calendarExamples": "./src/client/pages/calendarExamples",
         "canvasTest": "./src/client/pages/canvasTest",
         "emailForm": "./src/client/pages/emailForm",

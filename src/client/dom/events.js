@@ -37,6 +37,11 @@ if ( window.detachEvent && !window.removeEventListener ) {
     };
 }
 
+function isTouchEnabled() {
+    const doc = document;
+    return ( doc.documentElement && ( 'ontouchstart' in doc.documentElement || 'touchstart' in doc.documentElement ) );
+}
+
 getEvent = function ( evt ) {
     var eventObj = ( window.event ) ? window.event : evt;
     return eventObj;
@@ -131,5 +136,6 @@ export {
     createEvent,
     fireEvent,
     addOnLoad,
-    doOnLoad
+    doOnLoad,
+    isTouchEnabled
 };
