@@ -39,14 +39,14 @@ Calculator.display = [];
 
 Calculator.prototype.render = function () {
 
-    const cols = 6;
+    const cols = 6,
+        calcEnd = Calculator.display.length;
     let tr, td, optn, form;
 
     let parentObj = selector( "#" + this.parentID ).get( 0 );
     if ( !parentObj ) {
         throw ( "Could not get parent element to attach calendar to!" );
     }
-
 
     this.handle.table = dom.createElement( 'table', parentObj, {
         "className": "Calculator"
@@ -80,11 +80,11 @@ Calculator.prototype.render = function () {
 	}
 	 */
     //"A", "B", "C", "D", "E", "F" ];
-    for ( let i = 0, end = Calculator.display.length; i < end; i += 1 ) {
-        let display = Calculator.display[ i ];
-        let jend = display[ i ].length;
+    for ( let i = 0; i < calcEnd; i++ ) {
+        let display = Calculator.display;
+        let end = display[ i ].length;
         tr = dom.createElement( 'tr', this.handle.table );
-        for ( let j = 0; j < jend; j += 1 ) {
+        for ( let j = 0; j < end; j++ ) {
             let o = {
                 "innerHTML": display[ i ][ j ]
             };

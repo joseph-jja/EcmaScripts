@@ -33,7 +33,8 @@
         "DOMParser",
         "XSLTProcessor",
         "performance",
-        "crypto"
+        "crypto",
+        "console"
     ],
 
     "rules": {
