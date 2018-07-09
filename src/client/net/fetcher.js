@@ -22,6 +22,6 @@ function fetcher( url ) {
             }
         };
         
-        return reader.read().then(dataConverter).then( r => { console.log(r); });
+        return reader.read().then(dataConverter);
     });
 }
