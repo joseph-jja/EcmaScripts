@@ -3,7 +3,7 @@
 // and this makes using the BufferDecoder easier a bit
 const BufferDecoder = new TextDecoder("ascii", { ignoreBOM: false });
 
-// 
+// FIXME or FINISH-ME :P
 function fetcher( url ) {
     return fetch(url).then ( (response) => {
         const reader = response.body.getReader();
