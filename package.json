@@ -22,7 +22,6 @@
   "homepage": "https://github.com/joseph-jja/JavaScripts#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.3",
     "babel-istanbul": "^0.12.2",
     "babel-istanbul-loader": "^0.1.0",
     "babel-loader": "7.1.0",
@@ -45,6 +44,7 @@
     "karma-spec-reporter": "0.0.32",
     "karma-threshold-reporter": "^0.1.15",
     "karma-webpack": "^2.x",
+    "eslint-scope": "3.7.1",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "3.11.0"
   },

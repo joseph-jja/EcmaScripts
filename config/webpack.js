@@ -15,6 +15,7 @@ module.exports = {
         "calendarExamples": "./src/client/pages/calendarExamples",
         "canvasTest": "./src/client/pages/canvasTest",
         "emailForm": "./src/client/pages/emailForm",
+        "emailThankYou": "./src/client/pages/emailThankYou",
         "fishLog": "./src/client/pages/fishLog",
         "fishPictures": "./src/client/pages/fishPictures",
         "index": "./src/client/pages/index",
@@ -55,9 +56,7 @@ module.exports = {
         }, {
             loader: "eslint-loader",
             exclude: /node_modules/,
-            options: Object.assign( {}, {
-                "parser": "babel-eslint"
-            }, esJSON )
+            options: esJSON
         } ]
     },
     plugins: [
