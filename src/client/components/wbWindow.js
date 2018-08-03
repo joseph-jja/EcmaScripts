@@ -145,7 +145,7 @@ wbWindow.prototype.popToFront = function ( evt ) {
     var tgtWin, tgt, e;
     e = events.getEvent( evt );
     tgt = events.getTarget();
-    tgtWin = selector( tgt ).findParent( "div.WebWindowMain" );
+    tgtWin = dom.findParent( tgt, "div.WebWindowMain" );
     if ( !tgtWin ) {
         return;
     }
