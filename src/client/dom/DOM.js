@@ -1,16 +1,16 @@
 //
 //
-//DOM methods 
+//DOM methods
 import selector from 'client/dom/selector';
 import * as typeCheck from 'utils/typeCheck';
 import * as CSS from 'client/dom/CSS';
 
-let createElement = function ( type, parent, options ) {
+const createElement = function ( type, parent, options ) {
     var obj, pObj;
 
     pObj = document.body;
     if ( parent && typeCheck.isString( parent ) ) {
-        // must be an id 
+        // must be an id
         pObj = document.getElementById( parent );
     } else if ( parent ) {
         // assume node
@@ -53,7 +53,7 @@ let createElement = function ( type, parent, options ) {
     return obj;
 };
 
-let html = function ( ele, content, index ) {
+const html = function ( ele, content, index ) {
     var ele, name, x = selector( ele );
 
     if ( x.length <= 0 ) {
@@ -95,20 +95,20 @@ let html = function ( ele, content, index ) {
 };
 
 // allow pslctr to be a selector object
-let findParent = function ( slctr, pslctr, i ) {
+const findParent = function ( slctr, pslctr, i ) {
     var node,
         cElmnt,
         getParent, pNode;
 
     // this will be all the siblings of the same type and the element
-    // so if this is a div and there are siblings divs we get 
+    // so if this is a div and there are siblings divs we get
     // all the sibling divs assuming slctr = div
     cElmnt = selector( slctr );
     if ( cElmnt.length <= 0 ) {
         return undefined;
     }
 
-    // this will get us the first in the list unless an index has been passed 
+    // this will get us the first in the list unless an index has been passed
     node = cElmnt.get( 0 );
     if ( i && i < cElmnt.length ) {
         node = cElmnt.get( i );
@@ -121,7 +121,7 @@ let findParent = function ( slctr, pslctr, i ) {
     getParent = function ( node, pNodeName ) {
         var prnt, inStr;
 
-        // no node :( 
+        // no node :(
         if ( !node ) {
             pNode = null;
             return;
@@ -150,7 +150,7 @@ let findParent = function ( slctr, pslctr, i ) {
 //                              does not support getting the position, otherwise it
 //                              return the position of the cursor in a text field
 /////////////////////////////////////////////////////////////////////
-let getTextFieldCursorPosition = function ( obj ) {
+const getTextFieldCursorPosition = function ( obj ) {
     var textFieldRange, bookmark, doc;
     doc = document;
     // only work with text fields
@@ -179,7 +179,7 @@ let getTextFieldCursorPosition = function ( obj ) {
 //Parameter:    pos - the new position to set the cursor in this field to
 //Returns:              nada
 /////////////////////////////////////////////////////////////////////
-let setTextFieldCursorPosition = function ( obj, pos, epos ) {
+const setTextFieldCursorPosition = function ( obj, pos, epos ) {
     var textFieldRange;
     // only work with text fields
     if ( obj.type !== "text" ) {
@@ -204,7 +204,7 @@ let setTextFieldCursorPosition = function ( obj, pos, epos ) {
 //options can contain
 //id: id of script
 //callback: callback function after onload
-let loadScript = function ( scriptURL, options, jsonpOptions ) {
+const loadScript = function ( scriptURL, options, jsonpOptions ) {
     var body = document.body,
         script, remove, abort, scriptList = [];
     if ( !scriptURL ) {
@@ -271,7 +271,7 @@ let loadScript = function ( scriptURL, options, jsonpOptions ) {
 };
 
 //ok now we get an idea about the width and height of the browser window
-let screen = {
+const screen = {
     maxx: function () {
         return window.innerWidth || ( document.documentElement && document.documentElement.clientWidth ) || ( document.documentElement && document.documentElement.offsetWidth ) || ( document.body && document.body.clientWidth ) || ( document.body && document.body.offsetWidth ) || 0;
     },
@@ -280,7 +280,7 @@ let screen = {
     }
 };
 
-let toggleDisplay = function ( objName ) {
+const toggleDisplay = function ( objName ) {
     var state, obj = objName;
     if ( typeCheck.isString( objName ) ) {
         obj = selector( "#" + objName ).get( 0 );

@@ -2,19 +2,18 @@
 import selector from 'client/dom/selector';
 import * as typeCheck from 'utils/typeCheck';
 
-let addClass = function ( obj, cls ) {
-    var cssCls = obj.className;
-    if ( cssCls.indexOf( cls ) === -1 ) {
+const addClass = function ( obj, cls ) {
+    if ( obj.className.indexOf( cls ) === -1 ) {
         obj.className += " " + cls;
     }
 };
 
-let removeClass = function ( obj, cls ) {
-    var i, ridx = -1,
-        clen,
+const removeClass = function ( obj, cls ) {
+    let ridx = -1,
+        i,
         cssClasses = obj.className.split( " " );
 
-    clen = cssClasses.length;
+    const clen = cssClasses.length;
     for ( i = 0; i < clen; i += 1 ) {
         if ( cssClasses[ i ] === cls ) {
             ridx = i;
@@ -28,21 +27,21 @@ let removeClass = function ( obj, cls ) {
     obj.className = cssClasses.join( " " );
 };
 
-let replaceClass = function ( obj, ocls, ncls ) {
+const replaceClass = function ( obj, ocls, ncls ) {
     removeClass( obj, ocls );
     addClass( obj, ncls );
 };
 
-let hasClass = function ( element, cssClass ) {
-    var i, clen, cssClasses, eObj = element;
+const hasClass = function ( element, cssClass ) {
+    let eObj = element;
     if ( typeCheck.isString( element ) ) {
         eObj = document.getElementById( element );
     }
     if ( eObj && eObj.className ) {
         // now we have the object
-        cssClasses = eObj.className.split( " " );
-        clen = cssClasses.length;
-        for ( i = 0; i < clen; i += 1 ) {
+        const cssClasses = eObj.className.split( " " );
+        const clen = cssClasses.length;
+        for ( let i = 0; i < clen; i += 1 ) {
             if ( cssClasses[ i ] === cssClass ) {
                 return true;
             }
@@ -52,8 +51,8 @@ let hasClass = function ( element, cssClass ) {
 };
 
 // need to get the JS style syntax instead of border-top it should be borderTop
-let getComputedStyle = function ( el, styleProp ) {
-    var y, x = el;
+const getComputedStyle = function ( el, styleProp ) {
+    let y, x = el;
     if ( typeCheck.isString( el ) ) {
         x = selector( "#" + el ).get( 0 );
     }
