@@ -87,10 +87,10 @@ export default function dragndrop() {
         if ( dnd.isInitialized ) {
             return;
         }
-        dnd.dragableCoverMask = selector( "#" + "_$_dragndrop_$_" ).get( 0 );
+        dnd.dragableCoverMask = selector( "#" + "-dragndrop-enabled-x" ).get( 0 );
         if ( !dnd.dragableCoverMask ) {
             dnd.dragableCoverMask = dom.createElement( "div", document.body );
-            dnd.dragableCoverMask.id = "_$_dragndrop_$_";
+            dnd.dragableCoverMask.id = "-dragndrop-enabled-x";
         }
         dnd.dragableCoverMask.style.display = "none";
         events.addEvent( document, "mousemove", dnd.mousemove, false );

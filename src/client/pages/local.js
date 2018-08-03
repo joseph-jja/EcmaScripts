@@ -22,7 +22,7 @@ function doLoadStuff() {
     const cdata = selector( "#calendarData" ).get( 0 );
     // move the calendar into the window area
     ywin.windowArea.appendChild( cdata );
-    //ywin.enableDrag();
+    ywin.enableDrag();
 
     const divObj = document.getElementById( "googlebar" );
     let data = divObj.innerHTML;
@@ -30,7 +30,7 @@ function doLoadStuff() {
 
     const googlewin = new Window( "Google Search", 20, 470, 340, 150, "googlewin" );
     googlewin.windowArea.innerHTML = '<div class="padddata">' + data + '</div>';
-    //googlewin.enableDrag();
+    googlewin.enableDrag();
 
     // main window
     const genObj = document.getElementById( "generated" );
@@ -43,20 +43,20 @@ function doLoadStuff() {
 
     const pagedatawin = new Window( "Info Window", 140, 40, 350, 405, "mainwindow" );
     pagedatawin.windowArea.innerHTML = '<div class="padddata">' + data + '</div>';
-    //pagedatawin.enableDrag();
+    pagedatawin.enableDrag();
 
     const dwin = new Window( "Calculator", 580, 360, 275, 300, "dwindow" );
     const webCalc = new Calculator( dwin.windowArea.id );
     webCalc.render();
     //dwin.windowArea.appendChild(webCalc.createKeyPad());
-    //dwin.enableDrag();
+    dwin.enableDrag();
 
     const binwin = new Window( "Binary Clock", 390, 460, 165, 150, "binaryWindow" );
     const binClock = new BinaryClock();
     binClock.setId( binwin.windowArea.id );
     binClock.render();
     binClock.startClock();
-    //binwin.enableDrag();
+    binwin.enableDrag();
 
     //if ( alrtmsg && alrtmsg != "" ) {
     //alert(alrtmsg);
