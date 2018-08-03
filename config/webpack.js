@@ -19,6 +19,7 @@ module.exports = {
         "fishLog": "./src/client/pages/fishLog",
         "fishPictures": "./src/client/pages/fishPictures",
         "index": "./src/client/pages/index",
+        "local": "./src/client/pages/local",
         "myLinks": "./src/client/pages/myLinks",
         "helloWorld": "./src/client/pages/helloWorld",
         "indexDBTaskList": "./src/client/pages/indexDBTaskList",

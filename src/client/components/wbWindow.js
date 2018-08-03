@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////
 //this should be used to just build the user interface of the window
-//this does nothing else.  
+//this does nothing else.
 //there are 3 buttons: rollup, rolldown, and destroy - functionality not implemented yet
 
 //styles should contain the below classes
@@ -12,13 +12,13 @@
 //WebWindowButton - each button
 import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
-import * as dragndrop from 'client/dom/dragndrop';
+import Dragndrop from 'client/dom/dragndrop';
 import selector from 'client/dom/selector';
 
 export default function wbWindow( title, x, y, width, height, winID ) {
 
     // 1 div for the main window
-    // all WebWindows are web window mains 
+    // all WebWindows are web window mains
     var options,
         bdy = document.body,
         code,
@@ -29,8 +29,8 @@ export default function wbWindow( title, x, y, width, height, winID ) {
     //if ( ! this.mainWindow ) {
     //    code = template.add('main', '<div class="{{cssClass}}" id="{{eleID}}"></div>');
     //    options = { "cssClass": "WebWindowMain", "eleID": winID };
-    //    selector(bdy).append(template.render('main', options)); 
-    //    this.mainWindow = selector("#" + winID).get(0); 
+    //    selector(bdy).append(template.render('main', options));
+    //    this.mainWindow = selector("#" + winID).get(0);
     //}
 
     options = {
@@ -77,7 +77,7 @@ export default function wbWindow( title, x, y, width, height, winID ) {
     };
     var buttonBox = dom.createElement( "span", this.titleBar, options );
 
-    // because buttons need a form 
+    // because buttons need a form
     options = {
         "name": "WW" + winID,
         "onsubmit": "return false;"
@@ -114,7 +114,7 @@ export default function wbWindow( title, x, y, width, height, winID ) {
         button.onclick = fn;
 
         // this is all to workaround the but in IE
-        // when you create a button type button 
+        // when you create a button type button
         phtml = parent.innerHTML;
         phtml = phtml.toLowerCase();
         bclass = new RegExp( "button class" );
@@ -137,6 +137,8 @@ export default function wbWindow( title, x, y, width, height, winID ) {
     // TODO update to correctly set size of this area based on rest of widget
     nht = height - this.titleBar.offsetHeight - this.footerArea.offsetHeight;
     this.windowArea.style.height = nht + "px";
+
+    this.dragndrop = new Dragndrop();
 };
 
 wbWindow.prototype.popToFront = function ( evt ) {
@@ -152,19 +154,19 @@ wbWindow.prototype.popToFront = function ( evt ) {
 
 wbWindow.prototype.enableDrag = function () {
     var pop = this.popToFront;
-    dragndrop.initialize();
-    dragndrop.setDragable( this.mainWindow.id, this.titleBar.id );
+    this.dragndrop.initialize();
+    this.dragndrop.setDragable( this.mainWindow.id, this.titleBar.id );
     events.addEvent( this.mainWindow, "mousedown", pop, false );
 };
 
 wbWindow.prototype.disableDrag = function () {
     var pop = this.popToFront;
-    dragndrop.initialize();
-    dragndrop.setNONDragable( this.mainWindow.id, this.titleBar.id );
+    this.dragndrop.initialize();
+    this.dragndrop.setNONDragable( this.mainWindow.id, this.titleBar.id );
     events.removeEvent( this.mainWindow, "mousedown", pop, false );
 };
 
-//to set the tile 
+//to set the tile
 wbWindow.prototype.setTitle = function ( title ) {
     var titlearea = this.titleBar.getElementsByTagName( "span" );
     if ( titlearea && titlearea.length > 0 ) {

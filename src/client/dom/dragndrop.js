@@ -129,11 +129,10 @@ export default function dragndrop() {
     };
 
     self.mousedown = function ( evt ) {
-        var dnd, e, tgt;
 
-        dnd = self,
-            e = events.getEvent( evt );
-        tgt = events.getTarget();
+        let dnd = self;
+        let e = events.getEvent( evt );
+        let tgt = events.getTarget();
 
         // set the current draggable object by using the target objects id
         tgt = dnd.findDragableParent( tgt );
