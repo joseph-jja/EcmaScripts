@@ -1,19 +1,6 @@
 {
-    "ecmaFeatures": {
-        "modules": true
-    },
-
     "parserOptions": {
-        "ecmaVersion": 7,
         "sourceType": "module"
-    },
-    "sourceType": {
-        "module": {
-            "modules": true,
-            "ecmaFeatures": {
-                "modules": true
-            }
-        }
     },
     "env": {
         "browser": true,
@@ -21,22 +8,26 @@
         "es6": true
     },
 
-    "globals": [
-        "window",
-        "alert",
-        "document",
-        "navigator",
-        "XMLHttpRequest",
-        "HTMLElement",
-        "FileReader",
-        "clearTimeout",
-        "setTimeout",
-        "DOMParser",
-        "XSLTProcessor",
-        "performance",
-        "crypto",
-        "console"
-    ],
+    "globals": {
+        "window": true,
+        "alert": true,
+        "document": true,
+        "navigator": true,
+        "XMLHttpRequest": true,
+        "HTMLElement": true,
+        "FileReader": true,
+        "clearTimeout": true,
+        "setTimeout": true,
+        "DOMParser": true,
+        "XSLTProcessor":true,
+        "performance": true,
+        "crypto": true,
+        "console": true,
+        "expect": true,
+        "it": true,
+        "xit": true,
+        "describe": true
+    },
 
     "rules": {
         "no-bitwise": 1,

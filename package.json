@@ -4,7 +4,7 @@
   "version": "0.0.4",
   "main": "index.js",
   "scripts": {
-    "eslint": "./node_modules/.bin/eslint --quiet -c config/eslint.cfg .",
+    "eslint": "./node_modules/.bin/eslint --quiet -c config/eslint.json .",
     "clean": "rm -rf js work npm-debug.log coverage",
     "build": "./node_modules/gulp/bin/gulp.js && ./node_modules/.bin/webpack --config config/webpack.js",
     "analyze": "./node_modules/.bin/webpack --json --config config/webpack.js > stats.json",
