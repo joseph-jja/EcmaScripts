@@ -19,7 +19,7 @@
         "clearTimeout": true,
         "setTimeout": true,
         "DOMParser": true,
-        "XSLTProcessor":true,
+        "XSLTProcessor": true,
         "performance": true,
         "crypto": true,
         "console": true,
