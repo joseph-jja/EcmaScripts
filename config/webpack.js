@@ -11,7 +11,6 @@ const esJSON = JSON.parse( eslintConfig ),
     esJSONWP = Object.keys( esJSON.globals );
 
 esJSON.globals = esJSONWP;
-console.log( esJSON );
 
 module.exports = {
     "entry": {
@@ -38,7 +37,8 @@ module.exports = {
     "context": path.resolve( "." ),
     "devtool": "source-map",
     "output": {
-        "filename": "js/[name].js",
+        "path": `${baseDir}/js`,
+        "filename": "[name].js",
         "chunkFilename": "[file].bundle.js",
         "sourceMapFilename": "[file].source.map"
     },
