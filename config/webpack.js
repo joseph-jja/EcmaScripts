@@ -5,9 +5,13 @@ var path = require( "path" ),
     UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' ),
     babelConfig = JSON.parse( fs.readFileSync( `${baseDir}/config/babel-config.json` ) );
 
-const eslintConfig = fs.readFileSync( path.resolve( "./config/eslint-wp.json" ) ).toString();
+const eslintConfig = fs.readFileSync( path.resolve( "./config/eslint.json" ) ).toString();
 
-const esJSON = JSON.parse( eslintConfig );
+const esJSON = JSON.parse( eslintConfig ),
+    esJSONWP = Object.keys( esJSON.globals );
+
+esJSON.globals = esJSONWP;
+console.log( esJSON );
 
 module.exports = {
     "entry": {
