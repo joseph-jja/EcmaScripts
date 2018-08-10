@@ -1,4 +1,4 @@
-/** Math object gives us 
+/** Math object gives us
  * abs(x) 		Returns the absolute value of a number
  * acos(x) 		Returns the arccosine of a number
  * asin(x) 		Returns the arcsine of a number
@@ -127,8 +127,9 @@ MathFunctions.areaOfTrapizoid = function ( height, abase, bbase ) {
     return MathFunctions.multiply( height, a2 );
 };
 
-MathFunctions.pythagorean = function ( size, psize ) {
-    return Math.sqrt( MathFunctions.square( size ) - MathFunctions.square( psize ) );
+MathFunctions.pythagorean = function ( a, b ) {
+    // return C given a^2 + b^2 = c^2
+    return Math.sqrt( MathFunctions.square( a ) + MathFunctions.square( b ) );
 };
 
 /* compute average */

@@ -68,8 +68,13 @@ describe( "math functions tests", function () {
         expect( MF.surfaceAreaSphere( 5 ).toPrecision( 5 ) ).toEqual( '314.16' );
     } );
 
+    it( 'pythagorean test', function () {
+        var x = MF.pythagorean(4, 3);
+        expect( x ).toEqual( 5 );
+    } )
+
     it( 'guid test', function () {
         var x = MF.generateGUID();
         expect( x ).not.toBe( undefined );
-    } )
+    } );
 } );
