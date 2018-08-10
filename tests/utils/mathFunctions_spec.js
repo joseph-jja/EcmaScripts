@@ -78,6 +78,21 @@ describe( "math functions tests", function () {
         expect( Math.floor(x) ).toEqual( 25 );
     } );
 
+    it( 'volumeCone test', function () {
+        var x = MF.volumeCone( 4, 5 );
+        expect( Math.floor(x) ).toEqual( 83 );
+    } );
+
+    it( 'volumeCylinder test', function () {
+        var x = MF.volumeCylinder( 4, 5 );
+        expect( Math.floor(x) ).toEqual( 251 );
+    } );
+
+    it( 'volumeSphere test', function () {
+        var x = MF.volumeSphere( 5 );
+        expect( Math.floor(x) ).toEqual( 523 );
+    } );
+
     it( 'guid test', function () {
         var x = MF.generateGUID();
         expect( x ).not.toBe( undefined );
