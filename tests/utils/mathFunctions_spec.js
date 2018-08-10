@@ -69,9 +69,14 @@ describe( "math functions tests", function () {
     } );
 
     it( 'pythagorean test', function () {
-        var x = MF.pythagorean(4, 3);
+        var x = MF.pythagorean( 4, 3 );
         expect( x ).toEqual( 5 );
-    } )
+    } );
+
+    it( 'circumferenceOfACircle test', function () {
+        var x = MF.circumferenceOfACircle( 4 );
+        expect( Math.floor(x) ).toEqual( 25 );
+    } );
 
     it( 'guid test', function () {
         var x = MF.generateGUID();

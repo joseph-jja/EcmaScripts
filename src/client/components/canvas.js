@@ -6,6 +6,10 @@ import MF from "utils/mathFunctions";
 
 function setProperties( canvas ) {
 
+    // find a from pythagorean
+    function reversePythaogrean( a, b ) {
+        return Math.sqrt( MF.square( a ) - MF.square( b ) )
+    };
 
     canvas.clear = function () {
         this.ctx.clearRect( 0, 0, this.width, this.height );
@@ -31,7 +35,7 @@ function setProperties( canvas ) {
         // FIX ME
         // allow us to rotate the arc
         if ( rotateAngle ) {
-            // to do this need to find center 
+            // to do this need to find center
             // then rotate around that point
             ox = Math.abs( startX - endX ) / 2;
             oy = Math.abs( startY - endY ) / 2;
@@ -63,7 +67,7 @@ function setProperties( canvas ) {
         }
 
         cx.beginPath();
-        // this line is for a konqueror bug in circle and arc 
+        // this line is for a konqueror bug in circle and arc
         // where konqueror starts from point 0,0 so you need to moveTo
         cx.moveTo( x + radius, y );
         cx.arc( x, y, radius, 0, Math.PI * 2, true );
@@ -99,7 +103,7 @@ function setProperties( canvas ) {
             // take degrees and convert to radians
             cx.rotate( MF.degreesToRadians( rotateAngle ) );
         }
-        // this line is for a konqueror bug in circle and arc 
+        // this line is for a konqueror bug in circle and arc
         // where konqueror starts from point 0,0 so you need to moveTo
         cx.moveTo( x - radius - offsetX, y - offsetY );
         cx.arc( x - offsetX, y - offsetY, radius, Math.PI, Math.PI * 2, true );
@@ -224,7 +228,7 @@ function setProperties( canvas ) {
 
         ctx.save();
         ctx.beginPath();
-        // allow us to rotate the triangle, 
+        // allow us to rotate the triangle,
         // FIX ME find center
         if ( rotateAngle ) {
             offsetX = ( ax + bx + cx ) / 3;
@@ -257,7 +261,7 @@ function setProperties( canvas ) {
 
         psize = size / 2;
         // from a^2 + b^2 = c^2 solve for c
-        c = MF.pythagorean( size, psize );
+        c = reversePythaogrean( size, psize );
 
         if ( orientation === "down" ) {
             this.triangle( ax, ay, ax + size, ay, ax + psize, ay + c, options );
@@ -266,7 +270,7 @@ function setProperties( canvas ) {
         }
     };
 
-    // x,y is center and size is the size of the side 
+    // x,y is center and size is the size of the side
     canvas.hexagon = function ( ax, ay, size, options ) {
         var cx,
             c, psize, stroke,
@@ -285,8 +289,8 @@ function setProperties( canvas ) {
         psize = size / 2;
         stroke = ( ( fillStrokeClear ) ? fillStrokeClear : "stroke" );
 
-        // from a^2 + b^2 = c^2 solve for c 
-        c = MF.pythagorean( size, psize );
+        // from a^2 + b^2 = c^2 solve for c
+        c = reversePythaogrean( size, psize );
 
         cx.save();
         cx.beginPath();
@@ -302,14 +306,14 @@ function setProperties( canvas ) {
         // draw top
         cx.lineTo( ax + psize - offsetX, ay - c - offsetY );
 
-        // draw right side 
+        // draw right side
         cx.lineTo( ax + size - offsetX, ay - offsetY );
         cx.lineTo( ax + psize - offsetX, ay + c - offsetY );
 
-        // draw bottom line 
+        // draw bottom line
         cx.lineTo( ax + psize - size - offsetX, ay + c - offsetY );
 
-        // draw left side 
+        // draw left side
         cx.lineTo( ax - size - offsetX, ay - offsetY );
         cx.lineTo( ax - size + psize - offsetX, ay - c - offsetY );
 
@@ -320,7 +324,7 @@ function setProperties( canvas ) {
     };
 
 
-    // x,y is center and size is the size of the side 
+    // x,y is center and size is the size of the side
     canvas.octagon = function ( x, y, size, options ) {
         var cx,
             c, psize, stroke,
@@ -352,7 +356,7 @@ function setProperties( canvas ) {
         // draw top
         cx.lineTo( x + psize - offsetX, y - c - offsetY );
 
-        // right side 
+        // right side
         cx.lineTo( x + c - offsetX, y - psize - offsetY );
         cx.lineTo( x + c - offsetX, y + psize - offsetY );
         cx.lineTo( x + psize - offsetX, y + c - offsetY );
@@ -360,7 +364,7 @@ function setProperties( canvas ) {
         // bottom line
         cx.lineTo( x - psize - offsetX, y + c - offsetY );
 
-        // left size 
+        // left size
         cx.lineTo( x - c - offsetX, y + psize - offsetY );
         cx.lineTo( x - c - offsetX, y - psize - offsetY );
         cx.lineTo( x - psize - offsetX, y - c - offsetY );
@@ -384,7 +388,7 @@ export function create( id, parent, width, height ) {
         },
         result;
 
-    // make math stuff global 
+    // make math stuff global
     window.MF = MF;
 
     cvs.canvas = dom.createElement( "canvas", parent, {
