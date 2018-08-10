@@ -93,6 +93,17 @@ describe( "math functions tests", function () {
         expect( Math.floor(x) ).toEqual( 523 );
     } );
 
+    it( 'degreesToRadians test', function () {
+        var x = MF.degreesToRadians( 286 );
+        // we use ceil here because it should be about 4.99
+        expect( Math.ceil(x) ).toEqual( 5 );
+    } );
+
+    it( 'radiansToDegrees test', function () {
+        var x = MF.radiansToDegrees( 5 );
+        expect( Math.floor(x) ).toEqual( 286 );
+    } );
+
     it( 'guid test', function () {
         var x = MF.generateGUID();
         expect( x ).not.toBe( undefined );
