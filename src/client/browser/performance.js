@@ -3,10 +3,9 @@ import {
 } from 'utils/typeCheck';
 
 var copy, timings, startTime,
-    hasPerformanceMetrics,
     getMetrics, metrics = {};
 
-hasPerformanceMetrics = ( ( exists( performance ) && exists( performance.timing ) ) ? true : false );
+const hasPerformanceMetrics = ( ( exists( performance ) && exists( performance.timing ) ) ? true : false );
 
 if ( hasPerformanceMetrics ) {
 

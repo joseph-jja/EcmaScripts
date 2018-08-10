@@ -75,33 +75,33 @@ describe( "math functions tests", function () {
 
     it( 'circumferenceOfACircle test', function () {
         var x = MF.circumferenceOfACircle( 4 );
-        expect( Math.floor(x) ).toEqual( 25 );
+        expect( Math.floor( x ) ).toEqual( 25 );
     } );
 
     it( 'volumeCone test', function () {
         var x = MF.volumeCone( 4, 5 );
-        expect( Math.floor(x) ).toEqual( 83 );
+        expect( Math.floor( x ) ).toEqual( 83 );
     } );
 
     it( 'volumeCylinder test', function () {
         var x = MF.volumeCylinder( 4, 5 );
-        expect( Math.floor(x) ).toEqual( 251 );
+        expect( Math.floor( x ) ).toEqual( 251 );
     } );
 
     it( 'volumeSphere test', function () {
         var x = MF.volumeSphere( 5 );
-        expect( Math.floor(x) ).toEqual( 523 );
+        expect( Math.floor( x ) ).toEqual( 523 );
     } );
 
     it( 'degreesToRadians test', function () {
         var x = MF.degreesToRadians( 286 );
         // we use ceil here because it should be about 4.99
-        expect( Math.ceil(x) ).toEqual( 5 );
+        expect( Math.ceil( x ) ).toEqual( 5 );
     } );
 
     it( 'radiansToDegrees test', function () {
         var x = MF.radiansToDegrees( 5 );
-        expect( Math.floor(x) ).toEqual( 286 );
+        expect( Math.floor( x ) ).toEqual( 286 );
     } );
 
     it( 'guid test', function () {
