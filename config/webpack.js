@@ -7,7 +7,10 @@ var path = require( "path" ),
 
 const eslintConfig = fs.readFileSync( path.resolve( "./config/eslint.json" ) ).toString();
 
-const esJSON = JSON.parse( eslintConfig );
+const esJSON = JSON.parse( eslintConfig ),
+    esJSONWP = Object.keys( esJSON.globals );
+
+esJSON.globals = esJSONWP;
 
 module.exports = {
     "entry": {
@@ -34,7 +37,8 @@ module.exports = {
     "context": path.resolve( "." ),
     "devtool": "source-map",
     "output": {
-        "filename": "js/[name].js",
+        "path": `${baseDir}/js`,
+        "filename": "[name].js",
         "chunkFilename": "[file].bundle.js",
         "sourceMapFilename": "[file].source.map"
     },

@@ -6,7 +6,12 @@ const gulp = require( 'gulp' ),
 
 const baseDir = process.cwd(),
     jsConfig = JSON.parse( fs.readFileSync( `${baseDir}/config/js-beautify.json` ).toString() ),
-    eslintCfg = `${baseDir}/config/eslint.cfg`;
+    eslintConfig = fs.readFileSync( `${baseDir}/config/eslint.json` ).toString();
+
+const eslintCfg = JSON.parse( eslintConfig ),
+    esJSONWP = Object.keys( eslintCfg.globals );
+
+eslintCfg.globals = esJSONWP;
 
 gulp.task( 'default', () => {
     gulp.src( "gulpfile.js" )
