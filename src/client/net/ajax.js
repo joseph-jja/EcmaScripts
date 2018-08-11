@@ -6,7 +6,7 @@ var stack = new Stack.Stack();
 export function makeRequest( type, cbFN, url, data, async, headers ) {
     var h, ajaxObj = {};
 
-    ajaxObj.xmlhttp = XmlHttp();
+    ajaxObj.xmlhttp = new XmlHttp();
     ajaxObj.index = stack.index;
 
     ajaxObj.xmlhttp.open( type, url, async );
