@@ -32,7 +32,7 @@ describe( 'testing some clocks', () => {
 
         Binary.render();
         Binary.runClock();
-        expect( binaryClockHolder.querySelectorAll('tr td').length ).toEqual( 24 );
+        expect( binaryClockHolder.querySelectorAll( 'tr td' ).length ).toEqual( 24 );
         Binary.stopClock();
     } );
 } );

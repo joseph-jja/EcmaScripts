@@ -12,23 +12,23 @@ events.addOnLoad( () => {
 
     var res = canvas.create( "canvasTest", "container", 600, 430 );
     if ( res && res.canvas && res.ctx ) {
-        res.circle( 150, 150, 75, {
+        res.circle( 50, 50, 75, {
             "color": "orange"
         } );
 
-        res.halfCircle( 300, 100, 50, {
+        res.halfCircle( 200, 50, 50, {
             "color": "blue"
         } );
 
-        res.hexagon( 150, 150, 75, {
+        res.hexagon( 50, 50, 75, {
             "color": "red"
         } );
 
-        res.octagon( 150, 150, 75, {
+        res.octagon( 50, 50, 75, {
             "color": "purple"
         } );
 
-        res.square( 150, 250, 75, {
+        res.square( 100, 200, 75, {
             "color": "green"
         } );
 
