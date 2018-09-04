@@ -80,6 +80,10 @@ events.addOnLoad( () => {
             "fillStrokeClear": "fill"
         } );
 
+        res.circle( 50, 30, 75, {
+            "color": "blue"
+        } );
+
         //         (function() {
         //         	var timeout = 250, max = 360, incr = 5, angle = 0;
 
