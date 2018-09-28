@@ -1,0 +1,288 @@
+a,body,p,b,i,li,div,table,td,u,span,input,button {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: normal;
+	color: black;
+}
+
+a {
+	color: #0000ff;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #ff0000;
+	text-decoration: none;
+}
+
+a:link,a:visited,a:active {
+	text-decoration: none;
+}
+/* header */
+div.header {
+	position: relative;
+	top: 0px;
+	margin: 0 auto;
+	width: 100%;
+	font-weight: bold;
+	font-size: 1.6em;
+	border-bottom: 4px #9966ff ridge;
+	color: white;
+	background-image: url("WebWindowTitleInactive.gif");
+}
+
+div.header span.digitalclock {
+	color: red;
+	font-weight: bold;
+	position: absolute;
+	right: 5px;
+	vertical-align: middle;
+}
+/* the menu */
+#nav_bar {
+	width: 100%;
+    background-color: azure;
+}
+
+.url-wrapper {
+    margin: 0 auto;
+    width: 80%;
+}
+
+#nav_bar .url-wrapper select {
+    font-size: 1.05em;    
+    font-weight: bold;
+    width: 100%;
+    padding: .5em;
+    background-color: #aff0ff;
+}
+
+/*
+div.menu {
+	display: inline-block;
+	text-decoration: none;
+	text-align: center;
+	width: 8%;
+	padding: 0.1em;
+	height: 2em;
+	border-bottom: 1px ridge gray;
+	border-left: 1px ridge gray;
+}
+
+div.menu a:hover {
+	background-color: #56ffaf;
+}
+
+#url-menu-active,div.menu a.selected {
+	background-color: #aff0ff;
+}
+
+@media screen and (max-width: 1125px) {
+    div.menu a, div.menu a:hover, #url-menu-active, div.menu a.selected {
+    	width: 16%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    div.menu a, div.menu a:hover, #url-menu-active, div.menu a.selected {
+    	width: 24%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    div.menu a, div.menu a:hover, #url-menu-active, div.menu a.selected {
+    	width: 47%;
+    }
+}
+*/
+
+/* if the content area needs to be split we have left and right */
+div.content-left {
+	position: relative;
+	margin: .4em;
+	width: 28em;
+	float: left;
+}
+
+* html div.content-left {
+	width: 340px;
+}
+
+div.content-right {
+	position: relative;
+	padding-top: 5px;
+	padding-left: 5px;
+	width: 220px;
+	left: 10px;
+	float: left;
+}
+
+.WebWindowMain {
+	position: relative;
+	left: 15px;
+	top: 25px;
+  margin: 0 auto;
+	float: left;
+	width: 95%;
+	min-width: 675px;
+	padding: 5px 9px 10px 9px;
+}
+
+.WebWindowArea {
+	min-height: 450px;
+	max-height: 650px;
+	text-align: left;
+	padding-left: 2px;
+	background: white;
+}
+
+.WebWindowFooter ul {
+	list-style: none;
+        padding: 0.2em;
+	margin: 0px;
+	border-top: 2px solid black;
+}
+
+.WebWindowFooter ul li {
+	display: inline;
+	margin-right: 1.5em;
+}
+
+.WebWindowFooter {
+	background-color: white;
+	text-align: center;
+    	border-bottom-right-radius: 20px; 
+    	border-bottom-left-radius: 20px; 
+}
+
+.WebWindowTitle,.WebWindowTitleInActive {
+	text-align: center;
+	color: white;
+	font-weight: bold;
+        border-top-right-radius: 20px; 
+	border-top-left-radius: 20px; 
+}
+
+.rss_title {
+	text-align: center;
+	margin: 5px 0px 0px 0px;
+	font-weight: bold;
+}
+
+.rsspager {
+	font-weight: bold;
+	margin: 0px 2px;
+}
+
+.rsspager_sel {
+	font-weight: bold;
+	margin: 0px 2px;
+	border-bottom: 2px solid red;
+}
+
+.rssvisible {
+	display: block;
+}
+
+.hidden, .rsshidden {
+	display: none;
+}
+
+#nav_menu_mini {
+    display: none;
+    background: white;
+    z-index: 1000px;    
+    position: absolute; 
+    top: 0px; 
+    left: 0px; 
+    padding: 0.3em;
+}
+
+/*
+@media (max-width: 850px) {
+	#nav_menu_mini {
+	    display: block;
+	    background: white;
+	    z-index: 1000px;    
+	    position: absolute; 
+	    top: 0px; 
+	    left: 0px; 
+	    padding: 0.3em;
+	}
+}
+*/
+body {
+	background-image: url("standard_bg.jpg");
+	z-index: 0;
+	margin: 0;
+	/* IE needs this so it is not attached to the bottom of the page */
+	margin-bottom: 50px;
+	padding: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+/* css for tropical fish page */
+div.content-bottom {
+	position: relative;
+	float: left;
+	padding-top: 5px;
+	left: 0px;
+	top: 0px;
+	width: 97%;
+	margin: 0px;
+}
+
+div.fishdata {
+	width: 100%;
+	border: 1px solid #000000;
+	height: 250px;
+	padding: 0px .3em;
+	margin: 0px;
+	overflow-y: scroll;
+}
+
+div.fish_name {
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	padding: 0px;
+	margin
+	0px;
+}
+
+/* fish pictures */
+ul.fishnav {
+	padding-left: 20px;
+}
+
+ul.fishnav li ul {
+	display: none;
+}
+
+/* programming mytp page */
+table.pgmmythdata {
+	border: 1px solid black;
+}
+
+table.pgmmythdata th,table.pgmmythdata td {
+	padding: 1px;
+	border: 1px solid black;
+}
+
+/* styles for email form */
+#emailsub label {
+	display: block;
+	font-weight: bold;
+}
+
+#emailsub input {
+	margin-left: 10px;
+}
+
+#my-links a { 
+	text-align: center;
+	width: 150px;
+	margin: 20px 25px; 
+	float: left; 
+}
