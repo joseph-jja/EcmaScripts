@@ -30,7 +30,7 @@
     "eslint": "^5.8.0",
     "eslint-loader": "^2.1.0",
     "eslint-scope": "4.0.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-eslint": "5.0.0",
     "gulp-jsbeautifier": "^2.1.2",
     "gulp-webpack": "^1.5.0",
