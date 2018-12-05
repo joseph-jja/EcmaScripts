@@ -38,12 +38,4 @@ describe( "date functions tests", function () {
         x.setMonth( 10 );
         expect( DF.getDaysInMonth( x ) ).toEqual( 30 );
     } );
-
-    it( "test setFullDate", function () {
-        var x;
-        x = DF.setFullDate( 1, 15, 2016 );
-        expect( x.getMonth() ).toEqual( 1 );
-        expect( x.getFullYear() ).toEqual( 2016 );
-        expect( x.getDate() ).toEqual( 15 );
-    } );
 } );
