@@ -11,25 +11,6 @@ DateFunctions.numberOfDaysInMonth = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30
 DateFunctions.weekDayShortNames = [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ];
 DateFunctions.weekDayNames = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ];
 
-// some javascript implementations do not have getFullYear
-// so we test for that and then implement that
-if ( typeof Date.prototype.getFullYear === 'undefined' ) {
-    Date.prototype.getFullYear = function () {
-        // get year returns year from 100
-        // year epoch is 1900
-        let year = this.getYear();
-        return ( +year ) + 1900;
-    };
-}
-
-// some javascript implementations do not have setFullYear
-// so we test for that and then implement that
-if ( typeof Date.prototype.setFullYear === 'undefined' ) {
-    Date.prototype.setFullYear = function ( y ) {
-        this.setYear( y );
-    };
-}
-
 // get the first day of the current month
 DateFunctions.getFirstOfMonthDayOfWeek = function ( dIn ) {
     let fomd,
