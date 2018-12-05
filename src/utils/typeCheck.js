@@ -23,17 +23,7 @@ function isNumber( input ) {
 };
 
 function isArray( input ) {
-    var yes = typeCheck( Array, "array", input );
-    if ( !yes ) {
-        yes = ( Object.prototype.toString.apply( input ).toLowerCase().indexOf( "collection" ) !== -1 );
-    }
-    if ( !yes ) {
-        yes = ( Object.prototype.toString.apply( input ).toLowerCase().indexOf( "nodelist" ) !== -1 );
-    }
-    if ( !yes ) {
-        yes = ( ( typeof input.length ).toLowerCase() === "number" );
-    }
-    return yes;
+    return Array.isArray( input );
 };
 
 function isFunction( input ) {
