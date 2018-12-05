@@ -28,10 +28,11 @@ function replaceAll( inStr, oStr, nStr ) {
 };
 
 function removeDoubleSpaces( instr ) {
-    while ( instr && instr.match( /\s\s/ ) ) {
-        instr = instr.replace( /\s\s/g, ' ' );
+    let out = instr;
+    while ( out && out.match( /\s\s/ ) ) {
+        out = out.replace( /\s\s/g, ' ' );
     }
-    return instr;
+    return out;
 };
 
 function ltrim( instr ) {
