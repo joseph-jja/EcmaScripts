@@ -1,4 +1,4 @@
-import * as SimpleRSS from 'client/components/simpleRSSFeedParser';
+import SimpleRSS from 'client/components/simpleRSSFeedParser';
 
 describe( 'testing simpleRSSFeedParser', () => {
 
