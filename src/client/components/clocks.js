@@ -184,6 +184,8 @@ BinaryClock.prototype.runClock = function () {
     this.setColumn( 0, hour );
     this.setColumn( 2, min );
     this.setColumn( 4, sec );
+
+    return true;
 };
 
 export {
