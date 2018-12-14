@@ -38,7 +38,7 @@ module.exports = function ( config ) {
 
         webpack: {
             module: {
-                loaders: [ {
+                rules: [ {
                     test: /\.js$/,
                     exclude: /(node_modules)/,
                     loader: 'babel-loader',
@@ -51,12 +51,12 @@ module.exports = function ( config ) {
                 } ]
             },
             resolve: {
-                //"root": [ path.resolve( "./src" ) ],
-                "alias": {
-                    "utils": path.resolve( "src/utils" ),
-                    "client": path.resolve( "src/client" )
+                modules: [ path.join( __dirname, "src" ) ],
+                alias: {
+                    db: path.resolve( "src/db" ),
+                    utils: path.resolve( "src/utils" ),
+                    client: path.resolve( "src/client" )
                 }
-
             }
         },
 
@@ -66,7 +66,7 @@ module.exports = function ( config ) {
             noInfo: true,
             // and use stats to turn off verbose output
             stats: {
-                // options i.e. 
+                // options i.e.
                 chunks: false
             }
         },
