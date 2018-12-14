@@ -6,4 +6,3 @@ describe( 'testing calculator', () => {
         expect( Calculator ).toBeDefined();
     } );
 } );
-

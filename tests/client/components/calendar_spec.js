@@ -1,9 +1,9 @@
-import * as Calendar from 'client/components/Calendar';
+import Calendar from 'client/components/calendar';
 
 describe( 'testing calendar', () => {
 
     it( 'calendar test', () => {
-        expect( Calendar ).toBeDefined();
+        const mycal = new Calendar(document.body);
+        expect( mycal ).toBeDefined();
     } );
 } );
-

@@ -3,10 +3,9 @@ const DBName = 'tasksDB',
     DB_SUCCESS = 200,
     DB_ERROR = 500;
 
-export { 
+export {
     DBName,
     StoreName,
     DB_SUCCESS,
     DB_ERROR
 };
-
