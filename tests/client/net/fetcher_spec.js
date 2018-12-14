@@ -1,8 +1,8 @@
-import * as fetcher from "client/net/fetcher";
+import fetcher from "client/net/fetcher";
 
 describe( 'testing fetcher', () => {
 
     it( 'fetcher  test', () => {
-        expect( fetcher.fetcher ).toBeDefined();
+        expect( fetcher ).toBeDefined();
     } );
 } );

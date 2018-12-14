@@ -9,6 +9,5 @@ function fetcher( url ) {
 }
 
 
-export {
-    fetcher
-};
+export default fetcher;
+
