@@ -7,3 +7,9 @@ function fetcher( url ) {
         } );
     } );
 }
+
+
+export { 
+    fetcher
+};
+
