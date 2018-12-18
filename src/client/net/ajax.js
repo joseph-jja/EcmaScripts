@@ -1,19 +1,17 @@
 import XmlHttp from "client/net/xmlhttp";
 import * as Stack from "utils/stack";
 
-var stack = new Stack.Stack();
+let stack = new Stack.Stack();
 
-export function makeRequest( type, cbFN, url, data, async, headers ) {
-    var h, ajaxObj = {};
+export function makeRequest( type, cbFN, url, data, async, headers = {}) {
+    let h, ajaxObj = {};
 
     ajaxObj.xmlhttp = XmlHttp();
     ajaxObj.index = stack.index;
 
     ajaxObj.xmlhttp.open( type, url, async );
-    if ( headers ) {
-        for ( h in headers ) {
-            ajaxObj.xmlhttp.setRequestHeader( h, headers[ h ] );
-        }
+    for ( h in headers ) {
+        ajaxObj.xmlhttp.setRequestHeader( h, headers[ h ] );
     }
     ajaxObj.xmlhttp.onreadystatechange = function () {
         // the call asigns this callback to our ajax object
@@ -39,7 +37,7 @@ export function makeRequest( type, cbFN, url, data, async, headers ) {
 //send a post request, which creates the object
 //takes callback function, url and any data 
 export function post( callbackFN, url, postData ) {
-    var headers = {
+    const headers = {
         "Content-Type": "application/x-www-form-urlencoded"
     };
     return makeRequest( "POST", callbackFN, url, postData, true, headers );
@@ -59,12 +57,11 @@ export function cancelRequest( ajaxObj ) {
 }
 
 export function cancelAll() {
-    var i;
     if ( !stack ) {
         return;
     }
-    for ( i in stack.list ) {
-        let o = stack.get( i );
+    for ( let i in stack.list ) {
+        const o = stack.get( i );
         if ( o ) {
             try {
                 cancelRequest( o.data );
