@@ -6,22 +6,22 @@ describe( 'testing ajax', () => {
         expect( ajax ).toBeDefined();
     } );
 
-    it('cancel request', (done) => {
+    it( 'cancel request', ( done ) => {
 
         const get = ajax.get,
-          cancel = ajax.cancelRequest;
+            cancel = ajax.cancelRequest;
 
-        const request = get((data) => {
+        const request = get( ( data ) => {
 
-        }, './data.json');
+        }, './data.json' );
 
-        spyOn(request.xmlhttp, 'abort');
+        spyOn( request.xmlhttp, 'abort' );
 
-        setTimeout(() => {
-            cancel(request);
-            expect(request.xmlhttp.abort).toHaveBeenCalled();
+        setTimeout( () => {
+            cancel( request );
+            expect( request.xmlhttp.abort ).toHaveBeenCalled();
             done();
-        }, 1);
+        }, 1 );
 
-    });
+    } );
 } );

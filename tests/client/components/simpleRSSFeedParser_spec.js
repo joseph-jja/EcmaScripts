@@ -79,21 +79,21 @@ describe( 'testing simpleRSSFeedParser', () => {
 </channel>
 </rss>`;
 
-let parent;
+    let parent;
 
-beforeEach( () => {
-    if ( !parent ) {
-        parent = document.createElement( 'div' );
-    }
-    parent.id = 'container-for-simplerssparser';
-    document.body.appendChild( parent );
-} );
+    beforeEach( () => {
+        if ( !parent ) {
+            parent = document.createElement( 'div' );
+        }
+        parent.id = 'container-for-simplerssparser';
+        document.body.appendChild( parent );
+    } );
 
-afterEach( () => {
-    if ( parent ) {
-        document.body.removeChild( parent );
-    }
-} );
+    afterEach( () => {
+        if ( parent ) {
+            document.body.removeChild( parent );
+        }
+    } );
 
     it( 'simpleRSSFeedParser test', () => {
         expect( SimpleRSS ).toBeDefined();
@@ -102,7 +102,7 @@ afterEach( () => {
     it( 'simpleRSSFeedParser test', () => {
 
         const doc = xml.getAsXMLDocument( xmlString );
-        SimpleRSS(parent.id, doc);
-        expect( parent.innerHTML.length ).toBeGreaterThan(0);
+        SimpleRSS( parent.id, doc );
+        expect( parent.innerHTML.length ).toBeGreaterThan( 0 );
     } );
 } );
