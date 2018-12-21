@@ -3,7 +3,7 @@ import * as Stack from "utils/stack";
 
 let stack = new Stack.Stack();
 
-export function makeRequest( type, cbFN, url, data, async, headers = {}) {
+export function makeRequest( type, cbFN, url, data, async, headers = {} ) {
     let h, ajaxObj = {};
 
     ajaxObj.xmlhttp = XmlHttp();

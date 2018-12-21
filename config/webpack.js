@@ -13,6 +13,7 @@ const esJSON = JSON.parse( eslintConfig ),
 esJSON.globals = esJSONWP;
 
 module.exports = {
+    "mode": "production",
     "entry": {
         "calculatorExamples": "./src/client/pages/calculatorExamples",
         "calendarExamples": "./src/client/pages/calendarExamples",
