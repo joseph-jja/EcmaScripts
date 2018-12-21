@@ -5,7 +5,7 @@ function typeCheck( o, s, input ) {
 
 // only exists if it is not undefined
 function exists( x ) {
-    var exists = false;
+    let exists = false;
     try {
         exists = ( typeof x !== 'undefined' && x !== null );
     } catch ( e ) {
@@ -39,14 +39,13 @@ function isRegExp( input ) {
 };
 
 function isTextarea( input ) {
-    var inp = typeof input,
-        name = input.nodeName;
+    let name = input.nodeName;
     name = ( name ? name : "" );
     return ( name.toLowerCase() === "textarea" );
 };
 
 function isInput( input ) {
-    var inp = typeof input,
+    let inp = typeof input,
         name = input.nodeName;
     name = ( name ? name : "" );
     return ( name.toLowerCase() === "input" || ( inp.toLowerCase() === "input" && typeof inp[ 'type' ] !== 'undefined' ) );
