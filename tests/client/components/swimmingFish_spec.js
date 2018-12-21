@@ -18,7 +18,6 @@ describe( 'testing swimmingFish', () => {
         }
     } );
 
-
     it( 'swimmingFish test', () => {
         expect( fish.BrowserFish ).toBeDefined();
     } );
