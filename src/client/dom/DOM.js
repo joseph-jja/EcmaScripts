@@ -54,7 +54,7 @@ const createElement = function ( type, parent, options ) {
 };
 
 const html = function ( ele, content, index ) {
-    let ele, name, x = selector( ele );
+    let lele, name, x = selector( ele );
 
     if ( x.length <= 0 ) {
         return;
@@ -65,33 +65,32 @@ const html = function ( ele, content, index ) {
     if ( index >= x.length || !x[ index ] ) {
         return;
     }
-    ele = x.get( index );
+    lele = x.get( index );
 
-    name = new String( ele.tagName ).toLowerCase();
+    name = new String( lele.tagName ).toLowerCase();
     if ( content || content === "" ) {
-        ( function ( content, ele ) {
+        ( function ( content, nele ) {
             if ( typeCheck.isString( content ) || typeCheck.isNumber( content ) ) {
-                if ( typeCheck.isInput( name ) || typeCheck.isInput( ele ) ) {
-                    ele.value = content;
-                } else if ( typeCheck.isTextarea( ele ) ) {
-                    ele.value = content;
+                if ( typeCheck.isInput( name ) || typeCheck.isInput( nele ) ) {
+                    nele.value = content;
+                } else if ( typeCheck.isTextarea( nele ) ) {
+                    nele.value = content;
                 } else {
                     // assume innerHTML will work
-                    ele.innerHTML = content;
+                    nele.innerHTML = content;
                 }
-            } else if ( ele && typeCheck.isObject( content ) ) {
-                ele.appendChild( content );
+            } else if ( nele && typeCheck.isObject( content ) ) {
+                nele.appendChild( content );
             }
-        } )( content, ele );
+        } )( content, lele );
     }
-    if ( typeCheck.isInput( name ) || typeCheck.isInput( ele ) ) {
-        return ele.value;
-    } else if ( typeCheck.isTextarea( ele ) ) {
-        return ele.value;
-    } else if ( typeCheck.isString( ele.innerHTML ) ) {
-        return ele.innerHTML;
+    if ( typeCheck.isInput( name ) || typeCheck.isInput( lele ) ) {
+        return lele.value;
+    } else if ( typeCheck.isTextarea( lele ) ) {
+        return lele.value;
+    } else if ( typeCheck.isString( lele.innerHTML ) ) {
+        return lele.innerHTML;
     }
-
 };
 
 // allow pslctr to be a selector object
