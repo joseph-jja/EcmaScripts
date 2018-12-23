@@ -1,6 +1,6 @@
 import dtct from "client/browser/detect";
 
-var browser = [],
+let browser = [],
     os = [],
     uaCleaned, rules = [],
     result,
@@ -10,7 +10,7 @@ uaCleaned = detect.userAgent.toLowerCase();
 uaCleaned = uaCleaned.replace( /_/, "." );
 
 function getVersion( map, uaString, version ) {
-    var nVer = version,
+    let nVer = version,
         idx;
     if ( map.search !== map.version ) {
         idx = uaString.indexOf( map.version ) + map.version.length + 1;
@@ -22,7 +22,7 @@ function getVersion( map, uaString, version ) {
 };
 
 function parse( map, cb, uaString ) {
-    var name, version, search, idx = -1,
+    let name, version, search, idx = -1,
         i, ilen, uaString;
 
     ilen = map.length;
