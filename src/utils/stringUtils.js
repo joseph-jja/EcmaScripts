@@ -3,9 +3,9 @@
 function reverse( inStr ) {
     // js does not allow us to change the string passed in so 
     // reverse in place is dumb!
-    var i, ilen, outStr = '';
-    ilen = inStr.length;
-    for ( i = ilen - 1; i >= 0; i -= 1 ) {
+    let outStr = '';
+    const ilen = inStr.length;
+    for ( let i = ilen - 1; i >= 0; i -= 1 ) {
         outStr += inStr.charAt( i );
     }
     return outStr;
