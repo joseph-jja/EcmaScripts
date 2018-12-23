@@ -4,17 +4,17 @@
 // this is done in a UMD format
 import * as typeCheck from 'utils/typeCheck';
 
-var rquickExpr = /^#(?:([\w-]+)|(\w+)|\.([\w-]+))$/;
+const rquickExpr = /^#(?:([\w-]+)|(\w+)|\.([\w-]+))$/;
 
 export default function selector( expr, parent ) {
 
-    var result, y, self = {},
-        pObj, qEle = expr;
+    let result, self = {},
+        qEle = expr;
 
     self.length = 0;
     self.objectName = 'selector';
 
-    pObj = parent || document;
+    const pObj = parent || document;
 
     // if it is not a string and it is an object
     if ( !typeCheck.isString( qEle ) && typeCheck.isObject( qEle ) ) {
@@ -51,7 +51,7 @@ export default function selector( expr, parent ) {
         return result[ i ];
     };
 
-    for ( y = 0; y < self.length; y++ ) {
+    for ( let y = 0; y < self.length; y++ ) {
         self[ y ] = result[ y ];
     }
     return self;
