@@ -2,7 +2,7 @@ import {
     exists
 } from 'utils/typeCheck';
 
-var copy, timings, startTime,
+let copy, timings, startTime,
     getMetrics, metrics = {};
 
 const hasPerformanceMetrics = ( ( exists( performance ) && exists( performance.timing ) ) ? true : false );
@@ -13,10 +13,8 @@ if ( hasPerformanceMetrics ) {
     startTime = timings.navigationStart;
 
     copy = function () {
-        var prop;
-
         // now copy over the metrics
-        for ( prop in timings ) {
+        for ( let prop in timings ) {
             metrics[ prop ] = timings[ prop ] - startTime;
             if ( metrics[ prop ] < 0 ) {
                 metrics[ prop ] = 0;
