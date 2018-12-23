@@ -1,18 +1,18 @@
 //functions for xml processing
 import * as stringUtils from 'utils/stringUtils';
 
-var tAttributes = "attributes";
+let tAttributes = "attributes";
 
 function isTextNode( inStr ) {
     return ( inStr === "#text" );
 };
 
 function hasSameChildNodeName( node ) {
-    var res = false,
-        j, tot, fname, sameNode = [];
+    let res = false,
+        tot, fname, sameNode = [];
     if ( node.hasChildNodes() ) {
         tot = node.childNodes.length;
-        for ( j = 0; j < tot; j += 1 ) {
+        for ( let j = 0; j < tot; j += 1 ) {
             fname = node.childNodes[ j ].nodeName;
             if ( sameNode[ fname ] && !isTextNode( fname ) ) {
                 res = true;
@@ -25,11 +25,11 @@ function hasSameChildNodeName( node ) {
 };
 
 function processAttributes( node ) {
-    var json = [],
-        len, i, aname, aval;
+    let json = [],
+        len, aname, aval;
     if ( node.attributes && node.attributes.length > 0 ) {
         len = node.attributes.length;
-        for ( i = 0; i < len; i += 1 ) {
+        for ( let i = 0; i < len; i += 1 ) {
             aname = node.attributes[ i ].nodeName;
             aval = node.attributes[ i ].nodeValue;
             json[ aname ] = aval;
@@ -41,7 +41,7 @@ function processAttributes( node ) {
 
 // this has been updated to handle attributes, but that does not work right now
 export function simpleRSSToJSON( obj ) {
-    var jdata = {},
+    let jdata = {},
         i, j, nodeCT, cNode,
         name, attrs, val, setAttrs, checkNode;
 
@@ -55,7 +55,7 @@ export function simpleRSSToJSON( obj ) {
         }
     };
     checkNode = function ( j, nodeCT, obj, name ) {
-        var result = ( ( j + 1 < nodeCT && obj.childNodes[ j + 1 ].nodeName === name ) || ( j > 0 && j < nodeCT && obj.childNodes[ j - 1 ].nodeName === name ) || ( j + 2 < nodeCT && obj.childNodes[ j + 2 ].nodeName === name ) || ( j > 1 && j < nodeCT && obj.childNodes[ j - 2 ].nodeName === name ) );
+        let result = ( ( j + 1 < nodeCT && obj.childNodes[ j + 1 ].nodeName === name ) || ( j > 0 && j < nodeCT && obj.childNodes[ j - 1 ].nodeName === name ) || ( j + 2 < nodeCT && obj.childNodes[ j + 2 ].nodeName === name ) || ( j > 1 && j < nodeCT && obj.childNodes[ j - 2 ].nodeName === name ) );
         return result;
     };
     if ( obj && obj.hasChildNodes() ) {
@@ -109,7 +109,7 @@ export function simpleRSSToJSON( obj ) {
 // creates an XML document fragment given a JSON object
 // json lists such as items[0] .. items[1] will be converted to <items></items>... <items></items>
 export function jsonToXML( json, pNode ) {
-    var string = '',
+    let string = '',
         i, attrs,
         idx = 0,
         childNodeType, r, h,
@@ -117,7 +117,7 @@ export function jsonToXML( json, pNode ) {
         makeXMLtag;
 
     makeXMLtag = function ( name, value, attrs ) {
-        var abute = ( attrs ? ' ' + attrs : '' );
+        const abute = ( attrs ? ' ' + attrs : '' );
         return '<' + name + abute + '>' + value + '</' + name + '>';
     };
 
@@ -161,7 +161,7 @@ export function jsonToXML( json, pNode ) {
 // this parses any XML document into a JSON object
 // it puts the attributes for a node in an object called attributes
 export function xml2json( xmlNode ) {
-    var j, nodeCT, nodeContent,
+    let j, nodeCT, nodeContent,
         hscn, node, name, value,
         attrs, cnodes;
 
@@ -223,7 +223,7 @@ export function xml2json( xmlNode ) {
 
 export function getAsXMLDocument( xmlString ) {
 
-    var xmlDocument = null,
+    let xmlDocument = null,
         xmlInput, isDOMParserCapable,
         parser, bFound, i, objXML;
 
@@ -290,7 +290,7 @@ export function getAsXMLDocument( xmlString ) {
 export function transformXML( xmlString, xsltString, resultObj ) {
 
     // get the XML Document and the XSLT Document
-    var xmlStr = getAsXMLDocument( xmlString ),
+    let xmlStr = getAsXMLDocument( xmlString ),
         xsltStr = getAsXMLDocument( xsltString ),
         completed = false,
         domParser, xmlDomDoc,
