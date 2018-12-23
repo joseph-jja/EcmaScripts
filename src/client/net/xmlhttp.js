@@ -5,7 +5,7 @@
 // returns xmlhttp request object
 //////////////////////////////////////////////////
 export default function XmlHttp() {
-    var xmlhttp = false;
+    let xmlhttp = false;
     // try to use the default xml http request object first
     if ( window.XMLHttpRequest ) {
         xmlhttp = new window.XMLHttpRequest();
