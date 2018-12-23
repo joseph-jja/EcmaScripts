@@ -9,11 +9,11 @@ const addClass = function ( obj, cls ) {
 };
 
 const removeClass = function ( obj, cls ) {
-    let ridx = -1,
+    let ridx = -1, i,
         cssClasses = obj.className.split( " " );
 
     const clen = cssClasses.length;
-    for ( let i = 0; i < clen; i += 1 ) {
+    for ( i = 0; i < clen; i += 1 ) {
         if ( cssClasses[ i ] === cls ) {
             ridx = i;
             break;
