@@ -6,9 +6,9 @@ import * as typeCheck from 'utils/typeCheck';
 import * as CSS from 'client/dom/CSS';
 
 const createElement = function ( type, parent, options ) {
-    var obj, pObj;
+    let obj;
 
-    pObj = document.body;
+    let pObj = document.body;
     if ( parent && typeCheck.isString( parent ) ) {
         // must be an id
         pObj = document.getElementById( parent );
@@ -38,7 +38,7 @@ const createElement = function ( type, parent, options ) {
 
     if ( obj && options ) {
         // here we add in any options, but we don't check to make sure they are value
-        var optn;
+        let optn;
         for ( optn in options ) {
             try {
                 obj[ optn ] = options[ optn ];
@@ -54,7 +54,7 @@ const createElement = function ( type, parent, options ) {
 };
 
 const html = function ( ele, content, index ) {
-    var ele, name, x = selector( ele );
+    let ele, name, x = selector( ele );
 
     if ( x.length <= 0 ) {
         return;
@@ -96,7 +96,7 @@ const html = function ( ele, content, index ) {
 
 // allow pslctr to be a selector object
 const findParent = function ( slctr, pslctr, i ) {
-    var node,
+    let node,
         cElmnt,
         getParent, pNode;
 
@@ -119,7 +119,7 @@ const findParent = function ( slctr, pslctr, i ) {
     }
 
     getParent = function ( node, pNodeName ) {
-        var prnt, inStr;
+        let prnt, inStr;
 
         // no node :(
         if ( !node ) {
@@ -151,8 +151,8 @@ const findParent = function ( slctr, pslctr, i ) {
 //                              return the position of the cursor in a text field
 /////////////////////////////////////////////////////////////////////
 const getTextFieldCursorPosition = function ( obj ) {
-    var textFieldRange, bookmark, doc;
-    doc = document;
+    let textFieldRange, bookmark;
+    const doc = document;
     // only work with text fields
     if ( obj.type !== "text" ) {
         return -1;
@@ -180,7 +180,7 @@ const getTextFieldCursorPosition = function ( obj ) {
 //Returns:              nada
 /////////////////////////////////////////////////////////////////////
 const setTextFieldCursorPosition = function ( obj, pos, epos ) {
-    var textFieldRange;
+    let textFieldRange;
     // only work with text fields
     if ( obj.type !== "text" ) {
         return;
@@ -205,7 +205,7 @@ const setTextFieldCursorPosition = function ( obj, pos, epos ) {
 //id: id of script
 //callback: callback function after onload
 const loadScript = function ( scriptURL, options, jsonpOptions ) {
-    var body = document.body,
+    let body = document.body,
         script, remove, abort, scriptList = [];
     if ( !scriptURL ) {
         return;
@@ -249,7 +249,7 @@ const loadScript = function ( scriptURL, options, jsonpOptions ) {
                 };
             }
             if ( jsonpOptions.timeout ) {
-                var r = setTimeout( function () {
+                let r = setTimeout( function () {
                     if ( !scriptList[ script.id ] ) {
                         return;
                     }
@@ -281,7 +281,7 @@ const screen = {
 };
 
 const toggleDisplay = function ( objName ) {
-    var state, obj = objName;
+    let state, obj = objName;
     if ( typeCheck.isString( objName ) ) {
         obj = selector( "#" + objName ).get( 0 );
     }
