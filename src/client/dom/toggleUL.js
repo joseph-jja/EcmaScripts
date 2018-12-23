@@ -2,15 +2,15 @@ import * as css from 'client/dom/CSS';
 import selector from 'client/dom/selector';
 
 export default function toggleUL( objName, hrefObj ) {
-    var i, divs, dObj, hrefs;
-    divs = document.getElementsByTagName( "ul" );
-    for ( i = 0; i < divs.length; i++ ) {
+
+    const divs = document.getElementsByTagName( "ul" );
+    for ( let i = 0; i < divs.length; i++ ) {
         if ( divs[ i ].className === "tree_child_hidden" ) {
             divs[ i ].style.display = "none";
         }
     }
 
-    dObj = document.getElementById( objName );
+    const dObj = document.getElementById( objName );
     if ( dObj ) {
         if ( dObj.style.display === "block" ) {
             dObj.style.display = "none";
@@ -19,8 +19,8 @@ export default function toggleUL( objName, hrefObj ) {
         }
     }
 
-    hrefs = selector( "span.toplevel" );
-    for ( i = 0; i < hrefs.length; i++ ) {
+    const hrefs = selector( "span.toplevel" );
+    for ( let i = 0; i < hrefs.length; i++ ) {
         css.replaceClass( hrefs.get( i ), "expanded", "collapsed" );
     }
     if ( hrefObj ) {
