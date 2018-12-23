@@ -58,12 +58,11 @@ export default function dragndrop() {
 
     const toggleDrag = function ( toggleOn, moveObjID, eventObjID ) {
         // object being moved
-        let obj = selector( "#" + moveObjID ).get( 0 ),
-            dndEvtObjID, evtObj,
+        const obj = selector( "#" + moveObjID ).get( 0 ),
             // find event target object or its the same as the object being moved
             dndEvtObjID = ( eventObjID ) ? eventObjID : moveObjID;
 
-        evtObj = selector( "#" + dndEvtObjID ).get( 0 );
+        const evtObj = selector( "#" + dndEvtObjID ).get( 0 );
         if ( !obj || !evtObj ) {
             return;
         }
@@ -83,7 +82,7 @@ export default function dragndrop() {
     self.dragableObjects = [];
 
     self.initialize = function () {
-        let dnd = self;
+        const dnd = self;
         if ( dnd.isInitialized ) {
             return;
         }
@@ -99,7 +98,7 @@ export default function dragndrop() {
     };
 
     self.findDragableParent = function ( element ) {
-        let dnd = self;
+        const dnd = self;
         if ( !element || !element.nodeName || element.nodeName.toLowerCase() === "body" ) {
             return undefined;
         }
@@ -116,9 +115,7 @@ export default function dragndrop() {
     };
 
     self.mouseup = function ( evt ) {
-        let dnd;
-
-        dnd = find( evt, "currentDragObject" );
+        const dnd = find( evt, "currentDragObject" );
 
         // hide and stop
         dnd.dragableCoverMask.style.display = "none";
@@ -130,8 +127,9 @@ export default function dragndrop() {
 
     self.mousedown = function ( evt ) {
 
-        let dnd = self;
-        let e = events.getEvent( evt );
+        const dnd = self,
+            e = events.getEvent( evt );
+        
         let tgt = events.getTarget();
 
         // set the current draggable object by using the target objects id
