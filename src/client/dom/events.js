@@ -1,32 +1,27 @@
 import base from 'client/browser/base';
 
-var addEvent,
+let addEvent,
     removeEvent,
-    getEventPosX,
-    getEventPosY,
-    getTarget,
-    getEvent,
-    createEvent,
+    createEvent, 
     fireEvent;
 
 if ( window.attachEvent && !window.addEventListener ) {
     addEvent = function ( obj, eventType, fn, capture ) {
-        var result;
-        result = obj.attachEvent( "on" + eventType, fn );
+        const result = obj.attachEvent( "on" + eventType, fn );
         if ( !result ) {
             throw ( "Event " + eventType + " could not be added!" );
         }
     };
 } else if ( window.addEventListener ) {
     addEvent = function ( obj, eventType, fn, capture ) {
-        var cap = ( capture ) ? capture : false;
+        const cap = ( capture ) ? capture : false;
         obj.addEventListener( eventType, fn, cap );
     };
 }
 
 if ( window.detachEvent && !window.removeEventListener ) {
     removeEvent = function ( obj, eventType, fn, capture ) {
-        var result = obj.detachEvent( "on" + eventType, fn );
+        const result = obj.detachEvent( "on" + eventType, fn );
         if ( !result ) {
             throw ( "Event " + eventType + " could not be removed!" );
         }
@@ -42,14 +37,13 @@ function isTouchEnabled() {
     return ( doc.documentElement && ( 'ontouchstart' in doc.documentElement || 'touchstart' in doc.documentElement ) );
 }
 
-getEvent = function ( evt ) {
-    var eventObj = ( window.event ) ? window.event : evt;
-    return eventObj;
+const getEvent = function ( evt ) {
+    return ( window.event ? window.event : evt);
 };
 
-getTarget = function ( evt ) {
-    var eventObj = getEvent( eventObj ),
-        result;
+const getTarget = function ( evt ) {
+    const eventObj = getEvent( eventObj );
+    let result;
     if ( eventObj.srcElement ) {
         result = eventObj.srcElement;
     } else if ( eventObj.target ) {
@@ -58,9 +52,9 @@ getTarget = function ( evt ) {
     return result;
 };
 
-getEventPosX = function ( evt ) {
-    var eventObj = getEvent( eventObj ),
-        result = 0;
+const getEventPosX = function ( evt ) {
+    const eventObj = getEvent( eventObj );
+    let result = 0;
     if ( eventObj.pageX ) {
         result = eventObj.pageX;
     } else if ( eventObj.clientX ) {
@@ -69,9 +63,9 @@ getEventPosX = function ( evt ) {
     return result;
 };
 
-getEventPosY = function ( evt ) {
-    var eventObj = getEvent( eventObj ),
-        result = 0;
+const getEventPosY = function ( evt ) {
+    const eventObj = getEvent( eventObj );
+    let result = 0;
     if ( eventObj.pageY ) {
         result = eventObj.pageY;
     } else if ( eventObj.clientY ) {
@@ -82,8 +76,7 @@ getEventPosY = function ( evt ) {
 
 if ( document.createEvent ) {
     createEvent = function ( name, obj, options ) {
-        var evt;
-        evt = document.createEvent( "Event" );
+        let evt = document.createEvent( "Event" );
         if ( !evt ) {
             return undefined;
         }
@@ -106,16 +99,16 @@ if ( document.createEvent ) {
 }
 
 //call this to add an onload event handler
-let addOnLoad = function ( fn ) {
+const addOnLoad = function ( fn ) {
     base.onLoadEventStack.push( fn );
 };
 
 //here we do our detault onload event handler
-let doOnLoad = function () {
+const doOnLoad = function () {
     // call all the onload functions in the stack
-    var s, stackSize, olFN, wboles = base.onLoadEventStack;
+    let stackSize, olFN, wboles = base.onLoadEventStack;
     stackSize = wboles.length;
-    for ( s = 0; s < stackSize; s += 1 ) {
+    for ( let s = 0; s < stackSize; s += 1 ) {
         olFN = wboles[ s ];
         if ( olFN && ( typeof olFN ).toLowerCase() === 'function' ) {
             olFN();
