@@ -5,7 +5,7 @@ import selector from 'client/dom/selector';
 //drag and drop events
 export default function dragndrop() {
 
-    var self = this,
+    let self = this,
         dragableCoverMask = null,
         currentDragObject = null,
         moving = false,
@@ -17,7 +17,7 @@ export default function dragndrop() {
 
     let find = function ( evt, dndRef ) {
 
-        var dnd = self,
+        let dnd = self,
             e, tgt;
 
         e = events.getEvent( evt );
@@ -39,7 +39,7 @@ export default function dragndrop() {
     };
 
     let cleanSelection = function () {
-        var select;
+        let select;
 
         if ( window.getSelection ) {
             // do something to change selection
@@ -56,9 +56,9 @@ export default function dragndrop() {
         }
     };
 
-    let toggleDrag = function ( toggleOn, moveObjID, eventObjID ) {
+    const toggleDrag = function ( toggleOn, moveObjID, eventObjID ) {
         // object being moved
-        var obj = selector( "#" + moveObjID ).get( 0 ),
+        let obj = selector( "#" + moveObjID ).get( 0 ),
             dndEvtObjID, evtObj,
             // find event target object or its the same as the object being moved
             dndEvtObjID = ( eventObjID ) ? eventObjID : moveObjID;
@@ -83,7 +83,7 @@ export default function dragndrop() {
     self.dragableObjects = [];
 
     self.initialize = function () {
-        var dnd = self;
+        let dnd = self;
         if ( dnd.isInitialized ) {
             return;
         }
@@ -99,7 +99,7 @@ export default function dragndrop() {
     };
 
     self.findDragableParent = function ( element ) {
-        var dnd = self;
+        let dnd = self;
         if ( !element || !element.nodeName || element.nodeName.toLowerCase() === "body" ) {
             return undefined;
         }
@@ -116,7 +116,7 @@ export default function dragndrop() {
     };
 
     self.mouseup = function ( evt ) {
-        var dnd;
+        let dnd;
 
         dnd = find( evt, "currentDragObject" );
 
