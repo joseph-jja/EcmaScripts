@@ -70,12 +70,14 @@ function set( name, value, options ) {
 };
 
 function remove( name ) {
-    let exists, now = new Date();
-    exists = findCookieByName( name );
-    now.setFullYear( 1970 );
-    set( name, undefined, {
-        expires: now
-    } );
+    const now = new Date(),
+        exists = findCookieByName( name );
+    if (exists) {
+        now.setFullYear( 1970 );
+        set( name, undefined, {
+            expires: now
+        } );
+    }
 };
 
 function count( cookieData ) {
