@@ -9,7 +9,8 @@ const addClass = function ( obj, cls ) {
 };
 
 const removeClass = function ( obj, cls ) {
-    let ridx = -1, i,
+    let ridx = -1,
+        i,
         cssClasses = obj.className.split( " " );
 
     const clen = cssClasses.length;

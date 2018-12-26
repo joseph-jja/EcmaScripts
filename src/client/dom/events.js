@@ -2,7 +2,7 @@ import base from 'client/browser/base';
 
 let addEvent,
     removeEvent,
-    createEvent, 
+    createEvent,
     fireEvent;
 
 if ( window.attachEvent && !window.addEventListener ) {
@@ -38,7 +38,7 @@ function isTouchEnabled() {
 }
 
 const getEvent = function ( evt ) {
-    return ( window.event ? window.event : evt);
+    return ( window.event ? window.event : evt );
 };
 
 const getTarget = function ( evt ) {

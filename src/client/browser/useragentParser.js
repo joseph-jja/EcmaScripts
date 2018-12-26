@@ -23,7 +23,7 @@ function getVersion( map, uaString, version ) {
 
 function parse( map, cb, uaString ) {
     let name, version, search, idx = -1,
-        i, ilen, uaString;
+        i, ilen;
 
     ilen = map.length;
     for ( i = 0; i < ilen; i += 1 ) {

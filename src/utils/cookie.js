@@ -72,7 +72,7 @@ function set( name, value, options ) {
 function remove( name ) {
     const now = new Date(),
         exists = findCookieByName( name );
-    if (exists) {
+    if ( exists ) {
         now.setFullYear( 1970 );
         set( name, undefined, {
             expires: now

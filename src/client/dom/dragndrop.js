@@ -129,7 +129,7 @@ export default function dragndrop() {
 
         const dnd = self,
             e = events.getEvent( evt );
-        
+
         let tgt = events.getTarget();
 
         // set the current draggable object by using the target objects id
