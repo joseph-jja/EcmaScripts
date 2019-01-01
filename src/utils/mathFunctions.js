@@ -258,18 +258,17 @@ MathFunctions.radiansToDegrees = function ( x ) {
 };
 
 MathFunctions.generateGUID = function () {
-    let timenow, hexval, guid, l, i, result;
-    timenow = new Date().getTime() * 1000000;
-    hexval = MathFunctions.convertFromBaseTenToBaseX( 16, timenow );
-    l = hexval.length;
-    guid = '';
-    for ( i = 0; i < l; i += 1 ) {
+    const timenow = new Date().getTime() * 1000000,
+        hexval = MathFunctions.convertFromBaseTenToBaseX( 16, timenow );
+
+    let guid = '';
+    for ( let i = 0, l = hexval.length; i < l; i += 1 ) {
         guid += ( hexval[ i ] << 1 );
     }
+
     guid = hexval + MathFunctions.convertFromBaseTenToBaseX( 16, guid );
-    result = '';
-    l = guid.length;
-    for ( i = 0; i < l; i += 1 ) {
+    let result = '';
+    for ( let i = 0, l = guid.length; i < l; i += 1 ) {
         result += guid[ i ];
         if ( i > 0 && i % 5 === 0 && i % 10 !== 0 ) {
             result += "-";

@@ -22,9 +22,9 @@ DateFunctions.getFirstOfMonthDayOfWeek = function ( dIn ) {
 
 // get the number of days in the month
 DateFunctions.getDaysInMonth = function ( dIn ) {
-    let today = ( dIn ? new Date( dIn.getTime() ) : new Date() ); // day of the month
-    let month = today.getMonth();
-    let year = today.getFullYear();
+    const today = ( dIn ? new Date( dIn.getTime() ) : new Date() ); // day of the month
+    const month = today.getMonth();
+    const year = today.getFullYear();
     if ( month === 1 ) {
         if ( ( year % 4 ) === 0 ) {
             if ( ( year % 400 ) === 0 ) {
