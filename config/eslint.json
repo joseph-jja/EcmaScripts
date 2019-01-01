@@ -26,7 +26,10 @@
         "expect": true,
         "it": true,
         "xit": true,
-        "describe": true
+        "describe": true,
+        "spyOn": true,
+        "afterEach": true,
+        "beforeEach": true
     },
 
     "rules": {
@@ -49,7 +52,7 @@
         "strict": 0,
         "comma-dangle": 1,
         "no-trailing-spaces": 0,
-        "max-params": 1,
+        "max-params": [ 1, { "max": 5 } ],
         "max-depth": 1,
         "max-statements": 1,
         "complexity": 1,
