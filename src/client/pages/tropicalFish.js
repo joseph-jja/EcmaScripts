@@ -32,25 +32,20 @@ function onFishTabsChanged() {
 }
 
 function processJSON() {
-    let i, name, data, parent,
-        fish,
-        anchorTags, len,
-        container;
+    const parent = selector( "#fish_tabs" ).get( 0 ),
+        container = selector( '#fishdataContentArea' ).get( 0 );
 
-    parent = selector( "#fish_tabs" ).get( 0 );
-    container = selector( '#fishdataContentArea' ).get( 0 );
     parent.innerHTML = '';
-    fish = jsonData[ 'tropical_fish' ][ 'fish_data' ];
-    len = fish.length;
-    for ( i = 0; i < len; i += 1 ) {
-        name = fish[ i ][ 'name' ][ '#text' ];
-        data = fish[ i ][ 'comment' ][ '#text' ];
+    let fish = jsonData[ 'tropical_fish' ][ 'fish_data' ];
+    for ( let i = 0, len = fish.length; i < len; i += 1 ) {
+        const name = fish[ i ][ 'name' ][ '#text' ];
+        const data = fish[ i ][ 'comment' ][ '#text' ];
         const option = dom.createElement( 'option', parent );
         option.value = name.toLowerCase().replace( /\ /g, '-' );
         option.text = name;
         const span = dom.createElement( 'span', container, {
             "id": name.toLowerCase().replace( /\ /g, '-' ),
-            'innerHTML': data,
+            'innerHTML': data
         } );
         css.addClass( span, 'selection-tied' );
         if ( i > 0 ) {
