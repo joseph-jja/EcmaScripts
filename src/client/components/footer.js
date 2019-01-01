@@ -2,28 +2,25 @@ import * as dom from "client/dom/DOM";
 import df from "utils/dateFunctions";
 
 function createFooter() {
-    var monthNM, dayOfTheWeek,
-        dt = new Date(),
-        lastmoddate, buildFooter = "",
-        moddate, ampm,
-        monthstring, today, daynow;
+    const dt = new Date();
+    let buildFooter = "";
 
-    dayOfTheWeek = df.weekDayShortNames;
-    monthNM = df.monthShortNames;
+    const dayOfTheWeek = df.weekDayShortNames;
+    const monthNM = df.monthShortNames;
 
     // last modified date
-    lastmoddate = Date.parse( document.lastModified );
+    const lastmoddate = Date.parse( document.lastModified );
 
     if ( ( lastmoddate !== undefined ) && ( lastmoddate !== 0 ) ) {
         // the document.lastModified returns time in EST 
         // this will convert the time to PST as that is where I live
-        moddate = new Date( lastmoddate - 3600 );
+        let moddate = new Date( lastmoddate - 3600 );
 
         // find out if that was AM or PM as we want 12 hour clock not 24
-        ampm = ( moddate.getHours() > 12 ) ? " PM PST" : " AM PST";
+        const ampm = ( moddate.getHours() > 12 ) ? " PM PST" : " AM PST";
 
         // this is the string that displays the month
-        monthstring = dayOfTheWeek[ moddate.getDay() ] + ", " + monthNM[ moddate.getMonth() ] + " " + moddate.getDate() + ", " + moddate.getFullYear();
+        const monthstring = dayOfTheWeek[ moddate.getDay() ] + ", " + monthNM[ moddate.getMonth() ] + " " + moddate.getDate() + ", " + moddate.getFullYear();
         // + " at " +  moddate.getHours() + ":" + moddate.getMinutes() + ":" + moddate.getSeconds(); 
 
         // display the date
@@ -31,7 +28,7 @@ function createFooter() {
         buildFooter = buildFooter + "Last modified on " + monthstring + ".";
         buildFooter = buildFooter + "</li>";
     }
-    daynow = dayOfTheWeek[ dt.getDay() ] + ", " + monthNM[ dt.getMonth() ] + " " + dt.getDate() + ", " + dt.getFullYear();
+    const daynow = dayOfTheWeek[ dt.getDay() ] + ", " + monthNM[ dt.getMonth() ] + " " + dt.getDate() + ", " + dt.getFullYear();
 
     buildFooter = buildFooter + "<li>";
     buildFooter = buildFooter + "Today is " + daynow;
