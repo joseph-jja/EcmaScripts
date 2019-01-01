@@ -1,7 +1,4 @@
 import * as events from 'client/dom/events';
-import {
-    findParent
-} from 'client/dom/DOM';
 
 import selector from 'client/dom/selector';
 import toggleUL from 'client/dom/toggleUL';
@@ -9,7 +6,7 @@ import toggleUL from 'client/dom/toggleUL';
 import footer from 'client/components/footer';
 import * as menu from 'client/components/menu';
 
-events.addOnLoad( ( onloadFN => {
+events.addOnLoad( ( () => {
     menu.basicMenu();
     footer( 'footer' );
 
