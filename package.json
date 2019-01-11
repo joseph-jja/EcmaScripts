@@ -4,6 +4,7 @@
   "version": "0.0.4",
   "main": "index.js",
   "scripts": {
+    "compress-styles": "java -jar ./tools/yuicompressor-2.4.6.jar styles/classic_style.css > ../webpage.htm/classic_style-min.css && cp styles/classic_style.css ../webpage.htm",
     "eslint": "./node_modules/.bin/eslint --quiet -c config/eslint.json .",
     "clean": "rm -rf js work npm-debug.log coverage",
     "build": "./node_modules/gulp/bin/gulp.js && ./node_modules/.bin/webpack --config config/webpack.js",
