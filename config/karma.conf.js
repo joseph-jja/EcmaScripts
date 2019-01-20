@@ -1,7 +1,12 @@
 // Karma configuration
-var path = require( "path" ),
+const path = require( "path" ),
+    os = require( 'os' ),
     fs = require( 'fs' ),
     babelConfig = JSON.parse( fs.readFileSync( 'config/babel-config.json' ) );
+
+const platform = os.platform();
+
+const isAndroid = ( platform === 'android' );
 
 module.exports = function ( config ) {
 
@@ -105,8 +110,7 @@ module.exports = function ( config ) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: [ 'ChromeHeadless' ],
-        //browsers: [ 'jsdom' ],
+        browsers: [ ( isAndroid ? 'jsdom' : 'ChromeHeadless' ) ],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
