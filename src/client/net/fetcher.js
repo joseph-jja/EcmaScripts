@@ -1,12 +1,9 @@
 // wrapper around fetch 
 
-function fetcher( url ) {
-    return fetch( url ).then( response => {
-        return response.text().then( buf => {
-            return buf;
-        } );
-    } );
+async function fetcher( url ) {
+    const response = await fetch( url );
+    const buff = await response.text();
+    return buff;
 }
-
 
 export default fetcher;
