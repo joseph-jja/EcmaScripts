@@ -31,6 +31,7 @@
          * Otherwise there will be a few ms difference
          */
         timing.domComplete = timing.loadingEventEnd = timing.loadingEventStart = M.max( timing.domContentLoadedEventEnd, time );
+        timing.loadEventEnd = timing.loadingEventEnd = timing.loadingEventStart = M.max( timing.domContentLoadedEventEnd, time );
         try {
             window.removeEventListener.apply( window, loadParams );
         } catch ( e ) {
