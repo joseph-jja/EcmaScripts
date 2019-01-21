@@ -13,6 +13,9 @@ const eslintCfg = JSON.parse( eslintConfig ),
 
 eslintCfg.globals = esJSONWP;
 
+const babelJSON = JSON.parse( fs.readFileSync( `${baseDir}/config/babel-config.json` ).toString() );
+fs.writeFileSync( `${baseDir}/.babelrc`, JSON.stringify( babelJSON ) );
+
 gulp.task( 'default', () => {
     gulp.src( "gulpfile.js" )
         .pipe( jsbeautify( jsConfig ) )
