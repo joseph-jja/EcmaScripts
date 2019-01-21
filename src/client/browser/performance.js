@@ -5,7 +5,7 @@ import {
 let copy, timings, startTime,
     getMetrics, metrics = {};
 
-const hasPerformanceMetrics = ( ( exists( performance ) && exists( performance.timing ) ) ? true : false );
+const hasPerformanceMetrics = ( ( exists( window.performance ) && exists( window.performance.timing ) ) ? true : false );
 
 if ( hasPerformanceMetrics ) {
 
