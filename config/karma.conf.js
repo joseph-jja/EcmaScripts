@@ -8,6 +8,17 @@ const platform = os.platform();
 
 const isAndroid = ( platform === 'android' );
 
+const files = [];
+if ( isAndroid ) {
+    files.push( 'tests/polyfills/performance-timings.js' );
+}
+files.push( 'tests/**/**_spec*.js' );
+files.push( {
+    pattern: 'src/**/**.js',
+    included: false,
+    nocache: true
+} );
+
 module.exports = function ( config ) {
 
     var source = path.resolve( "./src" ),
@@ -19,18 +30,10 @@ module.exports = function ( config ) {
         basePath: '..',
 
         // list of files / patterns to load in the browser
-        files: [
-            'tests/**/**_spec*.js', {
-                pattern: 'src/**/**.js',
-                included: false,
-                nocache: true
-            }
-        ],
-
+        files: files,
 
         // list of files to exclude
         exclude: [],
-
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -94,19 +97,15 @@ module.exports = function ( config ) {
         // web server port
         port: 9876,
 
-
         // enable / disable colors in the output (reporters and logs)
         colors: true,
-
 
         // level of logging
         // possible values: config.LOG_DISABLE || config.LOG_ERROR || conGenerated on Mon Oct 24 2016 19:15:27 GMT-0700 (PDT)fig.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
         logLevel: config.LOG_INFO,
 
-
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: false,
-
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
