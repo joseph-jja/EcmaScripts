@@ -1,14 +1,14 @@
-import * as performance from 'client/browser/performance';
+import * as perf from 'client/browser/performance';
 
 describe( 'performance tests', () => {
 
     it( 'hasPerformanceMetrics test', () => {
-        expect( performance.hasPerformanceMetrics ).toBeTruthy();
+        expect( perf.hasPerformanceMetrics ).toBeTruthy();
     } );
 
     it( 'getMetrics and metrics tests', ( done ) => {
-        performance.getMetrics( () => {
-            expect( performance.metrics.domContentLoadedEventStart ).toBeGreaterThan( 0 );
+        perf.getMetrics( () => {
+            expect( perf.metrics.domContentLoadedEventStart ).toBeGreaterThan( 0 );
             done();
         } );
     } );
