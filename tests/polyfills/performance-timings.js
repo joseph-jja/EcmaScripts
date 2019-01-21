@@ -94,5 +94,4 @@
 
         window.setTimeout( domReady, 0 );
     }
-    console.log( window.performance );
 } )();
