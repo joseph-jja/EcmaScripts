@@ -2,6 +2,7 @@ const gulp = require( 'gulp' ),
     jsbeautify = require( "gulp-jsbeautifier" ),
     fs = require( "fs" ),
     path = require( 'path' ),
+    os = require( 'os' ),
     eslint = require( "gulp-eslint" );
 
 const baseDir = process.cwd(),
@@ -14,7 +15,7 @@ const eslintCfg = JSON.parse( eslintConfig ),
 eslintCfg.globals = esJSONWP;
 
 const babelJSON = JSON.parse( fs.readFileSync( `${baseDir}/config/babel-config.json` ).toString() );
-fs.writeFileSync( `${baseDir}/.babelrc`, JSON.stringify( babelJSON ) );
+fs.writeFileSync( `${baseDir}/.babelrc`, JSON.stringify( babelJSON ) + os.EOL );
 
 gulp.task( 'default', () => {
     gulp.src( "gulpfile.js" )
