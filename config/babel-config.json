@@ -1,7 +1,9 @@
 {
     "presets": [
         [ "env", {
-            "browsers": [ ">0.25%" ]
+            "targets": {
+                "browsers": [ ">0.25%" ]
+            }
         } ]
     ],
     "sourceMaps": "both"
