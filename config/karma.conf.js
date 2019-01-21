@@ -9,6 +9,7 @@ const platform = os.platform();
 const isAndroid = ( platform === 'android' );
 
 const files = [];
+files.push( 'node_modules/regenerator-runtime/runtime.js');
 if ( isAndroid ) {
     files.push( 'tests/polyfills/performance-timings.js' );
 }
