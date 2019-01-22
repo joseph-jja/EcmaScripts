@@ -88,10 +88,22 @@ let insertRecord = function () {
         return;
     }
 
+    // all this needs to exist
+    if ( !jsonDATA.rss ) {
+        jsonDATA.rss = {};
+    }
+    if ( !jsonDATA.rss.channel ) {
+        jsonDATA.rss.channel = {};
+    }
+    if ( !jsonDATA.rss.channel.item ) {
+        jsonDATA.rss.channel.item = []
+    }
+
     // move all the items
     for ( let i = count; i > 0; i -= 1 ) {
         jsonDATA.rss.channel.item[ i ] = jsonDATA.rss.channel.item[ i - 1 ];
     }
+
     // increment counter as we are adding one in 
     count += 1;
     lastUpdated = 0;
