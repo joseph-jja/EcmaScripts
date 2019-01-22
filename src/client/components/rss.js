@@ -29,6 +29,7 @@ let getRSSItem = function ( index ) {
     dom.html( "#guidID", item.guid.text );
     dom.html( "#pubDateID", item.pubDate.text );
 
+    return item;
 };
 
 let processJSON = function ( json ) {
@@ -96,7 +97,7 @@ let insertRecord = function () {
         jsonDATA.rss.channel = {};
     }
     if ( !jsonDATA.rss.channel.item ) {
-        jsonDATA.rss.channel.item = []
+        jsonDATA.rss.channel.item = [];
     }
 
     // move all the items

@@ -1,4 +1,5 @@
 import * as RSS from 'client/components/rss';
+import * as dom from 'client/dom/DOM';
 
 describe( 'testing rss', () => {
 
@@ -33,7 +34,7 @@ describe( 'testing rss', () => {
     } );
 
     afterEach( () => {
-        /*if ( title ) {
+        if ( title ) {
             document.body.removeChild( title );
         }
         if ( description ) {
@@ -44,7 +45,7 @@ describe( 'testing rss', () => {
         }
         if ( guidID ) {
             document.body.removeChild( guidID );
-        }*/
+        }
     } );
 
     it( 'rss test', () => {
@@ -53,15 +54,15 @@ describe( 'testing rss', () => {
 
     it( 'rss insertRecord', () => {
 
-        title.innerHTML = 'test data';
-        description.innerHTML = 'short test description data';
-        pubDate.innerHTML = new Date().toString();
-        guidID.innerHTML = '1234';
+        dom.html( '#' + title.id, 'test data' );
+        dom.html( '#' + description.id, 'short test description data' );
+        dom.html( '#' + pubDate.id, new Date().toString() );
+        dom.html( '#' + guidID.id, '1234' );
 
-        spyOn( RSS, 'insertRecord' );
         RSS.insertRecord();
+        const item = RSS.getRSSItem( 0 );
 
-        expect( RSS.insertRecord ).toHaveBeenCalled();
+        expect( item.title.text ).toEqual( 'test data' );
     } );
 
 } );
