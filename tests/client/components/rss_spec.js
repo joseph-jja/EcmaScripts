@@ -52,7 +52,7 @@ describe( 'testing rss', () => {
         expect( RSS ).toBeDefined();
     } );
 
-    it( 'rss insertRecord', () => {
+    it( 'rss insertRecord and getRSSItem', () => {
 
         dom.html( '#' + title.id, 'test data' );
         dom.html( '#' + description.id, 'short test description data' );
@@ -63,6 +63,20 @@ describe( 'testing rss', () => {
         const item = RSS.getRSSItem( 0 );
 
         expect( item.title.text ).toEqual( 'test data' );
+    } );
+
+    it( 'rss clear and getRSSItem', () => {
+
+        dom.html( '#' + title.id, 'test data' );
+        dom.html( '#' + description.id, 'short test description data' );
+        dom.html( '#' + pubDate.id, new Date().toString() );
+        dom.html( '#' + guidID.id, '1234' );
+
+        RSS.insertRecord();
+        RSS.clearAll();
+        const item = dom.html( '#' + title.id );
+
+        expect( item.title ).toBeUndefined();
     } );
 
 } );
