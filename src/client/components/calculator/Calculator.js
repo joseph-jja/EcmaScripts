@@ -3,9 +3,7 @@ import selector from 'client/dom/selector';
 import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
 
-import {
-    TotalsManager
-} from 'client/components/calculator/TotalsManager';
+import TotalsManager from 'client/components/calculator/TotalsManager';
 
 //the GUI Calculator
 function Calculator( parentID, options ) {
@@ -61,20 +59,20 @@ Calculator.prototype.render = function () {
         "maxlength": "20"
     };
 
-    // set handle form 
+    // set handle form
     form = dom.createElement( 'form', td );
 
     // set handle for div
     this.handle.div = dom.createElement( "div", form, optn );
     /*
 	tr = dom.createElement('tr', this.handle.table);
-	td = dom.createElement('td', tr);   
+	td = dom.createElement('td', tr);
 	td.setAttribute("colspan", cols);
 	cells = [ "hex", 16, "dec", 10, "oct", 8, "bin", "2" ];
 	end = cells.length;
 	for ( i = 0; i < end; i+=2 ) {
 		optn = { "name": "base", "type": "radio", "value": cells[i+1] };
-		base = dom.createElement("span", td); 
+		base = dom.createElement("span", td);
 		base.innerHTML = cells[i];
 		dom.createElement("div", td, optn);
 	}
@@ -140,7 +138,6 @@ Calculator.prototype.handleClick = function ( evt, obj ) {
         };
         callback[ "+/-" ] = function ( obj, inp, data ) {
             obj.changeStorage( mathFunctions.inverse );
-            TotalsManager
             obj.handle.div.innerHTML = obj.currentValue;
         };
         callback[ "+" ] = function ( obj, inp, data ) {

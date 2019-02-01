@@ -16,7 +16,7 @@ TotalsManager.prototype.clear = function () {
 };
 
 TotalsManager.prototype.appendStorage = function ( x ) {
-    var c = this.currentValue;
+    const c = this.currentValue;
     if ( ( c === 0 ) && ( new String( c ).indexOf( "." ) === -1 ) ) {
         this.currentValue = x;
     } else {
@@ -31,8 +31,8 @@ TotalsManager.prototype.appendStorage = function ( x ) {
 
 //use this to perform a pending operation and set the next operation
 TotalsManager.prototype.performLastMethod = function ( nextMethod ) {
-    var x = this.currentValue;
-    var lm = this.lastMethod;
+    const x = this.currentValue;
+    const lm = this.lastMethod;
     if ( lm !== '' ) {
         this.currentTotal = lm( this.currentTotal, x );
     } else {
@@ -45,7 +45,7 @@ TotalsManager.prototype.performLastMethod = function ( nextMethod ) {
 //use this to call an operation like
 //math.log on the current storage value
 TotalsManager.prototype.changeStorage = function ( nOper ) {
-    var x = this.currentValue;
+    const x = this.currentValue;
     if ( nOper ) {
         this.currentValue = nOper( x );
     }
@@ -56,6 +56,4 @@ TotalsManager.prototype.equals = function () {
     return this.currentTotal;
 };
 
-export {
-    TotalsManager
-};
+export default TotalsManager;
