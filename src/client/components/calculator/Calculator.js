@@ -79,12 +79,13 @@ Calculator.prototype.render = function () {
 	 */
     //"A", "B", "C", "D", "E", "F" ];
     for ( let i = 0; i < calcEnd; i++ ) {
-        let display = Calculator.display;
-        let end = display[ i ].length;
+        const display = Calculator.display,
+            iDisplay = display[ i ];
+        let end = iDisplay.length;
         tr = dom.createElement( 'tr', this.handle.table );
         for ( let j = 0; j < end; j++ ) {
             let o = {
-                "innerHTML": display[ i ][ j ]
+                'innerHTML': iDisplay[ j ]
             };
             dom.createElement( 'td', tr, o );
         }
@@ -97,9 +98,8 @@ Calculator.prototype.render = function () {
     this.handle.div = form.getElementsByTagName( "div" )[ 0 ];
     this.handle.div.innerHTML = "0";
 
-    var _self = this;
-    var handleEvent = function ( evt ) {
-        _self.handleClick( evt, _self );
+    var handleEvent = ( evt ) => {
+        _self.handleClick( evt, this );
     };
 
     // FIXME and support both!

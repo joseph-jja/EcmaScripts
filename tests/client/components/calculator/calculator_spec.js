@@ -5,16 +5,6 @@ describe( 'testing calculator', () => {
 
     let parent;
 
-    let mockElement = {
-        nodeName: 'td',
-        innerHTML: '1'
-    };
-
-    const mockEvent = {
-        srcElement: mockElement,
-        target: mockElement
-    };
-
     beforeEach( () => {
         if ( !parent ) {
             parent = document.createElement( 'div' );
@@ -40,19 +30,24 @@ describe( 'testing calculator', () => {
         expect( calc.render ).toHaveBeenCalled();
     } );
 
-    xit( 'calculator handleClick test', () => {
-        const calc = new Calculator( parent.id );
-        spyOn( calc, 'render' );
-        calc.render();
+    describe( 'calculator handleClick tests', () => {
 
-        spyOn( calc, 'appendStorage' );
+        it( 'calculator handleClick test', () => {
+            const calc = new Calculator( parent.id );
+            calc.render();
 
-        spyOn( events, 'getTarget' ).and.returnValue( mockElement );
+            const container = document.querySelector(`#${parent.id}`),
+                table = container.querySelector('table'),
+                cell = table.rows[2].cells[1];
 
-        console.error( events.getTarget( mockEvent ) );
+            spyOn( table, 'click' );
+            spyOn( calc, 'handleClick' );
 
-        calc.handleClick( mockEvent, calc );
+            table.click();
 
-        expect( calc.appendStorage ).toHaveBeenCalled();
+            //table.dispatchEvent(mockEvent);
+
+            expect( table.click ).toHaveBeenCalled();
+        } );
     } );
 } );
