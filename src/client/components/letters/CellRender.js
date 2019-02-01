@@ -12,8 +12,8 @@ export default function CellRender( baseRowID, binNum, columnID ) {
 
 // both children use a time so make it here for generism
 CellRender.prototype.startTimer = function () {
-    var tblObj = this;
-    var runClock = function () {
+    let tblObj = this;
+    const runClock = function () {
         tblObj.runClock();
     };
     this.timerID = window.setInterval( runClock, 1500 );
@@ -26,10 +26,12 @@ CellRender.prototype.stopTimer = function () {
 
 // this is what we do when we start the timer
 CellRender.prototype.runClock = function () {
-    var bhlen = this.bhlen;
-    var i = this.index;
-    var j = ( bhlen < 7 ) ? i + 7 - bhlen : i;
-    var cell = selector( "#" + this.baseRowID + ( ( +j ) + 1 ) + "_" + this.colID ).get( 0 );
+    const bhlen = this.bhlen,
+        i = this.index,
+        j = ( bhlen < 7 ) ? i + 7 - bhlen : i;
+
+    let cell = selector( "#" + this.baseRowID + ( ( +j ) + 1 ) + "_" + this.colID ).get( 0 );
+
     if ( new String( this.binNum ).substring( i, i + 1 ) === "1" && cell ) {
         cell.style.background = 'red';
     }

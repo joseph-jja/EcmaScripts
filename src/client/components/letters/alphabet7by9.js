@@ -1,4 +1,4 @@
-let alphabet7by9 = {};
+const alphabet7by9 = {};
 
 alphabet7by9[ 'A' ] = [ 63, 72, 72, 72, 63 ];
 alphabet7by9[ 'B' ] = [ 127, 73, 73, 73, 54 ];

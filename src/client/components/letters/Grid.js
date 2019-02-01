@@ -21,21 +21,18 @@ export default function Grid( parentID, tableID ) {
     // build function builds the grid
     this.build = function () {
 
-        let parent,
-            table, i, j, row;
+        const parent = selector( "#" + this.parentID ).get( 0 );
 
-        parent = selector( "#" + this.parentID ).get( 0 );
-
-        table = dom.createElement( 'table', undefined, {
+        const table = dom.createElement( 'table', undefined, {
             "id": this.tableID + 'table'
         } );
 
-        for ( i = 0; i < rows; i += 1 ) {
-            row = dom.createElement( 'tr', table, {
+        for ( let i = 0; i < rows; i += 1 ) {
+            const row = dom.createElement( 'tr', table, {
                 "id": this.tableID + 'row' + i
             } );
-            for ( j = 0; j < cols; j += 1 ) {
-                let cell = dom.createElement( 'td', row, {
+            for ( let j = 0; j < cols; j += 1 ) {
+                const cell = dom.createElement( 'td', row, {
                     "id": this.tableID + 'cell' + i + '_' + j
                 } );
                 cell.className = 'grid-cell';

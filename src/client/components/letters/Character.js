@@ -13,19 +13,19 @@ export default function Character( parentID, tableID ) {
 //have grid to show inheritance
 Character.prototype = new Grid;
 
-// what to do on the timer 
+// what to do on the timer
 Character.prototype.render = function () {
 
-    var eleName = this.tableID + 'cell';
+    const eleName = this.tableID + 'cell';
 
-    for ( var i = 0; i < 5; i++ ) {
-        var x = this.matrix[ i ];
-        var l = ( +i ) + 1;
-        // convert code to binary 
-        var binaryTime = mathFunctions.convertFromBaseTenToBaseX( 2, x );
+    for ( let i = 0; i < 5; i++ ) {
+        const x = this.matrix[ i ];
+        const l = ( +i ) + 1;
+        // convert code to binary
+        const binaryTime = mathFunctions.convertFromBaseTenToBaseX( 2, x );
 
         // create a cell render object to render a cell based on the timer
-        var tbl = new CellRender( eleName, binaryTime, l );
+        const tbl = new CellRender( eleName, binaryTime, l );
         tbl.index = tbl.bhlen;
         tbl.startTimer();
     }

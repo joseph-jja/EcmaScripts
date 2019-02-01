@@ -1,4 +1,4 @@
-// libs first 
+// libs first
 import * as dom from 'client/dom/DOM';
 import * as css from 'client/dom/CSS';
 import * as events from 'client/dom/events';
@@ -11,7 +11,7 @@ import footer from 'client/components/footer';
 import * as menu from 'client/components/menu';
 
 
-var jsonData = {};
+let jsonData = {};
 
 function onFishTabsChanged() {
     const spanTags = selector( "#fishdataContentArea span.selection-tied" ),
@@ -56,9 +56,8 @@ function processJSON() {
 }
 
 function getXMLDocument() {
-    var xmlDOC;
     if ( this.xmlhttp.readyState === 4 ) {
-        xmlDOC = xml.getAsXMLDocument( this.xmlhttp.responseText );
+        const xmlDOC = xml.getAsXMLDocument( this.xmlhttp.responseText );
         jsonData = xml.xml2json( xmlDOC );
         processJSON();
     }
