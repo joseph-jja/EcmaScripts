@@ -24,4 +24,23 @@ describe( 'testing ajax', () => {
         }, 1 );
 
     } );
+
+    it( 'cancel POST request', ( done ) => {
+
+        const post = ajax.post,
+            cancel = ajax.cancelRequest;
+
+        const request = post( ( data ) => {
+
+        }, './bob' );
+
+        spyOn( request.xmlhttp, 'abort' );
+
+        setTimeout( () => {
+            cancel( request );
+            expect( request.xmlhttp.abort ).toHaveBeenCalled();
+            done();
+        }, 1 );
+
+    } );
 } );
