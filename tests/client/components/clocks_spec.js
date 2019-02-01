@@ -18,7 +18,7 @@ describe( 'testing some clocks', () => {
         Digital.setId( 'digital-holder' );
 
         Digital.runClock();
-        expect( digitalClockHolder.innerHTML.length ).toEqual( 14 );
+        expect( digitalClockHolder.innerHTML.length ).toBeGreaterThan( 12 );
         Digital.stopClock();
     } );
 
