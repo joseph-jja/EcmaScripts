@@ -1,17 +1,11 @@
-// module for checking data types 
+// module for checking data types
 function typeCheck( o, s, input ) {
     return ( input instanceof o || ( typeof input ).toLowerCase() === s ) ? true : false;
 };
 
 // only exists if it is not undefined
 function exists( x ) {
-    let exists = false;
-    try {
-        exists = ( typeof x !== 'undefined' && x !== null );
-    } catch ( e ) {
-        exists = false;
-    }
-    return exists;
+    return ( typeof x !== 'undefined' && x !== null );
 };
 
 function isString( input ) {
