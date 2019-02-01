@@ -173,7 +173,7 @@ export default function Calendar( parentID, options ) {
     // the handle click callback function
     this.handleClick = function ( evt, calObj ) {
         var name, checkClass, e = events.getEvent( evt ),
-            tgt = events.getTarget();
+            tgt = events.getTarget( e );
 
         checkClass = function ( tgt, calObj, obj ) {
             var dContent, nYear, nMon;

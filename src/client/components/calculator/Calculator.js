@@ -117,7 +117,7 @@ Calculator.prototype.handleClick = function ( evt, obj ) {
         inp, callback = [],
         method;
 
-    tgt = events.getTarget();
+    tgt = events.getTarget( e );
     inp = obj.handle.div.innerHTML;
 
     if ( tgt.nodeName.toLowerCase() !== "td" ) {

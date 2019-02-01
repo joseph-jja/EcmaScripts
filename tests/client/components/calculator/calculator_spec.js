@@ -1,8 +1,19 @@
 import Calculator from 'client/components/calculator/Calculator';
+import * as events from 'client/dom/events';
 
 describe( 'testing calculator', () => {
 
     let parent;
+
+    let mockElement = {
+        nodeName: 'td',
+        innerHTML: '1'
+    };
+
+    const mockEvent = {
+        srcElement: mockElement,
+        target: mockElement
+    };
 
     beforeEach( () => {
         if ( !parent ) {
@@ -27,5 +38,21 @@ describe( 'testing calculator', () => {
         spyOn( calc, 'render' );
         calc.render();
         expect( calc.render ).toHaveBeenCalled();
+    } );
+
+    xit( 'calculator handleClick test', () => {
+        const calc = new Calculator( parent.id );
+        spyOn( calc, 'render' );
+        calc.render();
+
+        spyOn( calc, 'appendStorage' );
+
+        spyOn( events, 'getTarget' ).and.returnValue( mockElement );
+
+        console.error( events.getTarget( mockEvent ) );
+
+        calc.handleClick( mockEvent, calc );
+
+        expect( calc.appendStorage ).toHaveBeenCalled();
     } );
 } );

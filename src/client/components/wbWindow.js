@@ -144,7 +144,7 @@ export default function wbWindow( title, x, y, width, height, winID ) {
 wbWindow.prototype.popToFront = function ( evt ) {
     var tgtWin, tgt, e;
     e = events.getEvent( evt );
-    tgt = events.getTarget();
+    tgt = events.getTarget( e );
     tgtWin = dom.findParent( tgt, "div.WebWindowMain" );
     if ( !tgtWin ) {
         return;

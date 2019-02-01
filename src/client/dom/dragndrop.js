@@ -21,7 +21,7 @@ export default function dragndrop() {
             e, tgt;
 
         e = events.getEvent( evt );
-        tgt = events.getTarget();
+        tgt = events.getTarget( e );
 
         if ( dnd.moving && dnd.dragableCoverMask.id === tgt.id ) {
 
@@ -130,7 +130,7 @@ export default function dragndrop() {
         const dnd = self,
             e = events.getEvent( evt );
 
-        let tgt = events.getTarget();
+        let tgt = events.getTarget( e );
 
         // set the current draggable object by using the target objects id
         tgt = dnd.findDragableParent( tgt );

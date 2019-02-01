@@ -42,7 +42,7 @@ const getEvent = function ( evt ) {
 };
 
 const getTarget = function ( evt ) {
-    const eventObj = getEvent( eventObj );
+    const eventObj = getEvent( evt );
     let result;
     if ( eventObj.srcElement ) {
         result = eventObj.srcElement;
@@ -53,7 +53,7 @@ const getTarget = function ( evt ) {
 };
 
 const getEventPosX = function ( evt ) {
-    const eventObj = getEvent( eventObj );
+    const eventObj = getEvent( evt );
     let result = 0;
     if ( eventObj.pageX ) {
         result = eventObj.pageX;
@@ -64,7 +64,7 @@ const getEventPosX = function ( evt ) {
 };
 
 const getEventPosY = function ( evt ) {
-    const eventObj = getEvent( eventObj );
+    const eventObj = getEvent( evt );
     let result = 0;
     if ( eventObj.pageY ) {
         result = eventObj.pageY;
