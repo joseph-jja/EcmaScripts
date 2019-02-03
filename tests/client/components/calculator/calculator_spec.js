@@ -36,9 +36,9 @@ describe( 'testing calculator', () => {
             const calc = new Calculator( parent.id );
             calc.render();
 
-            const container = document.querySelector(`#${parent.id}`),
-                table = container.querySelector('table'),
-                cell = table.rows[2].cells[1];
+            const container = document.querySelector( `#${parent.id}` ),
+                table = container.querySelector( 'table' ),
+                cell = table.rows[ 2 ].cells[ 1 ];
 
             spyOn( table, 'click' );
             spyOn( calc, 'handleClick' );

@@ -90,16 +90,14 @@ Calculator.prototype.render = function () {
             dom.createElement( 'td', tr, o );
         }
     }
-    // IE6 hack to get the form to actually show up
-    //var s = form.innerHTML;
-    //form.innerHTML = s;
 
     // we have to redo this because it gets lost
     this.handle.div = form.getElementsByTagName( "div" )[ 0 ];
     this.handle.div.innerHTML = "0";
 
-    var handleEvent = ( evt ) => {
-        _self.handleClick( evt, this );
+    const self = this;
+    const handleEvent = ( evt ) => {
+        self.handleClick( evt, this );
     };
 
     // FIXME and support both!
