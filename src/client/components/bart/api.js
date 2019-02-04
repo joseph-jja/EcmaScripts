@@ -46,7 +46,7 @@ async function getTrainsByStation( stationAbbr ) {
         } ).reduce( ( acc, item ) => {
             return {
                 'minutes': `${acc.minutes}, ${item.minutes}`,
-                'platform': `${acc.platform}, ${item.platform}`,   
+                'platform': `${acc.platform}, ${item.platform}`,
                 'direction': `${acc.direction}, ${item.direction}`,
                 'delay': `${acc.delay}, ${item.delay}`,
             };
@@ -61,19 +61,19 @@ async function getTrainsByStation( stationAbbr ) {
     } );
 }
 
-function buildTripPlanUrl(origin, dest, planTime) {
+function buildTripPlanUrl( origin, dest, planTime ) {
     return `${origin}${Constants.SCHEDULE_DEST}${dest}${Constants.SCHEDULE_DATE}${planTime}`;
 }
 
-async function getDepartTrips(String origin, String dest, String planTime) {
-    
+async function getDepartTrips( String origin, String dest, String planTime ) {
+
     const departingSchedule = await fetcher( `${Constants.SCHEDULE_DEPART}${buildTripPlanUrl(origin, dest, planTime)}` );
-                
+
 }
 
-async function getArrivalTrips(String origin, String dest, String planTime) {
+async function getArrivalTrips( String origin, String dest, String planTime ) {
 
-    const arrivingSchedule = await fetcher(`${Constants.SCHEDULE_ARRIVE}${buildTripPlanUrl(origin, dest, planTime)}`);
+    const arrivingSchedule = await fetcher( `${Constants.SCHEDULE_ARRIVE}${buildTripPlanUrl(origin, dest, planTime)}` );
 }
 
 export {
