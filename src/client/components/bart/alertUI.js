@@ -1,6 +1,6 @@
 import * as API from 'client/components/bart/api';
 
-export default async function Alerts(station) {
+export default async function Alerts( station ) {
 
     const alerts = await API.getAlerts();
 
@@ -15,7 +15,7 @@ export default async function Alerts(station) {
                   <br>Station: ${alert.station}
                   <br>Description: ${alert.description}
                </div>`;
-        
+
     } ).reduce( ( acc, item ) => {
         return acc + item;
     } );

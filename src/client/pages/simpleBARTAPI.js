@@ -10,12 +10,12 @@ import footer from 'client/components/footer';
 import * as menu from 'client/components/menu';
 
 async function doOnLoadStuff() {
-  
-      const stationData = await StationList();
-    
-  // get dom node to put this data in and inner html it
-  // the add event listener
-    
+
+    const stationData = await StationList();
+
+    // get dom node to put this data in and inner html it
+    // the add event listener
+
 }
 
 events.addOnLoad( doOnLoadStuff );
