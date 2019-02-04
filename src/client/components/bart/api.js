@@ -52,7 +52,7 @@ async function getTrainsByStation( stationAbbr ) {
             return {
                 'minutes': `${acc.minutes}, ${item.minutes}`,
                 'platform': `${acc.platform}, ${item.platform}`,
-                'direction': `${acc.direction}, ${item.direction}`,
+                'direction': `item.direction,
                 'delay': `${acc.delay}, ${item.delay}`,
             };
         } );
