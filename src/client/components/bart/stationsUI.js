@@ -1,7 +1,7 @@
 import * as API from 'client/components/bart/api';
 import * as Storage from 'client/browser/webStorage';
 
-const STORAGE_KEY = 'SimpleBARTAPIStationList";
+const STORAGE_KEY = 'SimpleBARTAPIStationList';
 
 export default async function StationList() {
   
