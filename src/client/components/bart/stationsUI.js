@@ -15,7 +15,7 @@ export default async function StationList() {
         stations = await API.getStations();
     }
 
-    if ( !stations ) {
+    if ( !stations || stations.length === 0 ) {
         throw ( 'Could not get stations!' );
     }
 
