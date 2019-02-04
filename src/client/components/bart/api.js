@@ -3,7 +3,7 @@ import * as Constants from 'client/components/bart/constants';
 
 async function getStations() {
 
-    const stations = await fetcher( GET_STATION_LIST_API );
+    const stations = await fetcher( Constants.GET_STATION_LIST_API );
 
     return stations.root.stations.station.map( station => {
         return {
@@ -15,7 +15,7 @@ async function getStations() {
 
 async function getAlerts() {
 
-    const alerts = await fetcher( ALERTS_API );
+    const alerts = await fetcher( Constants.ALERTS_API );
 
     const dateTime = `${alerts.root.date} ${alerts.root.time}`;
 
@@ -46,14 +46,8 @@ async function getTrainsByStation( stationAbbr ) {
         } ).reduce( ( acc, item ) => {
             return {
                 'minutes': `${acc.minutes}, ${item.minutes}`,
-                'platform': `${acc.platform}, ${item.platform},   
-                'direction': `
-                $ {
-                    acc.direction
-                },
-                $ {
-                    item.direction
-                },
+                'platform': `${acc.platform}, ${item.platform}`,   
+                'direction': `${acc.direction}, ${item.direction}`,
                 'delay': `${acc.delay}, ${item.delay}`,
             };
         } );
@@ -67,8 +61,25 @@ async function getTrainsByStation( stationAbbr ) {
     } );
 }
 
+function buildTripPlanUrl(origin, dest, planTime) {
+    return `${origin}${Constants.SCHEDULE_DEST}${dest}${Constants.SCHEDULE_DATE}${planTime}`;
+}
+
+async function getDepartTrips(String origin, String dest, String planTime) {
+    
+    const departingSchedule = await fetcher( `${Constants.SCHEDULE_DEPART}${buildTripPlanUrl(origin, dest, planTime)}` );
+                
+}
+
+async function getArrivalTrips(String origin, String dest, String planTime) {
+
+    const arrivingSchedule = await fetcher(`${Constants.SCHEDULE_ARRIVE}${buildTripPlanUrl(origin, dest, planTime)}`);
+}
 
 export {
     getStations,
+    getTrainsByStation,
+    getDepartTrips,
+    getArrivalTrips,
     getAlerts
 }
