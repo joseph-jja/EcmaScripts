@@ -28,30 +28,36 @@ async function getAlerts() {
     } );
 }
 
-async function getTrainsByStation(stationAbbr) {
+async function getTrainsByStation( stationAbbr ) {
 
     const trainList = await fetcher( `${GET_TRAIN_LIST_API}${stationAbbr}` );
 
     const dateTime = `${trainList.root.date} ${trainList.root.time}`;
 
     // not an optimized function, TODO optimize?
-    return trainList.root.station[0].etd.map( train => {
-        const est = train.estimate.map(estimates => {
+    return trainList.root.station[ 0 ].etd.map( train => {
+        const est = train.estimate.map( estimates => {
             return {
-                'minutes': estimates.minutes,   
-                'platform': estimates.platform,   
-                'direction': estimates.direction,   
-                'delay': estimates.delay,   
+                'minutes': estimates.minutes,
+                'platform': estimates.platform,
+                'direction': estimates.direction,
+                'delay': estimates.delay,
             };
-        }).reduce( ( acc, item ) => {
+        } ).reduce( ( acc, item ) => {
             return {
-                'minutes': `${acc.minutes}, ${item.minutes}`,   
+                'minutes': `${acc.minutes}, ${item.minutes}`,
                 'platform': `${acc.platform}, ${item.platform},   
-                'direction': `${acc.direction}, ${item.direction},   
-                'delay': `${acc.delay}, ${item.delay}`,   
+                'direction': `
+                $ {
+                    acc.direction
+                },
+                $ {
+                    item.direction
+                },
+                'delay': `${acc.delay}, ${item.delay}`,
             };
-        });
-        
+        } );
+
         return {
             'destination': train.destination,
             'abbreviation': train.abbreviation,
@@ -63,6 +69,6 @@ async function getTrainsByStation(stationAbbr) {
 
 
 export {
-    getStations, 
+    getStations,
     getAlerts
 }
