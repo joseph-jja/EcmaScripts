@@ -61,7 +61,10 @@ async function getTrainsByStation( stationAbbr ) {
             'destination': train.destination,
             'abbreviation': train.abbreviation,
             'dateTime': dateTime,
-            'estimates': est,
+            'minutes': est.minutes,
+            'platform': est.platform,
+            'direction': est.direction,
+            'delay': est.delay
         };
     } );
 }
