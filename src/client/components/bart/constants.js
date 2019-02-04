@@ -12,12 +12,12 @@ export const GET_STATION_LIST_API = `${BART_API_HOST}/api/stn.aspx?cmd=stns${KEY
 export const GET_TRAIN_LIST_API = `${BART_API_HOST}/api/etd.aspx?cmd=etd&orig=${KEY_STRING_API}`;
 
 // used to calculate fair
-export const FAIR_API = `${BART_API_HOST}/api/sched.aspx?cmd=fare&orig=`;
+export const FAIR_API = `${BART_API_HOST}/api/sched.aspx?cmd=fare${KEY_STRING_API}&orig=`;
 export const FAIR_DEST = '&dest=';
 
 // trip planning
-export const SCHEDULE_DEPART = `${BART_API_HOST}/api/sched.aspx?cmd=depart&b=0&a=3&orig=`;
-export SCHEDULE_ARRIVE = `${BART_API_HOST}/api/sched.aspx?cmd=arrive&b=2&a=1&orig=`;
+export const SCHEDULE_DEPART = `${BART_API_HOST}/api/sched.aspx?cmd=depart${KEY_STRING_API}&b=0&a=3&orig=`;
+export SCHEDULE_ARRIVE = `${BART_API_HOST}/api/sched.aspx?cmd=arrive${KEY_STRING_API}&b=2&a=1&orig=`;
 export const SCHEDULE_DEST = '&dest=';
 export const SCHEDULE_DATE = '&date='; // mm/dd/yyyy
 export const SCHEDULE_TIME = '&time='; //h:mm+am/pm
