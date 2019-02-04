@@ -1,9 +1,9 @@
 import fetcher from 'client/components/net/fetcher';
 import * as Constants from 'client/components/bart/constants';
 
-async function getJSON(url) {
-    const result = await fetcher( url );   
-    return JSON.parse(result);
+async function getJSON( url ) {
+    const result = await fetcher( url );
+    return JSON.parse( result );
 }
 
 async function getStations() {
