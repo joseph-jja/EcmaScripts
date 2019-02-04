@@ -10,8 +10,12 @@ export default async function Alerts(station) {
 
     const items = alerts.map( alert => {
 
-        return `<div>${JSON.stringify(alert)}</div>`;
-
+        return `<div>
+                  Date Time: ${alert.dateTime}
+                  <br>Station: ${alert.station}
+                  <br>Description: ${alert.description}
+               </div>`;
+        
     } ).reduce( ( acc, item ) => {
         return acc + item;
     } );
