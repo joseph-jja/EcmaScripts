@@ -16,7 +16,7 @@ export default async function StationList() {
     }
 
     if ( !stations ) {
-        throw ( 'Could not get statsions!' );
+        throw ( 'Could not get stations!' );
     }
 
     if ( Storage.localEnabled ) {
