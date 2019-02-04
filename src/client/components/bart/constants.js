@@ -17,7 +17,7 @@ export const FAIR_DEST = '&dest=';
 
 // trip planning
 export const SCHEDULE_DEPART = `${BART_API_HOST}/api/sched.aspx?cmd=depart${KEY_STRING_API}&b=0&a=3&orig=`;
-export SCHEDULE_ARRIVE = `${BART_API_HOST}/api/sched.aspx?cmd=arrive${KEY_STRING_API}&b=2&a=1&orig=`;
+export const SCHEDULE_ARRIVE = `${BART_API_HOST}/api/sched.aspx?cmd=arrive${KEY_STRING_API}&b=2&a=1&orig=`;
 export const SCHEDULE_DEST = '&dest=';
 export const SCHEDULE_DATE = '&date='; // mm/dd/yyyy
 export const SCHEDULE_TIME = '&time='; //h:mm+am/pm
