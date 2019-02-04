@@ -31,6 +31,6 @@ export default async function StationList() {
         return acc + item;
     } );
 
-    return `<div id="bart-stations-list">${station.name}</div>`;
+    return `<div id="bart-stations-list">${items}</div>`;
 
 }

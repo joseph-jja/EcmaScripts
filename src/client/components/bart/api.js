@@ -1,4 +1,4 @@
-import fetcher from 'client/components/net/fetcher';
+import fetcher from 'client/net/fetcher';
 import * as Constants from 'client/components/bart/constants';
 
 async function getJSON( url ) {
