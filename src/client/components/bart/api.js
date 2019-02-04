@@ -1,9 +1,14 @@
 import fetcher from 'client/components/net/fetcher';
 import * as Constants from 'client/components/bart/constants';
 
+async function getJSON(url) {
+    const result = await fetcher( url );   
+    return JSON.parse(result);
+}
+
 async function getStations() {
 
-    const stations = await fetcher( Constants.GET_STATION_LIST_API );
+    const stations = await getJSON( Constants.GET_STATION_LIST_API );
 
     return stations.root.stations.station.map( station => {
         return {
@@ -15,7 +20,7 @@ async function getStations() {
 
 async function getAlerts() {
 
-    const alerts = await fetcher( Constants.ALERTS_API );
+    const alerts = await getJSON( Constants.ALERTS_API );
 
     const dateTime = `${alerts.root.date} ${alerts.root.time}`;
 
@@ -30,7 +35,7 @@ async function getAlerts() {
 
 async function getTrainsByStation( stationAbbr ) {
 
-    const trainList = await fetcher( `${GET_TRAIN_LIST_API}${stationAbbr}` );
+    const trainList = await getJSON( `${GET_TRAIN_LIST_API}${stationAbbr}` );
 
     const dateTime = `${trainList.root.date} ${trainList.root.time}`;
 
@@ -67,13 +72,13 @@ function buildTripPlanUrl( origin, dest, planTime ) {
 
 async function getDepartTrips( String origin, String dest, String planTime ) {
 
-    const departingSchedule = await fetcher( `${Constants.SCHEDULE_DEPART}${buildTripPlanUrl(origin, dest, planTime)}` );
+    const departingSchedule = await getJSON( `${Constants.SCHEDULE_DEPART}${buildTripPlanUrl(origin, dest, planTime)}` );
 
 }
 
 async function getArrivalTrips( String origin, String dest, String planTime ) {
 
-    const arrivingSchedule = await fetcher( `${Constants.SCHEDULE_ARRIVE}${buildTripPlanUrl(origin, dest, planTime)}` );
+    const arrivingSchedule = await getJSON( `${Constants.SCHEDULE_ARRIVE}${buildTripPlanUrl(origin, dest, planTime)}` );
 }
 
 export {
