@@ -35,7 +35,7 @@ async function getAlerts() {
 
 async function getTrainsByStation( stationAbbr ) {
 
-    const trainList = await getJSON( `${GET_TRAIN_LIST_API}${stationAbbr}` );
+    const trainList = await getJSON( `${Constants.GET_TRAIN_LIST_API}${stationAbbr}` );
 
     const dateTime = `${trainList.root.date} ${trainList.root.time}`;
 
