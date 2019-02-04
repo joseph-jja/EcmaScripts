@@ -1,6 +1,6 @@
 import * as API from 'client/components/bart/api';
 
-describe(bart api tests', () => {
+describe('bart api tests', () => {
 
     beforeAll(() => {
        spyOn(fetch).and.callFake( (url) => {
