@@ -9,7 +9,7 @@ export const KEY_STRING_API = `&json=y&key=${BART_API_KEY}`;
 export const GET_STATION_LIST_API = `${BART_API_HOST}/api/stn.aspx?cmd=stns${KEY_STRING_API}`;
 
 // get the trains at a particular station
-export const GET_TRAIN_LIST_API = `${BART_API_HOST}/api/etd.aspx?cmd=etd&orig=${KEY_STRING_API}`;
+export const GET_TRAIN_LIST_API = `${BART_API_HOST}/api/etd.aspx?cmd=etd${KEY_STRING_API}&orig=`;
 
 // used to calculate fair
 export const FAIR_API = `${BART_API_HOST}/api/sched.aspx?cmd=fare${KEY_STRING_API}&orig=`;
