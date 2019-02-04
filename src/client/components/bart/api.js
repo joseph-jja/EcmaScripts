@@ -73,13 +73,13 @@ function buildTripPlanUrl( origin, dest, planTime ) {
     return `${origin}${Constants.SCHEDULE_DEST}${dest}${Constants.SCHEDULE_DATE}${planTime}`;
 }
 
-async function getDepartTrips( String origin, String dest, String planTime ) {
+async function getDepartTrips( origin, dest, planTime ) {
 
     const departingSchedule = await getJSON( `${Constants.SCHEDULE_DEPART}${buildTripPlanUrl(origin, dest, planTime)}` );
 
 }
 
-async function getArrivalTrips( String origin, String dest, String planTime ) {
+async function getArrivalTrips( origin, dest, planTime ) {
 
     const arrivingSchedule = await getJSON( `${Constants.SCHEDULE_ARRIVE}${buildTripPlanUrl(origin, dest, planTime)}` );
 }
