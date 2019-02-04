@@ -1,5 +1,4 @@
+export function TimeSelect( parent, defaultHour, defaultMinute ) {
 
-export function TimeSelect(parent, defaultHour, defaultMinute) {
-  
-  
+
 }

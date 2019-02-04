@@ -1,2 +1,1 @@
-
-import StationList from 'client/components/bart/stationsUI';  
+import StationList from 'client/components/bart/stationsUI';
