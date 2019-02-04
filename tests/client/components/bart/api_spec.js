@@ -11,7 +11,7 @@ describe( 'bart api tests', () => {
     } );
 
     it( 'api should exist', () => {
-        expect( api ).not.toBeUndefined();
+        expect( API ).not.toBeUndefined();
     } );
 
 } );
