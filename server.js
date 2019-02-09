@@ -6,15 +6,23 @@ const http = require( 'http' ),
     baseDir = process.cwd();
 
 const statfile = util.promisify( fs.stat ),
-    readdir = util.promisify( fs.readdir );
+    readfile = util.promisify( fs.readFile );
+readdir = util.promisify( fs.readdir );
 
 const intialFile = `${baseDir}/coverage/report-html/index.html`;
 
 async function listDir( dir, response ) {
-    const files = await readdir( dir );
-    const results = files.reduce( ( acc, item ) => {
-        return `${acc}${os.EOL}<br>${item}`;
-    } );
+    const isDir = await statfile( dir );
+    let results;
+    if ( isDir.isDirectory() ) {
+        const files = await readdir( dir );
+        results = files.reduce( ( acc, item ) => {
+            return `${acc}${os.EOL}<br>${item}`;
+        } );
+    } else {
+        results = await readfile( dir );
+
+    }
     response.writeHead( 200, {
         'Content-Typei': 'text/html'
     } );
