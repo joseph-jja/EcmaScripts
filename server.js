@@ -1,13 +1,35 @@
 const http = require( 'http' ),
+    util = require( 'util' ),
     fs = require( 'fs' ),
+    os = require( 'os' ),
     childProcess = require( 'child_process' ),
     baseDir = process.cwd();
 
+const statfile = util.promisify( fs.stat ),
+    readdir = util.promisify( fs.readdir );
+
 const intialFile = `${baseDir}/coverage/report-html/index.html`;
+
+async function listDir( dir, response ) {
+    const files = await readdir( dir );
+    const results = files.reduce( ( acc, item ) => {
+        return `${acc}${os.EOL}<br>${item}`;
+    } );
+    response.writeHead( 200, {
+        'Content-Typei': 'text/html'
+    } );
+    response.end( `<html><body>${results}</body></html>` );
+}
 
 const server = http.createServer( ( request, response ) => {
 
-    let start = ( request.url === '/' ? intialFile : `${baseDir}/coverage/report-html${request.url}` );
+    let start = intialFile;
+    if ( request.url !== '/' && !request.url.startsWith( '/js' ) ) {
+        start = `${baseDir}/coverage/report-html${request.url}`;
+    } else if ( request.url.startsWith( '/js' ) ) {
+        listDir( `${baseDir}/${request.url}`, response );
+        return;
+    }
 
     let coverage = fs.createReadStream( start );
     coverage.on( 'error', ( err ) => {
