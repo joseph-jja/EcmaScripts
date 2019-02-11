@@ -1,6 +1,6 @@
 // basic fetch for jsdom tests
 // right now only supporting GET
-window.fetch = function( url ) {
+window.fetch = function ( url ) {
 
     return new Promise( resolve => {
         const xmlhttp = new window.XMLHttpRequest();
