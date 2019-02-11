@@ -10,6 +10,7 @@ const isAndroid = ( platform === 'android' );
 
 const files = [];
 files.push( 'node_modules/regenerator-runtime/runtime.js' );
+files.push( 'node_modules/@babel/polyfill/browser.js' );
 if ( isAndroid ) {
     files.push( 'tests/polyfills/performance-timings.js' );
     files.push( 'tests/polyfills/fetch.js' );
