@@ -32,7 +32,7 @@ module.exports = {
         "programs": "./src/client/pages/programs",
         "resume": "./src/client/pages/resume",
         "rssEditor": "./src/client/pages/rssEditor",
-        "simpleBARTAPI": "./src/client/pages/simpleBARTAPI",
+        "simpleBARTAPI": [ "@babel/runtime/regenerator", "./src/client/pages/simpleBARTAPI" ],
         "textEditor": "./src/client/pages/textEditor",
         "tropicalFish": "./src/client/pages/tropicalFish"
     },
@@ -45,11 +45,15 @@ module.exports = {
         "sourceMapFilename": "[file].source.map"
     },
     "resolve": {
-        "modules": [ path.join( __dirname, "src" ) ],
+        "modules": [
+            "node_modules",
+            path.join( __dirname, "src" )
+        ],
         "alias": {
             "db": path.resolve( "src/db" ),
             "utils": path.resolve( "src/utils" ),
-            "client": path.resolve( "src/client" )
+            "client": path.resolve( "src/client" ),
+            "@babel": path.resolve( "node_modules/@babel" )
         }
     },
     "module": {

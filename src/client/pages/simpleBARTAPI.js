@@ -1,3 +1,4 @@
+import "@babel/runtime/regenerator"
 import selector from 'client/dom/selector';
 import * as events from 'client/dom/events';
 import * as dom from 'client/dom/DOM';

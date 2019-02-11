@@ -2,15 +2,20 @@
 const path = require( "path" ),
     os = require( 'os' ),
     fs = require( 'fs' ),
-    babelConfig = JSON.parse( fs.readFileSync( 'config/babel-config.json' ) );
+    baseDir = process.cwd(),
+    babelConfig = JSON.parse( fs.readFileSync( 'config/babel-config.json' ) ),
+    webpackConfig = require( `${baseDir}/config/webpack` );
 
 const platform = os.platform();
 
 const isAndroid = ( platform === 'android' );
 
 const files = [];
-files.push( 'node_modules/regenerator-runtime/runtime.js' );
-files.push( 'node_modules/@babel/polyfill/browser.js' );
+files.push( {
+    pattern: 'node_modules/**/**.js',
+    included: false,
+    nocache: true
+} );
 if ( isAndroid ) {
     files.push( 'tests/polyfills/performance-timings.js' );
     files.push( 'tests/polyfills/fetch.js' );
@@ -64,14 +69,7 @@ module.exports = function ( config ) {
                     }
                 } ]
             },
-            resolve: {
-                modules: [ path.join( __dirname, "src" ) ],
-                alias: {
-                    db: path.resolve( "src/db" ),
-                    utils: path.resolve( "src/utils" ),
-                    client: path.resolve( "src/client" )
-                }
-            }
+            resolve: webpackConfig.resolve
         },
 
         webpackMiddleware: {
