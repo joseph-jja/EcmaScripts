@@ -17,6 +17,7 @@ describe( "tests on events object", function () {
             document.body.removeChild( parent );
         }
     } );
+    
     it( "tests for is touch", function () {
 
         const gotTouch = events.isTouchEnabled();
