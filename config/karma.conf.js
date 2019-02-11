@@ -57,8 +57,10 @@ module.exports = function ( config ) {
                 }, {
                     test: /\.js$/,
                     exclude: /(node_modules|tests)/,
-                    loader: 'babel-istanbul-loader',
-                    query: babelConfig
+                    loader: 'istanbul-instrumenter-loader',
+                    query: {
+                        esModules: true
+                    }
                 } ]
             },
             resolve: {
