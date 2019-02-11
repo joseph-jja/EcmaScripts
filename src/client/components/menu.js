@@ -6,7 +6,7 @@ import * as storage from 'client/browser/webStorage';
 import * as metrics from 'client/browser/performance';
 import selector from 'client/dom/selector';
 
-//try to declare global variables 
+//try to declare global variables
 var loc = document.location.href,
     splitstr = loc.split( '/' ),
     commandline = loc.split( "?" ),
@@ -34,22 +34,24 @@ allLinks = [
     //                  ["computers.html", "Computers", "Some computer stuff"],
     [ "programs.html", "Some programs that I have written" ],
     [ "programming_languages.html", "My little writeup on how programming languages are similar" ],
-    //   ["FreeBSD_cdrom.html", "FreeBSD CDROM", "My HOWTO on creating a FreeBSD live CDROM"], 
+    //   ["FreeBSD_cdrom.html", "FreeBSD CDROM", "My HOWTO on creating a FreeBSD live CDROM"],
     [ "resume_default.html", "A Web Version of My Resume" ],
-    //["resume_bstg.html", "Alternate AJAX Resume", "An ActiveX / Mozilla XSLTProcessor / AJAX version of my resume"], 
+    //["resume_bstg.html", "Alternate AJAX Resume", "An ActiveX / Mozilla XSLTProcessor / AJAX version of my resume"],
     [ "email_form.html", "How you can email me" ],
     [ "helloworld.html", "Cool-ish :P Hello World" ],
     [ "canvas_test.html", "If your browser supports the Canvas Object" ],
-    //["javascript:changeStyles(];", "Change Style", "Change CSS Files"], 
+    //["javascript:changeStyles(];", "Change Style", "Change CSS Files"],
     [ "my_links.html", "Some of the off site links related to this site." ]
 ];
 
+let getCurrentKey,
+    addMetrics;
 if ( storage.sessionEnabled &&
     JSON && JSON.stringify && JSON.parse ) {
 
     allLinks.push( [ "performance.html", "Metrics", "Performance Metrics Obtained About Your Visit To This Site." ] );
 
-    function getCurrentKey() {
+    getCurrentKey = function () {
         var key, url, path;
 
         path = window.location.pathname;
@@ -62,7 +64,7 @@ if ( storage.sessionEnabled &&
         return key;
     };
 
-    function addMetrics( optns ) {
+    addMetrics = function ( optns ) {
         var key, prop, mix = [],
             i, len, data = "",
             store, sdata, render, xtitle;
@@ -106,7 +108,7 @@ if ( storage.sessionEnabled &&
         store.setItem( key + "TITLE", xtitle );
 
         if ( key === 'performance' ) {
-            function render() {
+            render = function () {
                 var x, xlen, xkey, xdata, xresult = "",
                     xjson, xitem, y, xdlen, element, ytitle,
                     store = storage.sessionStore;
@@ -178,7 +180,7 @@ export function basicMenu() {
     }
 }
 
-//extended menu 
+//extended menu
 export function extendedMenu() {
     var i, menu = '<div class="url-wrapper"><select id="url-navigation">',
         mlen,

@@ -32,7 +32,7 @@ function parseSkills( XMLDOMDocument ) {
         result += '<li>';
         result += title.childNodes[ 0 ].nodeValue + ": ";
         var skills = skillset[ i ].getElementsByTagName( "skill" );
-        // then need skills 
+        // then need skills
         for ( let s = 0; s < skills.length; s++ ) {
             var skill = skills[ s ].childNodes[ 0 ].nodeValue;
             var skill_level = skills[ s ].getAttribute( "level" );
@@ -126,7 +126,7 @@ function parseJobs( XMLDOMDocument ) {
     // this gives us a list of the actual jobs in the page
     var jobNodes = XMLDOMDocument.getElementsByTagName( "job" );
 
-    // we should try 
+    // we should try
 
     var result = '<span class="profexp"><a href="javascript:WebBrowser.dom.toggleDisplay(\'profexp\');">PROFESSIONAL EXPERIENCE</a></span>';
     result += '<br /><div id="profexp"><br />';
@@ -189,9 +189,10 @@ events.addOnLoad( ( onloadFN ) => {
 
     var obj = document.getElementById( "container" );
 
+    let callback;
     try {
 
-        function callback() {
+        callback = function () {
             if ( this.xmlhttp.readyState === 4 ) {
                 var result = this.xmlhttp.responseText;
                 var DOMDoc = xml.getAsXMLDocument( result );
