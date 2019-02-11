@@ -17,7 +17,7 @@ describe( "tests on events object", function () {
             document.body.removeChild( parent );
         }
     } );
-    
+
     it( "tests for is touch", function () {
 
         const gotTouch = events.isTouchEnabled();
@@ -54,7 +54,7 @@ describe( "tests on events object", function () {
 
             const evt = events.getEvent( e );
             const tgt = events.getEventPosX( evt );
-            expect( tgt ).toEqual(jasmine.any(Number));
+            expect( tgt ).toEqual( jasmine.any( Number ) );
 
         } );
         parent.click();
@@ -66,7 +66,7 @@ describe( "tests on events object", function () {
 
             const evt = events.getEvent( e );
             const tgt = events.getEventPosY( evt );
-            expect( tgt ).toEqual(jasmine.any(Number));
+            expect( tgt ).toEqual( jasmine.any( Number ) );
 
         } );
         parent.click();
