@@ -3,7 +3,8 @@
         [ "@babel/preset-env", {
             "targets": {
                 "browsers": [ ">0.25%", "ie>=11", "edge>15", "chrome>60", "firefox>60", "safari>=10" ]
-            }
+            },
+            "modules": "commonjs"
         } ]
     ],
     "plugins": [
