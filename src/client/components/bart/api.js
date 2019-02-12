@@ -40,6 +40,10 @@ async function getTrainsByStation( stationAbbr ) {
     const dateTime = `${trainList.root.date} ${trainList.root.time}`;
 
     // not an optimized function, TODO optimize?
+    if ( !trainList.root.station[ 0 ].etd ) {
+        return [];
+    }
+
     return trainList.root.station[ 0 ].etd.map( train => {
         const est = train.estimate.map( estimates => {
             return {
