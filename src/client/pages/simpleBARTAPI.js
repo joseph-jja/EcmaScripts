@@ -17,13 +17,11 @@ async function doOnLoadStuff() {
     const content = document.getElementById( 'content' );
 
     const rdiv = dom.createElement( 'div', content, {
-        id: 'slist',
-        'style': 'width: 40%; display: inline; float: left'
+        id: 'slist'
     } );
 
     const ldiv = dom.createElement( 'div', content, {
-        id: 'tlist',
-        'style': 'width: 40%; display: inline;'
+        id: 'tlist'
     } );
 
     // get dom node to put this data in and inner html it
