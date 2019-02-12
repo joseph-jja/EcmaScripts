@@ -39,7 +39,7 @@ const server = http.createServer( ( request, response ) => {
     if ( request.url !== '/' && !request.url.startsWith( '/js' ) ) {
         start = `${baseDir}/coverage/report-html${request.url}`;
     } else if ( request.url.startsWith( '/js' ) ) {
-        const type = ( request.url.endsWith('html') ? 'text/html' : 'text/javascript' );
+        const type = ( request.url.endsWith( 'html' ) ? 'text/html' : 'text/javascript' );
         listDir( `${baseDir}/${request.url}`, response, type );
         return;
     }

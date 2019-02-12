@@ -16,10 +16,13 @@ async function doOnLoadStuff() {
 
     const content = document.getElementById( 'content' );
 
+    // get dom node to put this data in and inner html it
     content.innerHTML = stationData;
 
-    // get dom node to put this data in and inner html it
     // the add event listener
+    events.addEvent( content, 'click', ( e ) => {
+        const tgt = events.getTarget( e );
+    } );
 
 }
 
