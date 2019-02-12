@@ -1,3 +1,19 @@
+div#slist {
+    width: 40%; 
+    display: block; 
+    float: left; 
+    height: 500px; 
+    overflow: scroll;
+}
+
+div#slist {
+    width: 40%; 
+    display: inline-block; 
+    height: 500px; 
+    overflow: scroll;
+    margin-left: 2em;
+}
+
 div#bart-stations-list div {
     font-size: 1.75em;
     font-weight: bold;
