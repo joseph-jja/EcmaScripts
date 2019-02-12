@@ -32,7 +32,7 @@ module.exports = {
         "programs": "./src/client/pages/programs",
         "resume": "./src/client/pages/resume",
         "rssEditor": "./src/client/pages/rssEditor",
-        "simpleBARTAPI": [ "@babel/runtime/regenerator", "./src/client/pages/simpleBARTAPI" ],
+        "simpleBARTAPI": "./src/client/pages/simpleBARTAPI",
         "textEditor": "./src/client/pages/textEditor",
         "tropicalFish": "./src/client/pages/tropicalFish"
     },
