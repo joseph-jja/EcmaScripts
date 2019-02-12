@@ -1,0 +1,11 @@
+div#bart-stations-list div {
+    font-size: 1.75em;
+    font-weight: bold;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+div#bart-stations-list div:hover {
+    background: cornflowerblue;
+}
+
