@@ -8,9 +8,7 @@
                 "firefox": "60",
                 "safari": "10",
                 "esmodules": false
-            },
-            "useBuiltIns": "entry",
-            "modules": "commonjs"
+            }
         } ]
     ],
     "plugins": [
@@ -21,17 +19,7 @@
                 "regenerator": true,
                 "useESModules": false
             }
-        ],
-        "@babel/plugin-transform-template-literals",
-        "@babel/plugin-transform-async-to-generator",
-        "@babel/plugin-proposal-async-generator-functions",
-        "@babel/plugin-transform-regenerator",
-        "@babel/plugin-transform-arrow-functions",
-        "@babel/plugin-transform-function-name",
-        "@babel/plugin-transform-classes",
-        "@babel/plugin-transform-parameters",
-        "@babel/plugin-transform-shorthand-properties",
-        "@babel/plugin-transform-modules-commonjs"
+        ]
     ],
     "sourceMaps": "both"
 }
