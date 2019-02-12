@@ -16,8 +16,18 @@ async function doOnLoadStuff() {
 
     const content = document.getElementById( 'content' );
 
+    const rdiv = dom.createElement( 'div', content, {
+        id: 'slist',
+        'style': 'width: 40%; display: inline; float: left'
+    } );
+
+    const ldiv = dom.createElement( 'div', content, {
+        id: 'tlist',
+        'style': 'width: 40%; display: inline;'
+    } );
+
     // get dom node to put this data in and inner html it
-    content.innerHTML = stationData;
+    rdiv.innerHTML = stationData;
 
     // the add event listener
     const stationClick = async function ( e ) {
@@ -37,6 +47,7 @@ async function doOnLoadStuff() {
 
         const selectedStation = tgt.attributes[ 'data-abbr' ].value;
         const listOfTrains = await TrainList( selectedStation );
+        ldiv.innerHTML = listOfTrains;
 
     };
     events.addEvent( content, 'click', stationClick );
