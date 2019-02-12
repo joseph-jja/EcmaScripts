@@ -11,7 +11,7 @@ export default async function StationList() {
         stations = Storage.localStore.getItem( 'STORAGE_KEY' );
     }
 
-    if ( !stations ) {
+    if ( !stations || stations.length === 0 ) {
         stations = await API.getStations();
     }
 
@@ -20,7 +20,7 @@ export default async function StationList() {
     }
 
     if ( Storage.localEnabled ) {
-        stations = Storage.localStore.setItem( STORAGE_KEY, stations );
+        Storage.localStore.setItem( STORAGE_KEY, JSON.stringify( stations ) );
     }
 
     const items = stations.map( station => {

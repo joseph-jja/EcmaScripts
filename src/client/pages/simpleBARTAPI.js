@@ -14,6 +14,10 @@ async function doOnLoadStuff() {
 
     const stationData = await StationList();
 
+    const content = document.getElementById( 'content' );
+
+    content.innerHTML = stationData;
+
     // get dom node to put this data in and inner html it
     // the add event listener
 
