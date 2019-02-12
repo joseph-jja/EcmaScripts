@@ -8,6 +8,10 @@ export default async function TrainList( station ) {
         throw ( 'Could not get trains!' );
     }
 
+    if ( trains.length === 0 ) {
+        return `<div id="bart-train-list">No trains found</div>`;
+    }
+
     const items = trains.sort( ( a, b ) => {
         // it is either north or south  
         if ( a.direction === 'North' ) {

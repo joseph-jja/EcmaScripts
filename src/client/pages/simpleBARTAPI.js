@@ -20,10 +20,26 @@ async function doOnLoadStuff() {
     content.innerHTML = stationData;
 
     // the add event listener
-    events.addEvent( content, 'click', ( e ) => {
+    const stationClick = async function ( e ) {
         const tgt = events.getTarget( e );
-    } );
 
+        if ( !tgt ) {
+            return;
+        }
+
+        if ( tgt.nodeName.toUpperCase() !== 'DIV' ) {
+            return;
+        }
+
+        if ( !tgt.attributes[ 'data-abbr' ] ) {
+            return;
+        }
+
+        const selectedStation = tgt.attributes[ 'data-abbr' ].value;
+        const listOfTrains = await TrainList( selectedStation );
+
+    };
+    events.addEvent( content, 'click', stationClick );
 }
 
 events.addOnLoad( doOnLoadStuff );
