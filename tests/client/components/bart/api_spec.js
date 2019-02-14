@@ -6,4 +6,31 @@ describe( 'bart api tests', () => {
         expect( API ).not.toBeUndefined();
     } );
 
+    it( 'call getStations', () => {
+
+        spyOn(window, 'fetch').and.callFake(() => {
+
+            return {
+                response: {
+                    stations: {
+                        root: {
+                            stations: {
+                                station: [{
+                                    name: 'foo',
+                                    abbr: 'bar'
+                                },
+                                {
+                                    name: 'meh',
+                                    abbr: 'lovely'
+                                }]
+                            }
+                        }
+                    }
+                }
+            };
+        });
+
+        const result = API.getStations();
+        expect( result ).not.toBeUndefined();
+    });
 } );
