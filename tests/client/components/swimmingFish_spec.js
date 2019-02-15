@@ -37,4 +37,20 @@ describe( 'testing swimmingFish', () => {
         swimFish.stopfish();
         expect( result ).toBeTruthy();
     } );
+
+    it( 'get swimming fish getXPos', () => {
+        const swimFish = new fish.BrowserFish( parent.id );
+
+        const result = swimFish.getXPos();
+        swimFish.stopfish();
+        expect( result ).toBeDefined();
+    } );
+
+    it( 'get swimming fish getYPos', () => {
+        const swimFish = new fish.BrowserFish( parent.id );
+
+        const result = swimFish.getYPos();
+        swimFish.stopfish();
+        expect( result ).toBeDefined();
+    } );
 } );
