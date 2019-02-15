@@ -30,7 +30,7 @@ describe( 'testing wbWindow', () => {
     it( 'wbWindow create test', () => {
         const win = new wbWindow( parent.id );
         win.setTitle( 'This is a test' );
-        const ele = win.titleBar.querySelectorAll('span')[0];
+        const ele = win.titleBar.querySelectorAll( 'span' )[ 0 ];
         expect( ele.innerHTML ).toEqual( 'This is a test' );
     } );
 
