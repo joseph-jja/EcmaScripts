@@ -6,7 +6,7 @@ describe( 'testing toggleUL', () => {
     let parent,
         uls = [];;
 
-    beforeEach( () => {
+    beforeAll( () => {
         if ( !parent ) {
             parent = document.createElement( 'div' );
         }
@@ -16,9 +16,9 @@ describe( 'testing toggleUL', () => {
 
         for ( let i = 0; i < 3; i++ ) {
             uls[ i ] = dom.createElement( 'ul', parent, {
-                id: `{parent.id}_ul_$i}`,
-                'class': 'tree_child_hidden'
+                id: `{parent.id}_ul_$i}`
             } );
+            uls[ i ].style.display = 'none';
             for ( let i = 0; i < 3; i++ ) {
                 const li = dom.createElement( 'li', uls[ i ], {
                     id: `{uls[ i ].id}_li_$i}`
@@ -28,7 +28,7 @@ describe( 'testing toggleUL', () => {
         }
     } );
 
-    afterEach( () => {
+    afterAll( () => {
         if ( parent ) {
             document.body.removeChild( parent );
         }
@@ -38,13 +38,13 @@ describe( 'testing toggleUL', () => {
         expect( toggleUL ).toBeDefined();
     } );
 
-    xit( 'toggleUL test block', () => {
+    it( 'toggleUL test block', () => {
         toggleUL( uls[ 1 ].id );
 
         expect( uls[ 1 ].style.display ).toEqual( 'block' );
     } );
 
-    xit( 'toggleUL test none', () => {
+    it( 'toggleUL test none', () => {
         toggleUL( uls[ 1 ].id );
 
         expect( uls[ 0 ].style.display ).toEqual( 'none' );
