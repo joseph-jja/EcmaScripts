@@ -10,7 +10,8 @@ const platform = os.platform();
 
 const isAndroid = ( platform === 'android' );
 
-const files = [];
+const files = [],
+    excludeFiles = [];
 files.push( {
     pattern: 'node_modules/**/**.js',
     included: false,
@@ -19,6 +20,9 @@ files.push( {
 if ( isAndroid ) {
     files.push( 'tests/polyfills/performance-timings.js' );
     files.push( 'tests/polyfills/fetch.js' );
+    excludeFiles.push( 'tests/client/components/canvas*.js' );
+    excludeFiles.push( 'tests/client/net/fetcher*.js' );
+    excludeFiles.push( 'tests/client/dom/toggleUL_spec.js' );
 }
 files.push( 'tests/**/**_spec*.js' );
 files.push( {
@@ -41,7 +45,7 @@ module.exports = function ( config ) {
         files: files,
 
         // list of files to exclude
-        exclude: [],
+        exclude: excludeFiles,
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
