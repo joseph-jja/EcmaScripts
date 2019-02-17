@@ -94,4 +94,4 @@ export {
     getDepartTrips,
     getArrivalTrips,
     getAlerts
-}
+};

@@ -25,7 +25,7 @@ function TaskList() {
         //events.addEvent( '#addTaskID', 'click', addTask, false );
         //events.addEvent( 'button.edit-task', 'click', editTask, false );
         this.render();
-    }
+    };
 
     this.render = function () {
         let db, content;
@@ -54,7 +54,7 @@ function TaskList() {
             // FIXME 
             this.taskListContainer.innerHTML = getTable( rows );
         } );
-    }
+    };
 
     //    render: function() {
     //        var self = this;

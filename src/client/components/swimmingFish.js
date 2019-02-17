@@ -240,7 +240,7 @@ fish.BrowserFish.prototype.startfish = function () {
     // now make a function poiter
     var swimfn = function () {
         swimfishObj.runfish();
-    }
+    };
 
     // now call timeout function.  this works
     this.runtimerid = window.setInterval( swimfn, fish.SWIMMING_FISH_TIMEOUT );

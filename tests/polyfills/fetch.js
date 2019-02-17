@@ -14,7 +14,8 @@ window.fetch = function ( url ) {
                 resolve( xmlhttp.response );
             }
         };
-        xmlhttp.send( data );
+        xmlhttp.send();
     } );
 
-}
+};
+

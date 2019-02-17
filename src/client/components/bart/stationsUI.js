@@ -3,7 +3,7 @@ import * as Storage from 'client/browser/webStorage';
 
 const ONE_WEEK = 604800;
 
-const STORAGE_KEY = 'SimpleBARTAPIStationList', 
+const STORAGE_KEY = 'SimpleBARTAPIStationList',
     STORAGE_TIME_KEY = 'SimpleBARTAPIStationListTime';
 
 export default async function StationList() {
@@ -15,7 +15,7 @@ export default async function StationList() {
         const updateDate = Storage.localStore.getItem( 'STORAGE_TIME_KEY' );
         const staleDate = new Date().getTime() - ONE_WEEK;
         if ( !updateDate || updateDate < staleDate ) {
-             stations = [];
+            stations = [];
         }
     }
 

@@ -8,7 +8,7 @@ function setProperties( canvas ) {
 
     // find a from pythagorean
     function reversePythaogrean( a, b ) {
-        return Math.sqrt( MF.square( a ) - MF.square( b ) )
+        return Math.sqrt( MF.square( a ) - MF.square( b ) );
     };
 
     canvas.clear = function () {

@@ -81,7 +81,6 @@ function parseMisc( XMLDOMDocument ) {
             }
             result += "</li>";
         }
-        this
     }
 
     result += '</ul></div>';
@@ -217,7 +216,7 @@ events.addOnLoad( ( onloadFN ) => {
 
                 obj.innerHTML = header + skills + jobs + degrees + misc;
             }
-        }
+        };
 
         // try hard parsing here
         var ajaxObj = ajax.get( callback, "resume_data.xml", null );

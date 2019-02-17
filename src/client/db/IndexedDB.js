@@ -16,7 +16,7 @@ function SQLQuery( name ) {
 
 SQLQuery.prototype.hasIndexedDBSupport = function () {
     return ( typeof window.indexedDB !== 'undefined' );
-}
+};
 
 SQLQuery.prototype.open = function ( name, store, version, callback ) {
     const iDB = window.indexedDB.open( name, version );

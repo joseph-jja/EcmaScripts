@@ -71,7 +71,7 @@ describe( "tests on DOM object", function () {
 
         dom.html( r, 'hello world' );
 
-        dom.setTextFieldCursorPosition( r, 5, 6 )
+        dom.setTextFieldCursorPosition( r, 5, 6 );
         i = dom.getTextFieldCursorPosition( r );
 
         expect( i ).toBe( 5 );
