@@ -3,7 +3,10 @@ const http = require( 'http' ),
     fs = require( 'fs' ),
     os = require( 'os' ),
     childProcess = require( 'child_process' ),
-    baseDir = process.cwd();
+    baseDir = process.cwd(),
+    {
+        listDirectory
+    } = require( `${baseDir}/src/server/filesystem/listDirectory` );
 
 const statfile = util.promisify( fs.stat ),
     readfile = util.promisify( fs.readFile ),
@@ -15,8 +18,10 @@ async function listDir( dir, response, type ) {
     const isDir = await statfile( dir );
     let results;
     if ( isDir.isDirectory() ) {
-        const files = await readdir( dir );
-        results = files.reduce( ( acc, item ) => {
+        const files = await listDirectory( dir );
+        results = files.map( item => {
+            return item.name.replace(baseDir, '');
+        } ).reduce( ( acc, item ) => {
             return `${acc}${os.EOL}<br>${item}`;
         } );
     } else {
