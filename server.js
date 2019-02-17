@@ -9,8 +9,7 @@ const http = require( 'http' ),
     } = require( `${baseDir}/src/server/filesystem/listDirectory` );
 
 const statfile = util.promisify( fs.stat ),
-    readfile = util.promisify( fs.readFile ),
-    readdir = util.promisify( fs.readdir );
+    readfile = util.promisify( fs.readFile );
 
 const intialFile = `${baseDir}/coverage/report-html/index.html`;
 
