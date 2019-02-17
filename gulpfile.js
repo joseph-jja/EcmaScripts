@@ -20,10 +20,12 @@ fs.writeFileSync( `${baseDir}/.babelrc`, JSON.stringify( babelJSON ) + os.EOL );
 gulp.task( 'default', () => {
     gulp.src( "gulpfile.js" )
         .pipe( jsbeautify( jsConfig ) )
+        .pipe( eslint( eslintCfg ) )
         .pipe( gulp.dest( '.' ) );
 
     gulp.src( "server.js" )
         .pipe( jsbeautify( jsConfig ) )
+        .pipe( eslint( eslintCfg ) )
         .pipe( gulp.dest( '.' ) );
 
     gulp.src( "tests/**" )
@@ -33,9 +35,11 @@ gulp.task( 'default', () => {
 
     gulp.src( "config/**.js*" )
         .pipe( jsbeautify( jsConfig ) )
+        .pipe( eslint( eslintCfg ) )
         .pipe( gulp.dest( 'config' ) );
 
     return gulp.src( "src/**/**.js" )
         .pipe( jsbeautify( jsConfig ) )
+        .pipe( eslint( eslintCfg ) )
         .pipe( gulp.dest( 'src' ) );
 } );

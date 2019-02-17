@@ -18,4 +18,3 @@ window.fetch = function ( url ) {
     } );
 
 };
-
