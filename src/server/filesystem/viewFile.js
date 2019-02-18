@@ -15,7 +15,7 @@ async function viewFile( filename, limitDir ) {
     }
 
     const results = await readFile( fullFilename );
-    return results; 
+    return results;
 }
 
 module.exports = viewFile;

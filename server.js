@@ -6,7 +6,7 @@ const http = require( 'http' ),
     childProcess = require( 'child_process' ),
     baseDir = process.cwd(),
     listDirectory = require( `${baseDir}/src/server/filesystem/listDirectory` );
-    viewFile = require( `${baseDir}/src/server/filesystem/viewFile` );
+viewFile = require( `${baseDir}/src/server/filesystem/viewFile` );
 
 const statfile = util.promisify( fs.stat );
 
