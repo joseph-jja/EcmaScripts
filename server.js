@@ -21,8 +21,12 @@ async function listDir( dir, response ) {
 
     if ( isDir.isDirectory() ) {
         const files = await listDirectory( fullpath );
-        const results = files.map( item => {
-            return item.name.replace( baseDir, '' );
+        const results = files.filter( item => {
+            return ( item.name.indexOf('node_modules') === -1 );
+        } ).map( item => {
+            const fname = item.name.replace( baseDir, '' );
+            const url = `<a href="${fname}">${fname}</a>`;
+            return url;
         } ).reduce( ( acc, item ) => {
             return `${acc}${os.EOL}<br>${item}`;
         } );
@@ -49,7 +53,7 @@ async function listDir( dir, response ) {
 
 const server = http.createServer( ( request, response ) => {
 
-    if ( request.url === '/favicon.ico' ) {
+    if ( request.url === '/favicon.ico' || request.url.indexOf('/node_modules') > -1 ) {
         response.writeHead( 404, {
             'Content-Type': 'text/html'
         } );
