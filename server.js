@@ -5,8 +5,8 @@ const http = require( 'http' ),
     os = require( 'os' ),
     childProcess = require( 'child_process' ),
     baseDir = process.cwd(),
-    listDirectory = require( `${baseDir}/src/server/filesystem/listDirectory` );
-viewFile = require( `${baseDir}/src/server/filesystem/viewFile` );
+    listDirectory = require( `${baseDir}/src/server/filesystem/listDirectory` ),
+    viewFile = require( `${baseDir}/src/server/filesystem/viewFile` );
 
 const statfile = util.promisify( fs.stat );
 
@@ -21,6 +21,9 @@ async function listDir( dir, response ) {
 
     const fullpath = path.resolve( baseDir, dir );
     const isDir = await statfile( fullpath );
+
+    const templatefile = await viewFile( `${baseDir}/views/web-editor.html`, baseDir );
+    const filedata = templatefile.toString();
 
     if ( isDir.isDirectory() ) {
         const files = ( fullpath === baseDir ? [] : parentDir )
@@ -38,8 +41,6 @@ async function listDir( dir, response ) {
         response.writeHead( 200, {
             'Content-Type': 'text/html'
         } );
-        const templatefile = await viewFile( `${baseDir}/views/web-editor.html`, baseDir );
-        const filedata = templatefile.toString();
         response.end( filedata.replace( '[[FILE_TREE]]', results ) );
     } else {
         let ltype = 'text/html';
