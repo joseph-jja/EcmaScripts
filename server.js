@@ -1,6 +1,7 @@
 const http = require( 'http' ),
     util = require( 'util' ),
     fs = require( 'fs' ),
+    path = require( 'path' ),
     os = require( 'os' ),
     childProcess = require( 'child_process' ),
     baseDir = process.cwd(),
@@ -13,45 +14,51 @@ const statfile = util.promisify( fs.stat ),
 
 const intialFile = `${baseDir}/coverage/report-html/index.html`;
 
-async function listDir( dir, response, type ) {
-    const isDir = await statfile( dir );
-    let results;
+async function listDir( dir, response ) {
+
+    const fullpath = path.resolve( baseDir, dir );
+    const isDir = await statfile( fullpath );
+
     if ( isDir.isDirectory() ) {
-        const files = await listDirectory( dir );
-        results = files.map( item => {
-            return item.name.replace(baseDir, '');
+        const files = await listDirectory( fullpath );
+        const results = files.map( item => {
+            return item.name.replace( baseDir, '' );
         } ).reduce( ( acc, item ) => {
             return `${acc}${os.EOL}<br>${item}`;
         } );
-    } else {
-        results = await readfile( dir );
 
-    }
-    response.writeHead( 200, {
-        'Content-Typei': type
-    } );
-    if ( type === 'text/html' ) {
+        response.writeHead( 200, {
+            'Content-Type': 'text/html'
+        } );
         response.end( `<html><body>${results}</body></html>` );
     } else {
+        let ltype = 'text/html';
+        const results = await readfile( fullpath );
+        if ( fullpath.substring( fullpath.length - 4 ) === '.css' ) {
+            ltype = 'text/css';
+        } else if ( fullpath.substring( fullpath.length - 3 ) === '.js' ) {
+            ltype = 'text/css';
+        }
+
+        response.writeHead( 200, {
+            'Content-Type': ltype
+        } );
         response.end( results );
     }
 }
 
 const server = http.createServer( ( request, response ) => {
 
-    let start = intialFile;
-    if ( request.url !== '/' && !request.url.startsWith( '/js' ) ) {
-        start = `${baseDir}/coverage/report-html${request.url}`;
-    } else if ( request.url.startsWith( '/js' ) ) {
-        const type = ( request.url.endsWith( 'html' ) ? 'text/html' : 'text/javascript' );
-        listDir( `${baseDir}/${request.url}`, response, type );
+    if ( request.url === '/favicon.ico' ) {
+        response.writeHead( 404, {
+            'Content-Type': 'text/html'
+        } );
+        response.end();
         return;
     }
 
-    let coverage = fs.createReadStream( start );
-    coverage.on( 'error', ( err ) => {
-        console.log( err );
-    } ).pipe( response );
+    listDir( `${baseDir}/${request.url}`, response );
+
 } );
 
 const port = 20000;
