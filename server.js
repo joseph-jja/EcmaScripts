@@ -5,9 +5,7 @@ const http = require( 'http' ),
     os = require( 'os' ),
     childProcess = require( 'child_process' ),
     baseDir = process.cwd(),
-    {
-        listDirectory
-    } = require( `${baseDir}/src/server/filesystem/listDirectory` );
+    listDirectory = require( `${baseDir}/src/server/filesystem/listDirectory` );
 
 const statfile = util.promisify( fs.stat ),
     readfile = util.promisify( fs.readFile );

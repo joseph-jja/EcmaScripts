@@ -33,6 +33,4 @@ async function listDirectory( dir, limit ) {
     return results;
 }
 
-module.exports = {
-    listDirectory
-};
+module.exports = listDirectory;
