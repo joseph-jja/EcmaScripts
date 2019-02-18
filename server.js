@@ -38,7 +38,9 @@ async function listDir( dir, response ) {
         response.writeHead( 200, {
             'Content-Type': 'text/html'
         } );
-        response.end( `<html><body>${results}</body></html>` );
+        const templatefile = await viewFile( `${baseDir}/views/web-editor.html`, baseDir );
+        const filedata = templatefile.toString();
+        response.end( filedata.replace( '[[FILE_TREE]]', results ) );
     } else {
         let ltype = 'text/html';
         const results = await viewFile( fullpath, baseDir );

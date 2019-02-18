@@ -3,9 +3,59 @@
 
 <head>
     <title>Web Editor</title>
+    <style type="text/css">
+        .grid-header {
+            grid-area: header;
+            border: 1px solid black;
+        }
+
+        /*filelist { grid-area: menu; }*/
+        .filelist {
+            grid-area: main;
+            border: 1px solid black;
+        }
+
+        .editor-box {
+            grid-area: right;
+            border: 1px solid black;
+        }
+
+        .grid-footer {
+            grid-area: footer;
+            border: 1px solid black;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                'header header header header header header'
+                'main main right right right right'
+                'main main footer footer footer footer';
+            grid-gap: 10px;
+            background-color: #ffffff;
+            padding: 10px;
+            height: 95%;
+        }
+
+        .grid-container>div {
+            background-color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 30px;
+        }
+    </style>
 </head>
 
 <body>
+
+    <header></header>
+    <div class="container">
+        <div class="grid-header"></div>
+        <div class="filelist">[[FILE_TREE]]</div>
+        <div class="editor-box"></div>
+        <div class="grid-footer"></div>
+    </div>
+    <footer></footer>
 
 </body>
 
