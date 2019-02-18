@@ -14,15 +14,21 @@ const statfile = util.promisify( fs.stat ),
 
 const intialFile = `${baseDir}/coverage/report-html/index.html`;
 
+const parentDir = [ {
+    name: '..',
+    isFile: false
+} ];
+
 async function listDir( dir, response ) {
 
     const fullpath = path.resolve( baseDir, dir );
     const isDir = await statfile( fullpath );
 
     if ( isDir.isDirectory() ) {
-        const files = await listDirectory( fullpath );
+        const files = ( fullpath === baseDir ? [] : parentDir )
+            .concat( await listDirectory( fullpath ) );
         const results = files.filter( item => {
-            return ( item.name.indexOf('node_modules') === -1 );
+            return ( item.name.indexOf( 'node_modules' ) === -1 );
         } ).map( item => {
             const fname = item.name.replace( baseDir, '' );
             const url = `<a href="${fname}">${fname}</a>`;
@@ -53,7 +59,7 @@ async function listDir( dir, response ) {
 
 const server = http.createServer( ( request, response ) => {
 
-    if ( request.url === '/favicon.ico' || request.url.indexOf('/node_modules') > -1 ) {
+    if ( request.url === '/favicon.ico' || request.url.indexOf( '/node_modules' ) > -1 ) {
         response.writeHead( 404, {
             'Content-Type': 'text/html'
         } );
