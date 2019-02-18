@@ -6,9 +6,9 @@ const http = require( 'http' ),
     childProcess = require( 'child_process' ),
     baseDir = process.cwd(),
     listDirectory = require( `${baseDir}/src/server/filesystem/listDirectory` );
+    viewFile = require( `${baseDir}/src/server/filesystem/viewFile` );
 
-const statfile = util.promisify( fs.stat ),
-    readfile = util.promisify( fs.readFile );
+const statfile = util.promisify( fs.stat );
 
 const intialFile = `${baseDir}/coverage/report-html/index.html`;
 
@@ -41,7 +41,7 @@ async function listDir( dir, response ) {
         response.end( `<html><body>${results}</body></html>` );
     } else {
         let ltype = 'text/html';
-        const results = await readfile( fullpath );
+        const results = await viewFile( fullpath, baseDir );
         if ( fullpath.substring( fullpath.length - 4 ) === '.css' ) {
             ltype = 'text/css';
         } else if ( fullpath.substring( fullpath.length - 3 ) === '.js' ) {
