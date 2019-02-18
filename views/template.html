@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="Author" content="Joseph Acosta">
     <meta name="ROBOTS" content="NOARCHIVE">
@@ -10,48 +11,61 @@
     <link rel="stylesheet" href="classic_style-min.css">
     <!-- add the below to classic_styles.css  or create new css file -->
     <style type="text/css">
-      body {
-        font-size: 1em;
-      }
-      header, nav, footer {
-        display:block;
-      }
-      header, footer {
-        margin: 0 auto;
-        width: 100%;
-        text-align: center;
-        font-weight: bold;
-        color: white;
-        background-image: url("WebWindowTitleInactive.gif");
-      }
-      header {
-        position: fixed;
-        border-bottom: 4px #9966ff ridge;
-        top: 0px;
-      }
-      footer span, header span {
-        font-size: 1.2em;
-        color: white;
-      }
-      footer {
-        position: fixed;
-        border-top: 4px #9966ff ridge;
-        bottom: 0px;
-      }
-        #page-name {
-            text-transform: capitalize    
+        body {
+            font-size: 1em;
         }
+
+        header,
+        nav,
+        footer {
+            display: block;
+        }
+
+        header,
+        footer {
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            background-image: url("WebWindowTitleInactive.gif");
+        }
+
+        header {
+            position: fixed;
+            border-bottom: 4px #9966ff ridge;
+            top: 0px;
+        }
+
+        footer span,
+        header span {
+            font-size: 1.2em;
+            color: white;
+        }
+
+        footer {
+            position: fixed;
+            border-top: 4px #9966ff ridge;
+            bottom: 0px;
+        }
+
+        #page-name {
+            text-transform: capitalize
+        }
+
         .WebWindowMain {
             width: 95%;
         }
+
         #nav-bar {
             background-color: azure;
             width: 100%;
             padding: 0.5em
         }
-    </style>  
-  </head>
-  <body>
+    </style>
+</head>
+
+<body>
     <header>
         <span id="page-name">{{pagename}}</span>
         <span id="digiclock" class="digitalclock"></span>
@@ -60,9 +74,10 @@
     <div class="WebWindowMain">
         <div class="WebWindowTitle">{{wwTitle}}</div>
         <div id="container" class="WebWindowArea">{{wwContainer}}</div>
-        <div id="footer" class="WebWindowFooter">{{wwFooter}}</div>    
+        <div id="footer" class="WebWindowFooter">{{wwFooter}}</div>
     </div>
     <footer id="page-stats"><span>{{footer}}</span></footer>
     <script type="text/javascript" src="js/{{pageName}}.js"></script>
-  </body>
+</body>
+
 </html>
