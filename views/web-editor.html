@@ -23,20 +23,23 @@
         .container {
             display: grid;
             grid-template-areas:
-                'header header header header header header'
-                'main main right right right right'
-                'main main footer footer footer footer';
-            grid-gap: 10px;
+                'header header header header header'
+                'main right right right right'
+                'footer footer footer footer footer';
+            grid-gap: 2px;
             background-color: #ffffff;
-            padding: 10px;
+            padding: 5px;
+            width: 95%;
+            height: 95%;
         }
 
         .container>div {
-            background-color: rgba(255, 255, 255, 0.8);
-            text-align: center;
-            padding: 20px 0;
-            font-size: 30px;
+            background-color: #ffffff;
+            text-align: left;
+            padding: 10px 0;
+            font-size: 1.3em;
             border: 1px solid black;
+            overflow: scroll;
             height: 95%;
         }
     </style>
@@ -49,9 +52,9 @@
         <div class="grid-header"></div>
         <div class="filelist">[[FILE_TREE]]</div>
         <div class="editor-box">
-            <textarea id="text-editor-box">[[FILE_DATA]]</textarea>
+            <textarea rows="35" cols="80" id="text-editor-box">[[FILE_DATA]]</textarea>
         </div>
-        <div class=" grid-footer"></div>
+        <div class="grid-footer"></div>
     </div>
     <footer></footer>
 

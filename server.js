@@ -41,7 +41,7 @@ async function listDir( dir, response ) {
         response.writeHead( 200, {
             'Content-Type': 'text/html'
         } );
-        response.end( filedata.replace( '[[FILE_TREE]]', results ) );
+        response.end( filedata.replace( '[[FILE_TREE]]', results ).replace( '[[FILE_DATA]]', '' ) );
     } else {
         let ltype = 'text/html';
         const results = await viewFile( fullpath, baseDir );
