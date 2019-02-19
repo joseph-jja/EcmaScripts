@@ -34,7 +34,8 @@ module.exports = {
         "rssEditor": "./src/client/pages/rssEditor",
         "simpleBARTAPI": "./src/client/pages/simpleBARTAPI",
         "textEditor": "./src/client/pages/textEditor",
-        "tropicalFish": "./src/client/pages/tropicalFish"
+        "tropicalFish": "./src/client/pages/tropicalFish",
+        "webEditor": "./src/client/pages/webEditor"
     },
     "context": path.resolve( "." ),
     "devtool": "source-map",

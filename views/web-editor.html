@@ -42,6 +42,23 @@
             overflow: scroll;
             height: 95%;
         }
+
+        .filelist ul {
+            list-style: none; 
+        }
+
+        .filelist ul li {
+            display: list-item;
+            font-weight: bold;
+        }
+
+        .filelist ul li.file_type {
+            color: dark green;
+        }
+
+        .filelist ul li.dir_type {
+            color: blue;
+        }
     </style>
 </head>
 
@@ -50,13 +67,15 @@
     <header></header>
     <div class="container">
         <div class="grid-header"></div>
-        <div class="filelist">[[FILE_TREE]]</div>
+        <div class="filelist"><ul>[[FILE_TREE]]</ul></div>
         <div class="editor-box">
-            <textarea rows="35" cols="80" id="text-editor-box">[[FILE_DATA]]</textarea>
+            <textarea rows="35" cols="80" id="text-editor-box"></textarea>
         </div>
         <div class="grid-footer"></div>
     </div>
     <footer></footer>
+
+    <script type="text/javascript" src="/js/webEditor.js"></script>
 
 </body>
 

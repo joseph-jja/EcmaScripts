@@ -28,20 +28,26 @@ async function listDir( dir, response ) {
     if ( isDir.isDirectory() ) {
         const files = ( fullpath === baseDir ? [] : parentDir )
             .concat( await listDirectory( fullpath ) );
+
         const results = files.filter( item => {
             return ( item.name.indexOf( 'node_modules' ) === -1 );
         } ).map( item => {
             const fname = item.name.replace( baseDir, '' );
-            const url = `<a href="${fname}">${fname}</a>`;
+            let url;
+            if ( item.isFile ) {
+                url = `<li class="file_type">${fname.replace( /^\//, '' )}</li>`;
+            } else {
+                url = `<li class="dir_type">${fname.replace( /^\//, '' )}</li>`;
+            }
             return url;
         } ).reduce( ( acc, item ) => {
-            return `${acc}${os.EOL}<br>${item}`;
+            return `${acc}${os.EOL}${item}`;
         } );
 
         response.writeHead( 200, {
             'Content-Type': 'text/html'
         } );
-        response.end( filedata.replace( '[[FILE_TREE]]', results ).replace( '[[FILE_DATA]]', '' ) );
+        response.end( filedata.replace( '[[FILE_TREE]]', results ) );
     } else {
         let ltype = 'text/html';
         const results = await viewFile( fullpath, baseDir );
