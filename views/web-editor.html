@@ -44,7 +44,7 @@
         }
 
         .filelist ul {
-            list-style: none; 
+            list-style: none;
         }
 
         .filelist ul li {
@@ -66,8 +66,12 @@
 
     <header></header>
     <div class="container">
-        <div class="grid-header"></div>
-        <div class="filelist"><ul></ul></div>
+        <div class="grid-header">
+            <span id="filename"></span><button type="button" id="saveFile">Save</button>
+        </div>
+        <div class="filelist">
+            <ul></ul>
+        </div>
         <div class="editor-box">
             <textarea rows="35" cols="80" id="text-editor-box"></textarea>
         </div>

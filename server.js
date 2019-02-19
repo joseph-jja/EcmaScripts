@@ -3,10 +3,16 @@ const http = require( 'http' ),
     fs = require( 'fs' ),
     path = require( 'path' ),
     os = require( 'os' ),
+    url = require( 'url' ),
     childProcess = require( 'child_process' ),
     baseDir = process.cwd(),
     listDirectory = require( `${baseDir}/src/server/filesystem/listDirectory` ),
     viewFile = require( `${baseDir}/src/server/filesystem/viewFile` );
+
+const port = 20000,
+    protocol = 'http://';
+
+let hostIP;
 
 const statfile = util.promisify( fs.stat );
 
@@ -21,7 +27,6 @@ async function listDir( dir, response ) {
 
     const fullpath = path.resolve( baseDir, dir );
     const isDir = await statfile( fullpath );
-
 
     if ( isDir.isDirectory() ) {
         const files = ( fullpath === baseDir ? [] : parentDir )
@@ -64,7 +69,11 @@ async function listDir( dir, response ) {
 
 const server = http.createServer( ( request, response ) => {
 
-    if ( request.url === intialFile ) {
+    const parsedUrl = new url.URL( request.url, `${protocol}${hostIP}:${port}` );
+    const urlPath = parsedUrl.pathname,
+        searchParams = parsedUrl.searchParams;
+
+    if ( urlPath === intialFile ) {
         viewFile( `${baseDir}/views/web-editor.html`, baseDir )
             .then( templatefile => {
                 const filedata = templatefile.toString();
@@ -74,7 +83,8 @@ const server = http.createServer( ( request, response ) => {
                 } );
                 response.end( filedata );
             } );
-    } else if ( request.url === '/favicon.ico' || request.url.indexOf( '/node_modules' ) > -1 ) {
+        return;
+    } else if ( urlPath === '/favicon.ico' || urlPath.indexOf( '/node_modules' ) > -1 ) {
         response.writeHead( 404, {
             'Content-Type': 'text/html'
         } );
@@ -82,23 +92,28 @@ const server = http.createServer( ( request, response ) => {
         return;
     }
 
-    listDir( `${baseDir}/${request.url}`, response );
+    if ( searchParams && searchParams.saveFile ) {
 
+    }
+
+    listDir( `${baseDir}/${urlPath}`, response );
 } );
 
-const port = 20000;
-server.listen( port );
 try {
-    const ipaddr = childProcess.execSync( 'ifconfig | grep inet | grep Bcast' ).toString();
+    const ipaddr = childProcess.execSync( 'ifconfig | grep inet ' ).toString();
+    const rex = /[\d]*\.[\d]*\.[\d]*\.[\d]*/;
 
     const filtered = ipaddr.split( ' ' ).filter( item => {
-        return ( item.trim().length > 0 );
+        return ( item.match( rex ) && item.trim() !== '127.0.0.1' );
     } ).filter( item => {
-        return ( item.indexOf( 'addr' ) > -1 );
-    } ).map( item => item.replace( /addr\:/, '' ) );
+        return ( item.indexOf( '255' ) < 0 );
+    } ).map( item => item.trim() );
 
-    console.log( filtered );
+    // we will force IPV4 by passing an IPV4 address, or fail
+    hostIP = filtered[ 0 ];
+    server.listen( port, hostIP );
     console.log( `Server listening on port ${port} and IP ${filtered[0]}.` );
+
 } catch ( e ) {
-    console.log( `Server listening on port ${port}.` );
+    console.log( e );
 }

@@ -28,11 +28,25 @@ function doOnLoadStuff() {
                         dom.html( '.filelist ul', data );
                     } else {
                         dom.html( '#text-editor-box', data );
+                        dom.html( '#filename', tgt.innerHTML );
                     }
-                    console.log( data );
+                    //console.log( data );
                 } ).catch( ( err ) => {
                     console.log( err );
                 } );
+        }
+    } );
+
+    const saveFileButton = document.getElementById( 'saveFile' );
+    events.addEvent( saveFileButton, 'click', ( e ) => {
+        const tgt = events.getTarget( e );
+
+        const nname = tgt.nodeName.toLowerCase();
+        if ( nname === 'button' ) {
+            const fileToSave = dom.html( '#filename' );
+            if ( fileToSave ) {
+                console.log( 'do something' );
+            }
         }
     } );
 };
