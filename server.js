@@ -22,8 +22,6 @@ async function listDir( dir, response ) {
     const fullpath = path.resolve( baseDir, dir );
     const isDir = await statfile( fullpath );
 
-    const templatefile = await viewFile( `${baseDir}/views/web-editor.html`, baseDir );
-    const filedata = templatefile.toString();
 
     if ( isDir.isDirectory() ) {
         const files = ( fullpath === baseDir ? [] : parentDir )
@@ -45,9 +43,9 @@ async function listDir( dir, response ) {
         } );
 
         response.writeHead( 200, {
-            'Content-Type': 'text/html'
+            'Content-Type': 'text/plain'
         } );
-        response.end( filedata.replace( '[[FILE_TREE]]', results ) );
+        response.end( results );
     } else {
         let ltype = 'text/html';
         const results = await viewFile( fullpath, baseDir );
@@ -66,7 +64,17 @@ async function listDir( dir, response ) {
 
 const server = http.createServer( ( request, response ) => {
 
-    if ( request.url === '/favicon.ico' || request.url.indexOf( '/node_modules' ) > -1 ) {
+    if ( request.url === intialFile ) {
+        viewFile( `${baseDir}/views/web-editor.html`, baseDir )
+            .then( templatefile => {
+                const filedata = templatefile.toString();
+
+                response.writeHead( 200, {
+                    'Content-Type': 'text/html'
+                } );
+                response.end( filedata );
+            } );
+    } else if ( request.url === '/favicon.ico' || request.url.indexOf( '/node_modules' ) > -1 ) {
         response.writeHead( 404, {
             'Content-Type': 'text/html'
         } );
