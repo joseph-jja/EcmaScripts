@@ -30,7 +30,7 @@ async function listDir( dir, response ) {
     const isDir = await statfile( fullpath );
 
     if ( isDir.isDirectory() ) {
-        const files = ( fullpath === baseDir ? [] : parentDir )
+        const files = ( fullpath === baseDir ? [] : parth.resolve( dir, parentDir ) )
             .concat( await listDirectory( fullpath ) );
 
         const results = files.filter( item => {
@@ -68,31 +68,31 @@ async function listDir( dir, response ) {
     }
 }
 
-function parseUrl(requestUrl) {
+function parseUrl( requestUrl ) {
     let parsedUrl;
     if ( hostIP ) {
-        parsedUrl = new url.URL( request.url, `${protocol}${hostIP}:${port}` );
+        parsedUrl = new url.URL( requestUrl, `${protocol}${hostIP}:${port}` );
     } else {
-        const i = request.url.indexOf( '?' );
+        const i = requestUrl.indexOf( '?' );
         if ( i > -1 ) {
             parsedUrl = {
-                pathname: request.url.substring( 0, i ),
-                searchParams: querystring.parse( request.url.substring( i ) )
+                pathname: requestUrl.substring( 0, i ),
+                searchParams: querystring.parse( requestUrl.substring( i ) )
             };
         } else {
             parsedUrl = {
-                pathname: request.url,
+                pathname: requestUrl,
                 searchParams: ''
             };
         }
     }
-    return parsedUrl;    
+    return parsedUrl;
 }
 
 const server = http.createServer( ( request, response ) => {
 
     const parsedUrl = parseUrl( request.url );
-    
+
     const urlPath = parsedUrl.pathname,
         searchParams = parsedUrl.searchParams;
 
