@@ -68,8 +68,7 @@ async function listDir( dir, response ) {
     }
 }
 
-const server = http.createServer( ( request, response ) => {
-
+function parseUrl(requestUrl) {
     let parsedUrl;
     if ( hostIP ) {
         parsedUrl = new url.URL( request.url, `${protocol}${hostIP}:${port}` );
@@ -87,6 +86,13 @@ const server = http.createServer( ( request, response ) => {
             };
         }
     }
+    return parsedUrl;    
+}
+
+const server = http.createServer( ( request, response ) => {
+
+    const parsedUrl = parseUrl( request.url );
+    
     const urlPath = parsedUrl.pathname,
         searchParams = parsedUrl.searchParams;
 
