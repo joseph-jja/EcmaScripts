@@ -30,7 +30,7 @@ async function listDir( dir, response ) {
     const isDir = await statfile( fullpath );
 
     if ( isDir.isDirectory() ) {
-        const files = ( fullpath === baseDir ? [] : parth.resolve( dir, parentDir ) )
+        const files = ( fullpath === baseDir ? [] : path.resolve( dir, parentDir ) )
             .concat( await listDirectory( fullpath ) );
 
         const results = files.filter( item => {
