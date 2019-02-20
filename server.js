@@ -115,7 +115,7 @@ try {
         server.listen( port );
     } else {
         server.listen( port, hostIP );
-    } else {
+    } 
     console.log( `Server listening on port ${port} and IP ${filtered[0]}.` );
 
 } catch ( e ) {
