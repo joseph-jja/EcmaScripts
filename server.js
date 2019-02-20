@@ -70,7 +70,23 @@ async function listDir( dir, response ) {
 
 const server = http.createServer( ( request, response ) => {
 
-    const parsedUrl = new url.URL( request.url, `${protocol}${hostIP}:${port}` );
+    let parsedUrl;
+    if ( hostIP ) {
+        parsedUrl = new url.URL( request.url, `${protocol}${hostIP}:${port}` );
+    } else {
+        const i = request.url.indexOf( '?' );
+        if ( i > -1 ) {
+            parsedUrl = {
+                pathname: request.url.substring( 0, i ),
+                searchParams: querystring.parse( request.url.substring( i ) )
+            };
+        } else {
+            parsedUrl = {
+                pathname: request.url,
+                searchParams: ''
+            };
+        }
+    }
     const urlPath = parsedUrl.pathname,
         searchParams = parsedUrl.searchParams;
 
@@ -111,12 +127,12 @@ try {
     } ).map( item => item.trim() );
 
     // we will force IPV4 by passing an IPV4 address, or fail
-    hostIP = filtered[ 0 ];
     if ( os.platform() === 'android' ) {
         server.listen( port );
     } else {
+        hostIP = filtered[ 0 ];
         server.listen( port, hostIP );
-    } 
+    }
     console.log( `Server listening on port ${port} and IP ${filtered[0]}.` );
 
 } catch ( e ) {
