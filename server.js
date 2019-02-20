@@ -111,7 +111,11 @@ try {
 
     // we will force IPV4 by passing an IPV4 address, or fail
     hostIP = filtered[ 0 ];
-    server.listen( port, hostIP );
+    if ( os.platform() === 'android' ) {
+        server.listen( port );
+    } else {
+        server.listen( port, hostIP );
+    } else {
     console.log( `Server listening on port ${port} and IP ${filtered[0]}.` );
 
 } catch ( e ) {
