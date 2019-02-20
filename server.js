@@ -96,6 +96,10 @@ const server = http.createServer( ( request, response ) => {
     const urlPath = parsedUrl.pathname,
         searchParams = parsedUrl.searchParams;
 
+    if ( searchParams && searchParams.saveFile ) {
+
+    }
+
     if ( urlPath === intialFile ) {
         viewFile( `${baseDir}/views/web-editor.html`, baseDir )
             .then( templatefile => {
@@ -113,10 +117,6 @@ const server = http.createServer( ( request, response ) => {
         } );
         response.end();
         return;
-    }
-
-    if ( searchParams && searchParams.saveFile ) {
-
     }
 
     listDir( `${baseDir}/${urlPath}`, response );
