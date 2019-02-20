@@ -19,10 +19,10 @@ const statfile = util.promisify( fs.stat );
 
 const intialFile = `${baseDir}/coverage/report-html/index.html`;
 
-const parentDir = [ {
+const parentDir = {
     name: '..',
     isFile: false
-} ];
+};
 
 async function listDir( dir, response ) {
 
@@ -30,7 +30,11 @@ async function listDir( dir, response ) {
     const isDir = await statfile( fullpath );
 
     if ( isDir.isDirectory() ) {
-        const files = ( fullpath === baseDir ? [] : path.resolve( dir, parentDir ) )
+        if ( fullpath && fullpath !== baseDir ) {
+            parentDir.name = path.resolve( fullpath, '..' );
+        }
+
+        const files = ( fullpath === baseDir ? [] : [ parentDir ] )
             .concat( await listDirectory( fullpath ) );
 
         const results = files.filter( item => {
