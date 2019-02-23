@@ -1,7 +1,7 @@
 // wrapper around fetch 
 
-async function fetcher( url ) {
-    const response = await fetch( url );
+async function fetcher( url, options ) {
+    const response = await fetch( url, options );
     const buff = await response.text();
     return buff;
 }
