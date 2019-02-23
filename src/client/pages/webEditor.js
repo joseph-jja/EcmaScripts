@@ -22,7 +22,7 @@ function doOnLoadStuff() {
 
         const nname = tgt.nodeName.toLowerCase();
         if ( nname === 'li' ) {
-            fetcher( '/' + tgt.innerHTML )
+            fetcher( `/${tgt.innerHTML}` )
                 .then( ( data ) => {
                     if ( tgt.className.indexOf( 'dir_type' ) > -1 ) {
                         dom.html( '.filelist ul', data );
@@ -45,6 +45,19 @@ function doOnLoadStuff() {
         if ( nname === 'button' ) {
             const fileToSave = dom.html( '#filename' );
             if ( fileToSave ) {
+                const options = {
+                    method: 'POST',
+                    body: JSON.stringify( dom.html( '#text-editor-box' ) )
+                };
+
+                fetcher( `/${fileToSave}/saveFile=${fileToSave}`, options )
+                    .then( ( data ) => {
+                        console.log( 'success' );
+                        console.log( data );
+                    } ).catch( ( err ) => {
+                        console.log( err );
+                    } );
+
                 console.log( 'do something' );
             }
         }
