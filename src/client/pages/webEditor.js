@@ -45,12 +45,14 @@ function doOnLoadStuff() {
         if ( nname === 'button' ) {
             const fileToSave = dom.html( '#filename' );
             if ( fileToSave ) {
+                const filedata = dom.html( '#text-editor-box' );
                 const options = {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'text/plain'
+                        'Content-Type': 'text/plain',
+                        'Content-Length': filedata.length
                     },
-                    body: JSON.stringify( dom.html( '#text-editor-box' ) )
+                    body: filedata
                 };
 
                 fetcher( `/${fileToSave}?saveFile=${fileToSave}`, options )
