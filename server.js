@@ -8,7 +8,8 @@ const http = require( 'http' ),
     childProcess = require( 'child_process' ),
     baseDir = process.cwd(),
     listDirectory = require( `${baseDir}/src/server/filesystem/listDirectory` ),
-    viewFile = require( `${baseDir}/src/server/filesystem/viewFile` );
+    viewFile = require( `${baseDir}/src/server/filesystem/viewFile` ),
+    saveFile = require( `${baseDir}/src/server/filesystem/saveFile` );
 
 const port = 20000,
     protocol = 'http://';
@@ -81,7 +82,7 @@ function parseUrl( requestUrl ) {
         if ( i > -1 ) {
             parsedUrl = {
                 pathname: requestUrl.substring( 0, i ),
-                searchParams: querystring.parse( requestUrl.substring( i ) )
+                searchParams: querystring.parse( requestUrl.substring( i + 1 ) )
             };
         } else {
             parsedUrl = {
@@ -100,8 +101,30 @@ const server = http.createServer( ( request, response ) => {
     const urlPath = parsedUrl.pathname,
         searchParams = parsedUrl.searchParams;
 
+    // save existing file
     if ( searchParams && searchParams.saveFile ) {
-
+        const fullpath = path.resolve( baseDir, searchParams.saveFile );
+        statfile( fullpath )
+            .then( stats => {
+                let res = [];
+                request.on( 'data', ( d, err ) => {
+                    if ( !err ) {
+                        res.push( d );
+                    }
+                } );
+                request.on( 'end', () => {
+                    const filedata = Buffer.concat( res ).toString();
+                    console.log( filedata );
+                    //saveFile( fullpath, filedata )
+                    //    .then( () => {
+                    response.writeHead( 200, {
+                        'Content-Type': 'text/html'
+                    } );
+                    response.end( fullpath );
+                    //   } );
+                } );
+            } );
+        return;
     }
 
     if ( urlPath === intialFile ) {

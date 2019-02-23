@@ -47,10 +47,13 @@ function doOnLoadStuff() {
             if ( fileToSave ) {
                 const options = {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    },
                     body: JSON.stringify( dom.html( '#text-editor-box' ) )
                 };
 
-                fetcher( `/${fileToSave}/saveFile=${fileToSave}`, options )
+                fetcher( `/${fileToSave}?saveFile=${fileToSave}`, options )
                     .then( ( data ) => {
                         console.log( 'success' );
                         console.log( data );
