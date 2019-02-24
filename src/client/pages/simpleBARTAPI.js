@@ -16,9 +16,10 @@ async function doOnLoadStuff() {
 
     const content = document.getElementById( 'content' );
 
-    const select = dom.createElement( 'select', content, {
-        id: 'submenu'
+    const alertButton = dom.createElement( 'button', content, {
+        id: 'bart-alerts'
     } );
+    alertButton.innerHTML = 'Alerts';
 
     const rdiv = dom.createElement( 'div', content, {
         id: 'slist'
@@ -53,6 +54,12 @@ async function doOnLoadStuff() {
 
     };
     events.addEvent( content, 'click', stationClick );
+
+    const alertButtonClick = async function ( e ) {
+        const alertList = await Alerts();
+        ldiv.innerHTML = alertList;
+    };
+    events.addEvent( alertButton, 'click', alertButtonClick );
 }
 
 events.addOnLoad( doOnLoadStuff );
