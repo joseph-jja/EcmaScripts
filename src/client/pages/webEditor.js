@@ -49,10 +49,12 @@ function doOnLoadStuff() {
                 const options = {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'text/plain',
+                        'Content-Type': 'application/x-www-form-urlencoded',
                         'Content-Length': filedata.length
                     },
-                    body: filedata
+                    body: JSON.stringify( {
+                        data: filedata
+                    } )
                 };
 
                 fetcher( `/${fileToSave}?saveFile=${fileToSave}`, options )
