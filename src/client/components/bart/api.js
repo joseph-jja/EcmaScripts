@@ -50,14 +50,14 @@ async function getTrainsByStation( stationAbbr ) {
                 'minutes': estimates.minutes,
                 'platform': estimates.platform,
                 'direction': estimates.direction,
-                'delay': estimates.delay,
+                'delay': estimates.delay
             };
         } ).reduce( ( acc, item ) => {
             return {
                 'minutes': `${acc.minutes}, ${item.minutes}`,
                 'platform': `${acc.platform}, ${item.platform}`,
                 'direction': item.direction,
-                'delay': `${acc.delay}, ${item.delay}`,
+                'delay': `${acc.delay}, ${item.delay}`
             };
         } );
 
@@ -88,10 +88,17 @@ async function getArrivalTrips( origin, dest, planTime ) {
     const arrivingSchedule = await getJSON( `${Constants.SCHEDULE_ARRIVE}${buildTripPlanUrl(origin, dest, planTime)}` );
 }
 
+async function getFares( origin, dest ) {
+    const fares = await getJSON( `${Constants.FAIR_API}${origin}${Constants.FAIR_DEST}${dest}` );
+
+    return fares;
+}
+
 export {
     getStations,
     getTrainsByStation,
     getDepartTrips,
     getArrivalTrips,
-    getAlerts
+    getAlerts,
+    getFares
 };

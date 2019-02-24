@@ -13,7 +13,7 @@ export default async function Alerts( station ) {
         return `<div>
                   Date Time: ${alert.dateTime}
                   <br>Station: ${alert.station}
-                  <br>Description: ${JSON.stringify(alert.description)}
+                  <br>Description: ${alert.description['#cdata-section']}
                </div>`;
 
     } ).reduce( ( acc, item ) => {
