@@ -16,6 +16,10 @@ async function doOnLoadStuff() {
 
     const content = document.getElementById( 'content' );
 
+    const select = dom.createElement( 'select', content, {
+        id: 'submenu'
+    } );
+
     const rdiv = dom.createElement( 'div', content, {
         id: 'slist'
     } );
