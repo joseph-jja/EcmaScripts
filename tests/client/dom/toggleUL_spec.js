@@ -39,12 +39,14 @@ describe( 'testing toggleUL', () => {
     } );
 
     it( 'toggleUL test block', () => {
+        uls[ 1 ].style.display = 'none';
         toggleUL( uls[ 1 ].id );
 
         expect( uls[ 1 ].style.display ).toEqual( 'block' );
     } );
 
     it( 'toggleUL test none', () => {
+        uls[ 1 ].style.display = 'block';
         toggleUL( uls[ 1 ].id );
 
         expect( uls[ 0 ].style.display ).toEqual( 'none' );
