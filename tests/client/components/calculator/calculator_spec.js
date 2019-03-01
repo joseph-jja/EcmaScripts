@@ -40,14 +40,11 @@ describe( 'testing calculator', () => {
                 table = container.querySelector( 'table' ),
                 cell = table.rows[ 2 ].cells[ 1 ];
 
-            spyOn( table, 'click' );
             spyOn( calc, 'handleClick' );
 
-            table.click();
+            cell.click();
 
-            //table.dispatchEvent(mockEvent);
-
-            expect( table.click ).toHaveBeenCalled();
+            expect( calc.handleClick ).toHaveBeenCalled();
         } );
     } );
 } );
