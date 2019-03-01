@@ -46,5 +46,20 @@ describe( 'testing calculator', () => {
 
             expect( calc.handleClick ).toHaveBeenCalled();
         } );
+
+        it( 'calculator handleClick test', () => {
+            const calc = new Calculator( parent.id );
+            calc.render();
+
+            const container = document.querySelector( `#${parent.id}` ),
+                table = container.querySelector( 'table' ),
+                cell = table.rows[ 2 ];
+
+            spyOn( calc, 'handleClick' );
+
+            cell.click();
+
+            expect( calc.handleClick ).toHaveBeenCalled();
+        } );
     } );
 } );
