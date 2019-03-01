@@ -11,15 +11,15 @@
 
 #### commands
 * npm run clean 
- * remove npm-debug.log
- * remove work directory 
- * remove js directory 
+  * remove npm-debug.log
+  * remove work directory 
+  * remove js directory 
 * npm run build
- * gulp is used to beautify js files, test files, config files and run eslint on test files
- * webpack runs eslint and babel and creates js directory with output files 
+  * gulp is used to beautify js files and run eslint on the files
+  * webpack runs eslint and babel and creates js directory with output files 
 * npm run tests
- * runs all the tests
- * karma + webpack + babel + jasmine for tests
+  * runs all the tests
+  * karma + webpack + babel + jasmine for tests
 
 ## TODO
 * fix client/dom/toggleUl.js to be generic instead of hard coded classes
