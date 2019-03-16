@@ -2,66 +2,95 @@ import * as ajax from 'client/net/ajax';
 import SQLQuery from 'client/db/IndexedDB';
 import Constants from 'db/constants';
 
-const Task = {
-    indexedDB: new SQLQuery( Constants.DBName ),
-    defaults: {
-        'completed': false,
-        'work_date': new Date(),
-        'short_description': '',
-        'long_description': ''
-    },
-    sync: function ( method, model, options ) {
-        var cb = function () {},
-            data = {},
-            self = this;
-        if ( typeof options !== 'undefined' ) {
-            if ( options[ 'id' ] ) {
-                self.set( {
-                    'id': options[ 'id' ]
-                } );
-            }
-            if ( typeof options[ 'callback' ] !== 'undefined' ) {
-                cb = options.callback;
-            }
+export default class Task {
+
+    constructor() {
+
+        this.indexedDB = new SQLQuery( Constants.DBName );
+
+        this.record = {
+            'completed': false,
+            'work_date': new Date(),
+            'short_description': '',
+            'long_description': ''
+        };
+    }
+
+    read( options = {} ) {
+        if ( !options.id ) {
+            return;
         }
-        if ( method === 'read' ) {
-            this.indexedDB.fetch( Constants.StoreName, ( +this.get( 'id' ) ), function ( evt, err ) {
-                var result;
-                if ( err === self.indexedDB.success ) {
-                    result = evt.target.result;
-                    self.set( {
-                        'completed': result[ 'completed' ],
-                        'work_date': result[ 'work_date' ],
-                        'short_description': result[ 'short_description' ],
-                        'long_description': result[ 'long_description' ],
-                        'id': result[ 'id' ]
-                    } );
+        this.record.id = options.id;
 
-                    cb( result );
+        this.indexedDB.fetch( Constants.StoreName, ( +this.record.id ), ( evt, err ) => {
+            if ( err === this.indexedDB.success ) {
+                const result = evt.target.result;
+                this.record = {
+                    'completed': result[ 'completed' ],
+                    'work_date': result[ 'work_date' ],
+                    'short_description': result[ 'short_description' ],
+                    'long_description': result[ 'long_description' ],
+                    'id': result[ 'id' ]
+                };
+
+                if ( options.callback ) {
+                    options.callback( result );
                 }
-                self.indexedDB.close();
-            } );
-        } else if ( method === 'create' ) {
-            data[ "work_date" ] = this.get( 'work_date' );
-            data[ "short_description" ] = this.get( "short_description" );
-            data[ "long_description" ] = this.get( "long_description" );
-            data[ "completed" ] = this.get( "completed" );
+            }
+            this.indexedDB.close();
+        } );
 
-            this.indexedDB.add( Constants.StoreName, data, function ( evt, err ) {
-                cb( evt, err );
-                console.log( evt );
-            } );
-        } else if ( method === 'update' ) {
-            data[ "work_date" ] = this.get( 'work_date' );
-            data[ "short_description" ] = this.get( "short_description" );
-            data[ "long_description" ] = this.get( "long_description" );
-            data[ "completed" ] = this.get( "completed" );
-            data[ 'id' ] = ( +this.get( 'id' ) );
+    }
 
-            this.indexedDB.update( Constants.StoreName, ( +this.get( 'id' ) ), data, function ( evt, err ) {
-                cb( evt, err );
-                console.log( evt );
-            } );
+    create( options = {} ) {
+
+        this.record = {
+            'completed': options[ 'completed' ],
+            'work_date': options[ 'work_date' ],
+            'short_description': options[ 'short_description' ],
+            'long_description': options[ 'long_description' ]
+        };
+
+        this.indexedDB.add( Constants.StoreName, this.record, ( evt, err ) => {
+            if ( options.callback ) {
+                options.callback( evt, err );
+            }
+        } );
+    }
+
+    update( options = {} ) {
+        if ( options.id ) {
+            this.record.id = options.id;
+        }
+        if ( options.callback ) {
+
         }
     }
-};
+
+    delete( options = {} ) {
+        if ( !options.id ) {
+            return;
+        }
+        this.record = {
+            'completed': options[ 'completed' ],
+            'work_date': options[ 'work_date' ],
+            'short_description': options[ 'short_description' ],
+            'long_description': options[ 'long_description' ],
+            'id': options[ 'id' ]
+        };
+        this.indexedDB.update( Constants.StoreName, ( +this.record.id ), this.record, ( evt, err ) => {
+            if ( options.callback ) {
+                options.callback( evt, err );
+            }
+        } );
+    }
+
+    list( options ) {
+        if ( !options.callback ) {
+            return;
+        }
+
+        this.indexedDB.list( Constants.StoreName, options.callback );
+
+    }
+}

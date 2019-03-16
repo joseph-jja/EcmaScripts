@@ -1,14 +1,13 @@
 import * as events from 'client/dom/events';
-import * as Constants from 'db/constants';
-
 import selector from 'client/dom/selector';
-import Idb from 'client/db/IndexedDB';
+
+import Task from 'client/components/tasks/task';
 
 import {
     getButtonCell,
     getCell,
     getTable
-} from 'client/components/tasks/taskListTable';
+} from 'client/components/tasks/tableFunctions';
 
 function TaskList() {
 
@@ -28,20 +27,16 @@ function TaskList() {
     };
 
     this.render = function () {
-        let db, content;
+        const task = new Task();
 
-        db = new Idb( Constants.DBName );
-        if ( !db.hasIndexedDBSupport() ) {
-            return;
-        }
-
-        db.list( Constants.StoreName, ( data ) => {
+        const options = {};
+        options.callback = ( data ) => {
             let rows = [],
                 i = 0;
             data.forEach( ( item ) => {
-                let className = ( i % 2 === 0 ) ? ' even' : ' odd';
+                const className = ( i % 2 === 0 ) ? ' even' : ' odd';
 
-                let row = '<tr>' +
+                const row = '<tr>' +
                     getButtonCell( item.id, className ) +
                     getCell( item.short_description, className ) +
                     getCell( item.long_description, className ) +
@@ -53,7 +48,9 @@ function TaskList() {
 
             // FIXME 
             this.taskListContainer.innerHTML = getTable( rows );
-        } );
+        };
+
+        task.list( options );
     };
 
     //    render: function() {
