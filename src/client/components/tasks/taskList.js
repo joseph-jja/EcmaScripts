@@ -20,10 +20,10 @@ function TaskList() {
     function editTask() {}
 
     this.initialize = function () {
+        this.render();
         //events.addEvent( '#filterDisplay', 'change', processFilter, false );
         //events.addEvent( '#addTaskID', 'click', addTask, false );
         //events.addEvent( 'button.edit-task', 'click', editTask, false );
-        this.render();
     };
 
     this.render = function () {
@@ -31,9 +31,8 @@ function TaskList() {
 
         const options = {};
         options.callback = ( data ) => {
-            let rows = [],
-                i = 0;
-            data.forEach( ( item ) => {
+            let i = 0;
+            const rows = data.map( ( item ) => {
                 const className = ( i % 2 === 0 ) ? ' even' : ' odd';
 
                 const row = '<tr>' +
@@ -43,7 +42,10 @@ function TaskList() {
                     getCell( item.work_date, className ) +
                     getCell( ( item.completed ? 'Done' : 'Working' ), className ) +
                     '</tr>';
-                rows.push( row );
+
+                return row;
+            } ).reduce( ( acc, next ) => {
+                return acc + next;
             } );
 
             // FIXME 
@@ -53,36 +55,21 @@ function TaskList() {
         task.list( options );
     };
 
-    //    render: function() {
-    //        var self = this;
-    //         'constants'], function(template, Handlebars, Idb, Constants) {
-    //            var db, content;
-    //
-    //            db = new Idb(Constants.DBName);
-    //            db.list(Constants.StoreName, function(data) {
-    //                content = template({
-    //                    taskListItem: data
-    //                });
-    //                self.$el.html(content);
-    //
-    //                self.colorize();
-    //
-    //            });
-    //        });
-    //    },
-    //    colorize: function() {
-    //        var i = 0;
-    //        $("#taskList tr").each(function(idx, x) {
-    //            if (i % 2 === 0) {
-    //                x.className += ' even';
-    //            } else {
-    //                x.className += ' odd';
-    //            }
-    //            if (x.className.indexOf("hidden") === -1) {
-    //                i += 1;
-    //            }
-    //        });
-    //    },
+    this.colorize = function () {
+        let i = 0;
+        const rows = document.querySelectorAll( '#taskList tr' );
+        [].forEach.call( rows, function ( idx, x ) {
+            if ( i % 2 === 0 ) {
+                x.className += ' even';
+            } else {
+                x.className += ' odd';
+            }
+            if ( x.className.indexOf( "hidden" ) === -1 ) {
+                i += 1;
+            }
+        } );
+    };
+
     //    addTask: function() {
     //        require(['taskView'], function(TaskView) {
     //            var x = new TaskView();

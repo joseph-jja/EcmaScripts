@@ -19,7 +19,7 @@ function getTable( rows ) {
             '</tr>';
     }
 
-    return `${addTask}${selectFilter}<table id="taskList">${getHeader()}${rows.join('')}</table>`;
+    return `${addTask}${selectFilter}<table id="taskList">${getHeader()}${rows}</table>`;
 }
 
 function getCell( content, className ) {
