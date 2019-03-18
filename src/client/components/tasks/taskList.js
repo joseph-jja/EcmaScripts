@@ -2,6 +2,7 @@ import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 
 import Task from 'client/components/tasks/task';
+import addEditTask from 'client/components/tasks/addEditTask';
 
 import {
     getButtonCell,
@@ -70,11 +71,10 @@ function TaskList() {
         } );
     };
 
-    //    addTask: function() {
-    //        require(['taskView'], function(TaskView) {
-    //            var x = new TaskView();
-    //        });
-    //    },
+    this.addTask = function () {
+        const addEditHTMl = addEditTask();
+    };
+
     //    editTask: function(e) {
     //        var target = e.target,
     //            data;

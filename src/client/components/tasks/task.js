@@ -59,12 +59,22 @@ export default class Task {
     }
 
     update( options = {} ) {
-        if ( options.id ) {
-            this.record.id = options.id;
+        if ( !options.id ) {
+            return;
         }
-        if ( options.callback ) {
+        this.record = {
+            'completed': options[ 'completed' ],
+            'work_date': options[ 'work_date' ],
+            'short_description': options[ 'short_description' ],
+            'long_description': options[ 'long_description' ],
+            'id': options[ 'id' ]
+        };
 
-        }
+        this.indexedDB.update( Constants.StoreName, this.record, ( evt, err ) => {
+            if ( options.callback ) {
+                options.callback( evt, err );
+            }
+        } );
     }
 
     delete( options = {} ) {
@@ -91,6 +101,5 @@ export default class Task {
         }
 
         this.indexedDB.list( Constants.StoreName, options.callback );
-
     }
 }
