@@ -2,18 +2,27 @@ import * as ajax from 'client/net/ajax';
 import SQLQuery from 'client/db/IndexedDB';
 import * as Constants from 'db/constants';
 
+function getRecordFromOptions( options = {} ) {
+
+    const result = {
+        'completed': options[ 'completed' ] || false,
+        'work_date': options[ 'work_date' ] || new Date(),
+        'short_description': options[ 'short_description' ] || '',
+        'long_description': options[ 'long_description' ] || ''
+    };
+    if ( options.id ) {
+        result.id = options.id;
+    }
+    return result;
+}
+
 export default class Task {
 
     constructor() {
 
         this.indexedDB = new SQLQuery( Constants.DBName );
 
-        this.record = {
-            'completed': false,
-            'work_date': new Date(),
-            'short_description': '',
-            'long_description': ''
-        };
+        this.record = getRecordFromOptions();
     }
 
     fetch( options = {} ) {
@@ -25,13 +34,9 @@ export default class Task {
         this.indexedDB.fetch( Constants.StoreName, ( +this.record.id ), ( evt, err ) => {
             if ( err === Constants.DB_SUCCESS ) {
                 const result = evt.target.result;
-                this.record = {
-                    'completed': result[ 'completed' ],
-                    'work_date': result[ 'work_date' ],
-                    'short_description': result[ 'short_description' ],
-                    'long_description': result[ 'long_description' ],
-                    'id': this.record.id
-                };
+                this.record = getRecordFromOptions( Object.assign( {}, {
+                    id: this.record.id
+                }, result ) );
 
                 if ( options.callback ) {
                     options.callback( this.record );
@@ -43,12 +48,7 @@ export default class Task {
 
     create( options = {} ) {
 
-        this.record = {
-            'completed': options[ 'completed' ],
-            'work_date': options[ 'work_date' ],
-            'short_description': options[ 'short_description' ],
-            'long_description': options[ 'long_description' ]
-        };
+        this.record = getRecordFromOptions( options );
 
         this.indexedDB.add( Constants.StoreName, this.record, ( evt, err ) => {
             if ( options.callback ) {
@@ -61,13 +61,8 @@ export default class Task {
         if ( !options.id ) {
             return;
         }
-        this.record = {
-            'completed': options[ 'completed' ],
-            'work_date': options[ 'work_date' ],
-            'short_description': options[ 'short_description' ],
-            'long_description': options[ 'long_description' ],
-            'id': options[ 'id' ]
-        };
+
+        this.record = getRecordFromOptions( options );
 
         this.indexedDB.update( Constants.StoreName, ( +this.record.id ), this.record, ( evt, err ) => {
             if ( options.callback ) {
@@ -80,13 +75,8 @@ export default class Task {
         if ( !options.id ) {
             return;
         }
-        this.record = {
-            'completed': options[ 'completed' ],
-            'work_date': options[ 'work_date' ],
-            'short_description': options[ 'short_description' ],
-            'long_description': options[ 'long_description' ],
-            'id': options[ 'id' ]
-        };
+        this.record = getRecordFromOptions( options );
+
         this.indexedDB.update( Constants.StoreName, ( +this.record.id ), this.record, ( evt, err ) => {
             if ( options.callback ) {
                 options.callback( evt, err );
