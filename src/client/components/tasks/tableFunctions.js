@@ -28,7 +28,15 @@ function getTableRow( key, shortDescription, longDescription, workDate, complete
 }
 
 function getTable( rows ) {
-    return `<div>${addTask}${selectFilter}<table id="taskList">${getHeader()}${rows}</table></div>`;
+    let rowData = '';
+    if ( rows.length > 0 ) {
+
+        rowData = rows.reduce( ( acc, next ) => {
+            return acc + next;
+        } );
+    }
+
+    return `<div>${addTask}${selectFilter}<table id="taskList">${getHeader()}${rowData}</table></div>`;
 }
 
 function getCell( content ) {

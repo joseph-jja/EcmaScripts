@@ -6,8 +6,6 @@ import Task from 'client/components/tasks/task';
 import addEditTask from 'client/components/tasks/addEditTask';
 
 import {
-    getButtonCell,
-    getCell,
     getTable,
     getTableRow
 } from 'client/components/tasks/tableFunctions';
@@ -29,7 +27,7 @@ function TaskList() {
         const options = {};
         options.callback = ( data ) => {
             let i = -1;
-            let rows = data.map( ( item ) => {
+            const rows = data.map( ( item ) => {
                 i++;
 
                 return getTableRow( item.key,
@@ -39,13 +37,6 @@ function TaskList() {
                     item.value.completed,
                     ( ( i % 2 === 0 ) ? ' even' : ' odd' ) );
             } );
-
-            if ( rows.length > 0 ) {
-
-                rows = rows.reduce( ( acc, next ) => {
-                    return acc + next;
-                } );
-            }
 
             this.taskListContainer.innerHTML = getTable( rows );
 
