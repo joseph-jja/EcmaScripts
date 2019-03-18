@@ -86,31 +86,42 @@ SQLQuery.prototype.add = function ( storeName, data, callback ) {
 
 // callback gets the object data and success for fail
 SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
-    this.open( this.name, storeName, this.version, ( evt, status ) => {
-        this.iDB = evt.target.result;
-        if ( status === Constants.DB_SUCCESS ) {
-            const request = getObjectStore( this.iDB, storeName, "readonly" ).get( key );
-            processRequest( this, request, callback );
-        } else {
-            callback( evt, Constants.DB_ERROR );
-        }
-    } );
+    const fetchTransaction = () => {
+        const request = getObjectStore( this.iDB, storeName, "readonly" ).get( key );
+        processRequest( this, request, callback );
+    };
+    if ( this.isOpen ) {
+        fetchTransaction();
+    } else {
+        this.open( this.name, storeName, this.version, ( evt, status ) => {
+            this.iDB = evt.target.result;
+            if ( status === Constants.DB_SUCCESS ) {
+                fetchTransaction();
+            } else {
+                callback( evt, Constants.DB_ERROR );
+            }
+        } );
+    }
 };
 
 // update gets and then updates
 SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
-    this.open( this.name, storeName, this.version, ( evt, status ) => {
-        this.iDB = evt.target.result;
-        if ( status === Constants.DB_SUCCESS ) {
-            const request = getObjectStore( this.iDB, storeName, "readonly" ).get( key );
-            processRequest( this, request, ( revt, status ) => {
-                const urequest = getObjectStore( this.iDB, storeName, "readwrite" ).put( data );
-                processRequest( this, urequest, callback );
-            } );
-        } else {
-            callback( evt, Constants.DB_ERROR );
-        }
-    } );
+    const updateTransaction = () => {
+        const request = getObjectStore( this.iDB, storeName, "readwrite" ).put( data, +key );
+        processRequest( this, request, callback );
+    };
+    if ( this.isOpen ) {
+        updateTransaction();
+    } else {
+        this.open( this.name, storeName, this.version, ( evt, status ) => {
+            this.iDB = evt.target.result;
+            if ( status === Constants.DB_SUCCESS ) {
+                updateTransaction();
+            } else {
+                callback( evt, Constants.DB_ERROR );
+            }
+        } );
+    }
 };
 
 SQLQuery.prototype.remove = function ( storeName, key, callback ) {

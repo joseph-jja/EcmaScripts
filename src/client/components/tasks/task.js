@@ -69,7 +69,7 @@ export default class Task {
             'id': options[ 'id' ]
         };
 
-        this.indexedDB.update( Constants.StoreName, this.record, ( evt, err ) => {
+        this.indexedDB.update( Constants.StoreName, this.record.id, this.record, ( evt, err ) => {
             if ( options.callback ) {
                 options.callback( evt, err );
             }

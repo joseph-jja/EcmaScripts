@@ -105,6 +105,7 @@ function TaskList() {
         events.addEvent( cancelButton, 'click', () => {
             events.removeEvent( saveButton, 'click' );
             events.removeEvent( cancelButton, 'click' );
+            window.location.reload();
         }, false );
 
     };
@@ -150,6 +151,7 @@ function TaskList() {
             events.addEvent( cancelButton, 'click', () => {
                 events.removeEvent( saveButton, 'click' );
                 events.removeEvent( cancelButton, 'click' );
+                window.location.reload();
             }, false );
         };
 
