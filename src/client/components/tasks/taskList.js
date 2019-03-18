@@ -1,5 +1,6 @@
 import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
+import * as dom from 'client/dom/DOM';
 
 import Task from 'client/components/tasks/task';
 import addEditTask from 'client/components/tasks/addEditTask';
@@ -10,17 +11,15 @@ import {
     getTable
 } from 'client/components/tasks/tableFunctions';
 
+let tasks;
+
 function TaskList() {
 
     this.taskListContainer = document.getElementById( 'taskListID' );
 
-    function processFilter() {}
-
-    function addTask() {}
-
-    function editTask() {}
-
     this.initialize = function () {
+        tasks = new Task();
+
         this.render( () => {
 
             const addButton = selector( '#addTaskID' ).get( 0 );
@@ -32,7 +31,6 @@ function TaskList() {
     };
 
     this.render = function ( postRender ) {
-        const task = new Task();
 
         const options = {};
         options.callback = ( data ) => {
@@ -64,7 +62,7 @@ function TaskList() {
             }
         };
 
-        task.list( options );
+        tasks.list( options );
     };
 
     this.colorize = function () {
@@ -85,6 +83,30 @@ function TaskList() {
     this.addTask = function () {
         const addEditHTML = addEditTask();
         selector( '#taskEditID' ).get( 0 ).innerHTML = addEditHTML;
+
+        const saveButton = selector( '#saveTask' ).get( 0 ),
+            cancelButton = selector( '#cancelTask' ).get( 0 );
+
+        events.addEvent( saveButton, 'click', () => {
+            const options = {
+                'completed': false,
+                'work_date': dom.html( '#work_date' ),
+                'short_description': dom.html( '#short_description' ),
+                'long_description': dom.html( '#long_description' )
+            };
+
+            options.callback = ( evt, err ) => {
+
+            };
+
+            tasks.create( options );
+        }, false );
+
+        events.addEvent( cancelButton, 'click', () => {
+            events.removeEvent( saveButton, 'click' );
+            events.removeEvent( cancelButton, 'click' );
+        }, false );
+
     };
 
     this.editTask = function ( e ) {

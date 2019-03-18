@@ -1,4 +1,4 @@
-export default function addEditTask( taskId, workDate ) {
+export default function addEditTask( taskId = '', workDate = new Date() ) {
 
     return `<form>
 <input type="text" name="task_id" id="task_id" disabled value="${taskId}">
