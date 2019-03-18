@@ -8,7 +8,8 @@ import addEditTask from 'client/components/tasks/addEditTask';
 import {
     getButtonCell,
     getCell,
-    getTable
+    getTable,
+    getTableRow
 } from 'client/components/tasks/tableFunctions';
 
 let tasks;
@@ -20,33 +21,23 @@ function TaskList() {
     this.initialize = function () {
         tasks = new Task();
 
-        this.render( () => {
-
-            const addButton = selector( '#addTaskID' ).get( 0 ),
-                editButton = selector( '#taskList' ).get( 0 );
-            events.addEvent( addButton, 'click', this.addTask, false );
-            events.addEvent( editButton, 'click', this.editTask, false );
-            //events.addEvent( '#filterDisplay', 'change', processFilter, false );
-        } );
+        this.render();
     };
 
-    this.render = function ( postRender ) {
+    this.render = function () {
 
         const options = {};
         options.callback = ( data ) => {
             let i = 0;
             let rows = data.map( ( item ) => {
-                const className = ( i % 2 === 0 ) ? ' even' : ' odd';
 
-                const row = '<tr>' +
-                    getButtonCell( item.key, className ) +
-                    getCell( item.value.short_description, className ) +
-                    getCell( item.value.long_description, className ) +
-                    getCell( item.value.work_date, className ) +
-                    getCell( ( item.value.completed ? 'Done' : 'Working' ), className ) +
-                    '</tr>';
-
-                return row;
+                return getTableRow( item.key,
+                    item.value.short_description,
+                    item.value.long_description,
+                    item.value.work_date,
+                    item.value.completed,
+                    ( ( i % 2 === 0 ) ? ' even' : ' odd' )
+                );
             } );
 
             if ( rows.length > 0 ) {
@@ -57,9 +48,12 @@ function TaskList() {
             }
 
             this.taskListContainer.innerHTML = getTable( rows );
-            if ( postRender ) {
-                postRender();
-            }
+
+            const addButton = selector( '#addTaskID' ).get( 0 ),
+                editButton = selector( '#taskList' ).get( 0 );
+            events.addEvent( addButton, 'click', this.addTask, false );
+            events.addEvent( editButton, 'click', this.editTask, false );
+            //events.addEvent( '#filterDisplay', 'change', processFilter, false );
         };
 
         tasks.list( options );
@@ -155,7 +149,7 @@ function TaskList() {
             }, false );
         };
 
-        tasks.read( options );
+        tasks.fetch( options );
     };
 
     //    exportData: function(callback) {

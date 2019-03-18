@@ -107,7 +107,7 @@ SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
 // update gets and then updates
 SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
     const updateTransaction = () => {
-        const request = getObjectStore( this.iDB, storeName, "readwrite" ).put( data, +key );
+        const request = getObjectStore( this.iDB, storeName, "readwrite" ).put( data, key );
         processRequest( this, request, callback );
     };
     if ( this.isOpen ) {
