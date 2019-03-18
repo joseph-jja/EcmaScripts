@@ -30,33 +30,11 @@
 </head>
 
 <body>
-    <script type="text/javascript" src="libs/require.js"></script>
-    <script type="text/javascript" src="/js/config/require_config.js"></script>
 
     <div id="taskEditID"></div>
     <div id="taskListID"></div>
 
-    <script type="text/javascript">
-        require( [ 'taskList' ], function ( TaskList ) {
-            var tl = new TaskList();
-        } );
-        
-        //require( [ 'indexedDB', 'constants' ], function ( IDB, Constants ) {
-            //var tl = new IDB(Constants.DBName);
-            //tl.add(Constants.StoreName, {
-            //    work_date: new Date().toString(),
-            //    long_description: 'Looking into jenkins build issues, looks like some pros quickview changes possibly',
-            //    short_description: 'Looking into jenkins build issues'
-            //}, function() { console.log('done'); });
-            //tl.add(Constants.StoreName, {
-            //    work_date: new Date().toString(),
-            //    long_description: 'Looking into McAfee issues.  Talked to MST Shaunee for McAfee stuff  "Mac Support" and now Nick King is supposed to remote into my mac #212- 494 4453',
-             //   short_description: 'Looking into McAfee issues'
-            //}, function() { console.log('done'); });
-            //tl.remove(Constants.StoreName, "79",  function() { console.log('done'); });
-        //} );
-        
-    </script>
+    <script type="text/javascript" src="/js/taskManager.js"></script>
 
 </body>
 

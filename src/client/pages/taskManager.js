@@ -1,12 +1,13 @@
 import * as events from 'client/dom/events';
 
-import * as TaskList from 'client/components/tasks/taskList';
+import TaskList from 'client/components/tasks/taskList';
 
-events.addOnLoad( ( onloadFN ) => {
+events.addOnLoad( () => {
 
     //menu.basicMenu();
     //footer( 'footer' );
 
     const listOfTasks = new TaskList();
+    listOfTasks.initialize();
 
 } );
