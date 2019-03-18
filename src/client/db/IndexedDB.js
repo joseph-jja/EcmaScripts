@@ -23,7 +23,6 @@ SQLQuery.prototype.open = function ( name, store, version, callback ) {
 
     this.name = name;
     this.version = version;
-    const self = this;
 
     iDB.onerror = ( evt ) => {
         callback( evt, Constants.DB_ERROR );
