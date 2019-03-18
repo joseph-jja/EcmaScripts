@@ -21,13 +21,17 @@ function TaskList() {
     function editTask() {}
 
     this.initialize = function () {
-        this.render();
-        //events.addEvent( '#filterDisplay', 'change', processFilter, false );
-        //events.addEvent( '#addTaskID', 'click', addTask, false );
-        //events.addEvent( 'button.edit-task', 'click', editTask, false );
+        this.render( () => {
+
+            const addButton = selector( '#addTaskID' ).get( 0 );
+            events.addEvent( addButton, 'click', this.addTask, false );
+            //events.addEvent( '#filterDisplay', 'change', processFilter, false );
+            //events.addEvent( 'button.edit-task', 'click', editTask, false );
+
+        } );
     };
 
-    this.render = function () {
+    this.render = function ( postRender ) {
         const task = new Task();
 
         const options = {};
@@ -45,12 +49,19 @@ function TaskList() {
                     '</tr>';
 
                 return row;
-            } ).reduce( ( acc, next ) => {
-                return acc + next;
             } );
 
-            // FIXME 
+            if ( rows.length > 0 ) {
+
+                rows.reduce( ( acc, next ) => {
+                    return acc + next;
+                } );
+            }
+
             this.taskListContainer.innerHTML = getTable( rows );
+            if ( postRender ) {
+                postRender();
+            }
         };
 
         task.list( options );
@@ -72,19 +83,18 @@ function TaskList() {
     };
 
     this.addTask = function () {
-        const addEditHTMl = addEditTask();
+        const addEditHTML = addEditTask();
+        selector( '#taskEditID' ).get( 0 ).innerHTML = addEditHTML;
     };
 
-    //    editTask: function(e) {
-    //        var target = e.target,
-    //            data;
-    //        data = target.innerHTML.replace(/Edit\ /g, '').replace(/[\(\)]/g, '');
-    //        require(['taskView'], function(TaskView) {
-    //            var x = new TaskView({
-    //                id: data
-    //            });
-    //        });
-    //    },
+    this.editTask = function ( e ) {
+        const target = events.getTarget( e );
+
+        const data = target.innerHTML.replace( /Edit\ /g, '' ).replace( /[\(\)]/g, '' );
+        const tv = addEditTask( data );
+
+    };
+
     //    exportData: function(callback) {
     //        var self = this;
     //        require(['indexedDB', 'constants'], function(Idb, Constants) {

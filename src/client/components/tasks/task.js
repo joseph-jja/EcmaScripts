@@ -1,6 +1,6 @@
 import * as ajax from 'client/net/ajax';
 import SQLQuery from 'client/db/IndexedDB';
-import Constants from 'db/constants';
+import * as Constants from 'db/constants';
 
 export default class Task {
 

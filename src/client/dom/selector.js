@@ -38,7 +38,7 @@ export default function selector( expr, parent ) {
 
     if ( rquickExpr.test( qEle ) ) {
         // remove the leading # and return array of 1 or 0
-        result = ( pObj.nodeName.toLowerCase() !== 'document' ) ? pObj.querySelector( qEle ) : pObj.getElementById( qEle.substring( 1 ) );
+        result = pObj.querySelector( qEle );
         result = ( result ? [ result ] : [] );
     } else {
         result = pObj.querySelectorAll( qEle );
