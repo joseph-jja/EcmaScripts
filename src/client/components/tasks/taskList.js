@@ -25,8 +25,7 @@ function TaskList() {
             const addButton = selector( '#addTaskID' ).get( 0 );
             events.addEvent( addButton, 'click', this.addTask, false );
             //events.addEvent( '#filterDisplay', 'change', processFilter, false );
-            //events.addEvent( 'button.edit-task', 'click', editTask, false );
-
+            events.addEvent( 'button.edit-task', 'click', this.editTask, false );
         } );
     };
 
@@ -96,7 +95,7 @@ function TaskList() {
             };
 
             options.callback = ( evt, err ) => {
-
+                window.location.reload();
             };
 
             tasks.create( options );
@@ -113,7 +112,42 @@ function TaskList() {
         const target = events.getTarget( e );
 
         const data = target.innerHTML.replace( /Edit\ /g, '' ).replace( /[\(\)]/g, '' );
-        const tv = addEditTask( data );
+
+        const options = {
+            id: data
+        };
+        options.callback = ( item ) => {
+
+            const addEditHTML = addEditTask( item.key,
+                item.value.work_date,
+                item.value.short_description, item.value.long_description, item.value.completed );
+
+            selector( '#taskEditID' ).get( 0 ).innerHTML = addEditHTML;
+
+            const saveButton = selector( '#saveTask' ).get( 0 ),
+                cancelButton = selector( '#cancelTask' ).get( 0 );
+
+            events.addEvent( saveButton, 'click', () => {
+                const record = {
+                    'id': dom.html( '#task_id' ),
+                    'completed': false,
+                    'work_date': dom.html( '#work_date' ),
+                    'short_description': dom.html( '#short_description' ),
+                    'long_description': dom.html( '#long_description' )
+                };
+                record.callback = ( evt, err ) => {
+                    window.location.reload();
+                };
+
+                tasks.update( record );
+            }, false );
+            events.addEvent( cancelButton, 'click', () => {
+                events.removeEvent( saveButton, 'click' );
+                events.removeEvent( cancelButton, 'click' );
+            }, false );
+        };
+
+        tasks.read( options );
 
     };
 
