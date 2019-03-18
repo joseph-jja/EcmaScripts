@@ -124,9 +124,9 @@ function TaskList() {
         };
         options.callback = ( item ) => {
 
-            const addEditHTML = addEditTask( item.key,
-                item.value.work_date,
-                item.value.short_description, item.value.long_description, item.value.completed );
+            const addEditHTML = addEditTask( item.id,
+                item.work_date, item.short_description,
+                item.long_description, item.completed );
 
             selector( '#taskEditID' ).get( 0 ).innerHTML = addEditHTML;
 
@@ -154,7 +154,6 @@ function TaskList() {
         };
 
         tasks.read( options );
-
     };
 
     //    exportData: function(callback) {

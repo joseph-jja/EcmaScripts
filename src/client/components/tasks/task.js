@@ -23,21 +23,20 @@ export default class Task {
         this.record.id = options.id;
 
         this.indexedDB.fetch( Constants.StoreName, ( +this.record.id ), ( evt, err ) => {
-            if ( err === this.indexedDB.success ) {
+            if ( err === Constants.DB_SUCCESS ) {
                 const result = evt.target.result;
                 this.record = {
                     'completed': result[ 'completed' ],
                     'work_date': result[ 'work_date' ],
                     'short_description': result[ 'short_description' ],
                     'long_description': result[ 'long_description' ],
-                    'id': result[ 'id' ]
+                    'id': this.record.id
                 };
 
                 if ( options.callback ) {
-                    options.callback( result );
+                    options.callback( this.record );
                 }
             }
-            this.indexedDB.close();
         } );
 
     }
