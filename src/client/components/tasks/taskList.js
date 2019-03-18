@@ -28,16 +28,16 @@ function TaskList() {
 
         const options = {};
         options.callback = ( data ) => {
-            let i = 0;
+            let i = -1;
             let rows = data.map( ( item ) => {
+                i++;
 
                 return getTableRow( item.key,
                     item.value.short_description,
                     item.value.long_description,
                     item.value.work_date,
                     item.value.completed,
-                    ( ( i % 2 === 0 ) ? ' even' : ' odd' )
-                );
+                    ( ( i % 2 === 0 ) ? ' even' : ' odd' ) );
             } );
 
             if ( rows.length > 0 ) {

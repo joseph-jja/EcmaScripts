@@ -61,8 +61,9 @@ SQLQuery.prototype.createObjectStore = function ( store, callback ) {
     processRequest( this, request, callback );
 };
 
-SQLQuery.prototype.destroyDB = function () {
+SQLQuery.prototype.destroyDB = function ( dbName ) {
     // TODO implement?
+    window.indexedDB.deleteDatabase( dbName );
 };
 
 SQLQuery.prototype.add = function ( storeName, data, callback ) {

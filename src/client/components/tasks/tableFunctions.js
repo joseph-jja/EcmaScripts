@@ -18,12 +18,12 @@ function getHeader() {
 }
 
 function getTableRow( key, shortDescription, longDescription, workDate, completed, className ) {
-    return '<tr>' +
+    return `<tr class="${className}">` +
         getButtonCell( key, className ) +
         getCell( shortDescription, className ) +
         getCell( longDescription, className ) +
         getCell( workDate, className ) +
-        getCell( ( completed ? 'Done' : 'Working' ), className ) +
+        getCell( ( completed ? 'Done' : 'Working' ) ) +
         '</tr>';
 }
 
@@ -31,8 +31,8 @@ function getTable( rows ) {
     return `<div>${addTask}${selectFilter}<table id="taskList">${getHeader()}${rows}</table></div>`;
 }
 
-function getCell( content, className ) {
-    return `<td class="${className}">${content}</td>`;
+function getCell( content ) {
+    return `<td>${content}</td>`;
 }
 
 function getButtonCell( id, className ) {
