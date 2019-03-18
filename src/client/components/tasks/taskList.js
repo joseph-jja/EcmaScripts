@@ -22,10 +22,11 @@ function TaskList() {
 
         this.render( () => {
 
-            const addButton = selector( '#addTaskID' ).get( 0 );
+            const addButton = selector( '#addTaskID' ).get( 0 ),
+                editButton = selector( '#taskList' ).get( 0 );
             events.addEvent( addButton, 'click', this.addTask, false );
+            events.addEvent( editButton, 'click', this.editTask, false );
             //events.addEvent( '#filterDisplay', 'change', processFilter, false );
-            events.addEvent( 'button.edit-task', 'click', this.editTask, false );
         } );
     };
 
@@ -34,7 +35,7 @@ function TaskList() {
         const options = {};
         options.callback = ( data ) => {
             let i = 0;
-            const rows = data.map( ( item ) => {
+            let rows = data.map( ( item ) => {
                 const className = ( i % 2 === 0 ) ? ' even' : ' odd';
 
                 const row = '<tr>' +
@@ -50,7 +51,7 @@ function TaskList() {
 
             if ( rows.length > 0 ) {
 
-                rows.reduce( ( acc, next ) => {
+                rows = rows.reduce( ( acc, next ) => {
                     return acc + next;
                 } );
             }
@@ -109,12 +110,17 @@ function TaskList() {
     };
 
     this.editTask = function ( e ) {
-        const target = events.getTarget( e );
+        const evt = events.getEvent( e );
+        const target = events.getTarget( evt );
+        if ( target.nodeName.toLowerCase() !== 'button' ) {
+            return;
+        }
 
-        const data = target.innerHTML.replace( /Edit\ /g, '' ).replace( /[\(\)]/g, '' );
+        const buttonHTML = target.innerHTML;
+        const taskId = buttonHTML.replace( /Edit\ /g, '' ).replace( /[\(\)]/g, '' );
 
         const options = {
-            id: data
+            id: taskId
         };
         options.callback = ( item ) => {
 
@@ -138,9 +144,9 @@ function TaskList() {
                 record.callback = ( evt, err ) => {
                     window.location.reload();
                 };
-
                 tasks.update( record );
             }, false );
+
             events.addEvent( cancelButton, 'click', () => {
                 events.removeEvent( saveButton, 'click' );
                 events.removeEvent( cancelButton, 'click' );
