@@ -1,8 +1,8 @@
 export default function addEditTask( taskId = '', workDate = new Date() ) {
 
-    return `<form>
+    return `<form method="POST" onsubmit="return false;">
 <input type="text" name="task_id" id="task_id" disabled value="${taskId}">
-    
+
 <label>Work Date: </label><input type="text" name="work_date" id="work_date" value="${workDate}" size="50">
 
 <label>Short Description: </label><input type="text" name="short_description" id="short_description" size="80">

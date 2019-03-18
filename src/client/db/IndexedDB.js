@@ -129,10 +129,9 @@ SQLQuery.prototype.list = function ( storeName, callback ) {
     const listTransaction = () => {
         const lb = window.IDBKeyRange.lowerBound( 0 );
 
-        const tx = this.iDB.transaction( storeName );
-        const store = tx.objectStore( storeName );
+        const store = getObjectStore( this.iDB, storeName, "readonly" );
+        const data = [];
         store.openCursor( lb ).onsuccess = function ( osevt ) {
-            let data = [];
             const cursor = osevt.target.result;
             if ( cursor ) {
                 data.push( {

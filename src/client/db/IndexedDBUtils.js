@@ -1,7 +1,7 @@
 import * as Constants from 'db/constants';
 
 // DRY the code
-export function getObjectStore( db, storeName, mode ) {
+export function getObjectStore( db, storeName, mode = 'readonly' ) {
     const tx = db.transaction( storeName, mode );
     return tx.objectStore( storeName );
 }

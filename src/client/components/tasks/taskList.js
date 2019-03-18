@@ -39,11 +39,11 @@ function TaskList() {
                 const className = ( i % 2 === 0 ) ? ' even' : ' odd';
 
                 const row = '<tr>' +
-                    getButtonCell( item.id, className ) +
-                    getCell( item.short_description, className ) +
-                    getCell( item.long_description, className ) +
-                    getCell( item.work_date, className ) +
-                    getCell( ( item.completed ? 'Done' : 'Working' ), className ) +
+                    getButtonCell( item.key, className ) +
+                    getCell( item.value.short_description, className ) +
+                    getCell( item.value.long_description, className ) +
+                    getCell( item.value.work_date, className ) +
+                    getCell( ( item.value.completed ? 'Done' : 'Working' ), className ) +
                     '</tr>';
 
                 return row;
