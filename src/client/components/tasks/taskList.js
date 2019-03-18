@@ -12,6 +12,28 @@ import {
 
 let tasks;
 
+function mapFromDom() {
+
+    const options = {
+        'completed': false,
+        'work_date': dom.html( '#work_date' ),
+        'short_description': dom.html( '#short_description' ),
+        'long_description': dom.html( '#long_description' )
+    };
+
+    return options;
+}
+
+function cancelButtonClick() {
+
+    const saveButton = selector( '#saveTask' ).get( 0 ),
+        cancelButton = selector( '#cancelTask' ).get( 0 );
+
+    events.removeEvent( saveButton, 'click' );
+    events.removeEvent( cancelButton, 'click' );
+    window.location.reload();
+}
+
 function TaskList() {
 
     this.taskListContainer = document.getElementById( 'taskListID' );
@@ -50,21 +72,6 @@ function TaskList() {
         tasks.list( options );
     };
 
-    this.colorize = function () {
-        let i = 0;
-        const rows = document.querySelectorAll( '#taskList tr' );
-        [].forEach.call( rows, function ( idx, x ) {
-            if ( i % 2 === 0 ) {
-                x.className += ' even';
-            } else {
-                x.className += ' odd';
-            }
-            if ( x.className.indexOf( "hidden" ) === -1 ) {
-                i += 1;
-            }
-        } );
-    };
-
     this.addTask = function () {
         const addEditHTML = addEditTask();
         selector( '#taskEditID' ).get( 0 ).innerHTML = addEditHTML;
@@ -73,12 +80,7 @@ function TaskList() {
             cancelButton = selector( '#cancelTask' ).get( 0 );
 
         events.addEvent( saveButton, 'click', () => {
-            const options = {
-                'completed': false,
-                'work_date': dom.html( '#work_date' ),
-                'short_description': dom.html( '#short_description' ),
-                'long_description': dom.html( '#long_description' )
-            };
+            const options = mapFromDom();
 
             options.callback = ( evt, err ) => {
                 window.location.reload();
@@ -87,12 +89,7 @@ function TaskList() {
             tasks.create( options );
         }, false );
 
-        events.addEvent( cancelButton, 'click', () => {
-            events.removeEvent( saveButton, 'click' );
-            events.removeEvent( cancelButton, 'click' );
-            window.location.reload();
-        }, false );
-
+        events.addEvent( cancelButton, 'click', cancelButtonClick, false );
     };
 
     this.editTask = function ( e ) {
@@ -120,24 +117,16 @@ function TaskList() {
                 cancelButton = selector( '#cancelTask' ).get( 0 );
 
             events.addEvent( saveButton, 'click', () => {
-                const record = {
-                    'id': dom.html( '#task_id' ),
-                    'completed': false,
-                    'work_date': dom.html( '#work_date' ),
-                    'short_description': dom.html( '#short_description' ),
-                    'long_description': dom.html( '#long_description' )
-                };
+                const record = mapFromDom();
+                record.id = dom.html( '#task_id' );
+
                 record.callback = ( evt, err ) => {
                     window.location.reload();
                 };
                 tasks.update( record );
             }, false );
 
-            events.addEvent( cancelButton, 'click', () => {
-                events.removeEvent( saveButton, 'click' );
-                events.removeEvent( cancelButton, 'click' );
-                window.location.reload();
-            }, false );
+            events.addEvent( cancelButton, 'click', cancelButtonClick, false );
         };
 
         tasks.fetch( options );

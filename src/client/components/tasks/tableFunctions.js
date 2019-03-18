@@ -27,6 +27,22 @@ function getTableRow( key, shortDescription, longDescription, workDate, complete
         '</tr>';
 }
 
+function colorize() {
+    let i = 0;
+    const rows = document.querySelectorAll( '#taskList tr' );
+    [].forEach.call( rows, function ( idx, x ) {
+        x.className = x.className.replace( /even/g, '' ).replace( /odd/g, '' );
+        if ( i % 2 === 0 ) {
+            x.className += ' even';
+        } else {
+            x.className += ' odd';
+        }
+        if ( x.className.indexOf( "hidden" ) === -1 ) {
+            i += 1;
+        }
+    } );
+};
+
 function getTable( rows ) {
     let rowData = '';
     if ( rows.length > 0 ) {
