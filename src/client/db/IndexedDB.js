@@ -22,6 +22,7 @@ SQLQuery.prototype.open = function ( name, store, version, callback ) {
     const iDB = window.indexedDB.open( name, version );
 
     this.name = name;
+    this.store = store;
     this.version = version;
 
     iDB.onerror = ( evt ) => {
@@ -36,7 +37,7 @@ SQLQuery.prototype.open = function ( name, store, version, callback ) {
 
     iDB.onupgradeneeded = ( evt ) => {
         this.iDB = evt.target.result;
-        this.createObjectStore( name, store, callback );
+        this.createObjectStore( this.store, callback );
     };
 };
 
@@ -49,11 +50,13 @@ SQLQuery.prototype.close = function () {
 // open and create do the same thing :/
 SQLQuery.prototype.createDB = function ( name, store, version, callback ) {
     this.open( name, store, version, callback );
+    this.close();
 };
 
-SQLQuery.prototype.createObjectStore = function ( name, store, callback ) {
+SQLQuery.prototype.createObjectStore = function ( store, callback ) {
     const request = this.iDB.createObjectStore( store, {
-        keypath: 'id'
+        keypath: 'id',
+        autoIncrement: true
     } );
     processRequest( this, request, callback );
 };
@@ -63,26 +66,31 @@ SQLQuery.prototype.destroyDB = function () {
 };
 
 SQLQuery.prototype.add = function ( storeName, data, callback ) {
-    var self = this;
-    this.open( this.name, storeName, this.version, function ( evt, err ) {
-        const db = evt.target.result;
-        if ( err === Constants.DB_SUCCESS ) {
-            const request = getObjectStore( db, storeName, "readwrite" ).add( data );
-            processRequest( self, request, callback );
-        } else {
-            callback( evt, Constants.DB_ERROR );
-        }
-    } );
+    const addTransaction = () => {
+        const request = getObjectStore( this.iDB, storeName, "readwrite" ).add( data );
+        processRequest( this, request, callback );
+    };
+    if ( this.isOpen ) {
+        addTransaction();
+    } else {
+        this.open( this.name, storeName, this.version, ( evt, status ) => {
+            this.iDB = evt.target.result;
+            if ( status === Constants.DB_SUCCESS ) {
+                addTransaction();
+            } else {
+                callback( evt, Constants.DB_ERROR );
+            }
+        } );
+    }
 };
 
 // callback gets the object data and success for fail
 SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
-    var self = this;
-    this.open( this.name, storeName, this.version, function ( evt, err ) {
-        self.iDB = evt.target.result;
-        if ( err === Constants.DB_SUCCESS ) {
-            const request = getObjectStore( self.iDB, storeName, "readonly" ).get( key );
-            processRequest( self, request, callback );
+    this.open( this.name, storeName, this.version, ( evt, status ) => {
+        this.iDB = evt.target.result;
+        if ( status === Constants.DB_SUCCESS ) {
+            const request = getObjectStore( this.iDB, storeName, "readonly" ).get( key );
+            processRequest( this, request, callback );
         } else {
             callback( evt, Constants.DB_ERROR );
         }
@@ -91,14 +99,13 @@ SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
 
 // update gets and then updates
 SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
-    var self = this;
-    this.open( this.name, storeName, this.version, function ( evt, err ) {
-        self.iDB = evt.target.result;
-        if ( err === Constants.DB_SUCCESS ) {
-            const request = getObjectStore( self.iDB, storeName, "readonly" ).get( key );
-            processRequest( self, request, function ( revt, status ) {
-                const urequest = getObjectStore( self.iDB, storeName, "readwrite" ).put( data );
-                processRequest( self, urequest, callback );
+    this.open( this.name, storeName, this.version, ( evt, status ) => {
+        this.iDB = evt.target.result;
+        if ( status === Constants.DB_SUCCESS ) {
+            const request = getObjectStore( this.iDB, storeName, "readonly" ).get( key );
+            processRequest( this, request, ( revt, status ) => {
+                const urequest = getObjectStore( this.iDB, storeName, "readwrite" ).put( data );
+                processRequest( this, urequest, callback );
             } );
         } else {
             callback( evt, Constants.DB_ERROR );
@@ -107,13 +114,11 @@ SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
 };
 
 SQLQuery.prototype.remove = function ( storeName, key, callback ) {
-    var self = this;
-    this.open( this.name, storeName, this.version, function ( evt, err ) {
-        self.iDB = evt.target.result;
+    this.open( this.name, storeName, this.version, ( evt, err ) => {
+        this.iDB = evt.target.result;
         if ( err === Constants.DB_SUCCESS ) {
-            /* jshint -W024 */
-            const request = getObjectStore( self.iDB, storeName, "readwrite" ).delete( key );
-            processRequest( self, request, callback );
+            const request = getObjectStore( this.iDB, storeName, "readwrite" ).delete( key );
+            processRequest( this, request, callback );
         } else {
             callback( evt, Constants.DB_ERROR );
         }
@@ -121,30 +126,36 @@ SQLQuery.prototype.remove = function ( storeName, key, callback ) {
 };
 
 SQLQuery.prototype.list = function ( storeName, callback ) {
-    var self = this;
-    this.open( this.name, storeName, this.version, function ( evt, status ) {
-        if ( status === Constants.DB_SUCCESS ) {
-            const db = evt.target.result;
-            const lb = window.IDBKeyRange.lowerBound( 0 );
+    const listTransaction = () => {
+        const lb = window.IDBKeyRange.lowerBound( 0 );
 
-            const store = db.transaction( storeName ).objectStore( storeName );
-            store.openCursor( lb ).onsuccess = function ( osevt ) {
-                let data = [];
-                const cursor = osevt.target.result;
-                if ( cursor ) {
-                    data.push( {
-                        'key': cursor.key,
-                        'value': cursor.value
-                    } );
-                    // since contunue is part of indexedb we need to skip this error
-                    /* jshint -W024 */
-                    cursor.continue();
-                } else {
-                    callback( data );
-                }
-            };
-        }
-    } );
+        const tx = this.iDB.transaction( storeName );
+        const store = tx.objectStore( storeName );
+        store.openCursor( lb ).onsuccess = function ( osevt ) {
+            let data = [];
+            const cursor = osevt.target.result;
+            if ( cursor ) {
+                data.push( {
+                    'key': cursor.key,
+                    'value': cursor.value
+                } );
+                // since contunue is part of indexedb we need to skip this error
+                cursor.continue();
+            } else {
+                callback( data );
+            }
+        };
+    };
+    if ( this.isOpen ) {
+        listTransaction();
+    } else {
+        this.open( this.name, storeName, this.version, ( evt, status ) => {
+            if ( status === Constants.DB_SUCCESS ) {
+                this.iDB = evt.target.result;
+                listTransaction();
+            }
+        } );
+    }
 };
 
 export default SQLQuery;
