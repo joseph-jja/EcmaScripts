@@ -62,7 +62,7 @@ SQLQuery.prototype.createObjectStore = function ( store, callback ) {
 };
 
 SQLQuery.prototype.destroyDB = function () {
-
+    // TODO implement?
 };
 
 SQLQuery.prototype.add = function ( storeName, data, callback ) {
@@ -125,15 +125,22 @@ SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
 };
 
 SQLQuery.prototype.remove = function ( storeName, key, callback ) {
-    this.open( this.name, storeName, this.version, ( evt, err ) => {
-        this.iDB = evt.target.result;
-        if ( err === Constants.DB_SUCCESS ) {
-            const request = getObjectStore( this.iDB, storeName, "readwrite" ).delete( key );
-            processRequest( this, request, callback );
-        } else {
-            callback( evt, Constants.DB_ERROR );
-        }
-    } );
+    const removeTransaction = () => {
+        const request = getObjectStore( this.iDB, storeName, "readwrite" ).delete( key );
+        processRequest( this, request, callback );
+    };
+    if ( this.isOpen ) {
+        removeTransaction();
+    } else {
+        this.open( this.name, storeName, this.version, ( evt, err ) => {
+            this.iDB = evt.target.result;
+            if ( err === Constants.DB_SUCCESS ) {
+                removeTransaction();
+            } else {
+                callback( evt, Constants.DB_ERROR );
+            }
+        } );
+    }
 };
 
 SQLQuery.prototype.list = function ( storeName, callback ) {
