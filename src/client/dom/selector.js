@@ -1,6 +1,6 @@
 // support for IE8 and above
 // simple module to select elements based on css style selectors
-// internally calls documenet.getElementById or querySelectorAll based on regex 
+// internally calls documenet.getElementById or querySelectorAll based on regex
 // this is done in a UMD format
 import * as typeCheck from 'utils/typeCheck';
 
@@ -24,7 +24,7 @@ export default function selector( expr, parent ) {
         }
     }
 
-    // html element so lets figure out what it is    
+    // html element so lets figure out what it is
     if ( expr instanceof HTMLElement ) {
         if ( expr.id ) {
             qEle = "#" + expr.id;
@@ -49,6 +49,10 @@ export default function selector( expr, parent ) {
 
     self.get = function ( i ) {
         return result[ i ];
+    };
+
+    self.toArray = function () {
+        return Array.from( result );
     };
 
     for ( let y = 0; y < self.length; y++ ) {

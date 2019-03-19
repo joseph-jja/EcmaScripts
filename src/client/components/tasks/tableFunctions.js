@@ -9,23 +9,23 @@ const selectFilter = '<select id="filterDisplay">' +
     '</select>';
 
 function getHeader() {
-    return '<tr>' +
+    return '<thead><tr>' +
         '<th>Edit</th>' +
         '<th>Short Description</th>' +
         '<th>Long Description</th>' +
         '<th>Last Access Date</th>' +
         '<th>Status</th>' +
-        '</tr>';
+        '</tr></thead>';
 }
 
 function getTableRow( key, shortDescription, longDescription, workDate, completed, className ) {
-    return `<tr class="${className}">` +
+    return `<tbody><tr class="${className}">` +
         getButtonCell( key, className ) +
         getCell( shortDescription, className ) +
         getCell( longDescription, className ) +
         getCell( workDate, className ) +
         getCell( ( completed ? 'Done' : 'Working' ) ) +
-        '</tr>';
+        '</tr></tbody>';
 }
 
 function colorize() {

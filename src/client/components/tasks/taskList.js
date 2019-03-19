@@ -24,6 +24,27 @@ function mapFromDom() {
     return options;
 }
 
+function tableSort() {
+    const tbody = selector( '#taskList tbody' ).get( 0 );
+    const rows = selector( '#taskList tbody tr' ).toArray();
+    const sortedRows = rows.sort( ( a, b ) => {
+        const tdDateA = a.childNodes[ 3 ].innerHTML,
+            tdDateB = b.childNodes[ 3 ].innerHTML;
+
+        const timeA = new Date( tdDateA ).getTime(),
+            timeB = new Date( tdDateB ).getTime();
+
+        const delta = ( timeA - timeB );
+        if ( delta > 0 ) {
+            tbody.prepend( a );
+        } else {
+            tbody.prepend( b );
+        }
+
+        return delta;
+    } );
+}
+
 function cancelButtonClick() {
 
     const saveButton = selector( '#saveTask' ).get( 0 ),
@@ -61,11 +82,14 @@ function TaskList() {
             } );
 
             this.taskListContainer.innerHTML = getTable( rows );
+            tableSort();
 
             const addButton = selector( '#addTaskID' ).get( 0 ),
-                editButton = selector( '#taskList' ).get( 0 );
+                editButton = selector( '#taskList' ).get( 0 ),
+                exportTasksButton = selector( '#exportTasksID' ).get( 0 );
             events.addEvent( addButton, 'click', this.addTask, false );
             events.addEvent( editButton, 'click', this.editTask, false );
+            events.addEvent( exportTasksButton, 'click', this.exportData, false );
             //events.addEvent( '#filterDisplay', 'change', processFilter, false );
         };
 
@@ -132,7 +156,7 @@ function TaskList() {
         tasks.fetch( options );
     };
 
-    this.exportData = function ( callback ) {
+    this.exportData = function () {
 
         const options = {};
         options.callback = ( data ) => {
@@ -148,7 +172,7 @@ function TaskList() {
                     'completed': item.value.completed
                 };
             } );
-            callback( rows );
+            const results = JSON.stringify( rows );
         };
 
         tasks.list( options );
