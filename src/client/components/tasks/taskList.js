@@ -132,62 +132,27 @@ function TaskList() {
         tasks.fetch( options );
     };
 
-    //    exportData: function(callback) {
-    //        var self = this;
-    //        require(['indexedDB', 'constants'], function(Idb, Constants) {
-    //            var db;
-    //
-    //            db = new Idb(Constants.DBName);
-    //            db.list(Constants.StoreName, function(data) {
-    //                callback(data);
-    //                db.close();
-    //            });
-    //        });
-    //    },
-    //    processFilter: function() {
-    //        var time, list, self = this,
-    //            day = new Date(),
-    //            selectedValue = $("#filterDisplay").val();
-    //
-    //        list = $("#taskList tr");
-    //        if (selectedValue === 'week') {
-    //            time = 7 * 24 * 60 * 60 * 1000;
-    //            day.setTime(day.getTime() - time);
-    //            day.setHours(0);
-    //        } else if (selectedValue === 'month') {
-    //            time = 30 * 24 * 60 * 60 * 1000;
-    //            day.setTime(day.getTime() - time);
-    //            day.setHours(0);
-    //        }
-    //
-    //        $("#taskList tr").each(function(idx, x) {
-    //            var cols = $("td", x),
-    //                tdCell, dt;
-    //
-    //            $(x).removeClass("hidden");
-    //            $(x).removeClass("even");
-    //            $(x).removeClass("odd");
-    //            if (selectedValue === 'working') {
-    //                tdCell = cols.get(4);
-    //                if (tdCell && tdCell.innerHTML.toLowerCase() !== 'working') {
-    //                    $(x).addClass("hidden");
-    //                }
-    //            } else if (selectedValue === 'all') {
-    //                // don't really need to do anything here
-    //                cols.get(4);
-    //            } else if (typeof time !== 'undefined') {
-    //                tdCell = cols.get(3);
-    //                if (tdCell) {
-    //                    dt = Date.parse(tdCell.innerHTML);
-    //                    if (dt < day.getTime()) {
-    //                        $(x).addClass("hidden");
-    //                    }
-    //                }
-    //            }
-    //        });
-    //        self.colorize();
-    // }
+    this.exportData = function ( callback ) {
 
+        const options = {};
+        options.callback = ( data ) => {
+
+            const rows = data.map( ( item ) => {
+
+                return {
+                    key: item.key,
+                    id: item.key,
+                    'short_description': item.value.short_description,
+                    'long_description': item.value.long_description,
+                    'work_date': item.value.work_date,
+                    'completed': item.value.completed
+                };
+            } );
+            callback( rows );
+        };
+
+        tasks.list( options );
+    };
 }
 
 export default TaskList;
