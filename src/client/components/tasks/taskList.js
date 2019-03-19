@@ -2,6 +2,10 @@ import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import * as dom from 'client/dom/DOM';
 
+import {
+    post
+} from 'client/net/ajax';
+
 import Task from 'client/components/tasks/task';
 import addEditTask from 'client/components/tasks/addEditTask';
 
@@ -173,6 +177,7 @@ function TaskList() {
                 };
             } );
             const results = JSON.stringify( rows );
+            console.log( results );
         };
 
         tasks.list( options );

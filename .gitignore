@@ -5,3 +5,4 @@ work/
 js/
 node_modules/
 npm-debug.log
+data/**.json
