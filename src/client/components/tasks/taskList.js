@@ -178,6 +178,9 @@ function TaskList() {
             } );
             const results = JSON.stringify( rows );
             console.log( results );
+            post( ( response ) => {
+                console.log( response );
+            }, '/data/all-tasks.json?saveData=/data/all-tasks.json', results );
         };
 
         tasks.list( options );

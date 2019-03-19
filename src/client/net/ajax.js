@@ -35,17 +35,16 @@ export function makeRequest( type, cbFN, url, data, async, headers = {} ) {
 };
 
 //send a post request, which creates the object
-//takes callback function, url and any data 
+//takes callback function, url and any data
 export function post( callbackFN, url, postData ) {
     const headers = {
-        "Content-Type": "application/x-www-form-urlencoded"
+        'Content-Type': 'application/x-www-form-urlencoded'
     };
     return makeRequest( "POST", callbackFN, url, postData, true, headers );
 };
 
-
 //do a get request, good for getting a file
-//takes callback function and  url 
+//takes callback function and  url
 export function get( callbackFN, url, getData ) {
     return makeRequest( "GET", callbackFN, url + ( ( getData ) ? "?" + getData : "" ), null, true );
 };
