@@ -1,4 +1,5 @@
-const addTask = '<button id="addTaskID">Add Task</button>';
+const addTask = '<button id="addTaskID">Add Task</button>',
+    exportTasks = '<button id="exportTasksID">Export Tasks</button>';
 
 const selectFilter = '<select id="filterDisplay">' +
     '<option value="week">Week</option>' +
@@ -52,7 +53,7 @@ function getTable( rows ) {
         } );
     }
 
-    return `<div>${addTask}${selectFilter}<table id="taskList">${getHeader()}${rowData}</table></div>`;
+    return `<div>${addTask}${selectFilter}<br>${exportTasks}<br><table id="taskList">${getHeader()}${rowData}</table></div>`;
 }
 
 function getCell( content ) {
