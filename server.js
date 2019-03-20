@@ -3,7 +3,6 @@ const http = require( 'http' ),
     fs = require( 'fs' ),
     path = require( 'path' ),
     os = require( 'os' ),
-    url = require( 'url' ),
     querystring = require( 'querystring' ),
     childProcess = require( 'child_process' ),
     baseDir = process.cwd(),
@@ -75,21 +74,17 @@ async function listDir( dir, response ) {
 
 function parseUrl( requestUrl ) {
     let parsedUrl;
-    if ( hostIP ) {
-        parsedUrl = new url.URL( requestUrl, `${protocol}${hostIP}:${port}` );
+    const i = requestUrl.indexOf( '?' );
+    if ( i > -1 ) {
+        parsedUrl = {
+            pathname: requestUrl.substring( 0, i ),
+            searchParams: querystring.parse( requestUrl.substring( i + 1 ) )
+        };
     } else {
-        const i = requestUrl.indexOf( '?' );
-        if ( i > -1 ) {
-            parsedUrl = {
-                pathname: requestUrl.substring( 0, i ),
-                searchParams: querystring.parse( requestUrl.substring( i + 1 ) )
-            };
-        } else {
-            parsedUrl = {
-                pathname: requestUrl,
-                searchParams: ''
-            };
-        }
+        parsedUrl = {
+            pathname: requestUrl,
+            searchParams: ''
+        };
     }
     return parsedUrl;
 }

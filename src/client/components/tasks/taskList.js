@@ -2,9 +2,7 @@ import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import * as dom from 'client/dom/DOM';
 
-import {
-    post
-} from 'client/net/ajax';
+import fetcher from 'client/net/fetcher';
 
 import Task from 'client/components/tasks/task';
 import addEditTask from 'client/components/tasks/addEditTask';
@@ -178,9 +176,26 @@ function TaskList() {
             } );
             const results = JSON.stringify( rows );
             console.log( results );
-            post( ( response ) => {
-                console.log( response );
-            }, '/data/all-tasks.json?saveData=/data/all-tasks.json', results );
+
+            const fileToSave = 'data/all-tasks.json';
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Length': results.length
+                },
+                body: JSON.stringify( {
+                    data: results
+                } )
+            };
+
+            fetcher( `/${fileToSave}?saveFile=${fileToSave}`, options )
+                .then( ( data ) => {
+                    console.log( 'success' );
+                    console.log( data );
+                } ).catch( ( err ) => {
+                    console.log( err );
+                } );
         };
 
         tasks.list( options );
