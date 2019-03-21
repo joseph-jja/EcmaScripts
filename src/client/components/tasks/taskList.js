@@ -16,8 +16,10 @@ let tasks;
 
 function mapFromDom() {
 
+    const completed = selector( '#completed' ).get( 0 ).checked;
+
     const options = {
-        'completed': false,
+        'completed': completed,
         'work_date': dom.html( '#work_date' ),
         'short_description': dom.html( '#short_description' ),
         'long_description': dom.html( '#long_description' )
