@@ -1,3 +1,5 @@
+const querystring = require( 'querystring' );
+
 function parseUrl( requestUrl ) {
     let parsedUrl;
     const i = requestUrl.indexOf( '?' );
