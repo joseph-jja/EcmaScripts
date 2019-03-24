@@ -8,7 +8,10 @@ const http = require( 'http' ),
     baseDir = process.cwd(),
     listDirectory = require( `${baseDir}/src/server/filesystem/listDirectory` ),
     viewFile = require( `${baseDir}/src/server/filesystem/viewFile` ),
-    saveFile = require( `${baseDir}/src/server/filesystem/saveFile` );
+    saveFile = require( `${baseDir}/src/server/filesystem/saveFile` ),
+    {
+        parseUrl
+    } = require( `${baseDir}/src/server/utils/url` );
 
 const port = 20000,
     protocol = 'http://';
@@ -31,7 +34,10 @@ async function listDir( dir, response ) {
 
     if ( isDir.isDirectory() ) {
         const pdir = path.resolve( fullpath, '..' );
-        parentDir.name = baseDir;
+        const parentDir = {
+            name: baseDir,
+            isFile: false
+        };
         if ( pdir.indexOf( baseDir ) >= 0 ) {
             if ( pdir === baseDir ) {
                 parentDir.name = '..';
@@ -76,23 +82,6 @@ async function listDir( dir, response ) {
         } );
         response.end( results );
     }
-}
-
-function parseUrl( requestUrl ) {
-    let parsedUrl;
-    const i = requestUrl.indexOf( '?' );
-    if ( i > -1 ) {
-        parsedUrl = {
-            pathname: requestUrl.substring( 0, i ),
-            searchParams: querystring.parse( requestUrl.substring( i + 1 ) )
-        };
-    } else {
-        parsedUrl = {
-            pathname: requestUrl,
-            searchParams: ''
-        };
-    }
-    return parsedUrl;
 }
 
 const server = http.createServer( ( request, response ) => {
