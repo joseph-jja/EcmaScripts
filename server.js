@@ -150,11 +150,15 @@ try {
     // we will force IPV4 by passing an IPV4 address, or fail
     if ( os.platform() === 'android' ) {
         server.listen( port );
+    } else if ( os.platform() === 'darwin' ) {
+        console.log( os.platform() === 'darwin' )
+        hostIP = '127.0.0.1';
+        server.listen( port, hostIP );
     } else {
         hostIP = filtered[ 0 ];
         server.listen( port, hostIP );
     }
-    console.log( `Server listening on port ${port} and IP ${filtered[0]}.` );
+    console.log( `Server listening on port ${port} and IP ${hostIP || filtered[0]}.` );
 
 } catch ( e ) {
     console.log( e );
