@@ -51,10 +51,12 @@ function TaskList() {
 
             const addButton = selector( '#addTaskID' ).get( 0 ),
                 editButton = selector( '#taskList' ).get( 0 ),
-                exportTasksButton = selector( '#exportTasksID' ).get( 0 );
+                exportTasksButton = selector( '#exportTasksID' ).get( 0 ),
+                importTasksButton = selector( '#importTasksID' ).get( 0 );
             events.addEvent( addButton, 'click', this.addTask, false );
             events.addEvent( editButton, 'click', this.editTask, false );
             events.addEvent( exportTasksButton, 'click', this.exportData, false );
+            //events.addEvent( importTasksButton, 'click', this.importData, false );
             //events.addEvent( '#filterDisplay', 'change', processFilter, false );
         };
 
@@ -121,6 +123,34 @@ function TaskList() {
         tasks.fetch( options );
     };
 
+    this.importData = function () {
+
+        const fileToLoad = 'data/all-tasks.json';
+
+        fetcher( `/${fileToLoad}` )
+            .then( ( data ) => {
+                console.log( 'success' );
+                const tasksToImport = JSON.parse( data );
+                tasksToImport.forEach( item => {
+
+                    const options = {
+                        'completed': item.completed,
+                        'work_date': item[ 'work_date' ],
+                        'short_description': item[ 'short_description' ],
+                        'long_description': item[ 'long_description' ]
+                    };
+
+                    options.callback = ( evt, err ) => {};
+
+                    tasks.create( options );
+
+                } );
+                console.log( data );
+            } ).catch( ( err ) => {
+                console.log( err );
+            } );
+    };
+
     this.exportData = function () {
 
         const options = {};
@@ -141,7 +171,7 @@ function TaskList() {
             console.log( results );
 
             const fileToSave = 'data/all-tasks.json';
-            const options = {
+            const downloadOptions = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -152,7 +182,7 @@ function TaskList() {
                 } )
             };
 
-            fetcher( `/${fileToSave}?saveFile=${fileToSave}`, options )
+            fetcher( `/${fileToSave}?saveFile=${fileToSave}`, downloadOptions )
                 .then( ( data ) => {
                     console.log( 'success' );
                     console.log( data );
