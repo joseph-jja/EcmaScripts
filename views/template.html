@@ -1,83 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <meta name="Author" content="Joseph Acosta">
+        <meta name="ROBOTS" content="NOARCHIVE">
+        <meta name="ROBOTS" content="NOIMAGEINDEX">
+        <title>Template Page</title>
+        <link rel="stylesheet" href="styles/web-window-min.css">
+         <link rel="stylesheet" href="styles/classic_style-min.css">
+    </head>
+    <body>
+        <header>
+            <span id="pageTitle">{{pagename}}</span>
+            <span id="digiclock" class="digitalclock"></span>
+        </header>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="Author" content="Joseph Acosta">
-    <meta name="ROBOTS" content="NOARCHIVE">
-    <meta name="ROBOTS" content="NOIMAGEINDEX">
-    <title>{{pageTitle}}</title>
-    <link rel="stylesheet" href="wb/wb.css">
-    <link rel="stylesheet" href="classic_style-min.css">
-    <!-- add the below to classic_styles.css  or create new css file -->
-    <style type="text/css">
-        body {
-            font-size: 1em;
-        }
+        <nav id="menu">
+            nav goes here
+        </nav>
 
-        header,
-        nav,
-        footer {
-            display: block;
-        }
-
-        header,
-        footer {
-            margin: 0 auto;
-            width: 100%;
-            text-align: center;
-            font-weight: bold;
-            color: white;
-            background-image: url("WebWindowTitleInactive.gif");
-        }
-
-        header {
-            position: fixed;
-            border-bottom: 4px #9966ff ridge;
-            top: 0px;
-        }
-
-        footer span,
-        header span {
-            font-size: 1.2em;
-            color: white;
-        }
-
-        footer {
-            position: fixed;
-            border-top: 4px #9966ff ridge;
-            bottom: 0px;
-        }
-
-        #page-name {
-            text-transform: capitalize
-        }
-
-        .WebWindowMain {
-            width: 95%;
-        }
-
-        #nav-bar {
-            background-color: azure;
-            width: 100%;
-            padding: 0.5em
-        }
-    </style>
-</head>
-
-<body>
-    <header>
-        <span id="page-name">{{pagename}}</span>
-        <span id="digiclock" class="digitalclock"></span>
-    </header>
-    <nav id="nav-bar" class-"menu"></nav>
-    <div class="WebWindowMain">
-        <div class="WebWindowTitle">{{wwTitle}}</div>
-        <div id="container" class="WebWindowArea">{{wwContainer}}</div>
-        <div id="footer" class="WebWindowFooter">{{wwFooter}}</div>
+        <div id="webWindow" class="WebWindowMain">
+            <div class="WebWindowTitle">
+             window title goes here
+            </div> 
+        <div class="WebWindowArea">
+             content right goes here
+        </div>
+        <div class="WebWindowFooter">
+        </div>
     </div>
-    <footer id="page-stats"><span>{{footer}}</span></footer>
-    <script type="text/javascript" src="js/{{pageName}}.js"></script>
-</body>
 
+        <footer id="pageStats"><span>{{footer}}</span></footer>
+        <noscript>
+        This site no worky without a JavaScript enable browser!
+        </noscript>
+    </body>
 </html>
