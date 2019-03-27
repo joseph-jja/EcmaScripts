@@ -1,6 +1,8 @@
 export default function addEditTask( taskId = '', workDate = new Date(),
     shortDescription = '', longDescription = '', completed = false ) {
 
+    const isChecked = ( completed ? 'checked' : '' );
+
     return `<form method="POST" onsubmit="return false;">
 <input type="text" name="task_id" id="task_id" disabled value="${taskId}">
 
@@ -12,7 +14,7 @@ export default function addEditTask( taskId = '', workDate = new Date(),
 <textarea name="long_description" id="long_description" ros="4" cols="80">${longDescription}</textarea>
 
 <label>Completed: </label>
-<input type="checkbox" name="completed" id="completed" checked="${completed}">
+<input type="checkbox" name="completed" id="completed" ${isChecked}>
 
 <button id="cancelTask">Cancel</button>
 <button id="saveTask">Save</button>

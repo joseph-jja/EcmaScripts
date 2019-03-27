@@ -3,12 +3,14 @@ const http = require( 'http' ),
     fs = require( 'fs' ),
     path = require( 'path' ),
     os = require( 'os' ),
-    querystring = require( 'querystring' ),
     childProcess = require( 'child_process' ),
     baseDir = process.cwd(),
     listDirectory = require( `${baseDir}/src/server/filesystem/listDirectory` ),
     viewFile = require( `${baseDir}/src/server/filesystem/viewFile` ),
-    saveFile = require( `${baseDir}/src/server/filesystem/saveFile` );
+    saveFile = require( `${baseDir}/src/server/filesystem/saveFile` ),
+    {
+        parseUrl
+    } = require( `${baseDir}/src/server/utils/url` );
 
 const port = 20000,
     protocol = 'http://';
@@ -20,7 +22,7 @@ const statfile = util.promisify( fs.stat );
 const intialFile = `${baseDir}/coverage/report-html/index.html`;
 
 const parentDir = {
-    name: '..',
+    name: baseDir,
     isFile: false
 };
 
@@ -30,11 +32,20 @@ async function listDir( dir, response ) {
     const isDir = await statfile( fullpath );
 
     if ( isDir.isDirectory() ) {
-        if ( fullpath && fullpath !== baseDir ) {
-            parentDir.name = path.resolve( fullpath, '..' );
+        const pdir = path.resolve( fullpath, '..' );
+        const parentDir = {
+            name: baseDir,
+            isFile: false
+        };
+        if ( pdir.indexOf( baseDir ) >= 0 ) {
+            if ( pdir === baseDir ) {
+                parentDir.name = '..';
+            } else {
+                parentDir.name = pdir;
+            }
         }
 
-        const files = ( fullpath === baseDir ? [] : [ parentDir ] )
+        const files = ( pdir.indexOf( baseDir ) >= 0 ? [ parentDir ] : [] )
             .concat( await listDirectory( fullpath ) );
 
         const results = files.filter( item => {
@@ -70,23 +81,6 @@ async function listDir( dir, response ) {
         } );
         response.end( results );
     }
-}
-
-function parseUrl( requestUrl ) {
-    let parsedUrl;
-    const i = requestUrl.indexOf( '?' );
-    if ( i > -1 ) {
-        parsedUrl = {
-            pathname: requestUrl.substring( 0, i ),
-            searchParams: querystring.parse( requestUrl.substring( i + 1 ) )
-        };
-    } else {
-        parsedUrl = {
-            pathname: requestUrl,
-            searchParams: ''
-        };
-    }
-    return parsedUrl;
 }
 
 const server = http.createServer( ( request, response ) => {
@@ -156,11 +150,15 @@ try {
     // we will force IPV4 by passing an IPV4 address, or fail
     if ( os.platform() === 'android' ) {
         server.listen( port );
+    } else if ( os.platform() === 'darwin' ) {
+        console.log( os.platform() === 'darwin' )
+        hostIP = '127.0.0.1';
+        server.listen( port, hostIP );
     } else {
         hostIP = filtered[ 0 ];
         server.listen( port, hostIP );
     }
-    console.log( `Server listening on port ${port} and IP ${filtered[0]}.` );
+    console.log( `Server listening on port ${port} and IP ${hostIP || filtered[0]}.` );
 
 } catch ( e ) {
     console.log( e );
