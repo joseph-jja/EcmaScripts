@@ -34,6 +34,8 @@ if ( hasPerformanceMetrics ) {
             metrics.domContentLoadStart = metrics[ 'domContentLoadedEventStart' ];
             metrics.domContentLoadTime = ( metrics[ 'domContentLoadedEventEnd' ] - metrics[ 'domContentLoadedEventStart' ] );
 
+            metrics.domInteractive = metrics[ 'domInteractive' ];
+
             metrics.domLoadStart = metrics[ 'loadEventStart' ];
             metrics.domLoadTime = ( metrics[ 'loadEventEnd' ] - metrics[ 'domContentLoadedEventStart' ] );
 
