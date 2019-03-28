@@ -9,8 +9,6 @@ footer {
     margin: 0;
     padding: .3em 1em;
     width: 100%;
-    text-align: center;
-    ont-weight: bold;
     color: white;
     background-image: url("/images/WebWindowTitleInactive.gif");
     position: fixed;
@@ -19,7 +17,6 @@ footer {
 
 header {
     top: 0px;
-    font-size: 1.6em;
     border-bottom: 4px #96f ridge;
 }
 
@@ -31,8 +28,16 @@ footer {
 
 header span,
 footer span {
-    font-size: 1.2em;
     color: white;
+}
+
+header span:first-child {
+    font-weight: bold;
+    float: left;
+}
+
+header span:last-child {
+    float: right;
 }
 
 #page-name {
