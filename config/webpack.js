@@ -22,6 +22,7 @@ module.exports = {
         "emailThankYou": "./src/client/pages/emailThankYou",
         "fishLog": "./src/client/pages/fishLog",
         "fishPictures": "./src/client/pages/fishPictures",
+        "index-old": "./src/client/pages/index-old",
         "index": "./src/client/pages/index",
         "local": "./src/client/pages/local",
         "myLinks": "./src/client/pages/myLinks",

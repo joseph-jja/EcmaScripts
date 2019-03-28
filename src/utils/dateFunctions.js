@@ -51,4 +51,9 @@ DateFunctions.setFullDate = function ( m, d, y ) {
     return today;
 };
 
+// find out if that was AM or PM as we want 12 hour clock not 24
+DateFunctions.getAMPM = function ( dateObj ) {
+    return ( dateObj.getHours() > 11 ) ? ' PM' : ' AM';
+};
+
 export default DateFunctions;

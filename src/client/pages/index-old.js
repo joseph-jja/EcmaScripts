@@ -7,7 +7,7 @@ import detect from 'client/browser/detect';
 
 // components
 import footer from 'client/components/footer';
-//import * as menu from 'client/components/menu';
+import * as menu from 'client/components/menu';
 import {
     DigitalClock
 } from 'client/components/clocks';
@@ -36,10 +36,10 @@ events.addOnLoad( () => {
     myclock.setId( "digiclock" );
     myclock.startClock();
 
-    //const cal = new Calendar( "calendarContainer" );
-    //cal.render();
+    const cal = new Calendar( "calendarContainer" );
+    cal.render();
 
-    //dom.html( "#cautionContent", capabilities + detected );
-    //menu.basicMenu();
-    footer( document.querySelectorAll( 'footer' )[ 0 ] );
+    dom.html( "#cautionContent", capabilities + detected );
+    menu.basicMenu();
+    footer( 'footer' );
 } );
