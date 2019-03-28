@@ -9,7 +9,7 @@ const baseDir = process.cwd(),
 const jsbeautify = path.resolve( baseDir, './node_modules/.bin/js-beautify' ),
     javabin = '/usr/bin/java',
     compressor = path.resolve( baseDir, './tools/yuicompressor-2.4.6.jar' ),
-    outputProject = path.resolve(process.env.HOME, 'workspace', 'binary-stellar-system.github.io', 'styles');
+    outputProject = path.resolve( process.env.HOME, 'workspace', 'binary-stellar-system.github.io', 'styles' );
 
 async function compressStyles() {
 
@@ -23,14 +23,14 @@ async function compressStyles() {
         } )
         .forEach( item => {
             const parts = item.split( '/' );
-            const name = parts[ parts.length - 1 ];
+            const name = parts[ parts.length - 1 ].replace( /\.css/, '-min.css' );
             console.log( name );
 
             const bres = execSync( `${jsbeautify} -r ${item}` );
-            console.log(bres.toString());
+            console.log( bres.toString() );
 
             const cres = execSync( `${javabin} -jar ${compressor} ${item} > ${outputProject}/${name}` );
-            console.log(cres.toString());
+            console.log( cres.toString() );
         } );
 }
 

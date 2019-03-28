@@ -1,6 +1,7 @@
 // libs first
 import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
+import selector from 'client/dom/selector';
 
 // default libs
 import detect from 'client/browser/detect';
@@ -36,10 +37,36 @@ events.addOnLoad( () => {
     myclock.setId( "digiclock" );
     myclock.startClock();
 
-    //const cal = new Calendar( "calendarContainer" );
-    //cal.render();
+    footer( document.querySelectorAll( 'footer' )[ 0 ] );
+
+    const calendarButton = selector( 'footer ul li:first-child' );
+    events.addEvent( calendarButton.get( 0 ), 'click', ( e ) => {
+
+        // get footer
+        const footerObj = selector( 'footer' ).get( 0 );
+
+        // figure out the height
+        const computedStyles = window.getComputedStyle( footerObj );
+        const topOfFooter = computedStyles.top;
+
+        // body for new element
+        const body = document.querySelector( 'body' );
+
+        // calendar stuff here
+        const calendarContainer = dom.createElement( 'div', body, {
+            id: 'calendar-container',
+            'zIndex': 5
+        } );
+        const cal = new Calendar( calendarContainer.id );
+        cal.render();
+
+        // reposition stuff here
+        const calHeight = window.getComputedStyle( calendarContainer, 'height' );
+        const repositionPX = parseInt( topOfFooter ) - parseInt( calHeight );
+        calendarContainer.style.top = repositionPX + 'px';
+
+    } );
 
     //dom.html( "#cautionContent", capabilities + detected );
     //menu.basicMenu();
-    footer( document.querySelectorAll( 'footer' )[ 0 ] );
 } );
