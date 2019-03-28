@@ -33,6 +33,11 @@ gulp.task( 'default', () => {
         .pipe( eslint( eslintCfg ) )
         .pipe( gulp.dest( 'tests' ) );
 
+    gulp.src( "tools/**.js*" )
+        .pipe( jsbeautify( jsConfig ) )
+        .pipe( eslint( eslintCfg ) )
+        .pipe( gulp.dest( 'tools' ) );
+
     gulp.src( "config/**.js*" )
         .pipe( jsbeautify( jsConfig ) )
         .pipe( eslint( eslintCfg ) )
