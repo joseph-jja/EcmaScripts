@@ -50,9 +50,11 @@ header span:last-child {
 
 nav {
     display: block;
-    margin: 0 auto;
+    margin: 0;
+    margin-top: 1.5em;
     background-color: azure;
-    width: 100%;
-    padding: 0.5em
+    width: 6em;
+    padding: 0.5em;
+    left: 0px
 }
 
