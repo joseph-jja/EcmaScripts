@@ -2,6 +2,7 @@
 import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
+import fetcher from 'client/net/fetcher';
 
 // default libs
 import detect from 'client/browser/detect';
@@ -31,6 +32,16 @@ detected += '<br />Stated Name - Version = ' + dt.name + ' - ' + dt.appVersion;
 detected += '<br /><br />Spoofable OS = ' + dt.uaOS + ( dt.uaOSVersion ? "(" + dt.uaOSVersion + ")" : "" ) + '.';
 detected += '<br />Spoofable Name - Version = ' + dt.uaName + ' - ' + dt.uaAppVersion;
 detected += '<br />User Agent String = ' + dt.userAgent + '.';
+
+const screenWidth = dom.screen.maxx;
+
+async function buildNav() {
+    const navFrag = '/frags/nav.frag';
+    const navData = await fetcher( navFrag );
+
+    const nav = document.getElementById( 'menu' );
+    nav.innerHTML = navData.replace( /\n/g, '' );
+}
 
 events.addOnLoad( () => {
     const myclock = new DigitalClock();
@@ -76,6 +87,16 @@ events.addOnLoad( () => {
 
     } );
 
+    const canvasRef = selector( '#star-system' ).get( 0 );
+    if ( screenWidth > 800 ) {
+        canvasRef.width = 800;
+        canvasRef.height = 600;
+    } else {
+        canvasRef.width = 250;
+        canvasRef.height = 250;
+    }
+
+    buildNav();
     //dom.html( "#cautionContent", capabilities + detected );
     //menu.basicMenu();
 } );

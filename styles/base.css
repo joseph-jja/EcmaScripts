@@ -52,11 +52,20 @@ footer ul li:first-child {
     display: inline;
     margin-left: 1em;
     cursor: pointer;
+    font-weight: bold;
+    color: beige;
 }
 
 footer ul li {
     display: inline;
     margin-left: 2.5em;
+}
+
+@media only screen and (max-width: 600px) {
+    footer ul li {
+        display: block;
+        margin-left: 1em;
+    }
 }
 
 #page-name {
@@ -85,6 +94,5 @@ nav {
     padding: 0;
     margin: auto;
     display: block;
-    width: 800px;
     border: 1px solid black;
 }
