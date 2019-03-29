@@ -9,10 +9,16 @@ import detect from 'client/browser/detect';
 
 // components
 import footer from 'client/components/footer';
-//import * as menu from 'client/components/menu';
+
+// canvas
+import * as canvas from 'client/components/canvas';
+
+// clock
 import {
     DigitalClock
 } from 'client/components/clocks';
+
+// calendar
 import Calendar from 'client/components/calendar';
 
 // TODO clean up this detection stuff
@@ -33,7 +39,7 @@ detected += '<br /><br />Spoofable OS = ' + dt.uaOS + ( dt.uaOSVersion ? "(" + d
 detected += '<br />Spoofable Name - Version = ' + dt.uaName + ' - ' + dt.uaAppVersion;
 detected += '<br />User Agent String = ' + dt.userAgent + '.';
 
-const screenWidth = dom.screen.maxx;
+const screenWidth = dom.screen.maxx();
 
 async function buildNav() {
     const navFrag = '/frags/nav.frag';
@@ -87,14 +93,18 @@ events.addOnLoad( () => {
 
     } );
 
-    const canvasRef = selector( '#star-system' ).get( 0 );
+    let canvasRef;
     if ( screenWidth > 800 ) {
-        canvasRef.width = 800;
-        canvasRef.height = 600;
+        canvasRef = canvas.create( 'star-system', 'canvas-container', 800, 600 );
     } else {
-        canvasRef.width = 250;
-        canvasRef.height = 250;
+        canvasRef = canvas.create( 'star-system', 'canvas-container', 250, 250 );
     }
+    const center = [ Math.floor( canvasRef.width / 2 ), Math.floor( canvasRef.height / 2 ) ];
+    const corners = ( Math.ceil( center[ 0 ] / 2 ) < Math.ceil( center[ 1 ] / 2 ) ?
+        Math.ceil( center[ 0 ] / 2 ) : Math.ceil( center[ 1 ] / 2 ) );
+
+    canvasRef.circle( center[ 0 ] - corners, center[ 1 ] - corners, 15 );
+    canvasRef.circle( center[ 0 ] + corners, center[ 1 ] - corners, 15 );
 
     buildNav();
     //dom.html( "#cautionContent", capabilities + detected );
