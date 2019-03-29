@@ -37,32 +37,42 @@ events.addOnLoad( () => {
     myclock.setId( "digiclock" );
     myclock.startClock();
 
+    let isCanedarDisplayed = false;
+
     footer( document.querySelectorAll( 'footer' )[ 0 ] );
 
     const calendarButton = selector( 'footer ul li:first-child' );
     events.addEvent( calendarButton.get( 0 ), 'click', ( e ) => {
 
-        // get footer
-        const footerObj = selector( 'footer' ).get( 0 );
+        if ( !isCanedarDisplayed ) {
+            // get footer
+            const footerObj = selector( 'footer' ).get( 0 );
 
-        // figure out the height
-        const computedStyles = window.getComputedStyle( footerObj );
-        const topOfFooter = computedStyles.top;
+            // figure out the height
+            const computedStyles = window.getComputedStyle( footerObj );
+            const topOfFooter = computedStyles.top;
 
-        // body for new element
-        const body = document.querySelector( 'body' );
+            // body for new element
+            const body = document.querySelector( 'body' );
 
-        // calendar stuff here
-        const calendarContainer = dom.createElement( 'div', body, {
-            'id': 'calendar-container'
-        } );
-        const cal = new Calendar( calendarContainer.id );
-        cal.render();
+            // calendar stuff here
+            const calendarContainer = dom.createElement( 'div', body, {
+                'id': 'calendar-container'
+            } );
+            calendarContainer.style.display = 'block';
+            const cal = new Calendar( calendarContainer.id );
+            cal.render();
 
-        // reposition stuff here
-        const calHeight = window.getComputedStyle( calendarContainer ).height;
-        const repositionPX = parseInt( topOfFooter ) - parseInt( calHeight ) - 12;
-        calendarContainer.style.top = repositionPX + 'px';
+            // reposition stuff here
+            const calHeight = window.getComputedStyle( calendarContainer ).height;
+            const repositionPX = parseInt( topOfFooter ) - parseInt( calHeight ) - 12;
+            calendarContainer.style.top = repositionPX + 'px';
+            isCanedarDisplayed = true;
+        } else {
+            const calReference = selector( '#calendar-container' ).get( 0 );
+            calReference.style.display = 'none';
+            isCanedarDisplayed = false;
+        }
 
     } );
 

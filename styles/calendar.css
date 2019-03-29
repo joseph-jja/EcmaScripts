@@ -8,8 +8,8 @@
     background: white;
 }
 
-table.calendar td,
-table.calendar th {
+#calendar-containercontent td,
+#calendar-containercontentr th {
     padding: 1px;
     border: 1px solid black;
 }
