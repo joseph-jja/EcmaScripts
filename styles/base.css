@@ -72,14 +72,21 @@ footer ul li {
     text-transform: capitalize
 }
 
-nav {
+#menu {
     display: block;
     margin: 0;
-    margin-top: 1.5em;
-    background-color: azure;
-    width: 6em;
+    margin-top: 1.8em;
+    width: 8em;
     padding: 0.5em;
     left: 0px
+}
+
+#menu select {
+    font-size: 1em;
+    font-weight: bold;
+    width: 100%;
+    padding: 0.5em;
+    background-color: #aff0ff;
 }
 
 #canvas-container {
