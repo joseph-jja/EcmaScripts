@@ -21,19 +21,25 @@ function formatDate( dateObj ) {
 function getLastModifiedDate() {
 
     // last modified date
-    if ( exists( document.lastModified ) && document.lastModified > 0 ) {
+    if ( exists( document.lastModified ) && document.lastModified.length > 0 ) {
         // convert to a date
         const moddate = Date.parse( document.lastModified );
 
+        const mdate = new Date();
+        mdate.setTime( moddate );
+
         // return formatted our way
-        return formatDate( moddate );
+        return formatDate( mdate );
     }
     return '';
 }
 
 function createFooter() {
     const dt = new Date();
-    let buildFooter = "";
+
+    const daynow = formatDate( dt );
+
+    let buildFooter = `<li>Today is ${daynow}.</li>`;
 
     const lastmoddate = getLastModifiedDate();
 
@@ -42,9 +48,7 @@ function createFooter() {
         // display the date
         buildFooter = buildFooter + `<li>Last modified on ${lastmoddate}.</li>`;
     }
-    const daynow = formatDate( dt );
 
-    buildFooter = buildFooter + `<li>Today is ${daynow}.</li>`;
     buildFooter = buildFooter + `<li>Copyright ${dt.getFullYear()}.</li>`;
 
     return buildFooter;
