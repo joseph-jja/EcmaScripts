@@ -51,7 +51,7 @@ footer ul {
 footer ul li:first-child {
     display: inline;
     margin-right: 1em;
-    cursor: hand;
+    cursor: pointer;
 }
 
 footer ul li {

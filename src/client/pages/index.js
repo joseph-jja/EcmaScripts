@@ -54,15 +54,14 @@ events.addOnLoad( () => {
 
         // calendar stuff here
         const calendarContainer = dom.createElement( 'div', body, {
-            id: 'calendar-container',
-            'zIndex': 5
+            'id': 'calendar-container'
         } );
         const cal = new Calendar( calendarContainer.id );
         cal.render();
 
         // reposition stuff here
-        const calHeight = window.getComputedStyle( calendarContainer, 'height' );
-        const repositionPX = parseInt( topOfFooter ) - parseInt( calHeight );
+        const calHeight = window.getComputedStyle( calendarContainer ).height;
+        const repositionPX = parseInt( topOfFooter ) - parseInt( calHeight ) - 12;
         calendarContainer.style.top = repositionPX + 'px';
 
     } );

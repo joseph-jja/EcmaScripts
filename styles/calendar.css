@@ -1,0 +1,15 @@
+#calendar-container {
+    z-index: 5;
+    position: absolute;
+    left: 1em;
+    padding: 0.2em;
+    border: 1px solid black;
+    border-radius: 10px;
+    background: white;
+}
+
+table.calendar td,
+table.calendar th {
+    padding: 1px;
+    border: 1px solid black;
+}
