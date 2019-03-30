@@ -250,12 +250,12 @@ MathFunctions.convertFromBaseXToBaseTen = function ( xbase, inval ) {
 };
 
 MathFunctions.getCirlePoints = function ( r, angle ) {
-    const x = Math.round( Math.cos( angle ) ),
-        y = Math.round( Math.sin( angle ) );
+    const x = MathFunctions.multiply( r, Math.cos( angle ) ),
+        y = MathFunctions.multiply( r, Math.sin( angle ) );
 
     return {
-        x: MathFunctions.multiply( x * r ),
-        y: MathFunctions.multiply( y * r )
+        x: Math.round( x ),
+        y: Math.round( y )
     };
 };
 
