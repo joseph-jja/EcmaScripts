@@ -249,6 +249,16 @@ MathFunctions.convertFromBaseXToBaseTen = function ( xbase, inval ) {
     return remainder;
 };
 
+MathFunctions.getCirlePoints = function(r, angle) {
+    const x = Math.round(Math.cos(angle)), 
+        y = Math.round(Math.sin(angle));
+
+    return { 
+        x: x*r,
+        y: y*r
+    };
+};
+
 MathFunctions.degreesToRadians = function ( x ) {
     return x * Math.PI / 180;
 };
