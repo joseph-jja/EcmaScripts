@@ -106,9 +106,44 @@ events.addOnLoad( () => {
 
     const points = MF.getCirlePoints( corners, 315 );
 
-    canvasRef.circle( center[ 0 ] - points.x, center[ 1 ] - points.y, 15 );
-    canvasRef.circle( center[ 0 ] + corners, center[ 1 ] + corners, 15 );
-    canvasRef.circle( center[ 0 ], center[ 1 ], corners );
+    canvasRef.rectangle( 0, 0, canvasRef.width, canvasRef.height, {
+        color: 'black',
+        fillStrokeClear: 'fill'
+    } );
+    canvasRef.circle( center[ 0 ] - points.x, center[ 1 ] - points.y, 15, {
+        color: 'white',
+        fillStrokeClear: 'fill'
+    } );
+    canvasRef.circle( center[ 0 ] + points.x, center[ 1 ] + points.y, 15, {
+        color: 'white',
+        fillStrokeClear: 'fill'
+    } );
+    // TODO move this into a worker?
+    let startPoint = 315;
+    const oneRound = window.setInterval( () => {
+        const nextPoints = MF.getCirlePoints( corners, startPoint );
+
+        canvasRef.circle( center[ 0 ] - nextPoints.x, center[ 1 ] - nextPoints.y, 15, {
+            color: 'black',
+            fillStrokeClear: 'fill'
+        } );
+        canvasRef.circle( center[ 0 ] + nextPoints.x, center[ 1 ] + nextPoints.y, 15, {
+            color: 'black',
+            fillStrokeClear: 'fill'
+        } );
+
+        startPoint = ( startPoint >= 360 ? 0 : startPoint++ );
+
+        canvasRef.circle( center[ 0 ] - nextPoints.x, center[ 1 ] - nextPoints.y, 15, {
+            color: 'white',
+            fillStrokeClear: 'fill'
+        } );
+        canvasRef.circle( center[ 0 ] + nextPoints.x, center[ 1 ] + nextPoints.y, 15, {
+            color: 'white',
+            fillStrokeClear: 'fill'
+        } );
+
+    }, 1000 );
 
     buildNav();
     //dom.html( "#cautionContent", capabilities + detected );
