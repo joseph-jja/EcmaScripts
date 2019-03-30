@@ -254,8 +254,8 @@ MathFunctions.getCirlePoints = function ( r, angle ) {
         y = Math.round( Math.sin( angle ) );
 
     return {
-        x: x * r,
-        y: y * r
+        x: MathFunctions.multiply( x * r ),
+        y: MathFunctions.multiply( y * r )
     };
 };
 
