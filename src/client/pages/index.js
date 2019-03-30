@@ -3,6 +3,7 @@ import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import fetcher from 'client/net/fetcher';
+import MF from "utils/mathFunctions";
 
 // default libs
 import detect from 'client/browser/detect';
@@ -109,9 +110,9 @@ events.addOnLoad( () => {
             y: r * Math.round( Math.cos( angle ) )
         };
     };
-    const points = getPoints( corners, 315 );
+    const points = MF.getCirlePoints( corners, 315 );
 
-    canvasRef.circle( center[ 0 ] - corners - points.x, center[ 1 ] - corners - points.y, 15 );
+    canvasRef.circle( center[ 0 ] - points.x, center[ 1 ] - points.y, 15 );
     canvasRef.circle( center[ 0 ] + corners, center[ 1 ] + corners, 15 );
     canvasRef.circle( center[ 0 ], center[ 1 ], corners );
 
