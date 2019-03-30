@@ -104,12 +104,6 @@ events.addOnLoad( () => {
     const corners = ( Math.ceil( center[ 0 ] / 2 ) < Math.ceil( center[ 1 ] / 2 ) ?
         Math.ceil( center[ 0 ] / 2 ) : Math.ceil( center[ 1 ] / 2 ) );
 
-    const getPoints = ( r, angle ) => {
-        return {
-            x: r * Math.round( Math.sin( angle ) ),
-            y: r * Math.round( Math.cos( angle ) )
-        };
-    };
     const points = MF.getCirlePoints( corners, 315 );
 
     canvasRef.circle( center[ 0 ] - points.x, center[ 1 ] - points.y, 15 );
