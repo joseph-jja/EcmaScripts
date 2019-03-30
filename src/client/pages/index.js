@@ -133,6 +133,7 @@ events.addOnLoad( () => {
         } );
 
         startPoint = ( startPoint >= 360 ? 0 : startPoint++ );
+        console.log( `go to  ${startPoint}` );
 
         canvasRef.circle( center[ 0 ] - nextPoints.x, center[ 1 ] - nextPoints.y, 15, {
             color: 'white',
