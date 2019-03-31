@@ -249,7 +249,8 @@ MathFunctions.convertFromBaseXToBaseTen = function ( xbase, inval ) {
     return remainder;
 };
 
-MathFunctions.getCirlePoints = function ( r, angle ) {
+// given a radius and angle get the x, y point on the circle
+MathFunctions.getCirlePoint = function ( r, angle ) {
     const x = MathFunctions.multiply( r, Math.cos( angle ) ),
         y = MathFunctions.multiply( r, Math.sin( angle ) );
 
@@ -257,6 +258,17 @@ MathFunctions.getCirlePoints = function ( r, angle ) {
         x: Math.round( x ),
         y: Math.round( y )
     };
+};
+
+// give a radius get ALL the points on the circle
+MathFunctions.getCirlePoints = function ( r ) {
+    const points = [];
+    let startPoint = 0;
+    for ( startPoint = 0; startPoint <= 360; startPoint++ ) {
+        const nextPoints = MathFunctions.getCirlePoint( r, startPoint );
+        cPoints.push( nextPoints );
+    }
+    return points;
 };
 
 MathFunctions.degreesToRadians = function ( x ) {
