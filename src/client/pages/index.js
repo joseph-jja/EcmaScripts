@@ -132,7 +132,7 @@ events.addOnLoad( () => {
             fillStrokeClear: 'fill'
         } );
 
-        startPoint = ( startPoint >= 360 ? 0 : startPoint++ );
+        startPoint = ( startPoint >= 360 ? 0 : ++startPoint );
         console.log( `go to  ${startPoint}` );
 
         canvasRef.circle( center[ 0 ] - nextPoints.x, center[ 1 ] - nextPoints.y, 15, {
