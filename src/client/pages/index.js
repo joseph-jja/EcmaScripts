@@ -94,6 +94,7 @@ events.addOnLoad( () => {
 
     } );
 
+    // TODO move this into a worker?
     let canvasRef;
     if ( screenWidth > 800 ) {
         canvasRef = canvas.create( 'star-system', 'canvas-container', 800, 600 );
@@ -104,8 +105,32 @@ events.addOnLoad( () => {
     const corners = ( Math.ceil( center[ 0 ] / 2 ) < Math.ceil( center[ 1 ] / 2 ) ?
         Math.ceil( center[ 0 ] / 2 ) : Math.ceil( center[ 1 ] / 2 ) );
 
-    const points = MF.getCirlePoints( corners, 315 );
+    const cPoints = [];
+    let startPoint = 0;
+    for ( startPoint = 0; startPoint <= 360; startPoint++ ) {
+        const nextPoints = MF.getCirlePoints( corners, startPoint );
+        cPoints.push( nextPoints );
+    }
 
+    const resultPoints = cPoints.sort( ( a, b ) => {
+
+        if ( a.x > b.x ) {
+            return 1;
+        } else if ( a.x < b.x ) {
+            return -1;
+        } else {
+            // a.x and b.x are equal
+            if ( a.y > b.y ) {
+                return 1;
+            } else if ( a.y < b.y ) {
+                return -1;
+            }
+            return 0;
+        }
+    } );
+
+    startPoint = 0;
+    let points = resultPoints[ startPoint ];
     canvasRef.rectangle( 0, 0, canvasRef.width, canvasRef.height, {
         color: 'black',
         fillStrokeClear: 'fill'
@@ -118,28 +143,29 @@ events.addOnLoad( () => {
         color: 'white',
         fillStrokeClear: 'fill'
     } );
-    // TODO move this into a worker?
-    let startPoint = 315;
+
     const oneRound = window.setInterval( () => {
-        const nextPoints = MF.getCirlePoints( corners, startPoint );
-
-        canvasRef.circle( center[ 0 ] - nextPoints.x, center[ 1 ] - nextPoints.y, 15, {
+        // color circle black
+        canvasRef.circle( center[ 0 ] - points.x, center[ 1 ] - points.y, 16, {
             color: 'black',
             fillStrokeClear: 'fill'
         } );
-        canvasRef.circle( center[ 0 ] + nextPoints.x, center[ 1 ] + nextPoints.y, 15, {
+        canvasRef.circle( center[ 0 ] + points.x, center[ 1 ] + points.y, 16, {
             color: 'black',
             fillStrokeClear: 'fill'
         } );
 
+        // get next point       
         startPoint = ( startPoint >= 360 ? 0 : ++startPoint );
+        points = resultPoints[ startPoint ];
         console.log( `go to  ${startPoint}` );
+        console.log( points );
 
-        canvasRef.circle( center[ 0 ] - nextPoints.x, center[ 1 ] - nextPoints.y, 15, {
+        canvasRef.circle( center[ 0 ] - points.x, center[ 1 ] - points.y, 15, {
             color: 'white',
             fillStrokeClear: 'fill'
         } );
-        canvasRef.circle( center[ 0 ] + nextPoints.x, center[ 1 ] + nextPoints.y, 15, {
+        canvasRef.circle( center[ 0 ] + points.x, center[ 1 ] + points.y, 15, {
             color: 'white',
             fillStrokeClear: 'fill'
         } );
