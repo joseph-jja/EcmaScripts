@@ -105,12 +105,8 @@ events.addOnLoad( () => {
     const corners = ( Math.ceil( center[ 0 ] / 2 ) < Math.ceil( center[ 1 ] / 2 ) ?
         Math.ceil( center[ 0 ] / 2 ) : Math.ceil( center[ 1 ] / 2 ) );
 
-    const cPoints = [];
+    const cPoints = MF.getCirlePoints( corners );
     let startPoint = 0;
-    for ( startPoint = 0; startPoint <= 360; startPoint++ ) {
-        const nextPoints = MF.getCirlePoints( corners, startPoint );
-        cPoints.push( nextPoints );
-    }
 
     const resultPoints = cPoints.sort( ( a, b ) => {
 
