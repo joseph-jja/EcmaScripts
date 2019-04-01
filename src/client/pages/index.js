@@ -110,19 +110,28 @@ events.addOnLoad( () => {
 
     const resultPoints = cPoints.sort( ( a, b ) => {
 
-        if ( a.x > b.x ) {
-            return 1;
-        } else if ( a.x < b.x ) {
-            return -1;
-        } else {
-            // a.x and b.x are equal
-            if ( a.y > b.y ) {
-                return 1;
-            } else if ( a.y < b.y ) {
-                return -1;
-            }
-            return 0;
-        }
+            if ( a.x < b.x) {
+        return 1;
+    } else if ( a.x > b.x ) {
+        return -1;
+    } else {
+      // they are equal
+      if ( a.y >= 0 || b.y >= 0 ) {
+         if ( a.y > b.y) {
+           return 1;
+         } else if ( a.y < b.y) {
+           return -1;
+         }
+      }
+      if ( a.y < 0 || b.y < 0 ) {
+         if ( a.y > b.y) {
+           return 1;
+         } else if ( a.y < b.y) {
+           return -1;
+         }
+      }
+      return 0;
+    }
     } );
 
     startPoint = 0;
