@@ -101,46 +101,20 @@ events.addOnLoad( () => {
     } else {
         canvasRef = canvas.create( 'star-system', 'canvas-container', 250, 250 );
     }
-    const center = [ Math.floor( canvasRef.width / 2 ), Math.floor( canvasRef.height / 2 ) ];
-    const corners = ( Math.ceil( center[ 0 ] / 2 ) < Math.ceil( center[ 1 ] / 2 ) ?
-        Math.ceil( center[ 0 ] / 2 ) : Math.ceil( center[ 1 ] / 2 ) );
 
-    const cPoints = MF.getCirclePoints( corners );
-    let startPoint = 0;
-
-    const resultPoints = cPoints;
-    /*.sort( ( a, b ) => {
-
-           if ( a.x < b.x ) {
-               return 1;
-           } else if ( a.x > b.x ) {
-               return -1;
-           } else {
-               // they are equal
-               if ( a.y >= 0 || b.y >= 0 ) {
-                   if ( a.y > b.y ) {
-                       return 1;
-                   } else if ( a.y < b.y ) {
-                       return -1;
-                   }
-               }
-               if ( a.y < 0 || b.y < 0 ) {
-                   if ( a.y > b.y ) {
-                       return 1;
-                   } else if ( a.y < b.y ) {
-                       return -1;
-                   }
-               }
-               return 0;
-           }
-       } );*/
-
-    startPoint = 0;
-    let points = resultPoints[ startPoint ];
+    // make canvas black
     canvasRef.rectangle( 0, 0, canvasRef.width, canvasRef.height, {
         color: 'black',
         fillStrokeClear: 'fill'
     } );
+
+    const center = [ Math.floor( canvasRef.width / 2 ), Math.floor( canvasRef.height / 2 ) ];
+    const corners = ( Math.ceil( center[ 0 ] / 2 ) < Math.ceil( center[ 1 ] / 2 ) ?
+        Math.ceil( center[ 0 ] / 2 ) : Math.ceil( center[ 1 ] / 2 ) );
+
+    const resultPoints = MF.getCirclePoints( corners );
+    let startPoint = 0;
+    let points = resultPoints[ startPoint ];
     canvasRef.circle( center[ 0 ] - points.x, center[ 1 ] - points.y, 15, {
         color: 'white',
         fillStrokeClear: 'fill'
@@ -176,7 +150,7 @@ events.addOnLoad( () => {
             fillStrokeClear: 'fill'
         } );
 
-    }, 1000 );
+    }, 100 );
 
     buildNav();
     //dom.html( "#cautionContent", capabilities + detected );
