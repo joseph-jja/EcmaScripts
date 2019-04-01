@@ -3,7 +3,7 @@ import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import fetcher from 'client/net/fetcher';
-import MF from "utils/mathFunctions";
+import MF from 'utils/mathFunctions';
 
 // default libs
 import detect from 'client/browser/detect';
@@ -105,34 +105,35 @@ events.addOnLoad( () => {
     const corners = ( Math.ceil( center[ 0 ] / 2 ) < Math.ceil( center[ 1 ] / 2 ) ?
         Math.ceil( center[ 0 ] / 2 ) : Math.ceil( center[ 1 ] / 2 ) );
 
-    const cPoints = MF.getCirlePoints( corners );
+    const cPoints = MF.getCirclePoints( corners );
     let startPoint = 0;
 
-    const resultPoints = cPoints.sort( ( a, b ) => {
+    const resultPoints = cPoints;
+    /*.sort( ( a, b ) => {
 
-            if ( a.x < b.x) {
-        return 1;
-    } else if ( a.x > b.x ) {
-        return -1;
-    } else {
-      // they are equal
-      if ( a.y >= 0 || b.y >= 0 ) {
-         if ( a.y > b.y) {
-           return 1;
-         } else if ( a.y < b.y) {
-           return -1;
-         }
-      }
-      if ( a.y < 0 || b.y < 0 ) {
-         if ( a.y > b.y) {
-           return 1;
-         } else if ( a.y < b.y) {
-           return -1;
-         }
-      }
-      return 0;
-    }
-    } );
+           if ( a.x < b.x ) {
+               return 1;
+           } else if ( a.x > b.x ) {
+               return -1;
+           } else {
+               // they are equal
+               if ( a.y >= 0 || b.y >= 0 ) {
+                   if ( a.y > b.y ) {
+                       return 1;
+                   } else if ( a.y < b.y ) {
+                       return -1;
+                   }
+               }
+               if ( a.y < 0 || b.y < 0 ) {
+                   if ( a.y > b.y ) {
+                       return 1;
+                   } else if ( a.y < b.y ) {
+                       return -1;
+                   }
+               }
+               return 0;
+           }
+       } );*/
 
     startPoint = 0;
     let points = resultPoints[ startPoint ];

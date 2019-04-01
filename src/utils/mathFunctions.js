@@ -250,9 +250,10 @@ MathFunctions.convertFromBaseXToBaseTen = function ( xbase, inval ) {
 };
 
 // given a radius and angle get the x, y point on the circle
-MathFunctions.getCirlePoint = function ( r, angle ) {
-    const x = MathFunctions.multiply( r, Math.cos( angle ) ),
-        y = MathFunctions.multiply( r, Math.sin( angle ) );
+MathFunctions.getCirclePoint = function ( r, angle ) {
+    const rAngle = MathFunctions.degreesToRadians( angle ),
+        x = MathFunctions.multiply( r, Math.cos( rAngle ) ),
+        y = MathFunctions.multiply( r, Math.sin( rAngle ) );
 
     return {
         x: Math.round( x ),
@@ -261,12 +262,11 @@ MathFunctions.getCirlePoint = function ( r, angle ) {
 };
 
 // give a radius get ALL the points on the circle
-MathFunctions.getCirlePoints = function ( r ) {
+MathFunctions.getCirclePoints = function ( r ) {
     const points = [];
-    let startPoint = 0;
-    for ( startPoint = 0; startPoint <= 360; startPoint++ ) {
-        const nextPoints = MathFunctions.getCirlePoint( r, startPoint );
-        cPoints.push( nextPoints );
+    for ( let startPoint = 0; startPoint <= 360; startPoint++ ) {
+        const nextPoints = MathFunctions.getCirclePoint( r, startPoint );
+        points.push( nextPoints );
     }
     return points;
 };
