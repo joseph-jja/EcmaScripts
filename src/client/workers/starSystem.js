@@ -10,12 +10,12 @@ let center,
 function getStars( points ) {
 
     const starOne = {
-            x: ( center[ 0 ] - points.x ),
-            y: ( center[ 1 ] - points.y )
+            x: ( MF.subtract( center[ 0 ], points.x ) ),
+            y: ( MF.subtract( center[ 1 ], points.y ) )
         },
         starTwo = {
-            x: ( center[ 0 ] + points.x ),
-            y: ( center[ 1 ] + points.y )
+            x: ( MF.add( center[ 0 ], points.x ) ),
+            y: ( MF.add( center[ 1 ], points.y ) )
         };
 
     return {
@@ -28,9 +28,11 @@ function getStars( points ) {
 
 onmessage = ( msg ) => {
 
-    if ( msg.setWidthHeight ) {
-        const width = msg.setWidthHeight[ 0 ],
-            height = msg.setWidthHeight[ 1 ];
+    if ( msg && msg.data && msg.data.setWidthHeight ) {
+        const width = msg.data.setWidthHeight[ 0 ],
+            height = msg.data.setWidthHeight[ 1 ];
+
+        center = MF.getRectangleCenter( width, height );
 
         const radius = MF.getRectangleCorner( width, height );
 
@@ -41,7 +43,7 @@ onmessage = ( msg ) => {
         setTimeout( () => {
             startPoint = ( startPoint >= 360 ? 0 : ++startPoint );
 
-            self.postMessage( getStars( resultPoints[ startPoint ] ) );
+            postMessage( getStars( resultPoints[ startPoint ] ) );
         }, timeout );
     }
 };
