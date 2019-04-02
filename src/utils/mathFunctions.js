@@ -271,6 +271,10 @@ MathFunctions.getCirclePoints = function ( r ) {
     return points;
 };
 
+MathFunctions.getRectangleCenter = function ( width, height ) {
+    return [ Math.floor( MathFunctions.divide( width / 2 ) ), Math.floor( MathFunctions.divide( height / 2 ) ) ];
+};
+
 MathFunctions.degreesToRadians = function ( x ) {
     return x * Math.PI / 180;
 };
