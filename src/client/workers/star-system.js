@@ -1,18 +1,17 @@
 import MF from 'utils/mathFunctions';
 
-let center, 
+let center,
     resultPoints;
 
-onmessage = (msg) => {
-  
-  if ( msg.setWidthHeight ) {
-    const width = msg.setWidthHeight[0],
-        height = msg.setWidthHeight[1];
-    
-    const radius = MF.getRectangleCorner( width, height );
+onmessage = ( msg ) => {
 
-     resultPoints = MF.getCirclePoints( radius );
-  }
-  
+    if ( msg.setWidthHeight ) {
+        const width = msg.setWidthHeight[ 0 ],
+            height = msg.setWidthHeight[ 1 ];
+
+        const radius = MF.getRectangleCorner( width, height );
+
+        resultPoints = MF.getCirclePoints( radius );
+    }
+
 };
-

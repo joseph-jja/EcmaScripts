@@ -106,7 +106,7 @@ events.addOnLoad( () => {
 
     // make canvas black
     canvasRef.setBackgroundColor( 'black' );
-    
+
     /*canvasWorker.postMessage({
         'setWidthHeight': [ canvasRef.width, canvasRef.height ]
     });*/
