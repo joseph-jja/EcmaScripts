@@ -45,7 +45,7 @@ detected += '<br />User Agent String = ' + dt.userAgent + '.';
 
 const screenWidth = dom.screen.maxx();
 
-const canvasWorker = exists( window.Worker ) ? new window.Worker( '/js/star-system.js' ) : undefined;
+const canvasWorker = exists( Worker ) ? new Worker( '/js/star-system.js' ) : undefined;
 
 async function buildNav() {
     const navFrag = '/frags/nav.frag';
@@ -140,7 +140,7 @@ events.addOnLoad( () => {
             fillStrokeClear: 'fill'
         } );
 
-        // get next point       
+        // get next point
         startPoint = ( startPoint >= 360 ? 0 : ++startPoint );
         points = resultPoints[ startPoint ];
         console.log( `go to  ${startPoint}` );

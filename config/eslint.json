@@ -10,6 +10,9 @@
 
     "globals": {
         "window": true,
+        "Worker": true,
+        "postMessage": true,
+        "onmessage": true,
         "alert": true,
         "document": true,
         "fetch": true,
