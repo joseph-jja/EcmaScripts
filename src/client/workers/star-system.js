@@ -13,24 +13,24 @@ onmessage = ( msg ) => {
         const radius = MF.getRectangleCorner( width, height );
 
         resultPoints = MF.getCirclePoints( radius );
-            
+
         const points = resultPoints[ 0 ];
-        
+
         const starOne = {
-            x: (center[ 0 ] - points.x), 
-            y: (center[ 1 ] - points.y)
-        },
-              starTwo = {
-            x: (center[ 0 ] + points.x), 
-            y: (center[ 1 ] + points.y)
-        };
-        
-        postMessage(() => {
+                x: ( center[ 0 ] - points.x ),
+                y: ( center[ 1 ] - points.y )
+            },
+            starTwo = {
+                x: ( center[ 0 ] + points.x ),
+                y: ( center[ 1 ] + points.y )
+            };
+
+        postMessage( () => {
             stars: {
-               starOne, 
-                   starTwo
+                starOne,
+                starTwo
             }
-        });
+        } );
     }
 
 };
