@@ -374,14 +374,14 @@ function setProperties( canvas ) {
         cx[ stroke ]();
         cx.restore();
     };
-    
+
     canvas.setBackgroundColor = function ( color ) {
 
         this.rectangle( 0, 0, this.width, this.height, {
             color: color || 'white',
             fillStrokeClear: 'fill'
         } );
-    };    
+    };
 };
 
 // setup canvas and context
