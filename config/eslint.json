@@ -13,6 +13,8 @@
         "Worker": true,
         "postMessage": true,
         "onmessage": true,
+        "setInterval": true,
+        "clearInterval": true,
         "alert": true,
         "document": true,
         "fetch": true,

@@ -5,7 +5,8 @@ const self = this,
 
 let center,
     resultPoints,
-    startPoint = 0;
+    startPoint = 0,
+    timerID;
 
 function getStars( points ) {
 
@@ -19,10 +20,8 @@ function getStars( points ) {
         };
 
     return {
-        stars: {
-            starOne,
-            starTwo
-        }
+        starOne,
+        starTwo
     };
 }
 
@@ -40,10 +39,22 @@ onmessage = ( msg ) => {
 
         postMessage( getStars( resultPoints[ startPoint ] ) );
 
-        setTimeout( () => {
-            startPoint = ( startPoint >= 360 ? 0 : ++startPoint );
+        timerID = setInterval( () => {
 
-            postMessage( getStars( resultPoints[ startPoint ] ) );
+            const oldPoint = resultPoints[ startPoint ];
+            const black = getStars( oldPoint );
+            startPoint = ( startPoint >= 360 ? 0 : ++startPoint );
+            const newPoint = resultPoints[ startPoint ];
+            const white = getStars( newPoint );
+
+            postMessage( {
+                stars: {
+                    black,
+                    white
+                }
+            } );
         }, timeout );
+    } else if ( msg && msg.data && msg.data.stop ) {
+        clearInterval( timerID );
     }
 };

@@ -45,7 +45,7 @@ detected += '<br />User Agent String = ' + dt.userAgent + '.';
 
 const screenWidth = dom.screen.maxx();
 
-const canvasWorker = exists( Worker ) ? new Worker( '/js/star-system.js' ) : undefined;
+const starSystemWorker = exists( Worker ) ? new Worker( '/js/starSystem.js' ) : undefined;
 
 async function buildNav() {
     const navFrag = '/frags/nav.frag';
@@ -110,52 +110,36 @@ events.addOnLoad( () => {
     // make canvas black
     canvasRef.setBackgroundColor( 'black' );
 
-    /*canvasWorker.postMessage({
-        'setWidthHeight': [ canvasRef.width, canvasRef.height ]
-    });*/
+    if ( starSystemWorker ) {
+        starSystemWorker.onmessage = ( msg ) => {
 
-    const center = MF.getRectangleCenter( canvasRef.width, canvasRef.height );
-    const corners = MF.getRectangleCorner( canvasRef.width, canvasRef.height );
+            if ( msg.data.stars ) {
+                const black = msg.data.stars.black,
+                    white = msg.data.stars.white;
 
-    const resultPoints = MF.getCirclePoints( corners );
-    let startPoint = 0;
-    let points = resultPoints[ startPoint ];
-    canvasRef.circle( center[ 0 ] - points.x, center[ 1 ] - points.y, 15, {
-        color: 'white',
-        fillStrokeClear: 'fill'
-    } );
-    canvasRef.circle( center[ 0 ] + points.x, center[ 1 ] + points.y, 15, {
-        color: 'white',
-        fillStrokeClear: 'fill'
-    } );
+                canvasRef.circle( black.starOne.x, black.starOne.y, 16, {
+                    color: 'black',
+                    fillStrokeClear: 'fill'
+                } );
+                canvasRef.circle( black.starTwo.x, black.starTwo.y, 16, {
+                    color: 'black',
+                    fillStrokeClear: 'fill'
+                } );
 
-    const oneRound = window.setInterval( () => {
-        // color circle black
-        canvasRef.circle( center[ 0 ] - points.x, center[ 1 ] - points.y, 16, {
-            color: 'black',
-            fillStrokeClear: 'fill'
+                canvasRef.circle( white.starOne.x, white.starOne.y, 15, {
+                    color: 'white',
+                    fillStrokeClear: 'fill'
+                } );
+                canvasRef.circle( white.starTwo.x, white.starTwo.y, 15, {
+                    color: 'white',
+                    fillStrokeClear: 'fill'
+                } );
+            }
+        };
+        starSystemWorker.postMessage( {
+            'setWidthHeight': [ canvasRef.width, canvasRef.height ]
         } );
-        canvasRef.circle( center[ 0 ] + points.x, center[ 1 ] + points.y, 16, {
-            color: 'black',
-            fillStrokeClear: 'fill'
-        } );
-
-        // get next point
-        startPoint = ( startPoint >= 360 ? 0 : ++startPoint );
-        points = resultPoints[ startPoint ];
-        console.log( `go to  ${startPoint}` );
-        console.log( points );
-
-        canvasRef.circle( center[ 0 ] - points.x, center[ 1 ] - points.y, 15, {
-            color: 'white',
-            fillStrokeClear: 'fill'
-        } );
-        canvasRef.circle( center[ 0 ] + points.x, center[ 1 ] + points.y, 15, {
-            color: 'white',
-            fillStrokeClear: 'fill'
-        } );
-
-    }, 100 );
+    }
 
     buildNav();
     //dom.html( "#cautionContent", capabilities + detected );
