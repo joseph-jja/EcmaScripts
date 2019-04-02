@@ -36,16 +36,12 @@ onmessage = ( msg ) => {
 
         resultPoints = MF.getCirclePoints( radius );
 
-        const points = resultPoints[ startPoint ];
-
-        postMessage( getStars( points ) );
+        postMessage( getStars( resultPoints[ startPoint ] ) );
 
         setTimeout( () => {
             startPoint = ( startPoint >= 360 ? 0 : ++startPoint );
 
-            self.ostMessage( getStars( points ) );
+            self.postMessage( getStars( resultPoints[ startPoint ] ) );
         }, timeout );
-
     }
-
 };
