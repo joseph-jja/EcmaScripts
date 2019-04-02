@@ -15,43 +15,52 @@ const http = require( 'http' ),
 const port = 20000,
     protocol = 'http://';
 
-let hostIP;
+let hostIP,
+    runDir = baseDir;
+
+const RUN_DIR = '--rundir=';
+for ( let i = 2, end = process.argv.length; i < end; i++ ) {
+    if ( process.argv[ i ].indexOf( RUN_DIR ) > -1 ) {
+        const idx = process.argv[ i ].indexOf( RUN_DIR ) + RUN_DIR.length;
+        runDir = path.resolve( process.argv[ i ].substring( idx ) );
+    }
+}
 
 const statfile = util.promisify( fs.stat );
 
 const intialFile = `${baseDir}/coverage/report-html/index.html`;
 
 const parentDir = {
-    name: baseDir,
+    name: runDir,
     isFile: false
 };
 
 async function listDir( dir, response ) {
 
-    const fullpath = path.resolve( baseDir, dir );
+    const fullpath = path.resolve( runDir, dir );
     const isDir = await statfile( fullpath );
 
     if ( isDir.isDirectory() ) {
         const pdir = path.resolve( fullpath, '..' );
         const parentDir = {
-            name: baseDir,
+            name: runDir,
             isFile: false
         };
-        if ( pdir.indexOf( baseDir ) >= 0 ) {
-            if ( pdir === baseDir ) {
+        if ( pdir.indexOf( runDir ) >= 0 ) {
+            if ( pdir === runDir ) {
                 parentDir.name = '..';
             } else {
                 parentDir.name = pdir;
             }
         }
 
-        const files = ( pdir.indexOf( baseDir ) >= 0 ? [ parentDir ] : [] )
+        const files = ( pdir.indexOf( runDir ) >= 0 ? [ parentDir ] : [] )
             .concat( await listDirectory( fullpath ) );
 
         const results = files.filter( item => {
             return ( item.name.indexOf( 'node_modules' ) === -1 );
         } ).map( item => {
-            const fname = item.name.replace( baseDir, '' );
+            const fname = item.name.replace( runDir, '' );
             let url;
             if ( item.isFile ) {
                 url = `<li class="file_type">${fname.replace( /^\//, '' )}</li>`;
@@ -69,7 +78,7 @@ async function listDir( dir, response ) {
         response.end( results );
     } else {
         let ltype = 'text/html';
-        const results = await viewFile( fullpath, baseDir );
+        const results = await viewFile( fullpath, runDir );
         if ( fullpath.substring( fullpath.length - 4 ) === '.css' ) {
             ltype = 'text/css';
         } else if ( fullpath.substring( fullpath.length - 3 ) === '.js' ) {
@@ -92,7 +101,7 @@ const server = http.createServer( ( request, response ) => {
 
     // save existing file
     if ( searchParams && searchParams.saveFile ) {
-        const fullpath = path.resolve( baseDir, searchParams.saveFile );
+        const fullpath = path.resolve( runDir, searchParams.saveFile );
         statfile( fullpath )
             .then( stats => {
                 let res = [];
@@ -134,7 +143,7 @@ const server = http.createServer( ( request, response ) => {
         return;
     }
 
-    listDir( `${baseDir}/${urlPath}`, response );
+    listDir( `${runDir}/${urlPath}`, response );
 } );
 
 try {
@@ -151,7 +160,7 @@ try {
     if ( os.platform() === 'android' ) {
         server.listen( port );
     } else if ( os.platform() === 'darwin' ) {
-        console.log( os.platform() === 'darwin' )
+        //console.log( os.platform() === 'darwin' )
         hostIP = '127.0.0.1';
         server.listen( port, hostIP );
     } else {

@@ -6,7 +6,7 @@
                 "edge": "15",
                 "chrome": "60",
                 "firefox": "60",
-                "safari": "10",
+                "safari": "12",
                 "esmodules": false
             }
         } ]

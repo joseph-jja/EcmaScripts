@@ -33,6 +33,7 @@ module.exports = {
         "resume": "./src/client/pages/resume",
         "rssEditor": "./src/client/pages/rssEditor",
         "simpleBARTAPI": "./src/client/pages/simpleBARTAPI",
+        "starSystem": "./src/client/workers/starSystem",
         "taskManager": "./src/client/pages/taskManager",
         "textEditor": "./src/client/pages/textEditor",
         "tropicalFish": "./src/client/pages/tropicalFish",
