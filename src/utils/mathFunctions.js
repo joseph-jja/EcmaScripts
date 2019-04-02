@@ -272,13 +272,13 @@ MathFunctions.getCirclePoints = function ( r ) {
 };
 
 MathFunctions.getRectangleCenter = function ( width, height ) {
-    return [ Math.floor( MathFunctions.divide( width , 2 ) ), Math.floor( MathFunctions.divide( height , 2 ) ) ];
+    return [ Math.floor( MathFunctions.divide( width, 2 ) ), Math.floor( MathFunctions.divide( height, 2 ) ) ];
 };
 
 MathFunctions.getRectangleCorner = function ( width, height ) {
     const center = MathFunctions.getRectangleCenter( width, height );
-    const p1 = Math.ceil( MathFunctions.divide(center[ 0 ] , 2 )), 
-          p2= Math.ceil( MathFunctions.divide(center[ 1 ] , 2 ));
+    const p1 = Math.ceil( MathFunctions.divide( center[ 0 ], 2 ) ),
+        p2 = Math.ceil( MathFunctions.divide( center[ 1 ], 2 ) );
     return ( p1 < p2 ? p1 : p2 );
 };
 
