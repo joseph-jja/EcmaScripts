@@ -45,7 +45,7 @@ detected += '<br />User Agent String = ' + dt.userAgent + '.';
 
 const screenWidth = dom.screen.maxx();
 
-const canvasWorker = exists( Worker ) ? new Worker('/js/star-system.js') : undefined;
+const canvasWorker = exists( windowWorker ) ? new Worker( '/js/star-system.js' ) : undefined;
 
 async function buildNav() {
     const navFrag = '/frags/nav.frag';
