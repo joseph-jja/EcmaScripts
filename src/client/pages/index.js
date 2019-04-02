@@ -3,7 +3,6 @@ import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import fetcher from 'client/net/fetcher';
-import MF from 'utils/mathFunctions';
 import {
     exists
 } from 'utils/typeCheck';
