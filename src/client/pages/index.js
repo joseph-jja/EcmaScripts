@@ -42,6 +42,8 @@ detected += '<br />User Agent String = ' + dt.userAgent + '.';
 
 const screenWidth = dom.screen.maxx();
 
+//const canvasWorker = new Worker('/js/star-system.js');
+
 async function buildNav() {
     const navFrag = '/frags/nav.frag';
     const navData = await fetcher( navFrag );
@@ -104,6 +106,10 @@ events.addOnLoad( () => {
 
     // make canvas black
     canvasRef.setBackgroundColor( 'black' );
+    
+    /*canvasWorker.postMessage({
+        'setWidthHeight': [ canvasRef.width, canvasRef.height ]
+    });*/
 
     const center = MF.getRectangleCenter( canvasRef.width, canvasRef.height );
     const corners = MF.getRectangleCorner( canvasRef.width, canvasRef.height );
