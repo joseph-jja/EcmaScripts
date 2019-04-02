@@ -105,9 +105,8 @@ events.addOnLoad( () => {
     // make canvas black
     canvasRef.setBackgroundColor( 'black' );
 
-    const center = [ Math.floor( canvasRef.width / 2 ), Math.floor( canvasRef.height / 2 ) ];
-    const corners = ( Math.ceil( center[ 0 ] / 2 ) < Math.ceil( center[ 1 ] / 2 ) ?
-        Math.ceil( center[ 0 ] / 2 ) : Math.ceil( center[ 1 ] / 2 ) );
+    const center = MF.getRectangleCenter( canvasRef.width, canvasRef.height );
+    const corners = MF.getRectangleCorner( canvasRef.width, canvasRef.height );
 
     const resultPoints = MF.getCirclePoints( corners );
     let startPoint = 0;
