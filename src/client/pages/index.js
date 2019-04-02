@@ -103,10 +103,7 @@ events.addOnLoad( () => {
     }
 
     // make canvas black
-    canvasRef.rectangle( 0, 0, canvasRef.width, canvasRef.height, {
-        color: 'black',
-        fillStrokeClear: 'fill'
-    } );
+    canvasRef.setBackgroundColor( 'black' );
 
     const center = [ Math.floor( canvasRef.width / 2 ), Math.floor( canvasRef.height / 2 ) ];
     const corners = ( Math.ceil( center[ 0 ] / 2 ) < Math.ceil( center[ 1 ] / 2 ) ?
