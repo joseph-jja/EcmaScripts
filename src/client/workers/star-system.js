@@ -1,8 +1,30 @@
 import MF from 'utils/mathFunctions';
 
+const self = this, 
+      timeout = 100;
+
 let center,
     resultPoints,
-    startPoint = 0;;
+    startPoint = 0;
+
+function getStars(points) {
+ 
+    const starOne = {
+                x: ( center[ 0 ] - points.x ),
+                y: ( center[ 1 ] - points.y )
+            },
+            starTwo = {
+                x: ( center[ 0 ] + points.x ),
+                y: ( center[ 1 ] + points.y )
+            };
+    
+    return {
+            stars: {
+                starOne,
+                starTwo
+            }
+        };
+}
 
 onmessage = ( msg ) => {
 
@@ -14,23 +36,16 @@ onmessage = ( msg ) => {
 
         resultPoints = MF.getCirclePoints( radius );
 
-        const points = resultPoints[ 0 ];
+        const points = resultPoints[ startPoint ];
+        
+        postMessage( getStars(points) );
+        
+setTimeout(() => {
+            startPoint = ( startPoint >= 360 ? 0 : ++startPoint );
 
-        const starOne = {
-                x: ( center[ 0 ] - points.x ),
-                y: ( center[ 1 ] - points.y )
-            },
-            starTwo = {
-                x: ( center[ 0 ] + points.x ),
-                y: ( center[ 1 ] + points.y )
-            };
-
-        postMessage( () => {
-            stars: {
-                starOne,
-                starTwo
-            }
-        } );
+   self.ostMessage( getStars(points) );
+}, timeout);
+        
     }
 
 };
