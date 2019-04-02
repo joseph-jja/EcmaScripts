@@ -4,6 +4,9 @@ import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import fetcher from 'client/net/fetcher';
 import MF from 'utils/mathFunctions';
+import {
+    exists
+} from 'utils/typeCheck';
 
 // default libs
 import detect from 'client/browser/detect';
@@ -42,7 +45,7 @@ detected += '<br />User Agent String = ' + dt.userAgent + '.';
 
 const screenWidth = dom.screen.maxx();
 
-//const canvasWorker = new Worker('/js/star-system.js');
+const canvasWorker = exists( Worker ) ? new Worker('/js/star-system.js') : undefined;
 
 async function buildNav() {
     const navFrag = '/frags/nav.frag';
