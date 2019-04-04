@@ -12,17 +12,21 @@ const http = require( 'http' ),
         parseUrl
     } = require( `${baseDir}/src/server/utils/url` );
 
-const port = 20000,
-    protocol = 'http://';
+const protocol = 'http://';
 
 let hostIP,
-    runDir = baseDir;
+    runDir = baseDir,
+    port = 20000;
 
-const RUN_DIR = '--rundir=';
+const RUN_DIR = '--rundir=',
+    PORT = '--PORT=';
 for ( let i = 2, end = process.argv.length; i < end; i++ ) {
     if ( process.argv[ i ].indexOf( RUN_DIR ) > -1 ) {
         const idx = process.argv[ i ].indexOf( RUN_DIR ) + RUN_DIR.length;
         runDir = path.resolve( process.argv[ i ].substring( idx ) );
+    } else if ( process.argv[ i ].indexOf( PORT ) > -1 ) {
+        const idx = process.argv[ i ].indexOf( PORT ) + RUN_DIR.length;
+        port = path.resolve( process.argv[ i ].substring( idx ) );
     }
 }
 

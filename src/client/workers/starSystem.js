@@ -12,11 +12,17 @@ function getStars( points ) {
 
     const starOne = {
             x: ( MF.subtract( center[ 0 ], points.x ) ),
-            y: ( MF.subtract( center[ 1 ], points.y ) )
+            y: ( MF.subtract( center[ 1 ], points.y ) ),
+            diameter: 18,
+            backroundDiameter: 19,
+            color: 'white'
         },
         starTwo = {
             x: ( MF.add( center[ 0 ], points.x ) ),
-            y: ( MF.add( center[ 1 ], points.y ) )
+            y: ( MF.add( center[ 1 ], points.y ) ),
+            diameter: 15,
+            backroundDiameter: 16,
+            color: 'white'
         };
 
     return {
