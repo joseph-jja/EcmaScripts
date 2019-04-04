@@ -10,7 +10,8 @@ let center,
 
 function getStars( points, hider ) {
 
-    const color = ( hider ? 'black' : 'white' );
+    // Zeta Reticuli :P 
+    const color = ( hider ? 'black' : '#FDB813' );
 
     return [ {
         x: ( MF.subtract( center[ 0 ], points.x ) ),
@@ -37,7 +38,7 @@ onmessage = ( msg ) => {
 
         resultPoints = MF.getCirclePoints( radius );
 
-        postMessage( getStars( resultPoints[ startPoint ] ) );
+        postMessage( getStars( resultPoints[ startPoint ], false ) );
 
         timerID = setInterval( () => {
 

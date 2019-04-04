@@ -116,24 +116,22 @@ events.addOnLoad( () => {
                 const stars = msg.data.stars,
                     black = stars.black,
                     white = stars.white;
-                console.log( black );
-                console.log( white );
 
                 canvasRef.circle( black[ 0 ].x, black[ 0 ].y, black[ 0 ].diameter, {
-                    color: 'black',
+                    color: black[ 0 ].color,
                     fillStrokeClear: 'fill'
                 } );
                 canvasRef.circle( black[ 1 ].x, black[ 1 ].y, black[ 1 ].diameter, {
-                    color: 'black',
+                    color: black[ 1 ].color,
                     fillStrokeClear: 'fill'
                 } );
 
                 canvasRef.circle( white[ 0 ].x, white[ 0 ].y, white[ 0 ].diameter, {
-                    color: 'white',
+                    color: white[ 0 ].color,
                     fillStrokeClear: 'fill'
                 } );
                 canvasRef.circle( white[ 1 ].x, white[ 1 ].y, white[ 1 ].diameter, {
-                    color: 'white',
+                    color: white[ 1 ].color,
                     fillStrokeClear: 'fill'
                 } );
             }
