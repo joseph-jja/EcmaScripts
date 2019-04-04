@@ -25,8 +25,8 @@ for ( let i = 2, end = process.argv.length; i < end; i++ ) {
         const idx = process.argv[ i ].indexOf( RUN_DIR ) + RUN_DIR.length;
         runDir = path.resolve( process.argv[ i ].substring( idx ) );
     } else if ( process.argv[ i ].indexOf( PORT ) > -1 ) {
-        const idx = process.argv[ i ].indexOf( PORT ) + RUN_DIR.length;
-        port = path.resolve( process.argv[ i ].substring( idx ) );
+        const idx = process.argv[ i ].indexOf( PORT ) + PORT.length;
+        port = process.argv[ i ].substring( idx );
     }
 }
 
