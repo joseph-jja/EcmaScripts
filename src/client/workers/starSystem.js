@@ -8,27 +8,21 @@ let center,
     startPoint = 0,
     timerID;
 
-function getStars( points ) {
+function getStars( points, hider ) {
 
-    const starOne = {
-            x: ( MF.subtract( center[ 0 ], points.x ) ),
-            y: ( MF.subtract( center[ 1 ], points.y ) ),
-            diameter: 18,
-            backroundDiameter: 19,
-            color: 'white'
-        },
-        starTwo = {
-            x: ( MF.add( center[ 0 ], points.x ) ),
-            y: ( MF.add( center[ 1 ], points.y ) ),
-            diameter: 15,
-            backroundDiameter: 16,
-            color: 'white'
-        };
+    const color = ( hider ? 'black' : 'white' );
 
-    return {
-        starOne,
-        starTwo
-    };
+    return [ {
+        x: ( MF.subtract( center[ 0 ], points.x ) ),
+        y: ( MF.subtract( center[ 1 ], points.y ) ),
+        diameter: ( hider ? 19 : 18 ),
+        color: color
+    }, {
+        x: ( MF.add( center[ 0 ], points.x ) ),
+        y: ( MF.add( center[ 1 ], points.y ) ),
+        diameter: ( hider ? 16 : 15 ),
+        color: color
+    } ];
 }
 
 onmessage = ( msg ) => {
@@ -48,10 +42,10 @@ onmessage = ( msg ) => {
         timerID = setInterval( () => {
 
             const oldPoint = resultPoints[ startPoint ];
-            const black = getStars( oldPoint );
+            const black = getStars( oldPoint, true );
             startPoint = ( startPoint >= 360 ? 0 : ++startPoint );
             const newPoint = resultPoints[ startPoint ];
-            const white = getStars( newPoint );
+            const white = getStars( newPoint, false );
 
             postMessage( {
                 stars: {

@@ -113,23 +113,26 @@ events.addOnLoad( () => {
         starSystemWorker.onmessage = ( msg ) => {
 
             if ( msg.data.stars ) {
-                const black = msg.data.stars.black,
-                    white = msg.data.stars.white;
+                const stars = msg.data.stars,
+                    black = stars.black,
+                    white = stars.white;
+                console.log( black );
+                console.log( white );
 
-                canvasRef.circle( black.starOne.x, black.starOne.y, 16, {
+                canvasRef.circle( black[ 0 ].x, black[ 0 ].y, black[ 0 ].diameter, {
                     color: 'black',
                     fillStrokeClear: 'fill'
                 } );
-                canvasRef.circle( black.starTwo.x, black.starTwo.y, 16, {
+                canvasRef.circle( black[ 1 ].x, black[ 1 ].y, black[ 1 ].diameter, {
                     color: 'black',
                     fillStrokeClear: 'fill'
                 } );
 
-                canvasRef.circle( white.starOne.x, white.starOne.y, 15, {
+                canvasRef.circle( white[ 0 ].x, white[ 0 ].y, white[ 0 ].diameter, {
                     color: 'white',
                     fillStrokeClear: 'fill'
                 } );
-                canvasRef.circle( white.starTwo.x, white.starTwo.y, 15, {
+                canvasRef.circle( white[ 1 ].x, white[ 1 ].y, white[ 1 ].diameter, {
                     color: 'white',
                     fillStrokeClear: 'fill'
                 } );
