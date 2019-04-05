@@ -14,7 +14,7 @@ body {
 .WebWindowTitle {
     position: relative;
     border: 2px solid black;
-    background: url("/images/WebWindowActiveTitle.gif");
+    background: url("/images/WebWindowTitleActive.gif");
     padding: 0px;
     margin: 0px;
     height: 22px;
