@@ -121,38 +121,37 @@ events.addOnLoad( () => {
                     blackPlanet = planets.blackPlanet;
 
                 if ( black ) {
-                    canvasRef.circle( black[ 0 ].x, black[ 0 ].y, black[ 0 ].diameter, {
-                        color: black[ 0 ].color,
-                        fillStrokeClear: 'fill'
-                    } );
-                    canvasRef.circle( black[ 1 ].x, black[ 1 ].y, black[ 1 ].diameter, {
-                        color: black[ 1 ].color,
-                        fillStrokeClear: 'fill'
-                    } );
+                    for ( let p = 0, end = black.length; p < end; p++ ) {
+                        canvasRef.circle( black[ p ].x, black[ p ].y, black[ p ].diameter, {
+                            color: black[ p ].color,
+                            fillStrokeClear: 'fill'
+                        } );
+                    }
                 }
                 if ( white ) {
-
-                    canvasRef.circle( white[ 0 ].x, white[ 0 ].y, white[ 0 ].diameter, {
-                        color: white[ 0 ].color,
-                        fillStrokeClear: 'fill'
-                    } );
-                    canvasRef.circle( white[ 1 ].x, white[ 1 ].y, white[ 1 ].diameter, {
-                        color: white[ 1 ].color,
-                        fillStrokeClear: 'fill'
-                    } );
+                    for ( let p = 0, end = white.length; p < end; p++ ) {
+                        canvasRef.circle( white[ p ].x, white[ p ].y, white[ p ].diameter, {
+                            color: white[ p ].color,
+                            fillStrokeClear: 'fill'
+                        } );
+                    }
                 }
 
                 if ( blackPlanet ) {
-                    canvasRef.circle( blackPlanet[ 0 ].x, blackPlanet[ 0 ].y, blackPlanet[ 0 ].diameter, {
-                        color: blackPlanet[ 0 ].color,
-                        fillStrokeClear: 'fill'
-                    } );
+                    for ( let p = 0, end = blackPlanet.length; p < end; p++ ) {
+                        canvasRef.circle( blackPlanet[ p ].x, blackPlanet[ p ].y, blackPlanet[ p ].diameter, {
+                            color: blackPlanet[ p ].color,
+                            fillStrokeClear: 'fill'
+                        } );
+                    }
                 }
                 if ( shownPlanet ) {
-                    canvasRef.circle( shownPlanet[ 0 ].x, shownPlanet[ 0 ].y, shownPlanet[ 0 ].diameter, {
-                        color: shownPlanet[ 0 ].color,
-                        fillStrokeClear: 'fill'
-                    } );
+                    for ( let p = 0, end = shownPlanet.length; p < end; p++ ) {
+                        canvasRef.circle( shownPlanet[ p ].x, shownPlanet[ p ].y, shownPlanet[ p ].diameter, {
+                            color: shownPlanet[ p ].color,
+                            fillStrokeClear: 'fill'
+                        } );
+                    }
                 }
             }
         };
