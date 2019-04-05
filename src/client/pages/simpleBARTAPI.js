@@ -14,7 +14,7 @@ async function doOnLoadStuff() {
 
     const stationData = await StationList();
 
-    const content = document.getElementById( 'content' );
+    const content = document.getElementById( 'webWindow' );
 
     const alertButton = dom.createElement( 'button', content, {
         id: 'bart-alerts'

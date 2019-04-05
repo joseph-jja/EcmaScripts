@@ -1,5 +1,5 @@
 // bart api host
-export const BART_API_HOST = 'http://api.bart.gov';
+export const BART_API_HOST = 'https://api.bart.gov';
 
 // key 
 export const BART_API_KEY = 'MW9S-E7SL-26DU-VV8V';
