@@ -115,25 +115,45 @@ events.addOnLoad( () => {
             if ( msg.data.stars ) {
                 const stars = msg.data.stars,
                     black = stars.black,
-                    white = stars.white;
+                    white = stars.white,
+                    planets = msg.data.planets,
+                    shownPlanet = planets.shownPlanet,
+                    blackPlanet = planets.blackPlanet;
 
-                canvasRef.circle( black[ 0 ].x, black[ 0 ].y, black[ 0 ].diameter, {
-                    color: black[ 0 ].color,
-                    fillStrokeClear: 'fill'
-                } );
-                canvasRef.circle( black[ 1 ].x, black[ 1 ].y, black[ 1 ].diameter, {
-                    color: black[ 1 ].color,
-                    fillStrokeClear: 'fill'
-                } );
+                if ( black ) {
+                    canvasRef.circle( black[ 0 ].x, black[ 0 ].y, black[ 0 ].diameter, {
+                        color: black[ 0 ].color,
+                        fillStrokeClear: 'fill'
+                    } );
+                    canvasRef.circle( black[ 1 ].x, black[ 1 ].y, black[ 1 ].diameter, {
+                        color: black[ 1 ].color,
+                        fillStrokeClear: 'fill'
+                    } );
+                }
+                if ( white ) {
 
-                canvasRef.circle( white[ 0 ].x, white[ 0 ].y, white[ 0 ].diameter, {
-                    color: white[ 0 ].color,
-                    fillStrokeClear: 'fill'
-                } );
-                canvasRef.circle( white[ 1 ].x, white[ 1 ].y, white[ 1 ].diameter, {
-                    color: white[ 1 ].color,
-                    fillStrokeClear: 'fill'
-                } );
+                    canvasRef.circle( white[ 0 ].x, white[ 0 ].y, white[ 0 ].diameter, {
+                        color: white[ 0 ].color,
+                        fillStrokeClear: 'fill'
+                    } );
+                    canvasRef.circle( white[ 1 ].x, white[ 1 ].y, white[ 1 ].diameter, {
+                        color: white[ 1 ].color,
+                        fillStrokeClear: 'fill'
+                    } );
+                }
+
+                if ( blackPlanet ) {
+                    canvasRef.circle( blackPlanet[ 0 ].x, blackPlanet[ 0 ].y, blackPlanet[ 0 ].diameter, {
+                        color: blackPlanet[ 0 ].color,
+                        fillStrokeClear: 'fill'
+                    } );
+                }
+                if ( shownPlanet ) {
+                    canvasRef.circle( shownPlanet[ 0 ].x, shownPlanet[ 0 ].y, shownPlanet[ 0 ].diameter, {
+                        color: shownPlanet[ 0 ].color,
+                        fillStrokeClear: 'fill'
+                    } );
+                }
             }
         };
         starSystemWorker.postMessage( {
