@@ -32,7 +32,7 @@ function getStars( points, hider ) {
 
 function getPlanet( starX, starY, points, hider, diameter ) {
 
-    const planetColor = ( hider ? 'black' : '#019108' );
+    const planetColor = ( hider ? 'black' : '#17e3ea' );
 
     return [ {
         x: ( MF.subtract( starX, points.x ) ),
