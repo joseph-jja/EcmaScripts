@@ -3,12 +3,13 @@ body {
 }
 
 .WebWindowMain {
-    width: 95%;
+    width: 85%;
     position: absolute;
     font-family: Arial;
     border: none;
     overflow: fill;
     z-index: 5;
+    margin-left 2em; 
 }
 
 .WebWindowTitle {
