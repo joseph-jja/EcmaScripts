@@ -9,7 +9,7 @@ body {
     border: none;
     overflow: fill;
     z-index: 5;
-    margin-left 2em; 
+    margin-left: 2em;
 }
 
 .WebWindowTitle {
