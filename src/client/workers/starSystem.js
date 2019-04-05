@@ -54,8 +54,8 @@ onmessage = ( msg ) => {
         const planetRadius = Math.floor( MF.divide( radius, 3 ) );
 
         resultPoints = MF.getCirclePoints( radius );
-        planetPoints = MF.getCirclePoints( planetRadius + 5 );
-        sPlanetPoints = MF.getCirclePoints( planetRadius + 25 );
+        planetPoints = MF.getCirclePoints( MF.add( planetRadius, ( width > 600 ? 0 : 5 ) ) );
+        sPlanetPoints = MF.getCirclePoints( MF.add( planetRadius, 25 ) );
 
         const stars = getStars( resultPoints[ startPoint ], false );
 
