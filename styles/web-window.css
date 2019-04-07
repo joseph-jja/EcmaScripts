@@ -1,17 +1,13 @@
-body {
-    position: relative;
-}
-
 .WebWindowMain {
     width: 75%;
-    position: absolute;
+    position: relative;
     font-family: Arial;
     border: none;
     overflow: fill;
-    z-index: 5;
-    top: 2.5em;
+    z-index: 3;
+    top: 0.5em;
     margin-left: 10em;
-    margin-bottom: 5em;
+    margin-bottom: 3em;
 }
 
 .WebWindowTitle {
@@ -36,10 +32,11 @@ body {
 
 .WebWindowArea {
     position: relative;
-    padding: 0px;
+    padding: 0.25em;
+    padding-bottom: 0.5em;
     margin: 0px;
     font-size: 10pt;
-    overflow: scroll;
+    overflow: fill;
     text-align: center;
     background-color: white;
     border-right: 2px solid black;
