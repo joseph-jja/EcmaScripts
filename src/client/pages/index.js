@@ -59,14 +59,14 @@ events.addOnLoad( () => {
     myclock.setId( "digiclock" );
     myclock.startClock();
 
-    let isCanedarDisplayed = false;
+    let isCalendarDisplayed = false;
 
     footer( document.querySelectorAll( 'footer' )[ 0 ] );
 
     const calendarButton = selector( 'footer ul li:first-child' );
     events.addEvent( calendarButton.get( 0 ), 'click', ( e ) => {
 
-        if ( !isCanedarDisplayed ) {
+        if ( !isCalendarDisplayed ) {
             // get footer
             const footerObj = selector( 'footer' ).get( 0 );
 

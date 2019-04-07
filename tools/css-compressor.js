@@ -3,13 +3,18 @@ const {
 } = require( 'child_process' ),
     path = require( 'path' );
 
+if ( typeof process.env.BINARY_STELLAR_SYSTEM_HOME === 'undefined' ) { 
+    console.error('please set BINARY_STELLAR_SYSTEM_HOME first');
+    process.exit(-1);
+}
+
 const baseDir = process.cwd(),
     listDirectory = require( `${baseDir}/src/server/filesystem/listDirectory` );
 
 const jsbeautify = path.resolve( baseDir, './node_modules/.bin/js-beautify' ),
     javabin = '/usr/bin/java',
     compressor = path.resolve( baseDir, './tools/yuicompressor-2.4.6.jar' ),
-    outputProject = path.resolve( process.env.HOME, 'workspace', 'binary-stellar-system.github.io', 'styles' );
+    outputProject = path.resolve( process.env.BINARY_STELLAR_SYSTEM_HOME, 'styles' );
 
 async function compressStyles() {
 

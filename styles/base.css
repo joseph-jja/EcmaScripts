@@ -91,10 +91,10 @@ footer ul li {
 
 #canvas-container {
     z-index: 0;
-    top: 5em;
+    top: 0.5em;
     margin: 0 auto;
     width: 100%;
-    position: absolute;
+    position: relative;
 }
 
 #star-system {

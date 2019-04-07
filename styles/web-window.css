@@ -3,13 +3,14 @@ body {
 }
 
 .WebWindowMain {
-    width: 85%;
+    width: 75%;
     position: absolute;
     font-family: Arial;
     border: none;
     overflow: fill;
     z-index: 5;
-    margin-left: 2em;
+    top: 2.5em;
+    margin-left: 10em;
 }
 
 .WebWindowTitle {
@@ -37,7 +38,8 @@ body {
     padding: 0px;
     margin: 0px;
     font-size: 10pt;
-    overflow: auto;
+    overflow: scroll;
+    height: 550px;
     text-align: center;
     background-color: white;
     border-right: 2px solid black;
@@ -93,3 +95,5 @@ body {
     padding: 0px;
     margin: 0px;
 }
+
+
