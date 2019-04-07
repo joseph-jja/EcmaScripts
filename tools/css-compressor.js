@@ -12,7 +12,7 @@ const baseDir = process.cwd(),
     listDirectory = require( `${baseDir}/src/server/filesystem/listDirectory` );
 
 const jsbeautify = path.resolve( baseDir, './node_modules/.bin/js-beautify' ),
-    javabin = '/usr/bin/java',
+    javabin = process.env.JAVA_EXECUTABLE,
     compressor = path.resolve( baseDir, './tools/yuicompressor-2.4.6.jar' ),
     outputProject = path.resolve( process.env.BINARY_STELLAR_SYSTEM_HOME, 'styles' );
 
