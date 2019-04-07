@@ -21,6 +21,7 @@ header {
 }
 
 footer {
+    z-index: 5;
     bottom: 0px;
     font-size: 0.8em;
     border-top: 4px #96f ridge;
