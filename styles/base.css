@@ -16,6 +16,7 @@ footer {
 }
 
 header {
+    z-index: 5;
     top: 0px;
     border-bottom: 4px #96f ridge;
 }
@@ -83,7 +84,7 @@ footer ul li {
 }
 
 #menu select {
-    font-size: 1em;
+    font-size: 0.8em;
     font-weight: bold;
     width: 100%;
     padding: 0.5em;
