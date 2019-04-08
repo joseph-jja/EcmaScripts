@@ -74,8 +74,14 @@ footer ul li {
     text-transform: capitalize
 }
 
+#webWindow {
+    grid-column: 2 / span 4;
+    grid-row: 1 / span 4;
+}
+
 #menu {
-    grid-area: left;
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
     margin: 0;
     width: 8em;
     padding: 0.5em;
@@ -89,27 +95,44 @@ footer ul li {
     background-color: #aff0ff;
 }
 
-#webWindow {
-    grid-area: webWindow;
+.container {
+    display: grid;
+    grid-template-columns: 20% 25% 30% 25%;
+    grid-template-rows: 10% 30% 30% 30%;
+    grid-gap: 2px;
+    background-color: #ffffff;
+    padding: 5px;
+    margin-top: 1.5em;
+    left: 0;
+    width: 95%;
+    height: 85%;
 }
 
-        .container {
-            display: grid;
-            grid-template-areas: 'left webWindow webWindow webWindow';
-            grid-gap: 2px;
-            background-color: #ffffff;
-            padding: 5px;
-            margin-top: 1.5em;
-            left: 0;
-            width: 95%;
-            height: 85%;
-        }
+@media only screen and (max-width: 600px) {
+.container {
+    grid-template-columns: 15% 25% 35% 25%;
+    grid-template-rows: 10% 30% 30% 30%;
+}
+#menu {
+    grid-column: 1 / span 4;
+    grid-row: 1 / span 1;
+}
+#webWindow {
+    grid-column: 1 / span 4;
+    grid-row: 2 / span 4;
+}
+}
 
-        .container>nav, .container>div {
-            background-color: #ffffff;
-            text-align: left;
-            overflow: scroll;
-        }
+.container>nav,
+.container>div {
+    background-color: #ffffff;
+    text-align: left;
+    overflow: scroll;
+}
+
+.container>div {
+    margin: 1em 0em 3em 5em;
+}
 
 #canvas-container {
     z-index: 0;
