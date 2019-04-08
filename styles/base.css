@@ -144,6 +144,10 @@ footer ul li {
     margin: 1em 0em 3em 0em;
 }
 
+#home-content {
+    text-align: left;
+}
+
 #canvas-container {
     z-index: 0;
     top: 0.5em;
