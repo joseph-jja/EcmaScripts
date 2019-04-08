@@ -3,9 +3,9 @@ const {
 } = require( 'child_process' ),
     path = require( 'path' );
 
-if ( typeof process.env.BINARY_STELLAR_SYSTEM_HOME === 'undefined' ) { 
-    console.error('please set BINARY_STELLAR_SYSTEM_HOME first');
-    process.exit(-1);
+if ( typeof process.env.BINARY_STELLAR_SYSTEM_HOME === 'undefined' ) {
+    console.error( 'please set BINARY_STELLAR_SYSTEM_HOME first' );
+    process.exit( -1 );
 }
 
 const baseDir = process.cwd(),

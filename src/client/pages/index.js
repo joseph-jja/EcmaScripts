@@ -89,11 +89,11 @@ events.addOnLoad( () => {
             const calHeight = window.getComputedStyle( calendarContainer ).height;
             const repositionPX = parseInt( topOfFooter ) - parseInt( calHeight ) - 12;
             calendarContainer.style.top = repositionPX + 'px';
-            isCanedarDisplayed = true;
+            isCalendarDisplayed = true;
         } else {
             const calReference = selector( '#calendar-container' ).get( 0 );
             calReference.style.display = 'none';
-            isCanedarDisplayed = false;
+            isCalendarDisplayed = false;
         }
 
     } );
@@ -161,6 +161,6 @@ events.addOnLoad( () => {
     }
 
     buildNav();
-    //dom.html( "#cautionContent", capabilities + detected );
-    //menu.basicMenu();
+    const wwa = selector( '#welcome-content .WebWindowArea' ).get( 0 );
+    wwa.innerHTML = capabilities + detected;
 } );
