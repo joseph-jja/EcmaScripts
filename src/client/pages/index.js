@@ -58,10 +58,10 @@ async function getIndex() {
     const iFrag = '/frags/index.frag';
     const iData = await fetcher( iFrag );
 
-    detected = iData + detected;
+    return iData;
 }
 
-events.addOnLoad( () => {
+events.addOnLoad( async function () {
     const myclock = new DigitalClock();
     myclock.setId( "digiclock" );
     myclock.startClock();
@@ -169,6 +169,6 @@ events.addOnLoad( () => {
 
     buildNav();
     const wwa = selector( '#welcome-content .WebWindowArea' ).get( 0 );
-    getIndex();
-    wwa.innerHTML = capabilities + detected;
+    const indexData = await getIndex();
+    wwa.innerHTML = indexData + capabilities + detected;
 } );
