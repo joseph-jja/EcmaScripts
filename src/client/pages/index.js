@@ -54,6 +54,13 @@ async function buildNav() {
     nav.innerHTML = navData.replace( /\n/g, '' );
 }
 
+async function getIndex() {
+    const iFrag = '/frags/index.frag';
+    const iData = await fetcher( iFrag );
+
+    detected = iData + detected;
+}
+
 events.addOnLoad( () => {
     const myclock = new DigitalClock();
     myclock.setId( "digiclock" );
@@ -162,5 +169,6 @@ events.addOnLoad( () => {
 
     buildNav();
     const wwa = selector( '#welcome-content .WebWindowArea' ).get( 0 );
+    getIndex();
     wwa.innerHTML = capabilities + detected;
 } );
