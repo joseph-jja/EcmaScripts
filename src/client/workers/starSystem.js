@@ -77,12 +77,17 @@ onmessage = ( msg ) => {
             const black = getStars( oldPoint, true );
             const blackPlanet = getPlanet( black[ 0 ].x, black[ 0 ].y, planetPoints[ planetPoint ], true, 3 );
             const sBlackPlanet = getPlanet( black[ 0 ].x, black[ 0 ].y, sPlanetPoints[ sPlanetPoint ], true, 7 );
-            startPoint = ( startPoint >= 360 ? 0 : ++startPoint );
-            planetPoint = ( planetPoint >= 360 ? 0 : ++planetPoint );
-            planetPoint = ( planetPoint >= 360 ? 0 : ++planetPoint );
-            planetPoint = ( planetPoint >= 360 ? 0 : ++planetPoint );
-            sPlanetPoint = ( sPlanetPoint >= 360 ? 0 : ++sPlanetPoint );
-            sPlanetPoint = ( sPlanetPoint >= 360 ? 0 : ++sPlanetPoint );
+            startPoint = ( startPoint <= 0 ? 360 : --startPoint );
+            if ( planetPoint < 2 ) {
+                planetPoint = 360;
+            } else {
+                planetPoint -= 3;
+            }
+            if ( sPlanetPoint < 1 ) {
+                sPlanetPoint = 360;
+            } else {
+                sPlanetPoint -= 2;
+            }
             const newPoint = resultPoints[ startPoint ];
             const white = getStars( newPoint, false );
             const shownPlanet = getPlanet( white[ 0 ].x, white[ 0 ].y, planetPoints[ planetPoint ], false, 3 );
