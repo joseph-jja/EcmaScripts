@@ -1,4 +1,3 @@
-import * as events from 'client/dom/events';
 import * as ajax from 'client/net/ajax';
 import * as xml from 'client/browser/xml';
 import * as typeCheck from 'utils/typeCheck';
@@ -177,56 +176,56 @@ function parseJobs( XMLDOMDocument ) {
 
 onmessage = ( msg ) => {
 
-var jsonData = [];
+    var jsonData = [];
 
-let callback;
-try {
+    let callback;
+    try {
 
-    callback = function () {
-        if ( this.xmlhttp.readyState === 4 ) {
-            var result = this.xmlhttp.responseText;
-            var DOMDoc = xml.getAsXMLDocument( result );
+        callback = function () {
+            if ( this.xmlhttp.readyState === 4 ) {
+                var result = this.xmlhttp.responseText;
+                var DOMDoc = xml.getAsXMLDocument( result );
 
-            jsonData = xml.xml2json( DOMDoc );
+                jsonData = xml.xml2json( DOMDoc );
 
-            var header = '<table width="100%"><tr><td align="left">';
+                var header = '<table width="100%"><tr><td align="left">';
 
-            var url = getFirstNodeText( DOMDoc, "url" );
+                var url = getFirstNodeText( DOMDoc, "url" );
 
-            header += '</td></tr></table>';
+                header += '</td></tr></table>';
 
-            var jobs = parseJobs( DOMDoc );
+                var jobs = parseJobs( DOMDoc );
 
-            var degrees = parseDegree( DOMDoc );
+                var degrees = parseDegree( DOMDoc );
 
-            var misc = parseMisc( DOMDoc );
+                var misc = parseMisc( DOMDoc );
 
-            var skills = parseSkills( DOMDoc );
+                var skills = parseSkills( DOMDoc );
 
-            header = '<div style="text-align:center; font-weight: bold;">header not displayed for privacy</div>';
+                header = '<div style="text-align:center; font-weight: bold;">header not displayed for privacy</div>';
 
-            postMessage( {
-                header,
-                skills,
-                jobs,
-                degrees,
-                misc
-            } );
-        }
-    };
+                postMessage( {
+                    header,
+                    skills,
+                    jobs,
+                    degrees,
+                    misc
+                } );
+            }
+        };
 
-    // try hard parsing here
-    var ajaxObj = ajax.get( callback, "resume_data.xml", null );
+        // try hard parsing here
+        var ajaxObj = ajax.get( callback, "resume_data.xml", null );
 
-} catch ( xmlException ) {
+    } catch ( xmlException ) {
 
-    if ( !xml.transformXML( "resume_data.xml", "resume_default.xsl", obj ) ) {
-        alert( "Your browser is not supported!!!" );
-        var res = "Your browser is not supported for this feature.";
+        let res = "Your browser is not supported for this feature.";
         res += "<br />Sorry I tried!";
         res += "<br />So far, known supported browsers are IE 6.0+ and newer Gecko based browsers.";
         res += "<br />If you use IE make sure ActiveX is enabled.";
-        obj.innerHTML = res;
+
+        postMessage( {
+            error: res
+        } );
     }
-}
-} );
+};
