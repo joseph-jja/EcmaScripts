@@ -137,11 +137,11 @@ footer ul li {
 .container>div {
     background-color: #ffffff;
     text-align: left;
-    overflow: scroll;
 }
 
 .container>div {
     margin: 1em 0em 3em 0em;
+    overflow: auto;
 }
 
 .home-content {
