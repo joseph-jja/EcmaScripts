@@ -249,6 +249,28 @@ MathFunctions.convertFromBaseXToBaseTen = function ( xbase, inval ) {
     return remainder;
 };
 
+// given an x and y radius and angle get the x, y point on the ellipse
+MathFunctions.getEllipsePoint = function ( xr, yr, angle ) {
+    const rAngle = MathFunctions.degreesToRadians( angle ),
+        x = MathFunctions.multiply( xr, Math.cos( rAngle ) ),
+        y = MathFunctions.multiply( yr, Math.sin( rAngle ) );
+
+    return {
+        x: Math.round( x ),
+        y: Math.round( y )
+    };
+};
+
+// give a radius get ALL the points on the circle
+MathFunctions.getEllipsePoints = function ( xr, yr ) {
+    const points = [];
+    for ( let startPoint = 0; startPoint <= 360; startPoint++ ) {
+        const nextPoints = MathFunctions.getEllipsePoint( xr, yr, startPoint );
+        points.push( nextPoints );
+    }
+    return points;
+};
+
 // given a radius and angle get the x, y point on the circle
 MathFunctions.getCirclePoint = function ( r, angle ) {
     const rAngle = MathFunctions.degreesToRadians( angle ),
