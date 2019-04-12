@@ -37,7 +37,8 @@ const dt = detect();
 
 let defaultPosition = {},
     isCalendarDisplayed = false,
-    starsShouldRun = true;
+    starsShouldRun = true,
+    mainWin;
 
 let detected,
     capabilities = '<br><div class="home-content">';
@@ -77,11 +78,16 @@ async function loadResume() {
     const resumeURL = '/data/resume_data.xml';
     const resumeData = await fetcher( resumeURL );
 
+    const resumeHTML = resumeParser( resumeData );
+
+    const resumeObj = dom.createElement( 'div', mainWin.windowArea, {
+        id: 'resume-html'
+    } );
+    dom.html( resumeObj, resumeHTML );
+    resumeObj.style.display = 'block';
+
     // stop the running stars
     starsShouldRun = false;
-
-    const rwin = document.getElementById( 'main-window' );
-    rwin.setContent( resumeParser( resumeData ) );
 }
 
 function setDefaultPosition() {
@@ -89,7 +95,7 @@ function setDefaultPosition() {
     const styles = window.getComputedStyle( mw );
     defaultPosition = styles;
 
-    const resumeWin = new WebWindow( 'Main Window',
+    mainWin = new WebWindow( 'Home - Not Mine Though',
         defaultPosition.offsetLeft,
         defaultPosition.offsetTop,
         defaultPosition.offsetWidth,
@@ -214,8 +220,26 @@ events.addOnLoad( async function () {
         const evt = events.getEvent( e );
         const tgt = events.getTarget( evt );
         const item = tgt.options[ tgt.selectedIndex ].text.toLowerCase();
-        if ( item === 'resume' ) {
-            //loadResume();
+        starsShouldRun = false;
+
+        // hide them all
+        selector( '.WebWindowArea div', document.getElementById( 'main-window' ) ).each( item => {
+            item.style.display = 'none';
+        } );
+
+        if ( item === 'home' ) {
+            starsShouldRun = true;
+            canvasRef.setBackgroundColor( 'black' );
+            const canvasContainer = selector( '#canvas-container' ).get( 0 );
+            canvasContainer.style.display = 'block';
+        } else if ( item === 'resume' ) {
+            loadResume();
+        } else {
+            // unti lwe implement the rest of the ui items
+            starsShouldRun = true;
+            canvasRef.setBackgroundColor( 'black' );
+            const canvasContainer = selector( '#canvas-container' ).get( 0 );
+            canvasContainer.style.display = 'block';
         }
     } );
 } );

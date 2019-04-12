@@ -55,6 +55,10 @@ export default function selector( expr, parent ) {
         return Array.from( result );
     };
 
+    self.each = function ( fn ) {
+        self.toArray().forEach( fn );
+    };
+
     for ( let y = 0; y < self.length; y++ ) {
         self[ y ] = result[ y ];
     }
