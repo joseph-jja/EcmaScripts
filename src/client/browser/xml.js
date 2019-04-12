@@ -62,7 +62,7 @@ export function simpleRSSToJSON( obj ) {
         j = 0;
         i = 0;
         // current node name, although we don't use this
-        // it is not used because the top level node is #document in an xml document 
+        // it is not used because the top level node is #document in an xml document
         // we don't care about the #document node, we want the rss and on down the line
         nodeCT = obj.childNodes.length;
         while ( j < nodeCT ) {
@@ -221,21 +221,19 @@ export function xml2json( xmlNode ) {
     }
 };
 
+function isDOMParserCapable() {
+    try {
+        return ( DOMParser ) ? true : false;
+    } catch ( e ) {
+        return false;
+    }
+}
+
 export function getAsXMLDocument( xmlString ) {
 
     let xmlDocument = null,
-        xmlInput, isDOMParserCapable,
+        xmlInput = xmlString,
         parser, bFound, i, objXML;
-
-    xmlInput = xmlString;
-
-    isDOMParserCapable = function () {
-        try {
-            return ( DOMParser ) ? true : false;
-        } catch ( e ) {
-            return false;
-        }
-    };
 
     if ( isDOMParserCapable() ) {
         // then try this
@@ -247,7 +245,7 @@ export function getAsXMLDocument( xmlString ) {
                 xmlDocument = document.implementation.createDocument( "", "", xmlInput );
             }
         }
-    } else if ( window.ActiveXObject ) {
+    } else if ( typeof ActiveXObject !== 'undefined' ) {
         // IE and active X reject browsers
         /*@cc_on @*/
         /*@if (@_jscript_version >= 5)

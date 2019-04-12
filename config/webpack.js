@@ -30,7 +30,7 @@ module.exports = {
         "performance": "./src/client/pages/performance",
         "programmingLanguages": "./src/client/pages/programmingLanguages",
         "programs": "./src/client/pages/programs",
-        "resume": "./src/client/workers/resume",
+        "resume": "./src/client/pages/resume",
         "rssEditor": "./src/client/pages/rssEditor",
         "simpleBARTAPI": "./src/client/pages/simpleBARTAPI",
         "starSystem": "./src/client/workers/starSystem",
