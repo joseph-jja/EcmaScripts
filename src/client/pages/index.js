@@ -24,9 +24,20 @@ import {
 // calendar
 import Calendar from 'client/components/calendar';
 
+// resume parser
+import resumeParser from 'client/components/resumeParser';
+
+// window
+import WebWindow from 'client/components/wbWindow';
+
 // TODO clean up this detection stuff
 // code
 const dt = detect();
+
+
+let defaultPosition = {},
+    isCalendarDisplayed = false,
+    starsShouldRun = true;
 
 let detected,
     capabilities = '';
@@ -61,14 +72,39 @@ async function getIndex() {
     return iData;
 }
 
+async function loadResume() {
+
+    const resumeURL = '/data/resume_data.xml';
+    const resumeData = await fetcher( resumeURL );
+
+    // stop the running stars
+    starsShouldRun = false;
+
+    const rwin = document.getElementById( 'main-window' );
+    rwin.setContent( resumeParser( resumeData ) );
+}
+
+function setDefaultPosition() {
+    const mw = document.getElementById( 'main-window' );
+    const styles = window.getComputedStyle( mw );
+    defaultPosition = styles;
+
+    const resumeWin = new WebWindow( 'Main Window',
+        defaultPosition.offsetLeft,
+        defaultPosition.offsetTop,
+        defaultPosition.offsetWidth,
+        defaultPosition.offsetHeight,
+        'main-window' );
+}
+
 events.addOnLoad( async function () {
     const myclock = new DigitalClock();
     myclock.setId( "digiclock" );
     myclock.startClock();
 
-    let isCalendarDisplayed = false;
-
     footer( document.querySelectorAll( 'footer' )[ 0 ] );
+
+    setDefaultPosition();
 
     const calendarButton = selector( 'footer ul li:first-child' );
     events.addEvent( calendarButton.get( 0 ), 'click', ( e ) => {
@@ -119,7 +155,7 @@ events.addOnLoad( async function () {
     if ( starSystemWorker ) {
         starSystemWorker.onmessage = ( msg ) => {
 
-            if ( msg.data.stars ) {
+            if ( msg.data.stars && starsShouldRun ) {
                 const stars = msg.data.stars,
                     black = stars.black,
                     white = stars.white,
@@ -167,8 +203,18 @@ events.addOnLoad( async function () {
         } );
     }
 
-    buildNav();
+    await buildNav();
     const wwa = selector( '#welcome-content .WebWindowArea' ).get( 0 );
     const indexData = await getIndex();
     wwa.innerHTML = indexData + capabilities + detected;
+
+    const dropdown = selector( '.url-wrapper select' ).get( 0 );
+    events.addEvent( dropdown, 'click', ( e ) => {
+        const evt = events.getEvent( e );
+        const tgt = events.getTarget( evt );
+        const item = tgt.options[ tgt.selectedIndex ].text.toLowerCase();
+        if ( item === 'resume' ) {
+            //loadResume();
+        }
+    } );
 } );

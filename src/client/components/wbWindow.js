@@ -19,60 +19,61 @@ export default function wbWindow( title, x, y, width, height, winID ) {
 
     // 1 div for the main window
     // all WebWindows are web window mains
-    var options,
-        bdy = document.body,
-        code,
-        buildButton, nht;
+    var buildButton, nht;
 
     // try to get the window, if not crate it from template
-    //this.mainWindow = selector("#" + winID).get(0);
-    //if ( ! this.mainWindow ) {
-    //    code = template.add('main', '<div class="{{cssClass}}" id="{{eleID}}"></div>');
-    //    options = { "cssClass": "WebWindowMain", "eleID": winID };
-    //    selector(bdy).append(template.render('main', options));
-    //    this.mainWindow = selector("#" + winID).get(0);
-    //}
+    const mainWin = selector( "#" + winID ).get( 0 );
+    if ( mainWin ) {
+        this.mainWindow = mainWin;
 
-    options = {
-        "className": "WebWindowMain",
-        "id": winID
-    };
-    this.mainWindow = dom.createElement( "div", document.body, options );
+        this.titleBar = selector( '.WebWindowTitle', this.mainWindow ).get( 0 );
+        this.titleBar.id = "WebWindowTitle" + winID;
 
-    // set some style properties for this window
-    // left, top, width, and height
-    this.mainWindow.style.left = x + "px";
-    this.mainWindow.style.top = y + "px";
-    this.mainWindow.style.width = width + "px";
-    this.mainWindow.style.height = height + "px";
+        this.windowArea = selector( '.WebWindowArea', this.mainWindow ).get( 0 );
+        this.windowArea.id = "WebWindowArea" + winID;
 
-    // 3 divs to contain the data
-    options = {
-        "className": "WebWindowTitle",
-        "id": "WebWindowTitle" + winID
-    };
-    this.titleBar = dom.createElement( "div", this.mainWindow, options );
-    options = {
-        "className": "WebWindowArea",
-        "id": "WebWindowArea" + winID
-    };
-    this.windowArea = dom.createElement( "div", this.mainWindow, options );
-    // now the footer of the window
-    options = {
-        "className": "WebWindowFooter",
-        "id": "WebWindowFooter" + winID
-    };
-    this.footerArea = dom.createElement( "div", this.mainWindow, options );
+        this.footerArea = selector( '.WebWindowFooter', this.mainWindow ).get( 0 );
+        this.footerArea.id = "WebWindowFooter" + winID;
+    } else {
+        this.mainWindow = dom.createElement( "div", document.body, {
+            "className": "WebWindowMain",
+            "id": winID
+        } );
 
+        // set some style properties for this window
+        // left, top, width, and height
+        this.mainWindow.style.left = x + "px";
+        this.mainWindow.style.top = y + "px";
+        this.mainWindow.style.width = width + "px";
+        this.mainWindow.style.height = height + "px";
+
+        // 3 divs to contain the data
+        this.titleBar = dom.createElement( "div", this.mainWindow, {
+            "className": "WebWindowTitle",
+            "id": "WebWindowTitle" + winID
+        } );
+
+        this.windowArea = dom.createElement( "div", this.mainWindow, {
+            "className": "WebWindowArea",
+            "id": "WebWindowArea" + winID
+        } );
+
+        // now the footer of the window
+        this.footerArea = dom.createElement( "div", this.mainWindow, {
+            "className": "WebWindowFooter",
+            "id": "WebWindowFooter" + winID
+        } );
+
+    }
     // we create a span in the title bar
-    options = {
+    var titleTable = dom.createElement( "span", this.titleBar, {
         "className": "WebWindowTitleText"
-    };
-    var titleTable = dom.createElement( "span", this.titleBar, options );
+    } );
     titleTable.innerHTML = title;
 
+
     // this is for the buttons
-    options = {
+    let options = {
         "className": "WebWindowButtonBox"
     };
     var buttonBox = dom.createElement( "span", this.titleBar, options );
