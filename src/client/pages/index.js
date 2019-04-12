@@ -97,6 +97,39 @@ function setDefaultPosition() {
         'main-window' );
 }
 
+function renderCalendar() {
+    if ( !isCalendarDisplayed ) {
+        // get footer
+        const footerObj = selector( 'footer' ).get( 0 );
+
+        // figure out the height
+        const computedStyles = window.getComputedStyle( footerObj );
+        const topOfFooter = computedStyles.top;
+
+        // body for new element
+        const body = document.querySelector( 'body' );
+
+        // calendar stuff here
+        const calendarContainer = dom.createElement( 'div', body, {
+            'id': 'calendar-container'
+        } );
+        calendarContainer.style.display = 'block';
+        const cal = new Calendar( calendarContainer.id );
+        cal.render();
+
+        // reposition stuff here
+        const calHeight = window.getComputedStyle( calendarContainer ).height;
+        const repositionPX = parseInt( topOfFooter ) - parseInt( calHeight ) - 12;
+        calendarContainer.style.top = repositionPX + 'px';
+        calendarContainer.style.position = 'fixed';
+        isCalendarDisplayed = true;
+    } else {
+        const calReference = selector( '#calendar-container' ).get( 0 );
+        calReference.style.display = 'none';
+        isCalendarDisplayed = false;
+    }
+}
+
 events.addOnLoad( async function () {
     const myclock = new DigitalClock();
     myclock.setId( "digiclock" );
@@ -107,40 +140,7 @@ events.addOnLoad( async function () {
     setDefaultPosition();
 
     const calendarButton = selector( 'footer ul li:first-child' );
-    events.addEvent( calendarButton.get( 0 ), 'click', ( e ) => {
-
-        if ( !isCalendarDisplayed ) {
-            // get footer
-            const footerObj = selector( 'footer' ).get( 0 );
-
-            // figure out the height
-            const computedStyles = window.getComputedStyle( footerObj );
-            const topOfFooter = computedStyles.top;
-
-            // body for new element
-            const body = document.querySelector( 'body' );
-
-            // calendar stuff here
-            const calendarContainer = dom.createElement( 'div', body, {
-                'id': 'calendar-container'
-            } );
-            calendarContainer.style.display = 'block';
-            const cal = new Calendar( calendarContainer.id );
-            cal.render();
-
-            // reposition stuff here
-            const calHeight = window.getComputedStyle( calendarContainer ).height;
-            const repositionPX = parseInt( topOfFooter ) - parseInt( calHeight ) - 12;
-            calendarContainer.style.top = repositionPX + 'px';
-            calendarContainer.style.position = 'fixed';
-            isCalendarDisplayed = true;
-        } else {
-            const calReference = selector( '#calendar-container' ).get( 0 );
-            calReference.style.display = 'none';
-            isCalendarDisplayed = false;
-        }
-
-    } );
+    events.addEvent( calendarButton.get( 0 ), 'click', renderCalendar );
 
     // TODO move this into a worker?
     let canvasRef;
