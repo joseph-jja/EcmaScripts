@@ -40,7 +40,7 @@ let defaultPosition = {},
     starsShouldRun = true;
 
 let detected,
-    capabilities = '';
+    capabilities = '<br><div class="home-content">';
 
 if ( !dt.capabilitiesDetected ) {
     capabilities += "WARNING: Your browser version information was detected from useragent string only or not at all! ";
@@ -51,7 +51,7 @@ detected += '<br /><br />Stated OS = ' + dt.OS + '.';
 detected += '<br />Stated Name - Version = ' + dt.name + ' - ' + dt.appVersion;
 detected += '<br /><br />Spoofable OS = ' + dt.uaOS + ( dt.uaOSVersion ? "(" + dt.uaOSVersion + ")" : "" ) + '.';
 detected += '<br />Spoofable Name - Version = ' + dt.uaName + ' - ' + dt.uaAppVersion;
-detected += '<br />User Agent String = ' + dt.userAgent + '.';
+detected += '<br />User Agent String = ' + dt.userAgent + '.</div>';
 
 const screenWidth = dom.screen.maxx();
 
@@ -132,6 +132,7 @@ events.addOnLoad( async function () {
             const calHeight = window.getComputedStyle( calendarContainer ).height;
             const repositionPX = parseInt( topOfFooter ) - parseInt( calHeight ) - 12;
             calendarContainer.style.top = repositionPX + 'px';
+            calendarContainer.style.position = 'fixed';
             isCalendarDisplayed = true;
         } else {
             const calReference = selector( '#calendar-container' ).get( 0 );
