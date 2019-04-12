@@ -223,7 +223,7 @@ events.addOnLoad( async function () {
         starsShouldRun = false;
 
         // hide them all
-        selector( '.WebWindowArea div', document.getElementById( 'main-window' ) ).each( item => {
+        selector( '.WebWindowArea div', ).each( item => {
             item.style.display = 'none';
         } );
 
@@ -234,6 +234,8 @@ events.addOnLoad( async function () {
             canvasContainer.style.display = 'block';
         } else if ( item === 'resume' ) {
             loadResume();
+            // FIXME
+            document.getElementById( 'welcome-content' ).style.display = 'none';
         } else {
             // unti lwe implement the rest of the ui items
             starsShouldRun = true;
