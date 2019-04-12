@@ -7,8 +7,8 @@
 export default function XmlHttp() {
     let xmlhttp = false;
     // try to use the default xml http request object first
-    if ( window.XMLHttpRequest ) {
-        xmlhttp = new window.XMLHttpRequest();
+    if ( typeof XMLHttpRequest !== 'undefined' ) {
+        xmlhttp = new XMLHttpRequest();
     } else {
         // fall back for IE here, conditional compilation for IE or later only
         /*@cc_on @*/
@@ -24,7 +24,7 @@ export default function XmlHttp() {
 					xmlhttp = new ActiveXObject(AJAX_ACTIVEX[i]);
 				} catch (E) {
 					xmlhttp = false;
-				} 
+				}
 				i += 1;
 			}
 			@end @*/
