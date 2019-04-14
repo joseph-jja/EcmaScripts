@@ -227,6 +227,11 @@ events.addOnLoad( async function () {
             item.style.display = 'none';
         } );
 
+        const wc = document.getElementById( 'welcome-content' );
+        selector( '.WebWindowArea div', wc ).each( item => {
+            item.style.display = 'block';
+        } );
+
         if ( item === 'home' ) {
             starsShouldRun = true;
             canvasRef.setBackgroundColor( 'black' );
@@ -234,8 +239,6 @@ events.addOnLoad( async function () {
             canvasContainer.style.display = 'block';
         } else if ( item === 'resume' ) {
             loadResume();
-            // FIXME
-            document.getElementById( 'welcome-content' ).style.display = 'none';
         } else {
             // unti lwe implement the rest of the ui items
             starsShouldRun = true;
