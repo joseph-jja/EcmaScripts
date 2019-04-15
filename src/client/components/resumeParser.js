@@ -14,9 +14,9 @@ function parseSkills( XMLDOMDocument ) {
     var title = skillarea.getElementsByTagName( "title" )[ 0 ];
 
     var result = '<hr/>';
-    result += '<span class="skill_prof"><a href="javascript:WebBrowser.dom.toggleDisplay(\'skills\');">';
+    result += '<span class="skill_prof section-heading">';
     result += title.childNodes[ 0 ].nodeValue;
-    result += '</a></span>';
+    result += '</span>';
     result += '<br /><div id="skills"><ul>';
 
     var skillset = skillarea.getElementsByTagName( "skillset" );
@@ -52,9 +52,9 @@ function parseMisc( XMLDOMDocument ) {
     var otherexp = misc_exp[ 0 ];
     var militaryexp = misc_exp[ 1 ];
 
-    var result = '<span class="misc"><a href="javascript:WebBrowser.dom.toggleDisplay(\'misc1\');">';
+    var result = '<span class="misc section-heading">';
     result += otherexp.getElementsByTagName( "name" )[ 0 ].childNodes[ 0 ].nodeValue;
-    result += '</a></span><br /><div id="misc1"><ul>';
+    result += '</span><br /><div id="misc1"><ul>';
 
     var items = otherexp.getElementsByTagName( "item" );
     for ( let i = 0; i < items.length; i++ ) {
@@ -79,7 +79,7 @@ function parseMisc( XMLDOMDocument ) {
 
     result += '</ul></div>';
 
-    result += '<span class="misc"><a href="javascript:WebBrowser.dom.toggleDisplay(\'misc2\');">';
+    result += '<span class="misc section-heading">';
     result += militaryexp.getElementsByTagName( "name" )[ 0 ].childNodes[ 0 ].nodeValue;
     result += '</a></span><br /><div id="misc2"><ul>';
 
@@ -95,7 +95,7 @@ function parseMisc( XMLDOMDocument ) {
 
 function parseDegree( XMLDOMDocument ) {
 
-    var result = '<span class="misc"><a href="javascript:WebBrowser.dom.toggleDisplay(\'education\');">EDUCATION</a></span>';
+    var result = '<span class="misc section-heading">';
     result += '<br /><div id="education">';
 
     var degrees = XMLDOMDocument.getElementsByTagName( "academics" );
@@ -114,22 +114,30 @@ function parseDegree( XMLDOMDocument ) {
     return result;
 }
 
-function parseJobs( XMLDOMDocument ) {
+function parseJobs( XMLDOMDocument, options = {} ) {
 
     // this gives us a list of the actual jobs in the page
-    var jobNodes = XMLDOMDocument.getElementsByTagName( "job" );
+    const jobNodes = XMLDOMDocument.getElementsByTagName( "job" );
 
-    // we should try
+    const currentYear = new Date().getFullYear();
+    const limitYear = options.limitYear ? currentYear - 15 : 1996;
 
-    var result = '<span class="profexp"><a href="javascript:WebBrowser.dom.toggleDisplay(\'profexp\');">PROFESSIONAL EXPERIENCE</a></span>';
+    let result = '<span class="profexp section-heading">PROFESSIONAL EXPERIENCE</span>';
     result += '<br /><div id="profexp"><br />';
 
-    for ( let i = 0; i < jobNodes.length; i++ ) {
+    result += Array.from( jobNodes ).filter( job => {
 
-        var job = jobNodes[ i ].childNodes;
+        const jobNode = job.cloneNode( true );
+
+        const jobYear = jobNode.getElementsByTagName( "year" );
+        if ( typeCheck.exists( jobYear ) && ( +jobYear < limitYear ) ) {
+            return false;
+        }
+        return true;
+    } ).map( job => {
 
         // get the current job as a document object
-        var jobNode = jobNodes[ i ].cloneNode( true );
+        const jobNode = job.cloneNode( true );
 
         var jobtitle = jobNode.getElementsByTagName( "jobtitle" )[ 0 ].childNodes[ 0 ].nodeValue;
         var company = jobNode.getElementsByTagName( "company" )[ 0 ].childNodes[ 0 ].nodeValue;
@@ -159,21 +167,22 @@ function parseJobs( XMLDOMDocument ) {
             jobDates += jobYear[ 1 ].childNodes[ 0 ].nodeValue;
         }
 
-        var jobList = '';
+        let jobList = '';
         for ( let j = 0; j < jobTasks.length; j++ ) {
             jobList += "<li>";
             jobList += jobTasks[ j ].childNodes[ 0 ].nodeValue;
             jobList += ".</li>";
         }
-        result += '<span class="empmnt">' + jobtitle + ", " + company;
-        result += ", " + jobLocation + " (" + jobDates + ")";
-        result += '</span><ul>' + jobList + '</ul>';
-    }
+        return `<span class="empmnt">${jobtitle}, ${company}, ${jobLocation} (${jobDates})</span><ul>${jobList}</ul>`;
+    } ).reduce( ( acc, next ) => {
+        return acc + next;
+    } );
+
     result += '</div>';
     return result;
 }
 
-export default function processResume( result ) {
+export default function processResume( result, options = {} ) {
 
     const DOMDoc = xml.getAsXMLDocument( result );
 
@@ -181,7 +190,7 @@ export default function processResume( result ) {
 
     const url = getFirstNodeText( DOMDoc, "url" );
 
-    const jobs = parseJobs( DOMDoc );
+    const jobs = parseJobs( DOMDoc, options );
 
     const degrees = parseDegree( DOMDoc );
 
