@@ -95,7 +95,7 @@ function parseMisc( XMLDOMDocument ) {
 
 function parseDegree( XMLDOMDocument ) {
 
-    var result = '<span class="misc section-heading">';
+    var result = '<span class="misc section-heading">EDUCATION</span>';
     result += '<br /><div id="education">';
 
     var degrees = XMLDOMDocument.getElementsByTagName( "academics" );
@@ -130,8 +130,12 @@ function parseJobs( XMLDOMDocument, options = {} ) {
         const jobNode = job.cloneNode( true );
 
         const jobYear = jobNode.getElementsByTagName( "year" );
-        if ( typeCheck.exists( jobYear ) && ( +jobYear < limitYear ) ) {
-            return false;
+        if ( typeCheck.exists( jobYear ) && jobYear.length > 0 ) {
+            const recent = Array.from( jobYear ).filter( year => {
+                const yr = year.innerHTML;
+                return ( +yr > limitYear );
+            } );
+            return ( recent.length > 0 );
         }
         return true;
     } ).map( job => {

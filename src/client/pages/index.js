@@ -78,7 +78,9 @@ async function loadResume() {
     const resumeURL = '/data/resume_data.xml';
     const resumeData = await fetcher( resumeURL );
 
-    const resumeHTML = resumeParser( resumeData );
+    const resumeHTML = resumeParser( resumeData, {
+        limitYear: true
+    } );
 
     const resumeObj = dom.createElement( 'div', mainWin.windowArea, {
         id: 'resume-html'
