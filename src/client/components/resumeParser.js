@@ -45,30 +45,32 @@ function parseSkills( XMLDOMDocument ) {
 
 function parseMisc( XMLDOMDocument ) {
 
-    var misc = XMLDOMDocument.getElementsByTagName( "misc" );
+    const misc = XMLDOMDocument.getElementsByTagName( "misc" );
 
-    var misc_exp = misc[ 0 ].getElementsByTagName( "misc_exp" );
+    const miscExp = misc[ 0 ].getElementsByTagName( "misc_exp" );
 
-    var otherexp = misc_exp[ 0 ];
-    var militaryexp = misc_exp[ 1 ];
+    const otherexp = miscExp[ 0 ];
+    const militaryexp = miscExp[ 1 ];
 
-    var result = '<span class="misc section-heading">';
+    let result = '<span class="misc section-heading">';
     result += otherexp.getElementsByTagName( "name" )[ 0 ].childNodes[ 0 ].nodeValue;
     result += '</span><br /><div id="misc1"><ul>';
 
-    var items = otherexp.getElementsByTagName( "item" );
+    let items = Array.from( otherexp.getElementsByTagName( "item" ) );
     for ( let i = 0; i < items.length; i++ ) {
-        if ( items[ i ].childNodes.length === 1 ) {
-            result += "<li>" + items[ i ].childNodes[ 0 ].nodeValue + "</li>";
+        const item = items[ i ];
+        if ( item.childNodes.length === 1 ) {
+            result += "<li>" + item.childNodes[ 0 ].nodeValue + "</li>";
         } else {
             result += "<li>";
-            for ( let j = 0; j < items[ i ].childNodes.length; j++ ) {
-                if ( items[ i ].childNodes[ j ].length ) {
-                    result += items[ i ].childNodes[ j ].nodeValue;
+            const children = Array.from( item.childNodes );
+            for ( let j = 0; j < children.length; j++ ) {
+                if ( children[ j ].length ) {
+                    result += children[ j ].nodeValue;
                 } else {
-                    if ( items[ i ].childNodes[ j ].nodeName === "url" ) {
+                    if ( children[ j ].nodeName === "url" ) {
                         // here we have our url
-                        var url = items[ i ].childNodes[ j ].childNodes[ 0 ].nodeValue;
+                        var url = children[ j ].childNodes[ 0 ].nodeValue;
                         result += '<a href="' + url + '">' + url + '</a>';
                     }
                 }
@@ -108,8 +110,8 @@ function parseDegree( XMLDOMDocument ) {
 
     var para = degrees[ 0 ].getElementsByTagName( "para" )[ 0 ].childNodes[ 0 ].nodeValue;
 
-    result += "<ul><li>" + level + " in " + major + ", " + inst + ", ";
-    result += mon + " " + year + ". " + para + "</li></ul></div>";
+    result += "<ul><li>" + level + " in " + major + ", " + inst + ".";
+    result += para + "</li></ul></div>";
 
     return result;
 }
