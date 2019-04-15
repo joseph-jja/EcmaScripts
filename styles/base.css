@@ -160,3 +160,10 @@ footer ul li {
     display: block;
     border: 1px solid black;
 }
+
+.section-heading {
+    text-transform: capitalize;
+    font-weight: bold;
+    color: darkblue;
+}
+
