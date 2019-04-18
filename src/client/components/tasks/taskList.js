@@ -1,6 +1,7 @@
 import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import * as dom from 'client/dom/DOM';
+import * as css from 'client/dom/CSS';
 
 import fetcher from 'client/net/fetcher';
 
@@ -52,15 +53,54 @@ function TaskList() {
             const addButton = selector( '#addTaskID' ).get( 0 ),
                 editButton = selector( '#taskList' ).get( 0 ),
                 exportTasksButton = selector( '#exportTasksID' ).get( 0 ),
-                importTasksButton = selector( '#importTasksID' ).get( 0 );
+                importTasksButton = selector( '#importTasksID' ).get( 0 ),
+                filterDisplaySelect = selector( '#filterDisplay' ).get( 0 );
             events.addEvent( addButton, 'click', this.addTask, false );
             events.addEvent( editButton, 'click', this.editTask, false );
             events.addEvent( exportTasksButton, 'click', this.exportData, false );
             //events.addEvent( importTasksButton, 'click', this.importData, false );
-            //events.addEvent( '#filterDisplay', 'change', processFilter, false );
+            events.addEvent( filterDisplaySelect, 'change', this.filterDisplay, false );
+
+            filterDisplaySelect.selectedIndex = 2;
         };
 
         tasks.list( options );
+    };
+
+    this.filterDisplay = function () {
+        const selectFilter = document.getElementById( 'filterDisplay' );
+        const selectedValue = selectFilter.options[ selectFilter.selectedIndex ].value.toLowerCase();
+
+        switch ( selectedValue ) {
+        case 'all':
+            window.location.reload();
+            break;
+        case 'working':
+
+            const rows = selector( '#taskList tbody tr' );
+            rows.each( ( r ) => {
+                const cols = selector( 'td', r );
+                const lastCol = cols.get( cols.length - 1 );
+                if ( lastCol.innerHTML.toLowerCase() === 'done' ) {
+                    r.style.display = 'none';
+                }
+            } );
+            let i = 0;
+            rows.each( ( r ) => {
+                if ( r.style.display !== 'none' ) {
+                    css.removeClass( r, 'even' );
+                    css.removeClass( r, 'odd' );
+                    const newClass = ( ( i % 2 === 0 ) ? ' even' : ' odd' );
+                    i++;
+                    css.addClass( r, newClass );
+                }
+            } );
+
+            break;
+        default:
+            window.location.reload();
+            break;
+        }
     };
 
     this.addTask = function () {
