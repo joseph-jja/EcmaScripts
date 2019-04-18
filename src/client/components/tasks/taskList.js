@@ -19,6 +19,9 @@ import {
     cancelButtonClick
 } from 'client/components/tasks/taskUtils';
 
+const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000,
+    ABOUT_A_MONTH = SEVEN_DAYS * 4;
+
 let tasks;
 
 function TaskList() {
@@ -60,6 +63,10 @@ function TaskList() {
             events.addEvent( exportTasksButton, 'click', this.exportData, false );
             //events.addEvent( importTasksButton, 'click', this.importData, false );
             events.addEvent( filterDisplaySelect, 'change', this.filterDisplay, false );
+
+            // filter to show working items
+            filterDisplaySelect.selectedIndex = 2;
+            this.filterDisplay();
         };
 
         tasks.list( options );
@@ -68,14 +75,15 @@ function TaskList() {
     this.filterDisplay = function () {
         const selectFilter = document.getElementById( 'filterDisplay' );
         const selectedValue = selectFilter.options[ selectFilter.selectedIndex ].value.toLowerCase();
+        const rows = selector( '#taskList tbody tr' );
+
+        // enable all rows
+        rows.each( ( r ) => {
+            r.style.display = 'table-row';
+        } );
 
         switch ( selectedValue ) {
-        case 'all':
-            window.location.reload();
-            break;
         case 'working':
-
-            const rows = selector( '#taskList tbody tr' );
             rows.each( ( r ) => {
                 const cols = selector( 'td', r );
                 const lastCol = cols.get( cols.length - 1 );
@@ -83,22 +91,46 @@ function TaskList() {
                     r.style.display = 'none';
                 }
             } );
-            let i = 0;
+            break;
+        case 'week':
+            const weekAgo = new Date().getTime() - SEVEN_DAYS;
             rows.each( ( r ) => {
-                if ( r.style.display !== 'none' ) {
-                    css.removeClass( r, 'even' );
-                    css.removeClass( r, 'odd' );
-                    const newClass = ( ( i % 2 === 0 ) ? ' even' : ' odd' );
-                    i++;
-                    css.addClass( r, newClass );
+                const cols = selector( 'td', r );
+                const lastCol = cols.get( cols.length - 2 );
+                const date = Date.parse( lastCol.innerHTML );
+                if ( date < weekAgo ) {
+                    r.style.display = 'none';
                 }
             } );
-
+            break;
+        case 'month':
+            const aboutAMonthAgo = new Date().getTime() - ABOUT_A_MONTH;
+            rows.each( ( r ) => {
+                const cols = selector( 'td', r );
+                const lastCol = cols.get( cols.length - 2 );
+                const date = Date.parse( lastCol.innerHTML );
+                if ( date < aboutAMonthAgo ) {
+                    r.style.display = 'none';
+                }
+            } );
             break;
         default:
-            window.location.reload();
+            // this is the default to show all
+            // need to do nothing
             break;
         }
+
+        // properly style rows
+        let i = 0;
+        rows.each( ( r ) => {
+            if ( r.style.display !== 'none' ) {
+                css.removeClass( r, 'even' );
+                css.removeClass( r, 'odd' );
+                const newClass = ( ( i % 2 === 0 ) ? ' even' : ' odd' );
+                i++;
+                css.addClass( r, newClass );
+            }
+        } );
     };
 
     this.addTask = function () {
