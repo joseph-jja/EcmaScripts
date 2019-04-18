@@ -218,7 +218,7 @@ events.addOnLoad( async function () {
     wwa.innerHTML = indexData + capabilities + detected;
 
     const dropdown = selector( '.url-wrapper select' ).get( 0 );
-    events.addEvent( dropdown, 'click', ( e ) => {
+    events.addEvent( dropdown, 'change', ( e ) => {
         const evt = events.getEvent( e );
         const tgt = events.getTarget( evt );
         const item = tgt.options[ tgt.selectedIndex ].text.toLowerCase();
