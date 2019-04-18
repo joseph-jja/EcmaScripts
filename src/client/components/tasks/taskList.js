@@ -60,8 +60,6 @@ function TaskList() {
             events.addEvent( exportTasksButton, 'click', this.exportData, false );
             //events.addEvent( importTasksButton, 'click', this.importData, false );
             events.addEvent( filterDisplaySelect, 'change', this.filterDisplay, false );
-
-            filterDisplaySelect.selectedIndex = 2;
         };
 
         tasks.list( options );
