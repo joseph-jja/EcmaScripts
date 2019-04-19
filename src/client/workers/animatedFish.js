@@ -24,6 +24,6 @@ onmessage = ( msg ) => {
             } );
         }, 100 );
     } else if ( msg && msg.data && msg.data.stop ) {
-        clearInterva( timerID );
+        clearInterval( timerID );
     }
-}
+};

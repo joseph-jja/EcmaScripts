@@ -15,6 +15,7 @@ esJSON.globals = esJSONWP;
 module.exports = {
     "mode": "production",
     "entry": {
+        "animatedFish": "./src/client/workers/animatedFish",
         "calculatorExamples": "./src/client/pages/calculatorExamples",
         "calendarExamples": "./src/client/pages/calendarExamples",
         "canvasTest": "./src/client/pages/canvasTest",

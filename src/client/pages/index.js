@@ -1,5 +1,6 @@
 // libs first
 import * as dom from 'client/dom/DOM';
+import * as css from 'client/dom/CSS';
 import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import fetcher from 'client/net/fetcher';
@@ -186,18 +187,38 @@ events.addOnLoad( async function () {
             item.style.display = 'none';
         } );
 
-        const wc = document.getElementById( 'welcome-content' );
-        selector( '.WebWindowArea div', wc ).each( item => {
-            item.style.display = 'block';
+        const homeContent = selector( '#welcome-content' ).get( 0 );
+        const displayWindow = selector( '.WebWindowArea', homeContent ).get( 0 );
+
+        Array.from( displayWindow.childNodes ).forEach( item => {
+            if ( item.nodeName.toLowerCase() === 'div' ) {
+                item.style.display = 'none';
+            }
         } );
 
         switch ( item ) {
         case 'resume':
             stopStarSystem();
+            stopFishInfo();
             loadResume();
+            Array.from( displayWindow.childNodes ).forEach( item => {
+                if ( item.nodeName.toLowerCase() === 'div' && css.hasClass( item, 'home-content' ) ) {
+                    item.style.display = 'block';
+                }
+            } );
+            break;
+        case 'fish':
+            stopStarSystem();
+            startFishInfo();
             break;
         case 'home':
         default:
+            stopFishInfo();
+            Array.from( displayWindow.childNodes ).forEach( item => {
+                if ( item.nodeName.toLowerCase() === 'div' && css.hasClass( item, 'home-content' ) ) {
+                    item.style.display = 'block';
+                }
+            } );
             const canvasContainer = selector( '#canvas-container' ).get( 0 );
             canvasContainer.style.display = 'block';
             startStarSystem();

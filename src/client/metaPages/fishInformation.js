@@ -22,23 +22,38 @@ function startFishInfo() {
     }
 
     if ( fishInfoWorker ) {
-        const homeContent = selector( '#welcome-content' );
-        const displayWindow = selector( '.WebWindowArea', homeContent );
+        const homeContent = selector( '#welcome-content' ).get( 0 );
+        const displayWindow = selector( '.WebWindowArea', homeContent ).get( 0 );
 
-        Array.toArray( displayWindow.childNodes ).forEach( item => {
-            item.style.display = 'none';
+        Array.from( displayWindow.childNodes ).forEach( item => {
+            if ( item.nodeName.toLowerCase() === 'div' ) {
+                item.style.display = 'none';
+            }
         } );
 
         const animFishContainer = dom.createElement( 'div', displayWindow, {
             id: 'animated-fish'
         } );
 
-        fishInfoWorker.onmessage = ( msg ) => {
+        fetcher( 'frags/fish-svg.frag' )
+            .then( data => {
 
-        };
-        fishInfoWorker.postMessage( {
-            'start': 'start'
-        } );
+                animFishContainer.innerHTML = data;
+                const parts = selector( 'ellipse', animFishContainer );
+
+                const mouth = parts[ 0 ].attributes.ry,
+                    omouth = parts[ 1 ].attributes.ry;
+
+                fishInfoWorker.onmessage = ( msg ) => {
+                    if ( msg && msg.data ) {
+                        mouth.value = msg.data.mouth;
+                        omouth.value = msg.data.omouth;
+                    }
+                };
+                fishInfoWorker.postMessage( {
+                    'start': 'start'
+                } );
+            } );
     }
 }
 
