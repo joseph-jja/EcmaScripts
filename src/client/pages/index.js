@@ -28,6 +28,12 @@ import {
     stopStarSystem
 } from 'client/metaPages/stellarSystems';
 
+// fish information
+import {
+    startFishInfo,
+    stopFishInfo
+} from 'client/metaPages/fishInformation';
+
 // window
 import WebWindow from 'client/components/wbWindow';
 
@@ -185,18 +191,18 @@ events.addOnLoad( async function () {
             item.style.display = 'block';
         } );
 
-        if ( item === 'home' ) {
-            const canvasContainer = selector( '#canvas-container' ).get( 0 );
-            canvasContainer.style.display = 'block';
-            startStarSystem();
-        } else if ( item === 'resume' ) {
+        switch ( item ) {
+        case 'resume':
             stopStarSystem();
             loadResume();
-        } else {
-            // unti lwe implement the rest of the ui items
+            break;
+        case 'home':
+        default:
             const canvasContainer = selector( '#canvas-container' ).get( 0 );
             canvasContainer.style.display = 'block';
             startStarSystem();
+            break;
         }
+
     } );
 } );
