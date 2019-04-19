@@ -25,7 +25,7 @@ import {
 import Calendar from 'client/components/calendar';
 
 // resume parser
-import resumeParser from 'client/components/resumeParser';
+import resumeParser from 'client/metaPages/resumeParser';
 
 // window
 import WebWindow from 'client/components/wbWindow';
@@ -161,7 +161,6 @@ events.addOnLoad( async function () {
     const calendarButton = selector( 'footer ul li:first-child' );
     events.addEvent( calendarButton.get( 0 ), 'click', renderCalendar );
 
-    // TODO move this into a worker?
     let canvasRef;
     if ( screenWidth > 800 ) {
         canvasRef = canvas.create( 'star-system', 'canvas-container', 800, 600 );
