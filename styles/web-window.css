@@ -11,13 +11,13 @@
     background: url("/images/WebWindowTitleActive.gif");
     padding: 0px;
     margin: 0px;
-    height: 32px;
+    height: 24px;
     text-align: left;
 }
 
 .WebWindowTitleInActive {
     position: relative;
-    height: 32px;
+    height: 24px;
     border: 2px solid black;
     background: url("/images/WebWindowTitleInactive.gif");
     padding: 0px;
@@ -78,11 +78,11 @@
 }
 
 .WebWindowButton {
-    position: relative;
-    text-align: right;
+    text-align: center;
+    verticle-align: middle;
     height: 18px;
     font-weight: bold;
-    font-size: 8pt;
+    font-size: 10pt;
     width: 18px;
     padding: 0px;
     margin: 0px;

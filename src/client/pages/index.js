@@ -38,7 +38,8 @@ const dt = detect();
 let defaultPosition = {},
     isCalendarDisplayed = false,
     starsShouldRun = true,
-    mainWin;
+    mainWin,
+    sideWin;
 
 let detected,
     capabilities = '<br><div class="home-content">';
@@ -103,6 +104,16 @@ function setDefaultPosition() {
         defaultPosition.offsetWidth,
         defaultPosition.offsetHeight,
         'main-window' );
+
+    const sw = document.getElementById( 'welcome-content' );
+    const swStyles = window.getComputedStyle( sw );
+
+    sideWin = new WebWindow( 'Welcome',
+        swStyles.offsetLeft,
+        swStyles.offsetTop,
+        swStyles.offsetWidth,
+        swStyles.offsetHeight,
+        'welcome-content' );
 }
 
 function renderCalendar() {
