@@ -9,11 +9,11 @@ import {
 } from 'client/dom/DOM';
 import * as menu from 'client/components/menu';
 import footer from 'client/components/footer';
-import fish from 'client/components/swimmingFish';
+import BrowserFish from 'client/components/swimmingFish';
 
 addOnLoad( () => {
 
-    var swimmingfish = new fish.BrowserFish( "movingfish" );
+    var swimmingfish = new BrowserFish( "movingfish" );
 
 
 

@@ -1,4 +1,4 @@
-import fish from 'client/components/swimmingFish';
+import BrowserFish from 'client/components/swimmingFish';
 
 describe( 'testing swimmingFish', () => {
 
@@ -19,11 +19,11 @@ describe( 'testing swimmingFish', () => {
     } );
 
     it( 'swimmingFish test', () => {
-        expect( fish.BrowserFish ).toBeDefined();
+        expect( BrowserFish ).toBeDefined();
     } );
 
     it( 'create swimming fish and stop', () => {
-        const swimFish = new fish.BrowserFish( parent.id );
+        const swimFish = new BrowserFish( parent.id );
 
         spyOn( swimFish, 'stopfish' );
         swimFish.stopfish();
@@ -31,7 +31,7 @@ describe( 'testing swimmingFish', () => {
     } );
 
     it( 'get swimming fish', () => {
-        const swimFish = new fish.BrowserFish( parent.id );
+        const swimFish = new BrowserFish( parent.id );
 
         const result = swimFish.getFish();
         swimFish.stopfish();
@@ -39,7 +39,7 @@ describe( 'testing swimmingFish', () => {
     } );
 
     it( 'get swimming fish getXPos', () => {
-        const swimFish = new fish.BrowserFish( parent.id );
+        const swimFish = new BrowserFish( parent.id );
 
         const result = swimFish.getXPos();
         swimFish.stopfish();
@@ -47,7 +47,7 @@ describe( 'testing swimmingFish', () => {
     } );
 
     it( 'get swimming fish getYPos', () => {
-        const swimFish = new fish.BrowserFish( parent.id );
+        const swimFish = new BrowserFish( parent.id );
 
         const result = swimFish.getYPos();
         swimFish.stopfish();

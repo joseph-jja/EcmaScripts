@@ -1,28 +1,26 @@
-// this is our fish object that gets created, 
-// we no longer support Netscape 4 
-// also this object REQUIRES the UserAgent.js object 
+// this is our fish object that gets created,
+// we no longer support Netscape 4
+// also this object REQUIRES the UserAgent.js object
 // as it creates and uses an instance of the object
 // name space
 import * as dom from 'client/dom/DOM';
 import selector from 'client/dom/selector';
 
-var fish = {};
-
-fish.SWIMMING_FISH_IMAGE = '<img src="fish_swim_template.gif">';
-fish.REV_SWIMMING_FISH_IMAGE = '<img src="fish_swim_template_rev.gif">';
-fish.FISH_IMAGE_WIDTH = 175;
-fish.FISH_IMAGE_HEIGHT = 175;
-fish.FISH_IMAGE_ZINDEX = "5";
-fish.FISH_IMAGE_DEFAULT_BROWSER_WIDTH = 800;
-fish.FISH_IMAGE_DEFAULT_BROWSER_HEIGHT = 600;
-fish.SWIMMING_FISH_TIMEOUT = 100;
+const SWIMMING_FISH_IMAGE = '<img src="fish_swim_template.gif">';
+const REV_SWIMMING_FISH_IMAGE = '<img src="fish_swim_template_rev.gif">';
+const FISH_IMAGE_WIDTH = 175;
+const FISH_IMAGE_HEIGHT = 175;
+const FISH_IMAGE_ZINDEX = "5";
+const FISH_IMAGE_DEFAULT_BROWSER_WIDTH = 800;
+const FISH_IMAGE_DEFAULT_BROWSER_HEIGHT = 600;
+const SWIMMING_FISH_TIMEOUT = 100;
 
 //
 // here we are creating our browser fish object
 //
-fish.BrowserFish = function ( name ) {
+function BrowserFish( name ) {
 
-    var screen = dom.screen;
+    const screen = dom.screen;
 
     this.get = selector;
 
@@ -36,12 +34,12 @@ fish.BrowserFish = function ( name ) {
     this.ypos = 0;
 
     // image width && height
-    this.iw = fish.FISH_IMAGE_WIDTH;
-    this.ih = fish.FISH_IMAGE_HEIGHT;
+    this.iw = FISH_IMAGE_WIDTH;
+    this.ih = FISH_IMAGE_HEIGHT;
 
     // default max positions
-    this.maxx = ( screen.maxx() > 0 ) ? screen.maxx() : fish.FISH_IMAGE_DEFAULT_BROWSER_WIDTH;
-    this.maxy = ( screen.maxy() > 0 ) ? screen.maxy() : fish.FISH_IMAGE_DEFAULT_BROWSER_HEIGHT;
+    this.maxx = ( screen.maxx() > 0 ) ? screen.maxx() : FISH_IMAGE_DEFAULT_BROWSER_WIDTH;
+    this.maxy = ( screen.maxy() > 0 ) ? screen.maxy() : FISH_IMAGE_DEFAULT_BROWSER_HEIGHT;
 
     this.runningfish = true;
     this.runtimerid = '';
@@ -69,7 +67,7 @@ fish.BrowserFish = function ( name ) {
 };
 
 // get the fish based on direction
-fish.BrowserFish.prototype.getFish = function () {
+BrowserFish.prototype.getFish = function () {
 
     // mozilla / netscape 5.0 later
     // then IE
@@ -81,17 +79,17 @@ fish.BrowserFish.prototype.getFish = function () {
 
     this.fishObj = this.get( "#" + this.getId() ).get( 0 );
     if ( this.lr_direction ) {
-        this.fishObj.innerHTML = fish.SWIMMING_FISH_IMAGE;
+        this.fishObj.innerHTML = SWIMMING_FISH_IMAGE;
         return true;
     } else if ( !this.lr_direction ) {
-        this.fishObj.innerHTML = fish.REV_SWIMMING_FISH_IMAGE;
+        this.fishObj.innerHTML = REV_SWIMMING_FISH_IMAGE;
         return true;
     }
     return false;
 };
 
 // get the count to be added for the left right positioning
-fish.BrowserFish.prototype.getXPos = function () {
+BrowserFish.prototype.getXPos = function () {
 
     if ( this.xpos > this.maxx - this.iw ) {
         this.xcount = -2;
@@ -114,7 +112,7 @@ fish.BrowserFish.prototype.getXPos = function () {
 };
 
 // get the count to be added for the top and bottom positioning
-fish.BrowserFish.prototype.getYPos = function () {
+BrowserFish.prototype.getYPos = function () {
     if ( this.ypos > this.maxy - this.ih ) {
         this.ycount = -30;
         this.tb_direction = false;
@@ -132,7 +130,7 @@ fish.BrowserFish.prototype.getYPos = function () {
 };
 
 // set the new position of the fish object
-fish.BrowserFish.prototype.setPosition = function () {
+BrowserFish.prototype.setPosition = function () {
 
     // no fish just return
     if ( !this.getFish() ) {
@@ -159,7 +157,7 @@ fish.BrowserFish.prototype.setPosition = function () {
 };
 
 // this function hides the fish no matter which direction
-fish.BrowserFish.prototype.hideFish = function () {
+BrowserFish.prototype.hideFish = function () {
 
     if ( !this.getFish() ) {
         return;
@@ -170,7 +168,7 @@ fish.BrowserFish.prototype.hideFish = function () {
 };
 
 // this function shows the fish no matter which direction
-fish.BrowserFish.prototype.showFish = function () {
+BrowserFish.prototype.showFish = function () {
     if ( !this.getFish() ) {
         return;
     }
@@ -180,7 +178,7 @@ fish.BrowserFish.prototype.showFish = function () {
 };
 
 // this function stops the fish no matter which direction it is going
-fish.BrowserFish.prototype.stopfish = function () {
+BrowserFish.prototype.stopfish = function () {
 
     if ( this.runningfish ) {
         this.runningfish = false;
@@ -194,24 +192,24 @@ fish.BrowserFish.prototype.stopfish = function () {
 
 // this starts the fish, but the caller must call setTimeout on
 // thier own
-fish.BrowserFish.prototype.runfish = function () {
+BrowserFish.prototype.runfish = function () {
 
     // create the fish when you create the object
     if ( document.getElementById && document.createElement ) {
         //var fishLeft = dom.createOrGetElement("div", this.getId(), document.body)
         var fishLeft = this.get( "#" + this.getId() ).get( 0 );
         if ( !fishLeft ) {
-            // fish does not exist, so create fish, 
+            // fish does not exist, so create fish,
             fishLeft = document.createElement( "div" );
             fishLeft.id = this.getId();
             fishLeft.style.position = "absolute";
             fishLeft.style.visibility = "visible";
-            fishLeft.style.zIndex = fish.FISH_IMAGE_ZINDEX;
+            fishLeft.style.zIndex = FISH_IMAGE_ZINDEX;
             // now append to the body
             var docBody = document.getElementsByTagName( "body" );
             docBody[ 0 ].appendChild( fishLeft );
         }
-        fishLeft.innerHTML = fish.SWIMMING_FISH_IMAGE;
+        fishLeft.innerHTML = SWIMMING_FISH_IMAGE;
 
         // save the old direction
         var initdirection = this.lr_direction;
@@ -232,7 +230,7 @@ fish.BrowserFish.prototype.runfish = function () {
     return false;
 };
 
-fish.BrowserFish.prototype.startfish = function () {
+BrowserFish.prototype.startfish = function () {
 
     // get a reference to this object
     var swimfishObj = this;
@@ -243,7 +241,7 @@ fish.BrowserFish.prototype.startfish = function () {
     };
 
     // now call timeout function.  this works
-    this.runtimerid = window.setInterval( swimfn, fish.SWIMMING_FISH_TIMEOUT );
+    this.runtimerid = window.setInterval( swimfn, SWIMMING_FISH_TIMEOUT );
 };
 
-export default fish;
+export default BrowserFish;
