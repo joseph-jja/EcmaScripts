@@ -97,6 +97,7 @@ function startFishInfo() {
         const animFishContainer = dom.createElement( 'div', displayWindow, {
             id: 'animated-fish'
         } );
+        animFishContainer.style.display = 'block';
 
         fetcher( 'frags/fish-svg.frag' )
             .then( data => {
@@ -126,6 +127,7 @@ function startFishInfo() {
         const fishInfoSection = dom.createElement( 'div', winArea, {
             id: 'fins-info-section'
         } );
+        fishInfoSection.style.display = 'block';
         fishInfoSection.innerHTML = fishTabs;
 
         ajax.get( getXMLDocument, '/data/tropical_fish.xml' );
