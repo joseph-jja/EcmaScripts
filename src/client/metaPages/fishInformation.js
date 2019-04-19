@@ -11,6 +11,11 @@ import {
 
 let fishInfoWorker;
 
+const message = `&nbsp;&nbsp;&nbsp;I have kept tropical fish as pets for years.
+Here are some of my experiences keeping various types of fish. If you are looking for pictures go here.
+I am only documenting the fish that have mated in my tanks.
+This page does not go in depth on any species and just touches the surface.`;
+
 function setupFishInfo() {
     fishInfoWorker = exists( Worker ) ? new Worker( '/js/animatedFish.js' ) : undefined;
 }
@@ -38,7 +43,7 @@ function startFishInfo() {
         fetcher( 'frags/fish-svg.frag' )
             .then( data => {
 
-                animFishContainer.innerHTML = data;
+                animFishContainer.innerHTML = `${message}<br>${data}`;
                 const parts = selector( 'ellipse', animFishContainer );
 
                 const mouth = parts[ 0 ].attributes.ry,
