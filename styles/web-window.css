@@ -11,18 +11,14 @@
     background: url("/images/WebWindowTitleActive.gif");
     padding: 0px;
     margin: 0px;
-    height: 24px;
-    text-align: left;
 }
 
 .WebWindowTitleInActive {
     position: relative;
-    height: 24px;
     border: 2px solid black;
     background: url("/images/WebWindowTitleInactive.gif");
     padding: 0px;
     margin: 0px;
-    text-align: left;
 }
 
 .WebWindowArea {
@@ -55,15 +51,15 @@
     position: relative;
     padding: 0px;
     margin: 0;
-    margin-left: 2px;
     color: white;
-    font-size: 12pt;
-    vertical-align: center;
+    font-size: 1em;
+    vertical-align: middle;
+    font-weight: bold;
+    left: 0.25em;
 }
 
 .WebWindowButtonBox {
     width: 50px;
-    height: 18px;
     text-align: right;
     padding: 0px;
     margin: 0px;
@@ -72,14 +68,14 @@
 .WebWindowButtonBox form {
     position: absolute;
     right: 2px;
-    top: 3px;
+    top: 1px;
     padding: 0px;
     margin: 0px;
 }
 
 .WebWindowButton {
     text-align: center;
-    verticle-align: middle;
+    vertical-align: middle;
     height: 18px;
     font-weight: bold;
     font-size: 10pt;
