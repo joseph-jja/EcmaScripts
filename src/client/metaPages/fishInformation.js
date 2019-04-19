@@ -1,7 +1,9 @@
 import * as dom from 'client/dom/DOM';
 import selector from 'client/dom/selector';
 import fetcher from 'client/net/fetcher';
-import * as css from 'client/dom/CSS';
+import {
+    addClass
+} from 'client/dom/CSS';
 import * as events from 'client/dom/events';
 import * as ajax from 'client/net/ajax';
 import * as xml from 'client/browser/xml';
@@ -9,9 +11,6 @@ import * as xml from 'client/browser/xml';
 import {
     exists
 } from 'utils/typeCheck';
-
-//mouth.attributes.ry.value = y;
-//omouth.attributes.ry.value = y-4;
 
 let fishInfoWorker;
 
@@ -58,7 +57,7 @@ function processJSON() {
             "id": name.toLowerCase().replace( /\ /g, '-' ),
             'innerHTML': data
         } );
-        css.addClass( span, 'selection-tied' );
+        addClass( span, 'selection-tied' );
         if ( i > 0 ) {
             span.style.display = 'none';
         }
@@ -121,13 +120,13 @@ function startFishInfo() {
 
         const mainWindow = document.getElementById( 'main-window' );
         const title = selector( '.WebWindowTitle span', mainWindow ).get( 0 );
-        title.innerHTML = 'Fish';
 
         const winArea = selector( '.WebWindowArea', mainWindow ).get( 0 );
         const fishInfoSection = dom.createElement( 'div', winArea, {
             id: 'fins-info-section'
         } );
         fishInfoSection.style.display = 'block';
+        addClass( fishInfoSection, 'left-align' );
         fishInfoSection.innerHTML = fishTabs;
 
         ajax.get( getXMLDocument, '/data/tropical_fish.xml' );

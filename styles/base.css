@@ -167,3 +167,7 @@ footer ul li {
     font-weight: bold;
     color: darkblue;
 }
+
+.left-align {
+    text-align: left;
+}

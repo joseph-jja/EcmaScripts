@@ -92,7 +92,14 @@ async function loadResume() {
         id: 'resume-html'
     } );
     dom.html( resumeObj, resumeHTML );
+    css.addClass( resumeObj, 'left-align' );
     resumeObj.style.display = 'block';
+
+    const mwtitle = selector( '.WebWindowTitleText', mainWin.titleBar ).get( 0 );
+    mwtitle.innerHTML = 'Resume';
+
+    const swtitle = selector( '.WebWindowTitleText', sideWin.titleBar ).get( 0 );
+    swtitle.innerHTML = 'Welcome';
 }
 
 function setDefaultPosition() {
@@ -172,9 +179,8 @@ events.addOnLoad( async function () {
     startStarSystem();
 
     await buildNav();
-    const wwa = selector( '#welcome-content .WebWindowArea' ).get( 0 );
     const indexData = await getIndex();
-    wwa.innerHTML = indexData + capabilities + detected;
+    sideWin.windowArea.innerHTML = indexData + capabilities + detected;
 
     const dropdown = selector( '.url-wrapper select' ).get( 0 );
     events.addEvent( dropdown, 'change', ( e ) => {
@@ -182,15 +188,21 @@ events.addOnLoad( async function () {
         const tgt = events.getTarget( evt );
         const item = tgt.options[ tgt.selectedIndex ].text.toLowerCase();
 
-        // hide them all
-        selector( '.WebWindowArea div', ).each( item => {
-            item.style.display = 'none';
+        // default the titles
+        const mwtitle = selector( '.WebWindowTitleText', mainWin.titleBar ).get( 0 );
+        mwtitle.innerHTML = 'Home - Not Mine Though';
+
+        const swtitle = selector( '.WebWindowTitleText', sideWin.titleBar ).get( 0 );
+        swtitle.innerHTML = 'Welcome';
+
+        // hide divs
+        Array.from( mainWin.windowArea.childNodes ).forEach( item => {
+            if ( item.nodeName.toLowerCase() === 'div' ) {
+                item.style.display = 'none';
+            }
         } );
 
-        const homeContent = selector( '#welcome-content' ).get( 0 );
-        const displayWindow = selector( '.WebWindowArea', homeContent ).get( 0 );
-
-        Array.from( displayWindow.childNodes ).forEach( item => {
+        Array.from( sideWin.windowArea.childNodes ).forEach( item => {
             if ( item.nodeName.toLowerCase() === 'div' ) {
                 item.style.display = 'none';
             }
@@ -201,20 +213,22 @@ events.addOnLoad( async function () {
             stopStarSystem();
             stopFishInfo();
             loadResume();
-            Array.from( displayWindow.childNodes ).forEach( item => {
+            Array.from( sideWin.windowArea.childNodes ).forEach( item => {
                 if ( item.nodeName.toLowerCase() === 'div' && css.hasClass( item, 'home-content' ) ) {
                     item.style.display = 'block';
                 }
             } );
             break;
         case 'fish':
+            mwtitle.innerHTML = 'Fish Information';
+            swtitle.innerHTML = 'Animated Fish';
             stopStarSystem();
             startFishInfo();
             break;
         case 'home':
         default:
             stopFishInfo();
-            Array.from( displayWindow.childNodes ).forEach( item => {
+            Array.from( sideWin.windowArea.childNodes ).forEach( item => {
                 if ( item.nodeName.toLowerCase() === 'div' && css.hasClass( item, 'home-content' ) ) {
                     item.style.display = 'block';
                 }
