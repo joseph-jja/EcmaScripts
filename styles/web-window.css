@@ -59,16 +59,14 @@
 }
 
 .WebWindowButtonBox {
-    width: 50px;
-    text-align: right;
+    position: absolute;
+    width: 60px;
+    right: 0px;
     padding: 0px;
     margin: 0px;
 }
 
 .WebWindowButtonBox form {
-    position: absolute;
-    right: 2px;
-    top: 1px;
     padding: 0px;
     margin: 0px;
 }
