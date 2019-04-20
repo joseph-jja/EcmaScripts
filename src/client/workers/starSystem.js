@@ -109,14 +109,27 @@ onmessage = ( msg ) => {
             const sShownPlanet = getPlanet( white[ 0 ].x, white[ 0 ].y, sPlanetPoints[ sPlanetPoint ], false, 7 );
             const eShownPlanet = getPlanet( center[ 0 ], center[ 1 ], ePlanetPoints[ ePlanetPoint ], false, ( width > 600 ? 6 : 0 ) );
 
-            const smaxx = MF.add( sShownPlanet.x, sShownPlanet.diameter ),
-                smimx = MF.subtract( sShownPlanet.x, sShownPlanet.diameter ),
-                emaxx = MF.add( eShownPlanet.x, eShownPlanet.diameter ),
-                emimx = MF.subtract( eShownPlanet.x, eShownPlanet.diameter ),
-                smaxy = MF.add( sShownPlanet.y, sShownPlanet.diameter ),
-                smimy = MF.subtract( sShownPlanet.y, sShownPlanet.diameter ),
-                emaxy = MF.add( eShownPlanet.y, eShownPlanet.diameter ),
-                emimy = MF.subtract( eShownPlanet.y, eShownPlanet.diameter );
+            // check if 2 circles intersect
+            const centersDistance = MF.square( MF.distanceBetweenCirclesCenters( sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y ) );
+
+            // radius + 5 in case they are near
+            const radiusIntersect = MF.square( MF.add( 7, 6 ) ),
+                radiusClose = MF.square( MF.add( 7, 10, 6, 10 ) );
+
+            // touch
+            if ( centersDistance === radiusIntersect ) {
+                console.log( 'Touching %s %s %s %s', sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y );
+            }
+            if ( centersDistance === radiusClose ) {
+                console.log( 'Close touching %s %s %s %s', sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y );
+            }
+            // intersect
+            if ( centersDistance < radiusIntersect ) {
+                console.log( 'Intersecting %s %s %s %s', sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y );
+            }
+            if ( centersDistance < radiusClose ) {
+                console.log( 'Close intersecting %s %s %s %s', sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y );
+            }
 
             postMessage( {
                 stars: {
