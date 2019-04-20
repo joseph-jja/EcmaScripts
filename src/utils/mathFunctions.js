@@ -293,6 +293,13 @@ MathFunctions.getCirclePoints = function ( r ) {
     return points;
 };
 
+MathFunctions.distanceBetweenCirclesCenters = function ( x1, y1, x2, y2 ) {
+    const diffXSqr = MathFunctions.square( MathFunctions.subtract( x1, x2 ) ),
+        diffYSqr = MathFunctions.square( MathFunctions.subtract( y1, y2 ) );
+
+    return Math.sqrt( MathFunctions.add( diffXSqr, diffYSqr ) );
+};
+
 MathFunctions.getRectangleCenter = function ( width, height ) {
     return [ Math.floor( MathFunctions.divide( width, 2 ) ), Math.floor( MathFunctions.divide( height, 2 ) ) ];
 };
