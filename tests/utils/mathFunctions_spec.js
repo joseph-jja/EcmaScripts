@@ -128,4 +128,14 @@ describe( "math functions tests", function () {
         var p = MF.getCirclePoints(10);
         expect( p[100].x ).toEqual(-2);
     } );
+
+    it( 'getEllipsePoint test', function () {
+        var p = MF.getEllipsePoint(10, 15, 170);
+        expect( p.x ).toEqual(-10);
+    } );
+
+    it( 'getEllipsePoints test', function () {
+        var p = MF.getEllipsePoints(10, 15);
+        expect( p[100].x ).toEqual(-2);
+    } );
 } );
