@@ -110,32 +110,38 @@ describe( "math functions tests", function () {
     } );
 
     it( 'getRectangleCenter test', function () {
-        var center = MF.getRectangleCenter(300, 400);
-        expect( center[0] ).toEqual(150);
+        var center = MF.getRectangleCenter( 300, 400 );
+        expect( center[ 0 ] ).toEqual( 150 );
     } );
 
     it( 'getRectangleCorner test', function () {
-        var corner = MF.getRectangleCorner(300, 400);
-        expect( corner ).toEqual(75);
+        var corner = MF.getRectangleCorner( 300, 400 );
+        expect( corner ).toEqual( 75 );
     } );
 
     it( 'getCirclePoint test', function () {
-        var p = MF.getCirclePoint(10, 170);
-        expect( p.x ).toEqual(-10);
+        var p = MF.getCirclePoint( 10, 170 );
+        expect( p.x ).toEqual( -10 );
     } );
 
     it( 'getCirclePoints test', function () {
-        var p = MF.getCirclePoints(10);
-        expect( p[100].x ).toEqual(-2);
+        var p = MF.getCirclePoints( 10 );
+        expect( p[ 100 ].x ).toEqual( -2 );
     } );
 
     it( 'getEllipsePoint test', function () {
-        var p = MF.getEllipsePoint(10, 15, 170);
-        expect( p.x ).toEqual(-10);
+        var p = MF.getEllipsePoint( 10, 15, 170 );
+        expect( p.x ).toEqual( -10 );
     } );
 
     it( 'getEllipsePoints test', function () {
-        var p = MF.getEllipsePoints(10, 15);
-        expect( p[100].x ).toEqual(-2);
+        var p = MF.getEllipsePoints( 10, 15 );
+        expect( p[ 100 ].x ).toEqual( -2 );
+    } );
+
+    it( 'distanceBetweenCirclesCenters test', function () {
+        var p = MF.distanceBetweenCirclesCenters( 10, 15, 20, 10 );
+        p = Math.ceil( MF.square( p ) );
+        expect( p ).toEqual( 126 );
     } );
 } );
