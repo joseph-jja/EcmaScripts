@@ -109,6 +109,11 @@ onmessage = ( msg ) => {
             const sShownPlanet = getPlanet( white[ 0 ].x, white[ 0 ].y, sPlanetPoints[ sPlanetPoint ], false, 7 );
             const eShownPlanet = getPlanet( center[ 0 ], center[ 1 ], ePlanetPoints[ ePlanetPoint ], false, ( width > 600 ? 6 : 0 ) );
 
+            const smaxx = MF.add(sShownPlanet.x, sShownPlanet.diameter),
+                  smimx = MF.subtract(sShownPlanet.x, sShownPlanet.diameter),
+                  emaxx = MF.add(eShownPlanet.x, eShownPlanet.diameter),
+                  emimx = MF.subtract(eShownPlanet.x, eShownPlanet.diameter);
+            
             postMessage( {
                 stars: {
                     black,
