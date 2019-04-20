@@ -110,11 +110,12 @@ onmessage = ( msg ) => {
             const eShownPlanet = getPlanet( center[ 0 ], center[ 1 ], ePlanetPoints[ ePlanetPoint ], false, ( width > 600 ? 6 : 0 ) );
 
             // check if 2 circles intersect
-            const centersDistance = MF.square( MF.distanceBetweenCirclesCenters( sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y ) );
+            const mfCentersDistance = MF.distanceBetweenCirclesCenters( sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y );
+            const centersDistance = Math.ceil( MF.square( mfCentersDistance ) );
 
             // radius + 5 in case they are near
             const radiusIntersect = MF.square( MF.add( 7, 6 ) ),
-                radiusClose = MF.square( MF.add( 7, 10, 6, 10 ) );
+                radiusClose = MF.square( MF.add( 7, 5, 6, 5 ) );
 
             // touch
             if ( centersDistance === radiusIntersect ) {
