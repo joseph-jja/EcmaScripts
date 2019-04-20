@@ -112,7 +112,11 @@ onmessage = ( msg ) => {
             const smaxx = MF.add( sShownPlanet.x, sShownPlanet.diameter ),
                 smimx = MF.subtract( sShownPlanet.x, sShownPlanet.diameter ),
                 emaxx = MF.add( eShownPlanet.x, eShownPlanet.diameter ),
-                emimx = MF.subtract( eShownPlanet.x, eShownPlanet.diameter );
+                emimx = MF.subtract( eShownPlanet.x, eShownPlanet.diameter ),
+                smaxy = MF.add( sShownPlanet.y, sShownPlanet.diameter ),
+                smimy = MF.subtract( sShownPlanet.y, sShownPlanet.diameter ),
+                emaxy = MF.add( eShownPlanet.y, eShownPlanet.diameter ),
+                emimy = MF.subtract( eShownPlanet.y, eShownPlanet.diameter );
 
             postMessage( {
                 stars: {
