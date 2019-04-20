@@ -108,4 +108,24 @@ describe( "math functions tests", function () {
         var x = MF.generateGUID();
         expect( x ).not.toBe( undefined );
     } );
+
+    it( 'getRectangleCenter test', function () {
+        var center = MF.getRectangleCenter(300, 400);
+        expect( center[0] ).toEqual(150);
+    } );
+
+    it( 'getRectangleCorner test', function () {
+        var corner = MF.getRectangleCorner(300, 400);
+        expect( corner ).toEqual(75);
+    } );
+
+    it( 'getCirclePoint test', function () {
+        var p = MF.getCirclePoint(10, 170);
+        expect( p.x ).toEqual(-10);
+    } );
+
+    it( 'getCirclePoints test', function () {
+        var p = MF.getCirclePoints(10);
+        expect( p[100].x ).toEqual(-2);
+    } );
 } );
