@@ -388,4 +388,44 @@ const MathFunctions = {
     generateGUID
 };
 
+export {
+    add,
+    subtract,
+    multiply,
+    divide,
+    square,
+    cube,
+    computeLineLength,
+    computePerimeter,
+    computePerimeterByLength,
+    computePerimeterOfSquare,
+    areaOfTriangle,
+    areaOfTrapizoid,
+    pythagorean,
+    average,
+    areaOfCircle,
+    circumferenceOfACircle,
+    surfaceAreaCone,
+    volumeCone,
+    surfaceAreaCylinder,
+    volumeCylinder,
+    surfaceAreaSphere,
+    volumeSphere,
+    inverse,
+    oneOver,
+    factorial,
+    convertFromBaseTenToBaseX,
+    convertFromBaseXToBaseTen,
+    getEllipsePoint,
+    getEllipsePoints,
+    getCirclePoint,
+    getCirclePoints,
+    distanceBetweenCirclesCenters,
+    getRectangleCenter,
+    getRectangleCorner,
+    degreesToRadians,
+    radiansToDegrees,
+    generateGUID
+};
+
 export default MathFunctions;
