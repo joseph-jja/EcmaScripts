@@ -21,4 +21,11 @@ describe( 'detect js', () => {
         delete window.opera;
         delete document.all;
     } );
+
+    it( 'pretend to be Gecko exists', () => {
+        navigator.taintEnabled = true;
+        const r = detect();
+        expect( r.name ).toEqual('Gecko');
+        navigator.taintEnabled = undefined;
+    } );
 } );
