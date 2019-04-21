@@ -17,7 +17,7 @@ function getMainWindow() {
     const mw = document.getElementById( 'main-window' );
     const styles = window.getComputedStyle( mw );
 
-    return new WebWindow( 'Home - Not Mine Though',
+    return new WebWindow( 'BART Info',
         styles.offsetLeft,
         styles.offsetTop,
         styles.offsetWidth,
