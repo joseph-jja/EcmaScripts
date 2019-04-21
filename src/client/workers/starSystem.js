@@ -14,6 +14,18 @@ let center,
     ePlanetPoint = 225,
     timerID;
 
+function getRoundCelestialBody( position, visibleColor, diameter, isShown ) {
+
+    const renderColor = ( isShown ? 'black' : visibleColor );
+
+    return {
+        x: position.x,
+        y: position.y,
+        diameter: ( isShown ? MF.add( diameter, 1 ) : diameter ),
+        color: renderColor
+    };
+}
+
 function getStars( points, hider ) {
 
     // Zeta Reticuli :P
