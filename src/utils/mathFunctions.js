@@ -23,12 +23,11 @@
  * extend the Math object in JavaScript
  * the Math object is static, so you do not call new on it, just set a reference to it
  */
-const MathFunctions = {};
 
 /**
  * add(x,y, ...)                Returns x + y [can handle more than 2 parameters ]
  */
-MathFunctions.add = function () {
+function add() {
     let result = 0;
     for ( let x = 0; x < arguments.length; x += 1 ) {
         result += ( +arguments[ x ] );
@@ -39,14 +38,14 @@ MathFunctions.add = function () {
 /**
  * subtract(x,y)        Returns x - y
  */
-MathFunctions.subtract = function ( x, y ) {
+function subtract( x, y ) {
     return ( ( +x ) - ( +y ) );
 };
 
 /**
  * multiply(x,y, ...)         Returns x * y   [can handle more than 2 parameters ]
  */
-MathFunctions.multiply = function () {
+function multiply() {
     let result = 1;
     for ( let x = 0; x < arguments.length; x += 1 ) {
         let y = result;
@@ -58,8 +57,15 @@ MathFunctions.multiply = function () {
 /**
  * divide(x,y)            Returns x / y
  */
-MathFunctions.divide = function ( x, y ) {
+function divide( x, y ) {
     return ( ( +x ) / ( +y ) );
+};
+
+const MathFunctions = {
+    add,
+    subtract,
+    multiply,
+    divide
 };
 
 /**
