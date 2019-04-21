@@ -32,7 +32,7 @@ async function doOnLoadStuff() {
 
     const wwin = getMainWindow();
 
-    const content = selector( 'div:first-child', wwin.titleBar ).get( 0 );
+    const content = wwin.windowArea;
 
     const alertButton = dom.createElement( 'button', content, {
         id: 'bart-alerts'
