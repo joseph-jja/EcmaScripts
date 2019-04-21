@@ -61,18 +61,11 @@ function divide( x, y ) {
     return ( ( +x ) / ( +y ) );
 };
 
-const MathFunctions = {
-    add,
-    subtract,
-    multiply,
-    divide
-};
-
 /**
  * squares a number
  * x * x or Math.pow(x,2)
  */
-MathFunctions.square = function ( x ) {
+function square( x ) {
     return Math.pow( x, 2 );
 };
 
@@ -80,7 +73,7 @@ MathFunctions.square = function ( x ) {
  * cubes a number
  * x * x * x or Math.pow(x,3)
  */
-MathFunctions.cube = function ( x ) {
+function cube( x ) {
     return Math.pow( x, 3 );
 };
 
@@ -88,7 +81,7 @@ MathFunctions.cube = function ( x ) {
  * computes the length of a line in an X-Y plane
  * using the pythagorean theorem ( x^2 + y^2 = z^2) and solving for z
  */
-MathFunctions.computeLineLength = function ( x1, y1, x2, y2 ) {
+function computeLineLength( x1, y1, x2, y2 ) {
     let xdiff = MathFunctions.subtract( x2, x1 );
     let ydiff = MathFunctions.subtract( y2, y1 );
     let total = MathFunctions.add( MathFunctions.square( xdiff ), MathFunctions.square( ydiff ) );
@@ -98,7 +91,7 @@ MathFunctions.computeLineLength = function ( x1, y1, x2, y2 ) {
 /**
  * computes the perimeter of a 4 sided object, given 4 points
  */
-MathFunctions.computePerimeter = function ( x1, y1, x2, y2, x3, y3, x4, y4 ) {
+function computePerimeter( x1, y1, x2, y2, x3, y3, x4, y4 ) {
     let line1 = MathFunctions.computeLineLength( x1, y1, x2, y2 );
     let line2 = MathFunctions.computeLineLength( x2, y2, x3, y3 );
     let line3 = MathFunctions.computeLineLength( x3, y3, x4, y4 );
@@ -109,37 +102,37 @@ MathFunctions.computePerimeter = function ( x1, y1, x2, y2, x3, y3, x4, y4 ) {
 /**
  * computes the perimeter of a 4 sided object
  */
-MathFunctions.computePerimeterByLength = function ( side1, side2, side3, side4 ) {
+function computePerimeterByLength( side1, side2, side3, side4 ) {
     return MathFunctions.add( side1, side2, side3, side4 );
 };
 
 /**
  * computes the perimeter of a square
  */
-MathFunctions.computePerimeterOfSquare = function ( side ) {
+function computePerimeterOfSquare( side ) {
     return MathFunctions.multiply( side, 4 );
 };
 
 /* compute area of a triangle */
-MathFunctions.areaOfTriangle = function ( base, height ) {
+function areaOfTriangle( base, height ) {
     return MathFunctions.multiply( base, height, .5 );
 };
 
 /* compute area of a trapizoid */
-MathFunctions.areaOfTrapizoid = function ( height, abase, bbase ) {
+function areaOfTrapizoid( height, abase, bbase ) {
     let a1, a2;
     a1 = MathFunctions.add( abase, bbase );
     a2 = MathFunctions.divide( a1, 2 );
     return MathFunctions.multiply( height, a2 );
 };
 
-MathFunctions.pythagorean = function ( a, b ) {
+function pythagorean( a, b ) {
     // return C given a^2 + b^2 = c^2
     return Math.sqrt( MathFunctions.square( a ) + MathFunctions.square( b ) );
 };
 
 /* compute average */
-MathFunctions.average = function () {
+function average() {
     let sum = 0;
     Object.keys( arguments ).forEach( ( e ) => {
         sum = MathFunctions.add( sum, arguments[ e ] );
@@ -148,17 +141,17 @@ MathFunctions.average = function () {
 };
 
 /* compute area of a circle */
-MathFunctions.areaOfCircle = function ( radius ) {
+function areaOfCircle( radius ) {
     return MathFunctions.multiply( Math.PI, MathFunctions.square( radius ) );
 };
 
 /* compute the circumference of a circle */
-MathFunctions.circumferenceOfACircle = function ( radius ) {
+function circumferenceOfACircle( radius ) {
     return MathFunctions.multiply( 2, Math.PI, radius );
 };
 
 /* compute the surface area of a cone */
-MathFunctions.surfaceAreaCone = function ( radius, height ) {
+function surfaceAreaCone( radius, height ) {
     let sqrtTotal = Math.sqrt( MathFunctions.multiply( Math.PI, MathFunctions.square( radius ) ) );
     let sumtotal = MathFunctions.add( MathFunctions.square( radius ), MathFunctions.square( height ) );
     let radiuisTotal = MathFunctions.multiply( radius, Math.PI, sumtotal );
@@ -166,43 +159,43 @@ MathFunctions.surfaceAreaCone = function ( radius, height ) {
 };
 
 /* compute volume of a cone */
-MathFunctions.volumeCone = function ( radius, height ) {
+function volumeCone( radius, height ) {
     return MathFunctions.multiply( ( 1 / 3 ), Math.PI, MathFunctions.square( radius ), height );
 };
 
 /* compute the surface area of a cylinder */
-MathFunctions.surfaceAreaCylinder = function ( radius, height ) {
+function surfaceAreaCylinder( radius, height ) {
     let radiusTotal = MathFunctions.multiply( 2, Math.PI, MathFunctions.square( radius ) );
     let heightTotal = MathFunctions.multiply( 2, Math.PI, radius, height );
     return MathFunctions.add( radiusTotal, heightTotal );
 };
 
 /* compute the volume of a cylinder */
-MathFunctions.volumeCylinder = function ( radius, height ) {
+function volumeCylinder( radius, height ) {
     return MathFunctions.multiply( Math.PI, MathFunctions.square( radius ), height );
 };
 
 /* compute the surface area of a sphere */
-MathFunctions.surfaceAreaSphere = function ( radius ) {
+function surfaceAreaSphere( radius ) {
     return MathFunctions.multiply( 4, Math.PI, MathFunctions.square( radius ) );
 };
 
 /* compute the volume of a sphere */
-MathFunctions.volumeSphere = function ( radius ) {
+function volumeSphere( radius ) {
     return MathFunctions.multiply( ( 4 / 3 ), Math.PI, MathFunctions.cube( radius ) );
 };
 
 /* invert a value */
-MathFunctions.inverse = function ( x ) {
+function inverse( x ) {
     return MathFunctions.multiply( -1, x );
 };
 
-MathFunctions.oneOver = function ( x ) {
+function oneOver( x ) {
     return MathFunctions.divide( 1, x );
 };
 
 /* compute a factorial */
-MathFunctions.factorial = function ( x ) {
+function factorial( x ) {
     if ( ( +x ) <= 1 ) {
         return 1;
     }
@@ -210,22 +203,22 @@ MathFunctions.factorial = function ( x ) {
     return MathFunctions.multiply( x, MathFunctions.factorial( f ) );
 };
 
-MathFunctions.hexidecimal = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" ];
+const hexidecimal = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" ];
 
 /* convert from base ten to base x
  * not so good at converting from base 10 to base 10
  * up to base 16 or HEX */
-MathFunctions.convertFromBaseTenToBaseX = function ( xbase, inval ) {
+function convertFromBaseTenToBaseX( xbase, inval ) {
     let xinval = inval;
-    let remainder = MathFunctions.hexidecimal[ xinval % xbase ];
+    let remainder = hexidecimal[ xinval % xbase ];
     while ( xinval >= xbase ) {
         let r1 = MathFunctions.subtract( xinval, ( xinval % xbase ) );
         xinval = MathFunctions.divide( r1, xbase );
         // in this case we do not want to add we want to append the strings together
         if ( xinval >= xbase ) {
-            remainder = MathFunctions.hexidecimal[ xinval % xbase ] + remainder;
+            remainder = hexidecimal[ xinval % xbase ] + remainder;
         } else {
-            remainder = MathFunctions.hexidecimal[ xinval ] + remainder;
+            remainder = hexidecimal[ xinval ] + remainder;
         }
     }
     return remainder;
@@ -233,18 +226,21 @@ MathFunctions.convertFromBaseTenToBaseX = function ( xbase, inval ) {
 
 /* convert from base x to base ten
  * up to base 16 or HEX */
-MathFunctions.convertFromBaseXToBaseTen = function ( xbase, inval ) {
+function convertFromBaseXToBaseTen( xbase, inval ) {
     let remainder = 0;
     let num = 1;
 
     function valueToInt( x ) {
-        for ( let p = 0; p < MathFunctions.hexidecimal.length; p += 1 ) {
-            if ( MathFunctions.hexidecimal[ p ] === x ) {
-                return p;
+        let result = '';
+        for ( let p = 0, end = hexidecimal.length; p < end; p += 1 ) {
+            if ( hexidecimal[ p ] === x ) {
+                result = p;
+                break;
             }
         }
-        return '';
+        return result;
     }
+
     while ( num <= inval.length ) {
         let incount = Math.pow( xbase, MathFunctions.subtract( num, 1 ) );
         let ivlen = MathFunctions.subtract( inval.length, num );
@@ -256,7 +252,7 @@ MathFunctions.convertFromBaseXToBaseTen = function ( xbase, inval ) {
 };
 
 // given an x and y radius and angle get the x, y point on the ellipse
-MathFunctions.getEllipsePoint = function ( xr, yr, angle ) {
+function getEllipsePoint( xr, yr, angle ) {
     const rAngle = MathFunctions.degreesToRadians( angle ),
         x = MathFunctions.multiply( xr, Math.cos( rAngle ) ),
         y = MathFunctions.multiply( yr, Math.sin( rAngle ) );
@@ -268,7 +264,7 @@ MathFunctions.getEllipsePoint = function ( xr, yr, angle ) {
 };
 
 // give a radius get ALL the points on the circle
-MathFunctions.getEllipsePoints = function ( xr, yr ) {
+function getEllipsePoints( xr, yr ) {
     const points = [];
     for ( let startPoint = 0; startPoint <= 360; startPoint++ ) {
         const nextPoints = MathFunctions.getEllipsePoint( xr, yr, startPoint );
@@ -278,7 +274,7 @@ MathFunctions.getEllipsePoints = function ( xr, yr ) {
 };
 
 // given a radius and angle get the x, y point on the circle
-MathFunctions.getCirclePoint = function ( r, angle ) {
+function getCirclePoint( r, angle ) {
     const rAngle = MathFunctions.degreesToRadians( angle ),
         x = MathFunctions.multiply( r, Math.cos( rAngle ) ),
         y = MathFunctions.multiply( r, Math.sin( rAngle ) );
@@ -290,7 +286,7 @@ MathFunctions.getCirclePoint = function ( r, angle ) {
 };
 
 // give a radius get ALL the points on the circle
-MathFunctions.getCirclePoints = function ( r ) {
+function getCirclePoints( r ) {
     const points = [];
     for ( let startPoint = 0; startPoint <= 360; startPoint++ ) {
         const nextPoints = MathFunctions.getCirclePoint( r, startPoint );
@@ -299,33 +295,33 @@ MathFunctions.getCirclePoints = function ( r ) {
     return points;
 };
 
-MathFunctions.distanceBetweenCirclesCenters = function ( x1, y1, x2, y2 ) {
+function distanceBetweenCirclesCenters( x1, y1, x2, y2 ) {
     const diffXSqr = MathFunctions.square( MathFunctions.subtract( x1, x2 ) ),
         diffYSqr = MathFunctions.square( MathFunctions.subtract( y1, y2 ) );
 
     return Math.sqrt( MathFunctions.add( diffXSqr, diffYSqr ) );
 };
 
-MathFunctions.getRectangleCenter = function ( width, height ) {
+function getRectangleCenter( width, height ) {
     return [ Math.floor( MathFunctions.divide( width, 2 ) ), Math.floor( MathFunctions.divide( height, 2 ) ) ];
 };
 
-MathFunctions.getRectangleCorner = function ( width, height ) {
+function getRectangleCorner( width, height ) {
     const center = MathFunctions.getRectangleCenter( width, height );
     const p1 = Math.ceil( MathFunctions.divide( center[ 0 ], 2 ) ),
         p2 = Math.ceil( MathFunctions.divide( center[ 1 ], 2 ) );
     return ( p1 < p2 ? p1 : p2 );
 };
 
-MathFunctions.degreesToRadians = function ( x ) {
+function degreesToRadians( x ) {
     return x * Math.PI / 180;
 };
 
-MathFunctions.radiansToDegrees = function ( x ) {
+function radiansToDegrees( x ) {
     return x * 180 / Math.PI;
 };
 
-MathFunctions.generateGUID = function () {
+function generateGUID() {
     const timenow = new Date().getTime() * 1000000,
         hexval = MathFunctions.convertFromBaseTenToBaseX( 16, timenow );
 
@@ -350,6 +346,46 @@ MathFunctions.generateGUID = function () {
     }
     return result;
 
+};
+
+const MathFunctions = {
+    add,
+    subtract,
+    multiply,
+    divide,
+    square,
+    cube,
+    computeLineLength,
+    computePerimeter,
+    computePerimeterByLength,
+    computePerimeterOfSquare,
+    areaOfTriangle,
+    areaOfTrapizoid,
+    pythagorean,
+    average,
+    areaOfCircle,
+    circumferenceOfACircle,
+    surfaceAreaCone,
+    volumeCone,
+    surfaceAreaCylinder,
+    volumeCylinder,
+    surfaceAreaSphere,
+    volumeSphere,
+    inverse,
+    oneOver,
+    factorial,
+    convertFromBaseTenToBaseX,
+    convertFromBaseXToBaseTen,
+    getEllipsePoint,
+    getEllipsePoints,
+    getCirclePoint,
+    getCirclePoints,
+    distanceBetweenCirclesCenters,
+    getRectangleCenter,
+    getRectangleCorner,
+    degreesToRadians,
+    radiansToDegrees,
+    generateGUID
 };
 
 export default MathFunctions;
