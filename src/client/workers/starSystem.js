@@ -88,20 +88,20 @@ onmessage = ( msg ) => {
             const sBlackPlanet = getPlanet( black[ 0 ].x, black[ 0 ].y, sPlanetPoints[ sPlanetPoint ], true, 7 );
             const eBlackPlanet = getPlanet( center[ 0 ], center[ 1 ], ePlanetPoints[ ePlanetPoint ], true, ( width > 600 ? 6 : 0 ) );
             startPoint = ( startPoint <= 0 ? 360 : --startPoint );
-            if ( planetPoint < 4 ) {
+            if ( planetPoint < 5 ) {
                 planetPoint = 360;
             } else {
-                planetPoint -= 4;
+                planetPoint -= 5;
             }
             if ( sPlanetPoint < 3 ) {
                 sPlanetPoint = 360;
             } else {
                 sPlanetPoint -= 3;
             }
-            if ( ePlanetPoint < 2 ) {
+            if ( ePlanetPoint < 1 ) {
                 ePlanetPoint = 360;
             } else {
-                ePlanetPoint -= 2;
+                ePlanetPoint -= 1;
             }
             const newPoint = resultPoints[ startPoint ];
             const white = getStars( newPoint, false );
