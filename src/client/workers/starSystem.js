@@ -20,13 +20,13 @@ function getStars( points, hider ) {
     const color = ( hider ? 'black' : '#FDB813' );
 
     return [ {
-        x: ( MF.subtract( center[ 0 ], points.x ) ),
-        y: ( MF.subtract( center[ 1 ], points.y ) ),
+        x: ( MF.subtract( center.x, points.x ) ),
+        y: ( MF.subtract( center.y, points.y ) ),
         diameter: ( hider ? 25 : 24 ),
         color: color
     }, {
-        x: ( MF.add( center[ 0 ], points.x ) ),
-        y: ( MF.add( center[ 1 ], points.y ) ),
+        x: ( MF.add( center.x, points.x ) ),
+        y: ( MF.add( center.y, points.y ) ),
         diameter: ( hider ? 19 : 18 ),
         color: color
     } ];
@@ -69,7 +69,7 @@ onmessage = ( msg ) => {
 
         const planet = getPlanet( stars[ 0 ].x, stars[ 0 ].y, planetPoints[ planetPoint ], false, 3 ),
             sPlanet = getPlanet( stars[ 0 ].x, stars[ 0 ].y, sPlanetPoints[ sPlanetPoint ], false, 7 ),
-            ePlanet = getPlanet( center[ 0 ], center[ 1 ], ePlanetPoints[ ePlanetPoint ], false, ( width > 600 ? 6 : 0 ) );
+            ePlanet = getPlanet( center.x, center.y, ePlanetPoints[ ePlanetPoint ], false, ( width > 600 ? 6 : 0 ) );
 
         postMessage( {
             stars: {
@@ -86,7 +86,7 @@ onmessage = ( msg ) => {
             const black = getStars( oldPoint, true );
             const blackPlanet = getPlanet( black[ 0 ].x, black[ 0 ].y, planetPoints[ planetPoint ], true, 3 );
             const sBlackPlanet = getPlanet( black[ 0 ].x, black[ 0 ].y, sPlanetPoints[ sPlanetPoint ], true, 7 );
-            const eBlackPlanet = getPlanet( center[ 0 ], center[ 1 ], ePlanetPoints[ ePlanetPoint ], true, ( width > 600 ? 6 : 0 ) );
+            const eBlackPlanet = getPlanet( center.x, center.y, ePlanetPoints[ ePlanetPoint ], true, ( width > 600 ? 6 : 0 ) );
             startPoint = ( startPoint <= 0 ? 360 : --startPoint );
             if ( planetPoint < 5 ) {
                 planetPoint = 360;
@@ -107,7 +107,7 @@ onmessage = ( msg ) => {
             const white = getStars( newPoint, false );
             const shownPlanet = getPlanet( white[ 0 ].x, white[ 0 ].y, planetPoints[ planetPoint ], false, 3 );
             const sShownPlanet = getPlanet( white[ 0 ].x, white[ 0 ].y, sPlanetPoints[ sPlanetPoint ], false, 7 );
-            const eShownPlanet = getPlanet( center[ 0 ], center[ 1 ], ePlanetPoints[ ePlanetPoint ], false, ( width > 600 ? 6 : 0 ) );
+            const eShownPlanet = getPlanet( center.x, center.y, ePlanetPoints[ ePlanetPoint ], false, ( width > 600 ? 6 : 0 ) );
 
             // check if 2 circles intersect
             const mfCentersDistance = MF.distanceBetweenCirclesCenters( sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y );

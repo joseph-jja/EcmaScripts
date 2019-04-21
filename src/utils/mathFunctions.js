@@ -303,13 +303,16 @@ function distanceBetweenCirclesCenters( x1, y1, x2, y2 ) {
 };
 
 function getRectangleCenter( width, height ) {
-    return [ Math.floor( MathFunctions.divide( width, 2 ) ), Math.floor( MathFunctions.divide( height, 2 ) ) ];
+    return {
+        x: Math.floor( MathFunctions.divide( width, 2 ) ),
+        y: Math.floor( MathFunctions.divide( height, 2 ) )
+    };
 };
 
 function getRectangleCorner( width, height ) {
     const center = MathFunctions.getRectangleCenter( width, height );
-    const p1 = Math.ceil( MathFunctions.divide( center[ 0 ], 2 ) ),
-        p2 = Math.ceil( MathFunctions.divide( center[ 1 ], 2 ) );
+    const p1 = Math.ceil( MathFunctions.divide( center.x, 2 ) ),
+        p2 = Math.ceil( MathFunctions.divide( center.y, 2 ) );
     return ( p1 < p2 ? p1 : p2 );
 };
 

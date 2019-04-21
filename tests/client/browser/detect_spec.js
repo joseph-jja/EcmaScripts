@@ -9,7 +9,7 @@ describe( 'detect js', () => {
     it( 'pretend to be nn4 document layers exists', () => {
         document.layers = {};
         const r = detect();
-        expect( r.name ).toEqual('Netscape Navigator');
+        expect( r.name ).toEqual( 'Netscape Navigator' );
         delete document.layers;
     } );
 
@@ -17,7 +17,7 @@ describe( 'detect js', () => {
         window.opera = {};
         document.all = {};
         const r = detect();
-        expect( r.name ).toEqual('Opera');
+        expect( r.name ).toEqual( 'Opera' );
         delete window.opera;
         delete document.all;
     } );
@@ -25,7 +25,7 @@ describe( 'detect js', () => {
     it( 'pretend to be Gecko exists', () => {
         navigator.taintEnabled = true;
         const r = detect();
-        expect( r.name ).toEqual('Gecko');
+        expect( r.name ).toEqual( 'Gecko' );
         navigator.taintEnabled = undefined;
     } );
 } );

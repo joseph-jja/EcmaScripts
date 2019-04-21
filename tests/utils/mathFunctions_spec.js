@@ -111,7 +111,7 @@ describe( "math functions tests", function () {
 
     it( 'getRectangleCenter test', function () {
         var center = MF.getRectangleCenter( 300, 400 );
-        expect( center[ 0 ] ).toEqual( 150 );
+        expect( center.x ).toEqual( 150 );
     } );
 
     it( 'getRectangleCorner test', function () {
