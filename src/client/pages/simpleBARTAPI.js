@@ -10,11 +10,29 @@ import Alerts from 'client/components/bart/alertUI';
 import footer from 'client/components/footer';
 import * as menu from 'client/components/menu';
 
+// window
+import WebWindow from 'client/components/wbWindow';
+
+function getMainWindow() {
+    const mw = document.getElementById( 'main-window' );
+    const styles = window.getComputedStyle( mw );
+
+    return new WebWindow( 'Home - Not Mine Though',
+        styles.offsetLeft,
+        styles.offsetTop,
+        styles.offsetWidth,
+        styles.offsetHeight,
+        'main-window' );
+
+}
+
 async function doOnLoadStuff() {
 
     const stationData = await StationList();
 
-    const content = document.querySelector( '#main-window .WebWindowTitle:first-child' );
+    const wwin = getMainWindow();
+
+    const content = selector( 'div:first-child', wwin.titleBar );
 
     const alertButton = dom.createElement( 'button', content, {
         id: 'bart-alerts'
