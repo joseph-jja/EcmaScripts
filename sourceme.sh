@@ -12,11 +12,5 @@ else
 fi 
 echo "BINARY_STELLAR_SYSTEM_HOME set to $BINARY_STELLAR_SYSTEM_HOME"
 
-JAVA_EXEC=`which java`
-ECJ_EXEC=`which ecj`
-if [ -f "$JAVA_EXEC" ]; then 
-    export JAVA_EXECUTABLE=$JAVA_EXEC
-fi
-echo "JAVA_EXECUTABLE set to $JAVA_EXECUTABLE"
 
 
