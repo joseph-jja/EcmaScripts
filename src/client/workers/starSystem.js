@@ -14,16 +14,45 @@ let center,
     ePlanetPoint = 225,
     timerID;
 
-function getRoundCelestialBody( position, visibleColor, diameter, isShown ) {
+class CelestialBody {
 
-    const renderColor = ( isShown ? 'black' : visibleColor );
+    constructor( color, radius, options = {} ) {
 
-    return {
-        x: position.x,
-        y: position.y,
-        diameter: ( isShown ? MF.add( diameter, 1 ) : diameter ),
-        color: renderColor
-    };
+        this.color = color;
+        this.radius = radius;
+        this.hiddenRadius = MF.add( radius, 1 );
+        this.direction = options.direction && options.direction === 'clockwise' ? MF.add : MF.subtract;
+        this.angle = options.startAngle || 0;
+        this.speed = options.speed || 1;
+    }
+
+    initPoints( xRadius, yRadius ) {
+
+        if ( xRadius === yRadius ) {
+            this.points = MF.getCirclePoints( xRadius );
+        } else {
+            this.points = MF.getEllipsePoints( xRadius, yRadius );
+        }
+    }
+
+    getCurrentPosition( center, isShown ) {
+
+        const renderColor = ( isShown ? 'black' : this.color );
+
+        this.angle = this.direction( this.angle, this.spped );
+        if ( this.angle < 0 ) {
+            this.angle = 360;
+        } else if ( this.angle > 360 ) {
+            this.startAngle = 0;
+        }
+
+        return {
+            x: ( this.direction( center.x, this.points[ this.angle ].x ) ),
+            y: ( this.direction( center.y, this.points[ this.angle ].y ) ),
+            diameter: ( isShown ? this.hiddenRadius : this.radius ),
+            color: renderColor
+        };
+    }
 }
 
 function getStars( points, hider ) {
