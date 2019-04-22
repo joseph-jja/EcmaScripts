@@ -18,20 +18,20 @@ class CelestialBody {
 
     constructor( color, radius, options = {} ) {
 
-        this.color = color;
-        this.radius = radius;
-        this.hiddenRadius = MF.add( radius, 1 );
+        this.color = color || 'red';
+        this.radius = radius || 5;
+        this.hiddenRadius = MF.add( this.radius, 1 );
         this.direction = options.direction && options.direction === 'clockwise' ? MF.add : MF.subtract;
         this.angle = options.startAngle || 0;
         this.speed = options.speed || 1;
     }
 
-    setupPoints( xRadius, yRadius ) {
+    setupPoints( xRadius = 30, yRadius) {
 
-        if ( xRadius === yRadius ) {
-            this.points = MF.getCirclePoints( xRadius );
-        } else {
+        if ( xRadius !== yRadius ) {
             this.points = MF.getEllipsePoints( xRadius, yRadius );
+        } else {
+            this.points = MF.getCirclePoints( xRadius );
         }
     }
 
