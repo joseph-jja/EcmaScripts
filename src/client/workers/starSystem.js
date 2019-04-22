@@ -35,22 +35,22 @@ class CelestialBody {
         }
     }
 
-    getCurrentPosition( center, isShown ) {
-
-        const renderColor = ( isShown ? 'black' : this.color );
-
+    increment() {
         this.angle = this.direction( this.angle, this.spped );
         if ( this.angle < 0 ) {
             this.angle = 360;
         } else if ( this.angle > 360 ) {
             this.startAngle = 0;
         }
+    }
+
+    getCurrentPosition( center, isShown ) {
 
         return {
             x: ( this.direction( center.x, this.points[ this.angle ].x ) ),
             y: ( this.direction( center.y, this.points[ this.angle ].y ) ),
             diameter: ( isShown ? this.hiddenRadius : this.radius ),
-            color: renderColor
+            color: ( isShown ? 'black' : this.color )
         };
     }
 }
