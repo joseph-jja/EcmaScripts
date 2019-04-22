@@ -53,7 +53,7 @@ class CelestialBody {
         return {
             x: ( this.direction( centerPoints.x, this.points[ this.angle ].x ) ),
             y: ( this.direction( centerPoints.y, this.points[ this.angle ].y ) ),
-            diameter: ( isShown ? this.radius : this.hiddenRadius ),
+            radius: ( isShown ? this.radius : this.hiddenRadius ),
             color: ( isShown ? this.color : 'black' )
         };
     }
