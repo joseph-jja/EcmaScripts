@@ -63,7 +63,7 @@ class CelestialBody {
     }
 
     getVisiblePosition( centerPoints ) {
-        return getCurrentPosition( centerPoints, true );
+        return this.getCurrentPosition( centerPoints, true );
     }
 }
 
@@ -141,25 +141,33 @@ onmessage = ( msg ) => {
                 bigStar.getHiddenPosition( center ),
                 smallerStar.getHiddenPosition( center ),
             ];
+            const blackPlanets = [
+                smallPlanet.getHiddenPosition( black[ 0 ] ),
+                planetTwo.getHiddenPosition( black[ 0 ] ),
+                planetThree.getHiddenPosition( black[ 0 ] )
+            ];
+
+            // increment stars
             bigStar.increment();
             smallerStar.increment();
-            const blackPlanet = [ smallPlanet.getHiddenPosition( black[ 0 ] ) ];
-            const sBlackPlanet = [ planetTwo.getHiddenPosition( black[ 0 ] ) ];
-            const eBlackPlanet = [ planetThree.getHiddenPosition( black[ 0 ] ) ];
+
+            // increment planets
+            smallPlanet.increment();
+            planetTwo.increment();
+            planetThree.increment();
 
             const white = [
                 bigStar.getCurrentPosition( center, true ),
                 smallerStar.getCurrentPosition( center, true ),
             ];
-            smallPlanet.increment();
-            planetTwo.increment();
-            planetThree.increment();
-            const shownPlanet = [ smallPlanet.getVisiblePosition( white[ 0 ] ) ];
-            const sShownPlanet = [ planetTwo.getVisiblePosition( white[ 0 ] ) ];
-            const eShownPlanet = [ planetThree.getVisiblePosition( white[ 0 ] ) ];
+            const whitePlanets = [
+                smallPlanet.getVisiblePosition( white[ 0 ] ),
+                planetTwo.getVisiblePosition( white[ 0 ] ),
+                planetThree.getVisiblePosition( white[ 0 ] )
+            ];
 
             // check if 2 circles intersect
-            const mfCentersDistance = distanceBetweenCirclesCenters( sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y );
+            const mfCentersDistance = distanceBetweenCirclesCenters( whitePlanets[ 1 ].x, whitePlanets[ 1 ].y, whitePlanets[ 2 ].x, whitePlanets[ 2 ].y );
             const centersDistance = Math.ceil( square( mfCentersDistance ) );
 
             // radius + 5 in case they are near
@@ -168,17 +176,17 @@ onmessage = ( msg ) => {
 
             // touch
             if ( centersDistance === radiusIntersect ) {
-                console.log( 'Touching %s %s %s %s', sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y );
+                console.log( 'Touching %s %s %s %s', whitePlanets[ 1 ].x, whitePlanets[ 1 ].y, whitePlanets[ 2 ].x, whitePlanets[ 2 ].y );
             }
             if ( centersDistance === radiusClose ) {
-                console.log( 'Close touching %s %s %s %s', sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y );
+                console.log( 'Close touching %s %s %s %s', whitePlanets[ 1 ].x, whitePlanets[ 1 ].y, whitePlanets[ 2 ].x, whitePlanets[ 2 ].y );
             }
             // intersect
             if ( centersDistance < radiusIntersect ) {
-                console.log( 'Intersecting %s %s %s %s', sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y );
+                console.log( 'Intersecting %s %s %s %s', whitePlanets[ 1 ].x, whitePlanets[ 1 ].y, whitePlanets[ 2 ].x, whitePlanets[ 2 ].y );
             }
             if ( centersDistance < radiusClose ) {
-                console.log( 'Close intersecting %s %s %s %s', sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y );
+                console.log( 'Close intersecting %s %s %s %s', whitePlanets[ 1 ].x, whitePlanets[ 1 ].y, whitePlanets[ 2 ].x, whitePlanets[ 2 ].y );
             }
 
             postMessage( {
@@ -187,8 +195,8 @@ onmessage = ( msg ) => {
                     white
                 },
                 planets: {
-                    blackPlanet: blackPlanet.concat( sBlackPlanet, eBlackPlanet ),
-                    shownPlanet: shownPlanet.concat( sShownPlanet, eShownPlanet )
+                    blackPlanet: blackPlanets,
+                    shownPlanet: whitePlanets
                 }
             } );
 
