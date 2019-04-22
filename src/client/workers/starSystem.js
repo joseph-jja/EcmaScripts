@@ -26,7 +26,7 @@ class CelestialBody {
         this.speed = options.speed || 1;
     }
 
-    initPoints( xRadius, yRadius ) {
+    setupPoints( xRadius, yRadius ) {
 
         if ( xRadius === yRadius ) {
             this.points = MF.getCirclePoints( xRadius );
