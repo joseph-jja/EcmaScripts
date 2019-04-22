@@ -57,6 +57,14 @@ class CelestialBody {
             color: ( isShown ? this.color : 'black' )
         };
     }
+
+    getHiddenPosition( centerPoints ) {
+        return this.getCurrentPosition( centerPoints, false );
+    }
+
+    getVisiblePosition( centerPoints ) {
+        return getCurrentPosition( centerPoints, true );
+    }
 }
 
 onmessage = ( msg ) => {
@@ -67,28 +75,28 @@ onmessage = ( msg ) => {
 
         center = getRectangleCenter( width, height );
 
-        const radius = divide( getRectangleCorner( width, height ), 1.25 );
+        const orbitalRadius = divide( getRectangleCorner( width, height ), 1.25 );
 
         // stars
         const bigStar = new CelestialBody( '#FDB813', 24, {
             direction: 'counterClockwise',
             startAngle: 180
         } );
-        bigStar.setupPoints( radius );
+        bigStar.setupPoints( orbitalRadius );
 
         const smallerStar = new CelestialBody( '#FDB813', 18, {
             direction: 'counterClockwise',
             startAngle: 0
         } );
-        smallerStar.setupPoints( radius );
+        smallerStar.setupPoints( orbitalRadius );
 
         const stars = [
-            bigStar.getCurrentPosition( center, true ),
-            smallerStar.getCurrentPosition( center, true ),
+            bigStar.getVisiblePosition( center ),
+            smallerStar.getVisiblePosition( center ),
         ];
 
         // planets
-        const planetRadius = Math.floor( divide( radius, ( width > 600 ? 3 : 1.65 ) ) );
+        const planetRadius = Math.floor( divide( orbitalRadius, ( width > 600 ? 3 : 1.65 ) ) );
         const smallPlanet = new CelestialBody( '#17e3ea', 3, {
             direction: 'counterClockwise',
             startAngle: 90,
@@ -110,13 +118,13 @@ onmessage = ( msg ) => {
             startAngle: 270,
             speed: 1
         } );
-        const ePradius = add( radius, 75 );
+        const ePradius = add( orbitalRadius, 75 );
         const exradius = add( ePradius, 55 );
         planetThree.setupPoints( ePradius, exradius );
 
-        const planet = [ smallPlanet.getCurrentPosition( stars[ 0 ], true ) ],
-            sPlanet = [ planetTwo.getCurrentPosition( stars[ 0 ], true ) ],
-            ePlanet = [ planetThree.getCurrentPosition( stars[ 0 ], true ) ];
+        const planet = [ smallPlanet.getVisiblePosition( stars[ 0 ] ) ],
+            sPlanet = [ planetTwo.getVisiblePosition( stars[ 0 ] ) ],
+            ePlanet = [ planetThree.getVisiblePosition( stars[ 0 ] ) ];
 
         postMessage( {
             stars: {
@@ -130,14 +138,14 @@ onmessage = ( msg ) => {
         timerID = setInterval( () => {
 
             const black = [
-                bigStar.getCurrentPosition( center, false ),
-                smallerStar.getCurrentPosition( center, false ),
+                bigStar.getHiddenPosition( center ),
+                smallerStar.getHiddenPosition( center ),
             ];
             bigStar.increment();
             smallerStar.increment();
-            const blackPlanet = [ smallPlanet.getCurrentPosition( black[ 0 ], false ) ];
-            const sBlackPlanet = [ planetTwo.getCurrentPosition( black[ 0 ], false ) ];
-            const eBlackPlanet = [ planetThree.getCurrentPosition( black[ 0 ], false ) ];
+            const blackPlanet = [ smallPlanet.getHiddenPosition( black[ 0 ] ) ];
+            const sBlackPlanet = [ planetTwo.getHiddenPosition( black[ 0 ] ) ];
+            const eBlackPlanet = [ planetThree.getHiddenPosition( black[ 0 ] ) ];
 
             const white = [
                 bigStar.getCurrentPosition( center, true ),
@@ -146,9 +154,9 @@ onmessage = ( msg ) => {
             smallPlanet.increment();
             planetTwo.increment();
             planetThree.increment();
-            const shownPlanet = [ smallPlanet.getCurrentPosition( white[ 0 ], true ) ];
-            const sShownPlanet = [ planetTwo.getCurrentPosition( white[ 0 ], true ) ];
-            const eShownPlanet = [ planetThree.getCurrentPosition( white[ 0 ], true ) ];
+            const shownPlanet = [ smallPlanet.getVisiblePosition( white[ 0 ] ) ];
+            const sShownPlanet = [ planetTwo.getVisiblePosition( white[ 0 ] ) ];
+            const eShownPlanet = [ planetThree.getVisiblePosition( white[ 0 ] ) ];
 
             // check if 2 circles intersect
             const mfCentersDistance = distanceBetweenCirclesCenters( sShownPlanet[ 0 ].x, sShownPlanet[ 0 ].y, eShownPlanet[ 0 ].x, eShownPlanet[ 0 ].y );
