@@ -8,7 +8,6 @@ let center,
     planetPoints,
     sPlanetPoints,
     ePlanetPoints,
-    startPoint = 0,
     planetPoint = 0,
     sPlanetPoint = 0,
     ePlanetPoint = 225,
@@ -28,7 +27,7 @@ class CelestialBody {
 
     setupPoints( xRadius = 30, yRadius ) {
 
-        if ( xRadius !== yRadius ) {
+        if ( xRadius !== yRadius && yRadius ) {
             this.points = MF.getEllipsePoints( xRadius, yRadius );
         } else {
             this.points = MF.getCirclePoints( xRadius );
@@ -36,11 +35,11 @@ class CelestialBody {
     }
 
     increment() {
-        this.angle = this.direction( this.angle, this.spped );
+        this.angle = this.direction( this.angle, this.speed );
         if ( this.angle < 0 ) {
             this.angle = 360;
         } else if ( this.angle > 360 ) {
-            this.startAngle = 0;
+            this.angle = 0;
         }
     }
 
@@ -49,28 +48,10 @@ class CelestialBody {
         return {
             x: ( this.direction( center.x, this.points[ this.angle ].x ) ),
             y: ( this.direction( center.y, this.points[ this.angle ].y ) ),
-            diameter: ( isShown ? this.hiddenRadius : this.radius ),
-            color: ( isShown ? 'black' : this.color )
+            diameter: ( isShown ? this.radius : this.hiddenRadius ),
+            color: ( isShown ? this.color : 'black' )
         };
     }
-}
-
-function getStars( points, hider ) {
-
-    // Zeta Reticuli :P
-    const color = ( hider ? 'black' : '#FDB813' );
-
-    return [ {
-        x: ( MF.subtract( center.x, points.x ) ),
-        y: ( MF.subtract( center.y, points.y ) ),
-        diameter: ( hider ? 25 : 24 ),
-        color: color
-    }, {
-        x: ( MF.add( center.x, points.x ) ),
-        y: ( MF.add( center.y, points.y ) ),
-        diameter: ( hider ? 19 : 18 ),
-        color: color
-    } ];
 }
 
 function getPlanet( starX, starY, points, hider, diameter ) {
@@ -94,9 +75,34 @@ onmessage = ( msg ) => {
         center = MF.getRectangleCenter( width, height );
 
         const radius = MF.divide( MF.getRectangleCorner( width, height ), 1.25 );
-        const planetRadius = Math.floor( MF.divide( radius, ( width > 600 ? 3 : 1.65 ) ) );
 
-        resultPoints = MF.getCirclePoints( radius );
+        // stars
+        const bigStar = new CelestialBody( '#FDB813', 24, {
+            direction: 'counterClockwise',
+            startAngle: 180
+        } );
+        bigStar.setupPoints( radius );
+
+        const smallerStar = new CelestialBody( '#FDB813', 18, {
+            direction: 'counterClockwise',
+            startAngle: 0
+        } );
+        smallerStar.setupPoints( radius );
+
+        const stars = [
+            bigStar.getCurrentPosition( center, true ),
+            smallerStar.getCurrentPosition( center, true ),
+        ];
+
+        // planets
+        const planetRadius = Math.floor( MF.divide( radius, ( width > 600 ? 3 : 1.65 ) ) );
+        const smallPlanet = new CelestialBody( '#17e3ea', 3, {
+            direction: 'counterClockwise',
+            startAngle: 90,
+            speed: 5
+        } );
+        smallPlanet.setupPoints( planetRadius );
+
         planetPoints = MF.getCirclePoints( MF.add( planetRadius, 0 ) );
         const pradius = MF.add( planetRadius, ( width > 600 ? 28 : 17 ) );
         const xradius = MF.add( pradius, ( width > 600 ? 50 : 8 ) );
@@ -106,9 +112,7 @@ onmessage = ( msg ) => {
         const exradius = MF.add( ePradius, 55 );
         ePlanetPoints = MF.getEllipsePoints( ePradius, exradius );
 
-        const stars = getStars( resultPoints[ startPoint ], false );
-
-        const planet = getPlanet( stars[ 0 ].x, stars[ 0 ].y, planetPoints[ planetPoint ], false, 3 ),
+        const planet = [ smallPlanet.getCurrentPosition( stars[ 0 ], true ) ],
             sPlanet = getPlanet( stars[ 0 ].x, stars[ 0 ].y, sPlanetPoints[ sPlanetPoint ], false, 7 ),
             ePlanet = getPlanet( center.x, center.y, ePlanetPoints[ ePlanetPoint ], false, ( width > 600 ? 6 : 0 ) );
 
@@ -123,17 +127,15 @@ onmessage = ( msg ) => {
 
         timerID = setInterval( () => {
 
-            const oldPoint = resultPoints[ startPoint ];
-            const black = getStars( oldPoint, true );
-            const blackPlanet = getPlanet( black[ 0 ].x, black[ 0 ].y, planetPoints[ planetPoint ], true, 3 );
+            const black = [
+                bigStar.getCurrentPosition( center, false ),
+                smallerStar.getCurrentPosition( center, false ),
+            ];
+            bigStar.increment();
+            smallerStar.increment();
+            const blackPlanet = [ smallPlanet.getCurrentPosition( black[ 0 ], false ) ];
             const sBlackPlanet = getPlanet( black[ 0 ].x, black[ 0 ].y, sPlanetPoints[ sPlanetPoint ], true, 7 );
             const eBlackPlanet = getPlanet( center.x, center.y, ePlanetPoints[ ePlanetPoint ], true, ( width > 600 ? 6 : 0 ) );
-            startPoint = ( startPoint <= 0 ? 360 : --startPoint );
-            if ( planetPoint < 5 ) {
-                planetPoint = 360;
-            } else {
-                planetPoint -= 5;
-            }
             if ( sPlanetPoint < 3 ) {
                 sPlanetPoint = 360;
             } else {
@@ -144,9 +146,12 @@ onmessage = ( msg ) => {
             } else {
                 ePlanetPoint -= 1;
             }
-            const newPoint = resultPoints[ startPoint ];
-            const white = getStars( newPoint, false );
-            const shownPlanet = getPlanet( white[ 0 ].x, white[ 0 ].y, planetPoints[ planetPoint ], false, 3 );
+            const white = [
+                bigStar.getCurrentPosition( center, true ),
+                smallerStar.getCurrentPosition( center, true ),
+            ];
+            smallPlanet.increment();
+            const shownPlanet = [ smallPlanet.getCurrentPosition( white[ 0 ], true ) ];
             const sShownPlanet = getPlanet( white[ 0 ].x, white[ 0 ].y, sPlanetPoints[ sPlanetPoint ], false, 7 );
             const eShownPlanet = getPlanet( center.x, center.y, ePlanetPoints[ ePlanetPoint ], false, ( width > 600 ? 6 : 0 ) );
 
