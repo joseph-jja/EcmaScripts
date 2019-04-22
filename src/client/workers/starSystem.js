@@ -26,7 +26,7 @@ class CelestialBody {
         this.speed = options.speed || 1;
     }
 
-    setupPoints( xRadius = 30, yRadius) {
+    setupPoints( xRadius = 30, yRadius ) {
 
         if ( xRadius !== yRadius ) {
             this.points = MF.getEllipsePoints( xRadius, yRadius );
