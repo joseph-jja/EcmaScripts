@@ -2,6 +2,7 @@
     "presets": [
         [ "@babel/preset-env", {
             "targets": {
+                "ie": "11",
                 "edge": "18",
                 "chrome": "70",
                 "firefox": "60",
