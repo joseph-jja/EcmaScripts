@@ -67,6 +67,52 @@ class CelestialBody {
     }
 }
 
+// a simplified star implementation
+class Star extends CelestialBody {
+
+    constructor( color, radius, options = {} ) {
+        super(color, radius, options);
+        
+        if ( options.xRadius ) {
+            this.setupPoints( options.xRadius, options.yRadius );
+        }
+        
+        // a star can have a fixed center of rotation like the center of the canvas
+        // stars can also orbit another star so .... there is that
+        if ( options.isFixedCenter && options.centerPoints ) {
+             this.centerPoints = options.centerPoints;
+        }
+    }
+    
+    getNextPosition(centerPoints) {
+        
+        const center = ( this.centerPoints ? this.centerPoints : centerPoints );
+        
+        const hidden = this.getHiddenPosition(center, false);
+        
+        increment();
+        
+        const visible = this.getVisiblePosition(center, false);
+        
+        return { 
+            hidden, 
+            visible
+        };
+    }
+    
+    getPoint(centerPoints) {
+        
+        const center = ( this.centerPoints ? this.centerPoints : centerPoints );
+        
+        const visible = this.getVisiblePosition(center, false);
+        
+        return {
+            x: visible.x, 
+            y: visible.y
+        };
+    }
+}
+
 onmessage = ( msg ) => {
 
     if ( msg && msg.data && msg.data.setWidthHeight ) {
