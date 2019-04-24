@@ -76,11 +76,11 @@ export class Star extends CelestialBody {
 
         const center = ( this.centerPts ? this.centerPts : centerPoints );
 
-        const hidden = this.getHiddenPosition( center, false );
+        const hidden = this.getHiddenPosition( center );
 
         this.increment();
 
-        const visable = this.getVisablePosition( center, false );
+        const visable = this.getVisablePosition( center );
 
         return {
             hidden,
@@ -92,7 +92,7 @@ export class Star extends CelestialBody {
 
         const center = ( this.centerPts ? this.centerPts : centerPoints );
 
-        const visable = this.getVisablePosition( center, false );
+        const visable = this.getVisablePosition( center );
 
         return {
             x: visable.x,
@@ -121,11 +121,11 @@ export class Planet extends CelestialBody {
 
         const center = ( this.parentStar ? this.parentStar.getPoint( centerPoints ) : centerPoints );
 
-        const hidden = this.getHiddenPosition( center, false );
+        const hidden = this.getHiddenPosition( center );
 
         this.increment();
 
-        const visable = this.getVisablePosition( center, false );
+        const visable = this.getVisablePosition( center );
 
         return {
             hidden,
