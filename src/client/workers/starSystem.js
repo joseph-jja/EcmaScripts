@@ -1,117 +1,21 @@
 import {
     add,
-    subtract,
     divide,
-    multiply,
     getRectangleCenter,
     getRectangleCorner,
-    getCurrentPosition,
     distanceBetweenCirclesCenters,
-    getEllipsePoints,
-    getCirclePoints,
     square
 } from 'utils/mathFunctions';
 
-const self = this,
-    timeout = 100;
+import {
+    CelestialBody,
+    Star
+} from 'client/space/celestialMath';
+
+const timeout = 100;
 
 let center,
     timerID;
-
-class CelestialBody {
-
-    constructor( color, radius, options = {} ) {
-
-        this.color = color || 'red';
-        this.radius = radius || 5;
-        this.hiddenRadius = add( this.radius, 1 );
-        this.direction = options.direction && options.direction === 'clockwise' ? add : subtract;
-        this.angle = options.startAngle || 0;
-        this.speed = options.speed || 1;
-    }
-
-    setupPoints( xRadius = 30, yRadius ) {
-
-        if ( xRadius !== yRadius && yRadius ) {
-            this.points = getEllipsePoints( xRadius, yRadius );
-        } else {
-            this.points = getCirclePoints( xRadius );
-        }
-    }
-
-    increment() {
-        this.angle = this.direction( this.angle, this.speed );
-        if ( this.angle < 0 ) {
-            this.angle = 360;
-        } else if ( this.angle > 360 ) {
-            this.angle = 0;
-        }
-    }
-
-    getCurrentPosition( centerPoints, isShown ) {
-
-        return {
-            x: ( this.direction( centerPoints.x, this.points[ this.angle ].x ) ),
-            y: ( this.direction( centerPoints.y, this.points[ this.angle ].y ) ),
-            radius: ( isShown ? this.radius : this.hiddenRadius ),
-            color: ( isShown ? this.color : 'black' )
-        };
-    }
-
-    getHiddenPosition( centerPoints ) {
-        return this.getCurrentPosition( centerPoints, false );
-    }
-
-    getVisiblePosition( centerPoints ) {
-        return this.getCurrentPosition( centerPoints, true );
-    }
-}
-
-// a simplified star implementation
-class Star extends CelestialBody {
-
-    constructor( color, radius, options = {} ) {
-        super(color, radius, options);
-        
-        if ( options.xRadius ) {
-            this.setupPoints( options.xRadius, options.yRadius );
-        }
-        
-        // a star can have a fixed center of rotation like the center of the canvas
-        // stars can also orbit another star so .... there is that
-        if ( options.isFixedCenter && options.centerPoints ) {
-             this.centerPoints = options.centerPoints;
-        }
-    }
-    
-    getNextPosition(centerPoints) {
-        
-        const center = ( this.centerPoints ? this.centerPoints : centerPoints );
-        
-        const hidden = this.getHiddenPosition(center, false);
-        
-        increment();
-        
-        const visible = this.getVisiblePosition(center, false);
-        
-        return { 
-            hidden, 
-            visible
-        };
-    }
-    
-    getPoint(centerPoints) {
-        
-        const center = ( this.centerPoints ? this.centerPoints : centerPoints );
-        
-        const visible = this.getVisiblePosition(center, false);
-        
-        return {
-            x: visible.x, 
-            y: visible.y
-        };
-    }
-}
 
 onmessage = ( msg ) => {
 
@@ -124,21 +28,25 @@ onmessage = ( msg ) => {
         const orbitalRadius = divide( getRectangleCorner( width, height ), 1.25 );
 
         // stars
-        const bigStar = new CelestialBody( '#FDB813', 24, {
+        const bigStar = new Star( '#FDB813', 24, {
             direction: 'counterClockwise',
-            startAngle: 180
+            startAngle: 180,
+            xRadius: orbitalRadius,
+            isFixedCenter: true,
+            centerPoints: center
         } );
-        bigStar.setupPoints( orbitalRadius );
 
-        const smallerStar = new CelestialBody( '#FDB813', 18, {
+        const smallerStar = new Star( '#FDB813', 18, {
             direction: 'counterClockwise',
-            startAngle: 0
+            startAngle: 0,
+            xRadius: orbitalRadius,
+            isFixedCenter: true,
+            centerPoints: center
         } );
-        smallerStar.setupPoints( orbitalRadius );
 
         const stars = [
-            bigStar.getVisiblePosition( center ),
-            smallerStar.getVisiblePosition( center ),
+            bigStar.getVisablePosition( center ),
+            smallerStar.getVisablePosition( center )
         ];
 
         // planets
@@ -168,9 +76,9 @@ onmessage = ( msg ) => {
         const exradius = add( ePradius, 55 );
         planetThree.setupPoints( ePradius, exradius );
 
-        const planet = [ smallPlanet.getVisiblePosition( stars[ 0 ] ) ],
-            sPlanet = [ planetTwo.getVisiblePosition( stars[ 0 ] ) ],
-            ePlanet = [ planetThree.getVisiblePosition( stars[ 0 ] ) ];
+        const planet = [ smallPlanet.getVisablePosition( stars[ 0 ] ) ],
+            sPlanet = [ planetTwo.getVisablePosition( stars[ 0 ] ) ],
+            ePlanet = [ planetThree.getVisablePosition( stars[ 0 ] ) ];
 
         postMessage( {
             stars: {
@@ -183,9 +91,10 @@ onmessage = ( msg ) => {
 
         timerID = setInterval( () => {
 
+            const bigStarNext = bigStar.getNextPosition();
             const black = [
-                bigStar.getHiddenPosition( center ),
-                smallerStar.getHiddenPosition( center ),
+                bigStarNext.hidden,
+                smallerStar.getHiddenPosition( center )
             ];
             const blackPlanets = [
                 smallPlanet.getHiddenPosition( black[ 0 ] ),
@@ -194,7 +103,6 @@ onmessage = ( msg ) => {
             ];
 
             // increment stars
-            bigStar.increment();
             smallerStar.increment();
 
             // increment planets
@@ -203,13 +111,13 @@ onmessage = ( msg ) => {
             planetThree.increment();
 
             const white = [
-                bigStar.getCurrentPosition( center, true ),
-                smallerStar.getCurrentPosition( center, true ),
+                bigStarNext.visable,
+                smallerStar.getCurrentPosition( center, true )
             ];
             const whitePlanets = [
-                smallPlanet.getVisiblePosition( white[ 0 ] ),
-                planetTwo.getVisiblePosition( white[ 0 ] ),
-                planetThree.getVisiblePosition( white[ 0 ] )
+                smallPlanet.getVisablePosition( white[ 0 ] ),
+                planetTwo.getVisablePosition( white[ 0 ] ),
+                planetThree.getVisablePosition( white[ 0 ] )
             ];
 
             // check if 2 circles intersect
