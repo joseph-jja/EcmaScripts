@@ -1,15 +1,9 @@
 import {
     add,
     subtract,
-    divide,
-    multiply,
-    getRectangleCenter,
-    getRectangleCorner,
     getCurrentPosition,
-    distanceBetweenCirclesCenters,
     getEllipsePoints,
-    getCirclePoints,
-    square
+    getCirclePoints
 } from 'utils/mathFunctions';
 
 export class CelestialBody {
@@ -103,6 +97,39 @@ export class Star extends CelestialBody {
         return {
             x: visable.x,
             y: visable.y
+        };
+    }
+}
+
+export class Planet extends CelestialBody {
+
+    constructor( color, radius, options = {} ) {
+        super( color, radius, options );
+
+        if ( options.xRadius ) {
+            this.setupPoints( options.xRadius, options.yRadius );
+        }
+
+        // a star can have a fixed center of rotation like the center of the canvas
+        // stars can also orbit another star so .... there is that
+        if ( options.parentStar ) {
+            this.parentStar = options.parentStar;
+        }
+    }
+
+    getNextPosition( centerPoints ) {
+
+        const center = ( this.parentStar ? this.parentStar.getPoint( centerPoints ) : centerPoints );
+
+        const hidden = this.getHiddenPosition( center, false );
+
+        this.increment();
+
+        const visable = this.getVisablePosition( center, false );
+
+        return {
+            hidden,
+            visable
         };
     }
 }

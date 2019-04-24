@@ -3,13 +3,13 @@
  * this is just the definition of the object itself
  */
 // ie version
-var nav, self,
+var nav,
     rawVersion;
 
 nav = window.navigator;
 rawVersion = nav.appVersion; // raw app version string
 
-export default self = {
+export default {
     // capabilities detected means we have detected the browser
     // based on certain uniquiness in the browser version like window.opera 
     capabilitiesDetected: false,
