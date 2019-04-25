@@ -8,8 +8,8 @@ import {
 } from 'utils/mathFunctions';
 
 import {
-    CelestialBody,
-    Star
+    Star,
+    Planet
 } from 'client/space/celestialMath';
 
 const timeout = 100;
@@ -51,41 +51,44 @@ onmessage = ( msg ) => {
 
         // planets
         const planetRadius = Math.floor( divide( orbitalRadius, ( width > 600 ? 3 : 1.65 ) ) );
-        const smallPlanet = new CelestialBody( '#17e3ea', 3, {
+        const smallPlanet = new Planet( '#17e3ea', 3, {
             direction: 'counterClockwise',
             startAngle: 90,
-            speed: 5
+            speed: 5,
+            xRadius: planetRadius
         } );
-        smallPlanet.setupPoints( planetRadius );
 
-        const planetTwo = new CelestialBody( '#17e3ea', 7, {
-            direction: 'counterClockwise',
-            startAngle: 180,
-            speed: 3
-        } );
         const pradius = add( planetRadius, ( width > 600 ? 28 : 17 ) );
         const xradius = add( pradius, ( width > 600 ? 50 : 8 ) );
-        planetTwo.setupPoints( pradius, xradius );
-
-        const planetThree = new CelestialBody( '#17e3ea', ( width > 600 ? 6 : 0 ), {
+        const planetTwo = new Planet( '#17e3ea', 7, {
             direction: 'counterClockwise',
-            startAngle: 270,
-            speed: 1
+            startAngle: 180,
+            speed: 3,
+            xRadius: pradius,
+            yRadius: xradius
         } );
+
         const ePradius = add( orbitalRadius, 75 );
         const exradius = add( ePradius, 55 );
-        planetThree.setupPoints( ePradius, exradius );
+        const planetThree = new Planet( '#17e3ea', ( width > 600 ? 6 : 0 ), {
+            direction: 'counterClockwise',
+            startAngle: 270,
+            speed: 1,
+            xRadius: ePradius,
+            yRadius: exradius
+        } );
 
-        const planet = [ smallPlanet.getVisablePosition( stars[ 0 ] ) ],
-            sPlanet = [ planetTwo.getVisablePosition( stars[ 0 ] ) ],
-            ePlanet = [ planetThree.getVisablePosition( stars[ 0 ] ) ];
+        const planets = [ smallPlanet.getVisablePosition( stars[ 0 ] ),
+            planetTwo.getVisablePosition( stars[ 0 ] ),
+            planetThree.getVisablePosition( stars[ 0 ] )
+        ];
 
         postMessage( {
             stars: {
                 white: stars
             },
             planets: {
-                shownPlanet: planet.concat( sPlanet, ePlanet )
+                shownPlanet: planets
             }
         } );
 
