@@ -55,6 +55,7 @@ onmessage = ( msg ) => {
             direction: 'counterClockwise',
             startAngle: 90,
             speed: 5,
+            parentStar: bigStar,
             xRadius: planetRadius
         } );
 
@@ -64,6 +65,7 @@ onmessage = ( msg ) => {
             direction: 'counterClockwise',
             startAngle: 180,
             speed: 3,
+            parentStar: bigStar,
             xRadius: pradius,
             yRadius: xradius
         } );
@@ -94,19 +96,17 @@ onmessage = ( msg ) => {
 
         timerID = setInterval( () => {
 
-            const bigStarNext = bigStar.getNextPosition();
+            const bigStarNext = bigStar.getNextPosition(),
+                smallerStarNext = smallerStar.getNextPosition();
             const black = [
                 bigStarNext.hidden,
-                smallerStar.getHiddenPosition( center )
+                smallerStarNext.hidden
             ];
             const blackPlanets = [
                 smallPlanet.getHiddenPosition( black[ 0 ] ),
                 planetTwo.getHiddenPosition( black[ 0 ] ),
                 planetThree.getHiddenPosition( black[ 0 ] )
             ];
-
-            // increment stars
-            smallerStar.increment();
 
             // increment planets
             smallPlanet.increment();
@@ -115,7 +115,7 @@ onmessage = ( msg ) => {
 
             const white = [
                 bigStarNext.visable,
-                smallerStar.getCurrentPosition( center, true )
+                smallerStarNext.visable
             ];
             const whitePlanets = [
                 smallPlanet.getVisablePosition( white[ 0 ] ),
