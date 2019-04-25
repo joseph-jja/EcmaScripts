@@ -8,10 +8,10 @@ import {
 
 export class CelestialBody {
 
-    constructor( color, radius, options = {} ) {
+    constructor( options = {} ) {
 
-        this.color = color || 'red';
-        this.radius = radius || 5;
+        this.color = options.color || 'red';
+        this.radius = options.radius || 5;
         this.hiddenRadius = add( this.radius, 1 );
         this.direction = options.direction && options.direction === 'clockwise' ? add : subtract;
         this.angle = options.startAngle || 0;
@@ -58,8 +58,8 @@ export class CelestialBody {
 // a simplified star implementation
 export class Star extends CelestialBody {
 
-    constructor( color, radius, options = {} ) {
-        super( color, radius, options );
+    constructor( options = {} ) {
+        super( options );
 
         if ( options.xRadius ) {
             this.setupPoints( options.xRadius, options.yRadius );
@@ -105,8 +105,8 @@ export class Star extends CelestialBody {
 
 export class Planet extends CelestialBody {
 
-    constructor( color, radius, options = {} ) {
-        super( color, radius, options );
+    constructor( options = {} ) {
+        super( options );
 
         if ( options.xRadius ) {
             this.setupPoints( options.xRadius, options.yRadius );

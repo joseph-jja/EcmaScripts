@@ -28,7 +28,9 @@ onmessage = ( msg ) => {
         const orbitalRadius = divide( getRectangleCorner( width, height ), 1.25 );
 
         // stars
-        const bigStar = new Star( '#FDB813', 24, {
+        const bigStar = new Star( {
+            color: '#FDB813',
+            radius: 24,
             direction: 'counterClockwise',
             startAngle: 180,
             xRadius: orbitalRadius,
@@ -36,7 +38,9 @@ onmessage = ( msg ) => {
             centerPoints: center
         } );
 
-        const smallerStar = new Star( '#FDB813', 18, {
+        const smallerStar = new Star( {
+            color: '#FDB813',
+            radius: 18,
             direction: 'counterClockwise',
             startAngle: 0,
             xRadius: orbitalRadius,
@@ -51,7 +55,9 @@ onmessage = ( msg ) => {
 
         // planets
         const planetRadius = Math.floor( divide( orbitalRadius, ( width > 600 ? 3 : 1.65 ) ) );
-        const smallPlanet = new Planet( '#17e3ea', 3, {
+        const smallPlanet = new Planet( {
+            color: '#17e3ea',
+            radius: 3,
             direction: 'counterClockwise',
             startAngle: 90,
             speed: 5,
@@ -61,7 +67,9 @@ onmessage = ( msg ) => {
 
         const pradius = add( planetRadius, ( width > 600 ? 28 : 17 ) );
         const xradius = add( pradius, ( width > 600 ? 50 : 8 ) );
-        const planetTwo = new Planet( '#17e3ea', 7, {
+        const planetTwo = new Planet( {
+            color: '#17e3ea',
+            radius: 7,
             direction: 'counterClockwise',
             startAngle: 180,
             speed: 3,
@@ -72,7 +80,9 @@ onmessage = ( msg ) => {
 
         const ePradius = add( orbitalRadius, 75 );
         const exradius = add( ePradius, 55 );
-        const planetThree = new Planet( '#17e3ea', ( width > 600 ? 6 : 0 ), {
+        const planetThree = new Planet( {
+            color: '#17e3ea',
+            radius: ( width > 600 ? 6 : 0 ),
             direction: 'counterClockwise',
             startAngle: 270,
             speed: 1,
