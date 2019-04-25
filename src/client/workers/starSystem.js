@@ -103,15 +103,15 @@ onmessage = ( msg ) => {
                 smallerStarNext.hidden
             ];
 
-            const sPlanetOne = smallPlanet.getNextPosition();
+            const sPlanetOne = smallPlanet.getNextPosition(),
+                mPlanetTwo = planetTwo.getNextPosition();
             const blackPlanets = [
                 sPlanetOne.hidden,
-                planetTwo.getHiddenPosition( black[ 0 ] ),
+                mPlanetTwo.hidden,
                 planetThree.getHiddenPosition( black[ 0 ] )
             ];
 
             // increment planets
-            planetTwo.increment();
             planetThree.increment();
 
             const white = [
@@ -120,7 +120,7 @@ onmessage = ( msg ) => {
             ];
             const whitePlanets = [
                 sPlanetOne.visable,
-                planetTwo.getVisablePosition( white[ 0 ] ),
+                mPlanetTwo.visable,
                 planetThree.getVisablePosition( white[ 0 ] )
             ];
 
