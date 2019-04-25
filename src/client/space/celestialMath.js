@@ -115,7 +115,7 @@ export class Planet extends CelestialBody {
 
     getNextPosition( centerPoints ) {
 
-        const center = ( this.parentStar ? this.parentStar.getPoint( centerPoints ) : centerPoints );
+        const center = ( this.parentStar ? this.parentStar.getPoint() : centerPoints );
 
         const hidden = this.getHiddenPosition( center );
 
