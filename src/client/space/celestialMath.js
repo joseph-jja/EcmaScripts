@@ -76,27 +76,23 @@ export class Star extends CelestialBody {
 
         const center = ( this.centerPts ? this.centerPts : centerPoints );
 
-        const hidden = this.getHiddenPosition( center );
+        this.hidden = this.getHiddenPosition( center );
 
         this.increment();
 
-        const visable = this.getVisablePosition( center );
+        this.visable = this.getVisablePosition( center );
 
         return {
-            hidden,
-            visable
+            hidden: this.hidden,
+            visable: this.visable
         };
     }
 
-    getPoint( centerPoints ) {
-
-        const center = ( this.centerPts ? this.centerPts : centerPoints );
-
-        const visable = this.getVisablePosition( center );
+    getPoint() {
 
         return {
-            x: visable.x,
-            y: visable.y
+            x: this.visable.x,
+            y: this.visable.y
         };
     }
 }
