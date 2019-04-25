@@ -92,7 +92,7 @@ export class Star extends CelestialBody {
 
         return {
             hidden: {
-                x: this.hidden,
+                x: this.hidden.x,
                 y: this.hidden.y
             },
             visable: {
