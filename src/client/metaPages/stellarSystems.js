@@ -1,4 +1,5 @@
 import * as dom from 'client/dom/DOM';
+import * as perf from 'client/browser/performance';
 
 import {
     exists
@@ -61,6 +62,9 @@ function startStarSystem() {
                             fillStrokeClear: 'fill'
                         } );
                     } );
+                    if ( perf.hasPerformanceMetrics ) {
+                        performance.measure( 'binary star system render' );
+                    }
                 }
             } );
         };
