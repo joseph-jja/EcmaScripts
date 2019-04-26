@@ -4,6 +4,7 @@ import * as css from 'client/dom/CSS';
 import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import fetcher from 'client/net/fetcher';
+import * as perf from 'client/browser/performance';
 
 // default libs
 import detect from 'client/browser/detect';
@@ -100,6 +101,10 @@ async function loadResume() {
 
     const swtitle = selector( '.WebWindowTitleText', sideWin.titleBar ).get( 0 );
     swtitle.innerHTML = 'Welcome';
+
+    if ( perf.hasPerformanceMetrics ) {
+        performance.measure( 'resume render' );
+    }
 }
 
 function setDefaultPosition() {
@@ -151,6 +156,9 @@ function renderCalendar() {
         calendarContainer.style.top = repositionPX + 'px';
         calendarContainer.style.position = 'fixed';
         isCalendarDisplayed = true;
+        if ( perf.hasPerformanceMetrics ) {
+            performance.measure( 'calendar render' );
+        }
     } else {
         const calReference = selector( '#calendar-container' ).get( 0 );
         calReference.style.display = 'none';

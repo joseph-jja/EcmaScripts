@@ -7,6 +7,7 @@ import {
 import * as events from 'client/dom/events';
 import * as ajax from 'client/net/ajax';
 import * as xml from 'client/browser/xml';
+import * as perf from 'client/browser/performance';
 
 import {
     exists
@@ -70,6 +71,9 @@ function getXMLDocument() {
         const xmlDOC = xml.getAsXMLDocument( this.xmlhttp.responseText );
         jsonData = xml.xml2json( xmlDOC );
         processJSON();
+        if ( perf.hasPerformanceMetrics ) {
+            performance.measure( 'fish content render' );
+        }
     }
 }
 
@@ -116,6 +120,10 @@ function startFishInfo() {
                 fishInfoWorker.postMessage( {
                     'start': 'start'
                 } );
+
+                if ( perf.hasPerformanceMetrics ) {
+                    performance.measure( 'animated fish render' );
+                }
             } );
 
         const mainWindow = document.getElementById( 'main-window' );
