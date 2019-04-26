@@ -44,15 +44,22 @@ function startStarSystem() {
                         blackPlanet = planets.blackPlanet;
 
                     // because we want them done in order
-                    [ black, white, blackPlanet, shownPlanet ].forEach( ( item ) => {
+                    // black items don't come the first time
+                    // so we filter them out, then
+                    // we reduce into 1 array
+                    // finally render to canvas each item
+                    [ black, white, blackPlanet, shownPlanet ].filter( item => {
                         if ( item ) {
-                            for ( let p = 0, end = item.length; p < end; p++ ) {
-                                canvasRef.circle( item[ p ].x, item[ p ].y, item[ p ].radius, {
-                                    color: item[ p ].color,
-                                    fillStrokeClear: 'fill'
-                                } );
-                            }
+                            return true;
                         }
+                        return false;
+                    } ).reduce( ( acc, item ) => {
+                        return acc.concat( item );
+                    } ).forEach( item => {
+                        canvasRef.circle( item.x, item.y, item.radius, {
+                            color: item.color,
+                            fillStrokeClear: 'fill'
+                        } );
                     } );
                 }
             } );
