@@ -10,7 +10,7 @@ import {
 import {
     Star,
     Planet
-} from 'client/space/celestialMath';
+} from 'client/workers/space/celestialMath';
 
 const timeout = 100;
 
