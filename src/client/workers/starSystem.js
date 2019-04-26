@@ -17,6 +17,29 @@ const timeout = 100;
 let center,
     timerID;
 
+function getStars( center, orbitalRadius, yOribialRadius ) {
+
+    return [ {
+        color: '#FDB813',
+        radius: 24,
+        direction: 'counterClockwise',
+        startAngle: 180,
+        xRadius: orbitalRadius,
+        yRadius: yOribialRadius,
+        isFixedCenter: true,
+        centerPoints: center
+    }, {
+        color: '#FDB813',
+        radius: 18,
+        direction: 'counterClockwise',
+        startAngle: 0,
+        xRadius: orbitalRadius,
+        yRadius: yOribialRadius,
+        isFixedCenter: true,
+        centerPoints: center
+    } ];
+}
+
 onmessage = ( msg ) => {
 
     if ( msg && msg.data && msg.data.setWidthHeight ) {
@@ -30,27 +53,9 @@ onmessage = ( msg ) => {
         const yOribialRadius = ( width > 600 ? add( orbitalRadius, 50 ) : orbitalRadius );
 
         // stars
-        const bigStar = new Star( {
-            color: '#FDB813',
-            radius: 24,
-            direction: 'counterClockwise',
-            startAngle: 180,
-            xRadius: orbitalRadius,
-            yRadius: yOribialRadius,
-            isFixedCenter: true,
-            centerPoints: center
-        } );
-
-        const smallerStar = new Star( {
-            color: '#FDB813',
-            radius: 18,
-            direction: 'counterClockwise',
-            startAngle: 0,
-            xRadius: orbitalRadius,
-            yRadius: yOribialRadius,
-            isFixedCenter: true,
-            centerPoints: center
-        } );
+        const gstars = getStars( center, orbitalRadius, yOribialRadius );
+        const bigStar = new Star( gstars[ 0 ] ),
+            smallerStar = new Star( gstars[ 1 ] );
 
         const stars = [
             bigStar.getInitialPosition(),
