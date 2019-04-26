@@ -26,6 +26,8 @@ function setupStarSystem() {
     canvasRef.setBackgroundColor( 'black' );
 }
 
+let hasMeasured = false;
+
 function startStarSystem() {
 
     if ( starSystemWorker ) {
@@ -62,8 +64,9 @@ function startStarSystem() {
                             fillStrokeClear: 'fill'
                         } );
                     } );
-                    if ( perf.hasPerformanceMetrics ) {
+                    if ( perf.hasPerformanceMetrics && !hasMeasured ) {
                         performance.measure( 'binary star system render' );
+                        hasMeasured = true;
                     }
                 }
             } );
