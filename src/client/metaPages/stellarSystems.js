@@ -16,7 +16,7 @@ function setupStarSystem() {
 
     starSystemWorker = exists( Worker ) ? new Worker( '/js/starSystem.js' ) : undefined;
     if ( screenWidth > 800 ) {
-        canvasRef = canvas.create( 'star-system', 'canvas-container', 800, 600 );
+        canvasRef = canvas.create( 'star-system', 'canvas-container', 800, 700 );
     } else {
         canvasRef = canvas.create( 'star-system', 'canvas-container', 250, 250 );
     }
