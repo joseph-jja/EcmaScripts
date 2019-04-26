@@ -49,8 +49,8 @@ onmessage = ( msg ) => {
         } );
 
         const stars = [
-            bigStar.getVisablePosition( center ),
-            smallerStar.getVisablePosition( center )
+            bigStar.getInitialPosition(),
+            smallerStar.getInitialPosition()
         ];
 
         // planets
