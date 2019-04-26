@@ -33,48 +33,51 @@ function startStarSystem() {
 
         starSystemWorker.onmessage = ( msg ) => {
 
-            if ( msg.data.stars ) {
-                const stars = msg.data.stars,
-                    black = stars.black,
-                    white = stars.white,
-                    planets = msg.data.planets,
-                    shownPlanet = planets.shownPlanet,
-                    blackPlanet = planets.blackPlanet;
+            requestAnimationFrame( () => {
 
-                if ( black ) {
-                    for ( let p = 0, end = black.length; p < end; p++ ) {
-                        canvasRef.circle( black[ p ].x, black[ p ].y, black[ p ].radius, {
-                            color: black[ p ].color,
-                            fillStrokeClear: 'fill'
-                        } );
-                    }
-                }
-                if ( white ) {
-                    for ( let p = 0, end = white.length; p < end; p++ ) {
-                        canvasRef.circle( white[ p ].x, white[ p ].y, white[ p ].radius, {
-                            color: white[ p ].color,
-                            fillStrokeClear: 'fill'
-                        } );
-                    }
-                }
+                if ( msg.data.stars ) {
+                    const stars = msg.data.stars,
+                        black = stars.black,
+                        white = stars.white,
+                        planets = msg.data.planets,
+                        shownPlanet = planets.shownPlanet,
+                        blackPlanet = planets.blackPlanet;
 
-                if ( blackPlanet ) {
-                    for ( let p = 0, end = blackPlanet.length; p < end; p++ ) {
-                        canvasRef.circle( blackPlanet[ p ].x, blackPlanet[ p ].y, blackPlanet[ p ].radius, {
-                            color: blackPlanet[ p ].color,
-                            fillStrokeClear: 'fill'
-                        } );
+                    if ( black ) {
+                        for ( let p = 0, end = black.length; p < end; p++ ) {
+                            canvasRef.circle( black[ p ].x, black[ p ].y, black[ p ].radius, {
+                                color: black[ p ].color,
+                                fillStrokeClear: 'fill'
+                            } );
+                        }
+                    }
+                    if ( white ) {
+                        for ( let p = 0, end = white.length; p < end; p++ ) {
+                            canvasRef.circle( white[ p ].x, white[ p ].y, white[ p ].radius, {
+                                color: white[ p ].color,
+                                fillStrokeClear: 'fill'
+                            } );
+                        }
+                    }
+
+                    if ( blackPlanet ) {
+                        for ( let p = 0, end = blackPlanet.length; p < end; p++ ) {
+                            canvasRef.circle( blackPlanet[ p ].x, blackPlanet[ p ].y, blackPlanet[ p ].radius, {
+                                color: blackPlanet[ p ].color,
+                                fillStrokeClear: 'fill'
+                            } );
+                        }
+                    }
+                    if ( shownPlanet ) {
+                        for ( let p = 0, end = shownPlanet.length; p < end; p++ ) {
+                            canvasRef.circle( shownPlanet[ p ].x, shownPlanet[ p ].y, shownPlanet[ p ].radius, {
+                                color: shownPlanet[ p ].color,
+                                fillStrokeClear: 'fill'
+                            } );
+                        }
                     }
                 }
-                if ( shownPlanet ) {
-                    for ( let p = 0, end = shownPlanet.length; p < end; p++ ) {
-                        canvasRef.circle( shownPlanet[ p ].x, shownPlanet[ p ].y, shownPlanet[ p ].radius, {
-                            color: shownPlanet[ p ].color,
-                            fillStrokeClear: 'fill'
-                        } );
-                    }
-                }
-            }
+            } );
         };
         starSystemWorker.postMessage( {
             'setWidthHeight': [ canvasRef.width, canvasRef.height ]

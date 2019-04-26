@@ -40,7 +40,8 @@
         "afterAll": true,
         "beforeAll": true,
         "afterEach": true,
-        "beforeEach": true
+        "beforeEach": true,
+        "requestAnimationFrame": true
     },
 
     "rules": {
