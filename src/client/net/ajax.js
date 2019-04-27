@@ -1,4 +1,4 @@
-import XmlHttp from "client/net/xmlhttp";
+import xmlHttp from "client/net/xmlhttp";
 import * as Stack from "utils/stack";
 
 let stack = new Stack.Stack();
@@ -6,7 +6,7 @@ let stack = new Stack.Stack();
 export function makeRequest( type, cbFN, url, data, async, headers = {} ) {
     let h, ajaxObj = {};
 
-    ajaxObj.xmlhttp = XmlHttp();
+    ajaxObj.xmlhttp = xmlHttp();
     ajaxObj.index = stack.index;
 
     ajaxObj.xmlhttp.open( type, url, async );
