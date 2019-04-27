@@ -8,7 +8,7 @@ const statfile = util.promisify( fs.stat ),
 
 async function listDirectory( dir, limit ) {
 
-    const realDir = ( dir.indexOf( baseDir ) < 0 ? path.resolve( baseDir, dir ) : dir );
+    const readDir = ( dir.indexOf( baseDir ) < 0 ? path.resolve( baseDir, dir ) : dir );
 
     if ( limit && readDir.indexOf( baseDir ) < 0 ) {
         return [];

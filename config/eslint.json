@@ -65,11 +65,11 @@
         "comma-dangle": 1,
         "no-trailing-spaces": 0,
         "max-params": [ 1, {
-            "max": 5
+            "max": 10
         } ],
         "max-depth": 1,
         "max-statements": [ 1, {
-            "max": 15
+            "max": 25
         } ],
         "complexity": 1,
         "max-len": 0,

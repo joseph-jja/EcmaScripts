@@ -113,8 +113,10 @@ function startFishInfo() {
 
                 fishInfoWorker.onmessage = ( msg ) => {
                     if ( msg && msg.data ) {
-                        mouth.value = msg.data.mouth;
-                        omouth.value = msg.data.omouth;
+                        requestAnimationFrame( () => {
+                            mouth.value = msg.data.mouth;
+                            omouth.value = msg.data.omouth;
+                        } );
                     }
                 };
                 fishInfoWorker.postMessage( {
