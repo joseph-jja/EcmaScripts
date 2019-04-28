@@ -1,7 +1,6 @@
 import {
     add,
     subtract,
-    getCurrentPosition,
     getEllipsePoints,
     getCirclePoints
 } from 'utils/mathFunctions';
