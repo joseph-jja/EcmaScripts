@@ -63,8 +63,6 @@ detected += '<br /><br />Spoofable OS = ' + dt.uaOS + ( dt.uaOSVersion ? "(" + d
 detected += '<br />Spoofable Name - Version = ' + dt.uaName + ' - ' + dt.uaAppVersion;
 detected += '<br />User Agent String = ' + dt.userAgent + '.</div>';
 
-const screenWidth = dom.screen.maxx();
-
 async function buildNav() {
     const navFrag = '/frags/nav.frag';
     const navData = await fetcher( navFrag );
