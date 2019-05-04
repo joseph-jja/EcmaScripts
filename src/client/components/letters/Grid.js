@@ -3,23 +3,24 @@ import selector from 'client/dom/selector';
 
 //this is the parent grid object
 //this builds the table that has the cells for the individual pixels
-export default function Grid( parentID, tableID ) {
-    const cols = 7,
-        rows = 9;
+export default class Grid {
 
-    this.parentID = parentID;
-    this.tableID = tableID;
-    this.matrix = [];
+    constructor( parentID, tableID ) {
+        this.parentID = parentID;
+        this.tableID = tableID;
+        this.matrix = [];
+    }
 
-    this.reset = function () {
-        const cells = selector( "#" + this.parentID + ' td.grid-cell' );
-        for ( let i = 0, end = cells.length; i < end; i++ ) {
-            cells[ i ].style.background = "white";
-        }
+    reset() {
+        const cells = selector( "#" + this.parentID + ' td.grid-cell' ).each( cell => {
+            cell.style.background = "white";
+        } );
     };
 
     // build function builds the grid
-    this.build = function () {
+    build() {
+        const cols = 7,
+            rows = 9;
 
         const parent = selector( "#" + this.parentID ).get( 0 );
 
