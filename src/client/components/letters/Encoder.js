@@ -1,4 +1,5 @@
 import selector from 'client/dom/selector';
+import dom from 'client/dom/DOM';
 import Grid from 'client/components/letters/Grid';
 
 //the character render engine
@@ -6,6 +7,7 @@ import Grid from 'client/components/letters/Grid';
 //any character can be created
 export default class Encoder extends Grid {
     constructor( parentID, tableID ) {
+        super( parentID, tableID );
         this.parentID = parentID;
         this.tableID = tableID;
     }
@@ -16,9 +18,10 @@ export default class Encoder extends Grid {
         const eleName = this.tableID + 'cell';
 
         selector( 'td', this.tableID ).each( cell => {
-            cbox = document.createElement( 'input' );
+            cbox = dom.createElement( 'input', cell, {
+                id: `cbox_${cell.id};`
+            } );
             cbox.type = 'checkbox';
-            cbox.id = `cbox_${cell.id};`;
             cbox.value = cbox.id;
             cell.appendChild( cbox );
         } );
