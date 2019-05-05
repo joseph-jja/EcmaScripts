@@ -1,5 +1,6 @@
 import selector from 'client/dom/selector';
-import dom from 'client/dom/DOM';
+import * from dom from 'client/dom/DOM';
+import * from events from 'client/dom/events';
 import Grid from 'client/components/letters/Grid';
 
 //the character render engine
@@ -19,11 +20,17 @@ export default class Encoder extends Grid {
 
         selector( 'td', this.tableID ).each( cell => {
             cbox = dom.createElement( 'input', cell, {
-                id: `cbox_${cell.id};`
+                id: `cbox_${cell.id}`,
+                type: 'checkbox',
+                value: `cbox_${cell.id}`
             } );
-            cbox.type = 'checkbox';
-            cbox.value = cbox.id;
             cell.appendChild( cbox );
         } );
+
+        events.addEvent( 'click', `#${this.parentID}`, ( e ) => {
+
+        } );
     }
+
+
 }
