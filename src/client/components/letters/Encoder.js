@@ -21,7 +21,6 @@ export default class Encoder extends Grid {
             cbox.id = `cbox_${cell.id};`;
             cbox.value = cbox.id;
             cell.appendChild( cbox );
-
         } );
     }
 }
