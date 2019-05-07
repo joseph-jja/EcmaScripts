@@ -16,21 +16,39 @@ export default class Encoder extends Grid {
     // what to do on the timer
     render() {
 
-        const eleName = this.tableID + 'cell';
+        this.build();
 
         selector( 'td', this.tableID ).each( cell => {
-            cbox = dom.createElement( 'input', cell, {
+            const cbox = dom.createElement( 'input', cell, {
                 id: `cbox_${cell.id}`,
                 type: 'checkbox',
                 value: `cbox_${cell.id}`
             } );
-            cell.appendChild( cbox );
+        } );
+
+        selector( 'tr', this.tableID ).each( row => {
+            const cell = dom.createElement( 'td', row, {} );
+            const inp = dom.createElement( 'input', cell, {
+                id: `${row.id}_inp`,
+                type: 'text',
+                size: 8
+            } );
         } );
 
         events.addEvent( 'click', `#${this.parentID}`, ( e ) => {
+            const tgt = events.getTarget( e );
+            if ( tgt.nodeName().toLowerCase() === 'input' && x.type === 'checkbox' ) {
+                const rowID = tgt.parentNode().id;
+                const eId = document.getElementById( `${rowId}_inp` ),
+                    val = ( tgt.checked || 0 );
 
+                let cval = eId.value || '';
+                eId.value = `${oval}${val}`;
+            }
         } );
     }
 
+    getBinaryNumbers( tgt ) {
 
+    }
 }
