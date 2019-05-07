@@ -38,7 +38,7 @@ export default class Encoder extends Grid {
             } );
             cell = dom.createElement( 'td', row, {} );
             inp = dom.createElement( 'input', cell, {
-                id: `${row.id}_inp_hex`,
+                id: `${row.id}_inp_bin`,
                 type: 'text',
                 size: 8
             } );
@@ -49,14 +49,14 @@ export default class Encoder extends Grid {
             if ( tgt.nodeName().toLowerCase() === 'input' && x.type === 'checkbox' ) {
                 const rowID = tgt.parentNode().id;
                 const eId = document.getElementById( `${rowId}_inp` ),
-                    hexId = document.getElementById( `${rowId}_inp_hex` ),
+                    binId = document.getElementById( `${rowId}_inp_bin` ),
                     val = ( tgt.checked || 0 );
 
                 let cval = eId.value || '';
                 eId.value = `${oval}${val}`;
 
                 const binVal = convertFromBaseXToBaseTen( 2, eId.value );
-                hexId.value = binVal;
+                binId.value = binVal;
             }
         } );
     }
