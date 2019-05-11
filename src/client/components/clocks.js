@@ -2,14 +2,16 @@ import MF from 'utils/mathFunctions';
 
 //parent object for all clock types
 //sort of abstract class
-function Clock() {
+class Clock {
 
-    // default id and run interval return code
-    this.clockId = "clockID";
-    this.setIntervalReturnCode = '';
+    constuctor() {
+        // default id and run interval return code
+        this.clockId = "clockID";
+        this.setIntervalReturnCode = '';
 
-    // one can now change this and change the time that the update occurs
-    this.updateInterval = 1000;
+        // one can now change this and change the time that the update occurs
+        this.updateInterval = 1000;
+    }
 }
 
 //default function to run the clock that MUST be overridden by subclass
@@ -46,13 +48,16 @@ Clock.prototype.setId = function ( clockId ) {
 
 //pretty basic and stupid thing to show a digital clock
 //clockId is the id of an element that supports innerHTML
-function DigitalClock() {
-    this.clockText = "Time: ";
+class DigitalClock extends Clock {
+    
+    constructor() {
+        super();
 
-    this.showSeconds = true;
+        this.clockText = "Time: ";
+
+        this.showSeconds = true;
+    }
 }
-
-DigitalClock.prototype = new Clock();
 
 //the meat of the object
 //this actually updates the clock
@@ -98,16 +103,19 @@ DigitalClock.prototype.runClock = function () {
     return true;
 };
 
-function BinaryClock() {
+class BinaryClock extends Clock {
+    
+    constructor() {
+        super();
+    }
 
-    // this sets up the columns and rows
-    var rows = 4,
-        cols = 6,
-        setColumnData;
-
-    // this sets a column of data based on the time part that is passed in
-    setColumnData = function ( column, timeComponent ) {
-        var diff, bhlen, j, tdid, tdObj, d, trd, on,
+    setColumnData( column, timeComponent ) {
+     // this sets a column of data based on the time part that is passed in
+        // this sets up the columns and rows
+        var rows = 4,
+            cols = 6;   
+  
+      var diff, bhlen, j, tdid, tdObj, d, trd, on,
             binaryTime = MF.convertFromBaseTenToBaseX( 2, timeComponent );
 
         bhlen = binaryTime.toString().length;
@@ -130,9 +138,9 @@ function BinaryClock() {
             }
             d += 1;
         }
-    };
+    }
 
-    this.setColumn = function ( start, data ) {
+    setColumn( start, data ) {
         var sh;
         // is it less than 10
         if ( data >= 10 ) {
@@ -143,9 +151,9 @@ function BinaryClock() {
             setColumnData.call( this, start, 0 );
             setColumnData.call( this, start + 1, data );
         }
-    };
+    }
 
-    this.render = function () {
+    render() {
         var data, i, j, tdid,
             parent = document.getElementById( this.clockId );
         if ( parent ) {
@@ -162,10 +170,8 @@ function BinaryClock() {
             parent.innerHTML = data;
         }
         this.runClock();
-    };
+    }
 }
-
-BinaryClock.prototype = new Clock();
 
 BinaryClock.prototype.runClock = function () {
 
