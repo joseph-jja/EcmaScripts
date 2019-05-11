@@ -4,18 +4,12 @@ import MF from 'utils/mathFunctions';
 //sort of abstract class
 function Clock() {
 
-    var clockObj;
-
     // default id and run interval return code
     this.clockId = "clockID";
     this.setIntervalReturnCode = '';
 
     // one can now change this and change the time that the update occurs
     this.updateInterval = 1000;
-
-    // reference back to self
-    clockObj = this;
-
 }
 
 //default function to run the clock that MUST be overridden by subclass
