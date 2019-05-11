@@ -49,7 +49,7 @@ Clock.prototype.setId = function ( clockId ) {
 //pretty basic and stupid thing to show a digital clock
 //clockId is the id of an element that supports innerHTML
 class DigitalClock extends Clock {
-    
+
     constructor() {
         super();
 
@@ -104,22 +104,22 @@ DigitalClock.prototype.runClock = function () {
 };
 
 class BinaryClock extends Clock {
-    
+
     constructor() {
         super();
+
+        // this sets a column of data based on the time part that is passed in
+        // this sets up the columns and rows
+        this.rows = 4;
+        this.cols = 6;
     }
 
     setColumnData( column, timeComponent ) {
-     // this sets a column of data based on the time part that is passed in
-        // this sets up the columns and rows
-        var rows = 4,
-            cols = 6;   
-  
-      var diff, bhlen, j, tdid, tdObj, d, trd, on,
+        var diff, bhlen, j, tdid, tdObj, d, trd, on,
             binaryTime = MF.convertFromBaseTenToBaseX( 2, timeComponent );
 
         bhlen = binaryTime.toString().length;
-        diff = rows - bhlen;
+        diff = this.rows - bhlen;
         for ( j = 0; j < diff; j += 1 ) {
             tdid = this.clockId + "_row_" + j + "_col_" + column;
             tdObj = document.getElementById( tdid );
@@ -128,7 +128,7 @@ class BinaryClock extends Clock {
             }
         }
         d = 0;
-        for ( j = rows - 1; j >= diff; j -= 1 ) {
+        for ( j = this.rows - 1; j >= diff; j -= 1 ) {
             trd = ( +d ) + ( +diff );
             on = binaryTime.substring( d, d + 1 );
             tdid = this.clockId + "_row_" + trd + "_col_" + column;
@@ -145,11 +145,11 @@ class BinaryClock extends Clock {
         // is it less than 10
         if ( data >= 10 ) {
             sh = data.toString();
-            setColumnData.call( this, start, sh.substring( 0, 1 ) );
-            setColumnData.call( this, start + 1, sh.substring( 1 ) );
+            this.setColumnData.call( this, start, sh.substring( 0, 1 ) );
+            this.setColumnData.call( this, start + 1, sh.substring( 1 ) );
         } else {
-            setColumnData.call( this, start, 0 );
-            setColumnData.call( this, start + 1, data );
+            this.setColumnData.call( this, start, 0 );
+            this.setColumnData.call( this, start + 1, data );
         }
     }
 
@@ -158,9 +158,9 @@ class BinaryClock extends Clock {
             parent = document.getElementById( this.clockId );
         if ( parent ) {
             data = '<table>';
-            for ( i = 0; i < rows; i += 1 ) {
+            for ( i = 0; i < this.rows; i += 1 ) {
                 data += '<tr>';
-                for ( j = 0; j < cols; j += 1 ) {
+                for ( j = 0; j < this.cols; j += 1 ) {
                     tdid = this.clockId + "_row_" + i + "_col_" + j;
                     data += '<td id="' + tdid + '"></td>';
                 }
