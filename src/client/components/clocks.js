@@ -21,13 +21,12 @@ Clock.prototype.runClock = function () {
 
 //function to start a clock
 Clock.prototype.startClock = function () {
-    var clockObj, runClock;
 
     // create an object to reference later
-    clockObj = this;
+    const clockObj = this;
 
     // create a variable as a pointer to this function
-    runClock = function () {
+    const runClock = function () {
         clockObj.runClock();
     };
 
@@ -63,25 +62,22 @@ class DigitalClock extends Clock {
 //this actually updates the clock
 DigitalClock.prototype.runClock = function () {
 
-    var clock, getClockFormat, format;
-
     if ( !document.getElementById ) {
         return false;
     }
 
-    format = function ( input ) {
-        var result = input;
+    const format = function ( input ) {
+        let result = input;
         if ( input < 10 ) {
             result = "0" + input;
         }
         return result;
     };
 
-    getClockFormat = function ( showSeconds ) {
-        var datenow, clockformat;
-        datenow = new Date();
+    const getClockFormat = function ( showSeconds ) {
+        const datenow = new Date();
 
-        clockformat = datenow.getHours() + ":" + format( datenow.getMinutes() );
+        let clockformat = datenow.getHours() + ":" + format( datenow.getMinutes() );
 
         // one could turn off seconds and only show minutes
         // then one could also setup the updateInterval for 60000
@@ -92,7 +88,7 @@ DigitalClock.prototype.runClock = function () {
         return clockformat;
     };
 
-    clock = document.getElementById( this.clockId );
+    const clock = document.getElementById( this.clockId );
 
     // no clock return
     if ( !clock ) {
@@ -115,24 +111,23 @@ class BinaryClock extends Clock {
     }
 
     setColumnData( column, timeComponent ) {
-        var diff, bhlen, j, tdid, tdObj, d, trd, on,
-            binaryTime = MF.convertFromBaseTenToBaseX( 2, timeComponent );
+        const binaryTime = MF.convertFromBaseTenToBaseX( 2, timeComponent );
 
-        bhlen = binaryTime.toString().length;
-        diff = this.rows - bhlen;
-        for ( j = 0; j < diff; j += 1 ) {
-            tdid = this.clockId + "_row_" + j + "_col_" + column;
-            tdObj = document.getElementById( tdid );
+        const bhlen = binaryTime.toString().length;
+        const diff = this.rows - bhlen;
+        for ( let j = 0; j < diff; j += 1 ) {
+            const tdid = this.clockId + "_row_" + j + "_col_" + column;
+            const tdObj = document.getElementById( tdid );
             if ( tdObj ) {
                 tdObj.innerHTML = "0";
             }
         }
-        d = 0;
-        for ( j = this.rows - 1; j >= diff; j -= 1 ) {
-            trd = ( +d ) + ( +diff );
-            on = binaryTime.substring( d, d + 1 );
-            tdid = this.clockId + "_row_" + trd + "_col_" + column;
-            tdObj = document.getElementById( tdid );
+        let d = 0;
+        for ( let j = this.rows - 1; j >= diff; j -= 1 ) {
+            const trd = ( +d ) + ( +diff );
+            const on = binaryTime.substring( d, d + 1 );
+            const tdid = this.clockId + "_row_" + trd + "_col_" + column;
+            const tdObj = document.getElementById( tdid );
             if ( tdObj ) {
                 tdObj.innerHTML = on;
             }
@@ -141,10 +136,10 @@ class BinaryClock extends Clock {
     }
 
     setColumn( start, data ) {
-        var sh;
+
         // is it less than 10
         if ( data >= 10 ) {
-            sh = data.toString();
+            const sh = data.toString();
             this.setColumnData.call( this, start, sh.substring( 0, 1 ) );
             this.setColumnData.call( this, start + 1, sh.substring( 1 ) );
         } else {
@@ -175,11 +170,11 @@ class BinaryClock extends Clock {
 
 BinaryClock.prototype.runClock = function () {
 
-    var hour, min, sec, today = new Date();
+    const today = new Date();
 
-    hour = today.getHours();
-    min = today.getMinutes();
-    sec = today.getSeconds();
+    const hour = today.getHours();
+    const min = today.getMinutes();
+    const sec = today.getSeconds();
 
     this.setColumn( 0, hour );
     this.setColumn( 2, min );
