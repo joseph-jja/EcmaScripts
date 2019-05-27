@@ -1,5 +1,7 @@
 import stationsList from 'client/components/bart/stationsList';
 
+const pleaseSelect = '<option>Please Select A Station</option>';
+
 export default async function Fares() {
 
     const stations = await stationsList();
@@ -12,8 +14,8 @@ export default async function Fares() {
         return acc + item;
     } );
 
-    const fromStation = `<select id="fares-source">${items}</select>`,
-        toStation = `<select id="fares-destination">${items}</select>`;
+    const fromStation = `<select id="fares-source">${pleaseSelect}${items}</select>`,
+        toStation = `<select id="fares-destination">${pleaseSelect}${items}</select>`;
 
     return `Starting Station: ${fromStation}<br><br>Destination Station: ${toStation}`;
 }
