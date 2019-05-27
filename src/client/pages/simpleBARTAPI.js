@@ -10,7 +10,6 @@ import TrainList from 'client/components/bart/trainsUI';
 import Alerts from 'client/components/bart/alertUI';
 import Fares from 'client/components/bart/faresUI';
 import footer from 'client/components/footer';
-import * as menu from 'client/components/menu';
 
 // window
 import WebWindow from 'client/components/wbWindow';
@@ -34,6 +33,34 @@ async function buildNav() {
 
     const menu = document.getElementById( 'menu' );
     menu.innerHTML = navData.replace( /\n/g, '' );
+}
+
+async function reRenderStations() {
+    const slist = document.getElementById( 'slist' );
+    slist.style.display = 'block';
+
+    const tlist = document.getElementById( 'tlist' );
+    tlist.style.display = 'block';
+
+    const farelist = document.getElementById( 'fare-list' );
+    farelist.style.display = 'none';
+}
+
+async function renderFares() {
+
+    const slist = document.getElementById( 'slist' );
+    slist.style.display = 'none';
+
+    const tlist = document.getElementById( 'tlist' );
+    tlist.style.display = 'none';
+
+    const parent = slist.parentNode;
+    const dropdowns = await Fares();
+    const rdiv = dom.createElement( 'div', parent, {
+        id: 'fare-list'
+    } );
+    rdiv.innerHTML = dropdowns;
+    rdiv.style.display = 'block';
 }
 
 async function doOnLoadStuff() {
@@ -93,7 +120,12 @@ async function doOnLoadStuff() {
         switch ( item ) {
         case 'alerts':
             alertButtonClick();
-
+            break;
+        case 'train list':
+            reRenderStations();
+            break;
+        case 'fare estimator':
+            renderFares();
             break;
         default:
             break;
