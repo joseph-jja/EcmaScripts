@@ -119,6 +119,7 @@ async function doOnLoadStuff() {
 
         switch ( item ) {
         case 'alerts':
+            reRenderStations();
             alertButtonClick();
             break;
         case 'train list':
