@@ -2,6 +2,7 @@ import "@babel/runtime/regenerator";
 import selector from 'client/dom/selector';
 import * as events from 'client/dom/events';
 import * as dom from 'client/dom/DOM';
+import fetcher from 'client/net/fetcher';
 
 // components
 import StationList from 'client/components/bart/stationsUI';
@@ -26,6 +27,14 @@ function getMainWindow() {
 
 }
 
+async function buildNav() {
+    const navFrag = '/frags/bart-nav.frag';
+    const navData = await fetcher( navFrag );
+
+    const menu = document.getElementById( 'menu' );
+    menu.innerHTML = navData.replace( /\n/g, '' );
+}
+
 async function doOnLoadStuff() {
 
     const stationData = await StationList();
@@ -33,11 +42,6 @@ async function doOnLoadStuff() {
     const wwin = getMainWindow();
 
     const content = wwin.windowArea;
-
-    const alertButton = dom.createElement( 'button', content, {
-        id: 'bart-alerts'
-    } );
-    alertButton.innerHTML = 'Alerts';
 
     const rdiv = dom.createElement( 'div', content, {
         id: 'slist'
@@ -77,7 +81,23 @@ async function doOnLoadStuff() {
         const alertList = await Alerts();
         ldiv.innerHTML = alertList;
     };
-    events.addEvent( alertButton, 'click', alertButtonClick );
+
+    await buildNav();
+    const dropdown = selector( '.url-wrapper select' ).get( 0 );
+    events.addEvent( dropdown, 'change', ( e ) => {
+        const evt = events.getEvent( e );
+        const tgt = events.getTarget( evt );
+        const item = tgt.options[ tgt.selectedIndex ].text.toLowerCase();
+
+        switch ( item ) {
+        case 'alerts':
+            alertButtonClick();
+
+            break;
+        default:
+            break;
+        }
+    } );
 }
 
 events.addOnLoad( doOnLoadStuff );
