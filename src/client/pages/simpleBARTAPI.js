@@ -8,6 +8,7 @@ import fetcher from 'client/net/fetcher';
 import StationList from 'client/components/bart/stationsUI';
 import TrainList from 'client/components/bart/trainsUI';
 import Alerts from 'client/components/bart/alertUI';
+import Fares from 'client/components/bart/faresUI';
 import footer from 'client/components/footer';
 import * as menu from 'client/components/menu';
 
