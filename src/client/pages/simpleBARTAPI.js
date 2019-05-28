@@ -55,6 +55,10 @@ function loadFares() {
     const destination = document.getElementById( 'fares-destination' );
     const results = document.getElementById( 'fare-results' );
 
+    if ( source.selectedIndex === 0 || destination.selectedIndex === 0 ) {
+        return;
+    }
+
     const fareSource = source.options[ source.selectedIndex ].text.toLowerCase();
     const fareDest = destination.options[ destination.selectedIndex ].text.toLowerCase();
 
