@@ -66,6 +66,7 @@ async function loadFares() {
 
 }
 
+let hasFareEvents = false;
 async function renderFares() {
 
     const slist = document.getElementById( 'slist' );
@@ -81,6 +82,9 @@ async function renderFares() {
     } );
     rdiv.innerHTML = dropdowns;
     rdiv.style.display = 'block';
+    if ( !hasFareEvents ) {
+        events.addEvent( rdiv, 'click', loadFares );
+    }
 }
 
 async function doOnLoadStuff() {
