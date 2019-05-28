@@ -17,5 +17,5 @@ export default async function Fares() {
     const fromStation = `<select id="fares-source">${pleaseSelect}${items}</select>`,
         toStation = `<select id="fares-destination">${pleaseSelect}${items}</select>`;
 
-    return `Starting Station: ${fromStation}<br><br>Destination Station: ${toStation}`;
+    return `Starting Station: ${fromStation}<br><br>Destination Station: ${toStation}<br><div id="fare-results"></div>`;
 }
