@@ -11,6 +11,10 @@ import Alerts from 'client/components/bart/alertUI';
 import Fares from 'client/components/bart/faresUI';
 import footer from 'client/components/footer';
 
+import {
+   getFares   
+} from 'client/components/bart/api';
+
 // window
 import WebWindow from 'client/components/wbWindow';
 
@@ -24,7 +28,6 @@ function getMainWindow() {
         styles.offsetWidth,
         styles.offsetHeight,
         'main-window' );
-
 }
 
 async function buildNav() {
@@ -44,6 +47,17 @@ async function reRenderStations() {
 
     const farelist = document.getElementById( 'fare-list' );
     farelist.style.display = 'none';
+}
+
+function loadFares() {
+
+    const source = document.getElementById( 'fares-source' );
+    const destination = document.getElementById( 'fares-destination' );
+    const results = document.getElementById( 'fare-results' );
+    
+            const fareSource = source.options[ source.selectedIndex ].text.toLowerCase();
+        const fareDest = destination.options[ destination.selectedIndex ].text.toLowerCase();
+
 }
 
 async function renderFares() {
