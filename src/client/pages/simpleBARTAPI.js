@@ -49,7 +49,7 @@ async function reRenderStations() {
     farelist.style.display = 'none';
 }
 
-function loadFares() {
+async function loadFares() {
 
     const source = document.getElementById( 'fares-source' );
     const destination = document.getElementById( 'fares-destination' );
@@ -59,8 +59,10 @@ function loadFares() {
         return;
     }
 
-    const fareSource = source.options[ source.selectedIndex ].text.toLowerCase();
-    const fareDest = destination.options[ destination.selectedIndex ].text.toLowerCase();
+    const fareSource = source.options[ source.selectedIndex ].value;
+    const fareDest = destination.options[ destination.selectedIndex ].value;
+
+    const fares = await getFares( fareSource, fareDest );
 
 }
 
