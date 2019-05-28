@@ -63,7 +63,7 @@ async function loadFares() {
     const fareDest = destination.options[ destination.selectedIndex ].value;
 
     const fares = await getFares( fareSource, fareDest );
-
+    console.log( fares );
 }
 
 let hasFareEvents = false;
