@@ -112,6 +112,20 @@ async function renderFares() {
     }
 }
 
+let stationMap;
+async function listToMap() {
+    if (stationMap) { 
+        return;
+    }
+    
+    const stations = await StationList();
+    stations.map( item => { 
+        return { [item.abbr]: item.name };
+    });
+    
+    stationMap = stations;
+}
+
 async function loadTripDetails() {
 
     const source = document.getElementById( 'trip-source' );
@@ -121,6 +135,8 @@ async function loadTripDetails() {
     if ( source.selectedIndex === 0 || destination.selectedIndex === 0 ) {
         return;
     }
+    
+    await listToMap();
 
     const tripSource = source.options[ source.selectedIndex ].value;
     const tripDest = destination.options[ destination.selectedIndex ].value;
@@ -128,9 +144,10 @@ async function loadTripDetails() {
     const trips = await getDepartTrips( tripSource, tripDest, tripTime.value );
 
     const tripResults = trips.root.schedule.request.trip.map( trip => {
-        let results = `From: ${trip['@origin']} (${trip['@origTimeDate']} ${trip['@origTimeMin']})`;
-        results += `<br>To: ${trip['@destination']} (${trip['@destTimeDate']} ${trip['@destTimeDate']})`;
+        let results = `From: ${stationMap[trip['@origin']]} (${trip['@origTimeDate']} ${trip['@origTimeMin']})`;
+        results += `<br>To: ${stationMap[trip['@destination']]} (${trip['@destTimeDate']} ${trip['@destTimeDate']})`;
         const legs = trip.leg.map( leg => {
+            //stationMap
             return leg;
         } ).reduce( ( acc, next ) => {
             return `${acc}<br>${next}`;
