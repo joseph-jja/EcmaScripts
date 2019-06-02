@@ -11,18 +11,23 @@ export default async function StationList() {
     let stations = [];
 
     if ( webStorage.localEnabled ) {
-        stations = webStorage.localStore.getItem( 'STORAGE_KEY' );
-        const updateDate = webStorage.localStore.getItem( 'STORAGE_TIME_KEY' );
+        const updateDate = webStorage.localStore.getItem( STORAGE_TIME_KEY );
         const staleDate = new Date().getTime() - ONE_WEEK;
-        if ( !updateDate || updateDate < staleDate ) {
-            stations = [];
+        console.log( updateDate > staleDate );
+        if ( updateDate && updateDate > staleDate ) {
+            const storageData = webStorage.localStore.getItem( STORAGE_KEY );
+            console.log( 'got data ? ' + storageData );
+            if ( storageData ) {
+                stations = JSON.parse( storageData );
+                console.log( stations );
+            }
         }
     }
 
     if ( !stations || stations.length === 0 ) {
         stations = await API.getStations();
         if ( webStorage.localEnabled ) {
-            webStorage.localStore.setItem( 'STORAGE_TIME_KEY', new Date().getTime() );
+            webStorage.localStore.setItem( STORAGE_TIME_KEY, new Date().getTime() );
         }
     }
 
