@@ -126,6 +126,7 @@ async function loadTripDetails() {
     const tripDest = destination.options[ destination.selectedIndex ].value;
 
     const trips = await getDepartTrips( tripSource, tripDest, tripTime.value );
+    console.log( trips );
 
     const tripResults = trips.root.schedule.request.trip.map( trip => {
         const results = `From: ${trip['@origin']} (${trip['@origTimeDate']} ${trip['@origTimeMin']})`;

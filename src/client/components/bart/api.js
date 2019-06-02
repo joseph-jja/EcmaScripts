@@ -90,7 +90,7 @@ async function getArrivalTrips( origin, dest, planTime ) {
 }
 
 async function getFares( origin, dest ) {
-    
+
     const fares = await getJSON( `${Constants.FAIR_API}${origin}${Constants.FAIR_DEST}${dest}` );
     return fares;
 }
