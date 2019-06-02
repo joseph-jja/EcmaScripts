@@ -5,7 +5,8 @@ import * as dom from 'client/dom/DOM';
 import fetcher from 'client/net/fetcher';
 
 // components
-import StationList from 'client/components/bart/stationsUI';
+import StationList from 'client/components/bart/stationsList';
+import StationUI from 'client/components/bart/stationsUI';
 import TrainList from 'client/components/bart/trainsUI';
 import Alerts from 'client/components/bart/alertUI';
 import Fares from 'client/components/bart/faresUI';
@@ -183,7 +184,7 @@ async function renderTripPlanner() {
 
 async function doOnLoadStuff() {
 
-    const stationData = await StationList();
+    const stationData = await StationUI();
 
     const wwin = getMainWindow();
 
