@@ -139,8 +139,6 @@ async function loadTripDetails() {
         return;
     }
 
-    await listToMap();
-
     const tripSource = source.options[ source.selectedIndex ].value;
     const tripDest = destination.options[ destination.selectedIndex ].value;
 
@@ -168,6 +166,7 @@ let hasTripPlannerEvents = false;
 async function renderTripPlanner() {
 
     hideAll();
+    await listToMap();
 
     const slist = document.getElementById( 'slist' );
     const parent = slist.parentNode;
