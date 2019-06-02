@@ -41,7 +41,7 @@ async function buildNav() {
 }
 
 function hideAll() {
-     
+
     const slist = document.getElementById( 'slist' );
     slist.style.display = 'none';
 
@@ -53,9 +53,9 @@ function hideAll() {
 }
 
 async function reRenderStations() {
-    
+
     hideAll();
-    
+
     const slist = document.getElementById( 'slist' );
     slist.style.display = 'block';
 
@@ -118,13 +118,14 @@ async function loadTripDetails() {
     const tripSource = source.options[ source.selectedIndex ].value;
     const tripDest = destination.options[ destination.selectedIndex ].value;
 
-    const trips = await getDepartTrips( tripSource, tripDest,tripTime );
+    const trips = await getDepartTrips( tripSource, tripDest, tripTime );
 
-    const tripResults = trips.root; /*.map( fare => {
-        return `${fare['@name']}: ${fare['@amount']}`;
-    } ).reduce( ( acc, next ) => {
-        return `${acc}<br>${next}`;
-    } );*/
+    const tripResults = trips.root;
+    /*.map( fare => {
+           return `${fare['@name']}: ${fare['@amount']}`;
+       } ).reduce( ( acc, next ) => {
+           return `${acc}<br>${next}`;
+       } );*/
 
     const tripResultsContainer = document.getElementById( 'trip-results' );
     tripResultsContainer.innerHTML = tripResults;
