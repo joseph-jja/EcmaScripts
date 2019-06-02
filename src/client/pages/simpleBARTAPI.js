@@ -127,8 +127,6 @@ async function listToMap() {
             [ item.abbr ]: item.name
         };
     } );
-
-    stationMap = stations;
 }
 
 async function loadTripDetails() {
