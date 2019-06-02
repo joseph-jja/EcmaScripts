@@ -13,7 +13,8 @@ import TripPlanner from 'client/components/bart/tripPlanner';
 import footer from 'client/components/footer';
 
 import {
-    getFares
+    getFares,
+    getDepartTrips
 } from 'client/components/bart/api';
 
 // window
@@ -39,22 +40,33 @@ async function buildNav() {
     menu.innerHTML = navData.replace( /\n/g, '' );
 }
 
+function hideAll() {
+     
+    const slist = document.getElementById( 'slist' );
+    slist.style.display = 'none';
+
+    const tlist = document.getElementById( 'tlist' );
+    tlist.style.display = 'none';
+
+    const farelist = document.getElementById( 'fare-list' );
+    farelist.style.display = 'none';
+}
+
 async function reRenderStations() {
+    
+    hideAll();
+    
     const slist = document.getElementById( 'slist' );
     slist.style.display = 'block';
 
     const tlist = document.getElementById( 'tlist' );
     tlist.style.display = 'block';
-
-    const farelist = document.getElementById( 'fare-list' );
-    farelist.style.display = 'none';
 }
 
 async function loadFares() {
 
     const source = document.getElementById( 'fares-source' );
     const destination = document.getElementById( 'fares-destination' );
-    const results = document.getElementById( 'fare-results' );
 
     if ( source.selectedIndex === 0 || destination.selectedIndex === 0 ) {
         return;
@@ -78,11 +90,7 @@ async function loadFares() {
 let hasFareEvents = false;
 async function renderFares() {
 
-    const slist = document.getElementById( 'slist' );
-    slist.style.display = 'none';
-
-    const tlist = document.getElementById( 'tlist' );
-    tlist.style.display = 'none';
+    hideAll();
 
     const parent = slist.parentNode;
     const dropdowns = await Fares();
@@ -96,14 +104,35 @@ async function renderFares() {
     }
 }
 
+async function loadTripDetails() {
+
+    const source = document.getElementById( 'trip-source' );
+    const destination = document.getElementById( 'trip-destination' );
+    const tripTime = document.getElementById( 'trip-time' );
+
+    if ( source.selectedIndex === 0 || destination.selectedIndex === 0 ) {
+        return;
+    }
+
+    const tripSource = source.options[ source.selectedIndex ].value;
+    const tripDest = destination.options[ destination.selectedIndex ].value;
+
+    const trips = await getDepartTrips( tripSource, tripDest,tripTime );
+
+    const tripResults = trips.root; /*.map( fare => {
+        return `${fare['@name']}: ${fare['@amount']}`;
+    } ).reduce( ( acc, next ) => {
+        return `${acc}<br>${next}`;
+    } );*/
+
+    const fareResultsContainer = document.getElementById( 'trip-results' );
+    fareResultsContainer.innerHTML = fareResults;
+}
+
 let hasTripPlannerEvents = false;
 async function renderTripPlanner() {
 
-    const slist = document.getElementById( 'slist' );
-    slist.style.display = 'none';
-
-    const tlist = document.getElementById( 'tlist' );
-    tlist.style.display = 'none';
+    hideAll();
 
     const parent = slist.parentNode;
     const dropdowns = await TripPlanner();
@@ -113,7 +142,7 @@ async function renderTripPlanner() {
     rdiv.innerHTML = dropdowns;
     rdiv.style.display = 'block';
     if ( !hasTripPlannerEvents ) {
-        //events.addEvent( rdiv, 'click', loadFares );
+        events.addEvent( rdiv, 'click', loadTripDetails );
     }
 }
 
