@@ -120,7 +120,7 @@ async function listToMap() {
     }
 
     const stations = await StationList();
-    stations.map( item => {
+    stationMap = stations.map( item => {
         return {
             [ item.abbr ]: item.name
         };
