@@ -52,6 +52,11 @@ function hideAll() {
     if ( farelist ) {
         farelist.style.display = 'none';
     }
+    
+    const triplist = document.getElementById( 'trips-list' );
+    if ( triplist ) {
+        triplist.style.display = 'none';
+    }
 }
 
 async function reRenderStations() {
