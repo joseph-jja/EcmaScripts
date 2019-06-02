@@ -1,7 +1,7 @@
 import * as API from 'client/components/bart/api';
 import * as webStorage from 'client/browser/webStorage';
 
-const ONE_WEEK = 604800;
+const ONE_WEEK = 604800000; // 1000*60*60*24*7
 
 const STORAGE_KEY = 'SimpleBARTAPIStationList',
     STORAGE_TIME_KEY = 'SimpleBARTAPIStationListTime';
