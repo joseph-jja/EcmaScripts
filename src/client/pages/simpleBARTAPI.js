@@ -63,7 +63,15 @@ async function loadFares() {
     const fareDest = destination.options[ destination.selectedIndex ].value;
 
     const fares = await getFares( fareSource, fareDest );
-    console.log( fares );
+
+    const fareResults = fares.root.fares.fare.map( fare => {
+        return `${fare['@name']}: ${fare['@amount']}`;
+    } ).reduce( ( acc, next ) => {
+        return `${acc}<br>${next}`;
+    } );
+
+    const fareResultsContainer = document.getElementById( 'fare-results' );
+    fareResultsContainer.innerHTML = fareResults;
 }
 
 let hasFareEvents = false;
