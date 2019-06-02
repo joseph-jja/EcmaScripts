@@ -146,7 +146,7 @@ async function loadTripDetails() {
         const orig = trip[ '@origin' ],
             dest = trip[ '@destination' ];
         let results = `From: ${stationMap[orig]} (${trip['@origTimeDate']} ${trip['@origTimeMin']})`;
-        results += `<br>To: ${stationMap[dest]} (${trip['@destTimeDate']} ${trip['@destTimeDate']})`;
+        results += `<br>To: ${stationMap[dest]} (${trip['@destTimeDate']} ${trip['@destTimeMin']})`;
         const legs = trip.leg.map( leg => {
             //stationMap
             return leg;
