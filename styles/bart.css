@@ -34,3 +34,13 @@ div#bart-train-list div {
     padding: 5px;
     border: 1px solid black;
 }
+
+.styled-dropedown {
+    font-size: 0.8em;
+    font-weight: bold;
+    width: 50%;
+    padding: 0.5em;
+    background-color: #aff0ff    
+}
+
+
