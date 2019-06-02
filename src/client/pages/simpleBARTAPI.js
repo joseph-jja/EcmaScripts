@@ -115,17 +115,15 @@ async function renderFares() {
     }
 }
 
-let stationMap;
+const stationMap = {};
 async function listToMap() {
-    if ( stationMap ) {
+    if ( Object.keys(stationMap).length > 0 ) {
         return;
     }
 
     const stations = await StationList();
-    stationMap = stations.map( item => {
-        return {
-            [ item.abbr ]: item.name
-        };
+    stations.forEach( item => {
+        stationMap[ item.abbr ] = item.name;
     } );
 }
 
