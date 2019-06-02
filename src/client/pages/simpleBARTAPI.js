@@ -126,8 +126,8 @@ async function loadTripDetails() {
         return `${acc}<br>${next}`;
     } );*/
 
-    const fareResultsContainer = document.getElementById( 'trip-results' );
-    fareResultsContainer.innerHTML = fareResults;
+    const tripResultsContainer = document.getElementById( 'trip-results' );
+    tripResultsContainer.innerHTML = tripResults;
 }
 
 let hasTripPlannerEvents = false;
