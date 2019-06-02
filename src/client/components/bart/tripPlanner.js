@@ -32,7 +32,7 @@ export default async function TripPlanner() {
         ampm = 'PM';
     }
 
-    const tripTime = 'time=now'; //leftPadd( hours ) + ':' + leftPadd( now.getMinutes() ) + ' ' + ampm;
+    const tripTime = 'now'; //leftPadd( hours ) + ':' + leftPadd( now.getMinutes() ) + ' ' + ampm;
 
     const tripTimeInp = `<input type="hidden" value="${tripTime} name="trip-time" id="trip-time">`;
 
