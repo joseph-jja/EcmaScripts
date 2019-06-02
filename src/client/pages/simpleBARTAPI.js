@@ -125,7 +125,7 @@ async function loadTripDetails() {
     const tripSource = source.options[ source.selectedIndex ].value;
     const tripDest = destination.options[ destination.selectedIndex ].value;
 
-    const trips = await getDepartTrips( tripSource, tripDest, tripTime );
+    const trips = await getDepartTrips( tripSource, tripDest, tripTime.value );
 
     const tripResults = trips.root;
     /*.map( fare => {
