@@ -28,7 +28,7 @@ div#bart-stations-list div:hover {
     background: cornflowerblue;
 }
 
-div#bart-train-list div, 
+div#bart-train-list div,
 div#bart-alert-list {
     font-size: 1.75em;
     font-weight: bold;
@@ -36,10 +36,10 @@ div#bart-alert-list {
     border: 1px solid black;
 }
 
-.styled-dropdown {
+.styled-dropdown select {
     font-size: 0.8em;
     font-weight: bold;
-    width: 50%;
+    width: 40%;
     padding: 0.5em;
     background-color: #aff0ff
 }
