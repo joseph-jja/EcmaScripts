@@ -117,7 +117,7 @@ async function renderFares() {
 
 const stationMap = {};
 async function listToMap() {
-    if ( Object.keys(stationMap).length > 0 ) {
+    if ( Object.keys( stationMap ).length > 0 ) {
         return;
     }
 
@@ -143,8 +143,8 @@ async function loadTripDetails() {
     const trips = await getDepartTrips( tripSource, tripDest, tripTime.value );
 
     const tripResults = trips.root.schedule.request.trip.map( trip => {
-        const orig = trip['@origin'], 
-              dest = trip['@destination'];
+        const orig = trip[ '@origin' ],
+            dest = trip[ '@destination' ];
         let results = `From: ${stationMap[orig]} (${trip['@origTimeDate']} ${trip['@origTimeMin']})`;
         results += `<br>To: ${stationMap[dest]} (${trip['@destTimeDate']} ${trip['@destTimeDate']})`;
         const legs = trip.leg.map( leg => {
