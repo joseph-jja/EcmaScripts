@@ -92,6 +92,7 @@ async function renderFares() {
 
     hideAll();
 
+    const slist = document.getElementById( 'slist' );
     const parent = slist.parentNode;
     const dropdowns = await Fares();
     const rdiv = dom.createElement( 'div', parent, {
@@ -134,6 +135,7 @@ async function renderTripPlanner() {
 
     hideAll();
 
+    const slist = document.getElementById( 'slist' );
     const parent = slist.parentNode;
     const dropdowns = await TripPlanner();
     const rdiv = dom.createElement( 'div', parent, {
