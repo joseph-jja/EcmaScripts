@@ -28,7 +28,8 @@ div#bart-stations-list div:hover {
     background: cornflowerblue;
 }
 
-div#bart-train-list div {
+div#bart-train-list div, 
+div#bart-alert-list {
     font-size: 1.75em;
     font-weight: bold;
     padding: 5px;
