@@ -147,13 +147,20 @@ async function loadTripDetails() {
             dest = trip[ '@destination' ];
         let results = `From: ${stationMap[orig]} (${trip['@origTimeDate']} ${trip['@origTimeMin']})`;
         results += `<br>To: ${stationMap[dest]} (${trip['@destTimeDate']} ${trip['@destTimeMin']})`;
+
         const legs = trip.leg.map( leg => {
-            //stationMap
-            return leg;
+            const legOrig = leg[ '@origin' ],
+                legDest = leg[ '@destination' ];
+
+            let legResults = `<div>From: ${stationMap[legOrig]} (${leg['@origTimeDate']} ${leg['@origTimeMin']})`;
+            legResults += `<br>To: ${stationMap[legDest]} (${leg['@destTimeDate']} ${leg['@destTimeMin']})</div>`;
+
+            return legResults;
         } ).reduce( ( acc, next ) => {
             return `${acc}<br>${next}`;
         } );
-        return results;
+
+        return `<div>${results}${legs}</div>`;
     } ).reduce( ( acc, next ) => {
         return `${acc}<br>${next}`;
     } );
