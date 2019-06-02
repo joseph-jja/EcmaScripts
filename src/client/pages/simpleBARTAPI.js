@@ -10,11 +10,11 @@ import StationUI from 'client/components/bart/stationsUI';
 import TrainList from 'client/components/bart/trainsUI';
 import Alerts from 'client/components/bart/alertUI';
 import Fares from 'client/components/bart/faresUI';
+import fetchFareData from 'client/components/bart/fetchFareData';
 import TripPlanner from 'client/components/bart/tripPlanner';
 import footer from 'client/components/footer';
 
 import {
-    getFares,
     getDepartTrips
 } from 'client/components/bart/api';
 
@@ -72,27 +72,7 @@ async function reRenderStations() {
 }
 
 async function loadFares() {
-
-    const source = document.getElementById( 'fares-source' );
-    const destination = document.getElementById( 'fares-destination' );
-
-    if ( source.selectedIndex === 0 || destination.selectedIndex === 0 ) {
-        return;
-    }
-
-    const fareSource = source.options[ source.selectedIndex ].value;
-    const fareDest = destination.options[ destination.selectedIndex ].value;
-
-    const fares = await getFares( fareSource, fareDest );
-
-    const fareResults = fares.root.fares.fare.map( fare => {
-        return `${fare['@name']}: ${fare['@amount']}`;
-    } ).reduce( ( acc, next ) => {
-        return `${acc}<br>${next}`;
-    } );
-
-    const fareResultsContainer = document.getElementById( 'fare-results' );
-    fareResultsContainer.innerHTML = fareResults;
+    await fetchFareData( 'fares-source', 'fares-destination', 'fare-results' );
 }
 
 let hasFareEvents = false;
