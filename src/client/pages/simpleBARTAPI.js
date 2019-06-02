@@ -122,9 +122,9 @@ async function loadTripDetails() {
             const legOrig = leg[ '@origin' ],
                 legDest = leg[ '@destination' ];
 
-            let legResults = `Train: ${leg['@trainHeadStation']}<br>`;
-            legResults += `<div>From: ${stationMap[legOrig]} (${leg['@origTimeDate']} ${leg['@origTimeMin']})`;
-            legResults += `<br>To: ${stationMap[legDest]} (${leg['@destTimeDate']} ${leg['@destTimeMin']})</div>`;
+            let legResults = `<div class="trip-legs">Train: ${leg['@trainHeadStation']}`;
+            legResults += `<br>&nbsp;&nbsp;From: ${stationMap[legOrig]} (${leg['@origTimeDate']} ${leg['@origTimeMin']})`;
+            legResults += `<br>&nbsp;&nbsp;&nbsp;&nbsp;To: ${stationMap[legDest]} (${leg['@destTimeDate']} ${leg['@destTimeMin']})</div>`;
 
             return legResults;
         } ).reduce( ( acc, next ) => {
