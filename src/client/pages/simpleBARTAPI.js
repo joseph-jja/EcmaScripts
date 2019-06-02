@@ -127,9 +127,11 @@ async function loadTripDetails() {
 
     const trips = await getDepartTrips( tripSource, tripDest, tripTime.value );
 
-    const tripResults = trips.root;
-    /*.map( fare => {
-           return `${fare['@name']}: ${fare['@amount']}`;
+    const tripResults = trips.root.schedule.request.trip.map( trip => {
+            // @origTimeDate @origTimeMin
+            // @destTimeDate @destTimeMin
+            // lig
+           return `${trip[@origin]} to ${trip[@destination]}`;
        } ).reduce( ( acc, next ) => {
            return `${acc}<br>${next}`;
        } );*/
