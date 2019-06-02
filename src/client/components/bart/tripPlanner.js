@@ -18,8 +18,8 @@ export default async function TripPlanner() {
         return acc + item;
     } );
 
-    const fromStation = `<select id="trip-source">${pleaseSelect}${items}</select>`,
-        toStation = `<select id="trip-destination">${pleaseSelect}${items}</select>`;
+    const fromStation = `<div class="styled-dropedown"><select id="trip-source">${pleaseSelect}${items}</select></div>`,
+        toStation = `<div class="styled-dropedown"><select id="trip-destination">${pleaseSelect}${items}</select></div>`;
 
     // need depart or arriving button
     const now = new Date();
