@@ -145,8 +145,8 @@ async function loadTripDetails() {
     const tripResults = trips.root.schedule.request.trip.map( trip => {
         const orig = trip[ '@origin' ],
             dest = trip[ '@destination' ];
-        let results = `From: ${stationMap[orig]} (${trip['@origTimeDate']} ${trip['@origTimeMin']})`;
-        results += `<br>To: ${stationMap[dest]} (${trip['@destTimeDate']} ${trip['@destTimeMin']})`;
+        let results = `<div class="trip-header">From: ${stationMap[orig]} (${trip['@origTimeDate']} ${trip['@origTimeMin']})`;
+        results += `&nbsp;&nbsp;&nbsp;To: ${stationMap[dest]} (${trip['@destTimeDate']} ${trip['@destTimeMin']})</div>`;
 
         const legs = trip.leg.map( leg => {
             const legOrig = leg[ '@origin' ],
@@ -157,7 +157,7 @@ async function loadTripDetails() {
 
             return legResults;
         } ).reduce( ( acc, next ) => {
-            return `${acc}<br>${next}`;
+            return `${acc}${next}`;
         } );
 
         return `<div>${results}${legs}</div>`;
