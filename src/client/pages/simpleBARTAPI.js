@@ -109,7 +109,9 @@ async function renderFares() {
     rdiv.innerHTML = dropdowns;
     rdiv.style.display = 'block';
     if ( !hasFareEvents ) {
-        events.addEvent( rdiv, 'click', loadFares );
+        const objs selector('div#fare-list select').each( d => {
+            events.addEvent( d, 'change', loadFares );
+        });
     }
 }
 
@@ -177,7 +179,9 @@ async function renderTripPlanner() {
     rdiv.innerHTML = dropdowns;
     rdiv.style.display = 'block';
     if ( !hasTripPlannerEvents ) {
-        events.addEvent( rdiv, 'click', loadTripDetails );
+        const objs selector('div#trips-list select').each( d => {
+            events.addEvent( d, 'change', loadTripDetails );
+        });
     }
 }
 
