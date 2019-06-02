@@ -13,13 +13,10 @@ export default async function StationList() {
     if ( webStorage.localEnabled ) {
         const updateDate = webStorage.localStore.getItem( STORAGE_TIME_KEY );
         const staleDate = new Date().getTime() - ONE_WEEK;
-        console.log( updateDate > staleDate );
         if ( updateDate && updateDate > staleDate ) {
             const storageData = webStorage.localStore.getItem( STORAGE_KEY );
-            console.log( 'got data ? ' + storageData );
             if ( storageData ) {
                 stations = JSON.parse( storageData );
-                console.log( stations );
             }
         }
     }
