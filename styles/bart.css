@@ -34,7 +34,6 @@ div#fare-list,
 div#bart-alert-list {
     text-align: left;
     font-size: 2em;
-    font-weight: bold;
     padding: 5px;
     border: 1px solid black;
 }
