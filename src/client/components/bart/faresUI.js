@@ -14,8 +14,8 @@ export default async function Fares() {
         return acc + item;
     } );
 
-    const fromStation = `<div class="styled-dropedown"><select id="fares-source">${pleaseSelect}${items}</select></div>`,
-        toStation = `<div class="styled-dropedown"><select id="fares-destination">${pleaseSelect}${items}</select></div>`;
+    const fromStation = `<div class="styled-dropdown"><select id="fares-source">${pleaseSelect}${items}</select></div>`,
+        toStation = `<div class="styled-dropdown"><select id="fares-destination">${pleaseSelect}${items}</select></div>`;
 
     return `Starting Station: ${fromStation}<br><br>Destination Station: ${toStation}<br><div id="fare-results"></div>`;
 }
