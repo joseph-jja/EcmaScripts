@@ -49,7 +49,9 @@ function hideAll() {
     tlist.style.display = 'none';
 
     const farelist = document.getElementById( 'fare-list' );
-    farelist.style.display = 'none';
+    if ( farelist ) {
+        farelist.style.display = 'none';
+    }
 }
 
 async function reRenderStations() {
