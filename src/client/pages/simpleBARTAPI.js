@@ -128,18 +128,18 @@ async function loadTripDetails() {
     const trips = await getDepartTrips( tripSource, tripDest, tripTime.value );
 
     const tripResults = trips.root.schedule.request.trip.map( trip => {
-           const results = `From: ${trip['@origin']} (${trip['@origTimeDate']} ${trip['@origTimeMin']})`;
-                 results += `<br>To: ${trip['@destination']} (${trip['@destTimeDate']} ${trip['@destTimeDate']})`;
-           const legs = trip.leg.map( leg => {
-                return leg;    
-           }).reduce( ( acc, next ) => {
-               return `${acc}<br>${next}`;
-           } );
-           return results;
-       } ).reduce( ( acc, next ) => {
-           return `${acc}<br>${next}`;
-       } );
-        
+        const results = `From: ${trip['@origin']} (${trip['@origTimeDate']} ${trip['@origTimeMin']})`;
+        results += `<br>To: ${trip['@destination']} (${trip['@destTimeDate']} ${trip['@destTimeDate']})`;
+        const legs = trip.leg.map( leg => {
+            return leg;
+        } ).reduce( ( acc, next ) => {
+            return `${acc}<br>${next}`;
+        } );
+        return results;
+    } ).reduce( ( acc, next ) => {
+        return `${acc}<br>${next}`;
+    } );
+
     const tripResultsContainer = document.getElementById( 'trip-results' );
     tripResultsContainer.innerHTML = tripResults;
 }
