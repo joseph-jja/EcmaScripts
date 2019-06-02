@@ -145,9 +145,9 @@ async function loadTripDetails() {
     const trips = await getDepartTrips( tripSource, tripDest, tripTime.value );
 
     const tripResults = trips.root.schedule.request.trip.map( trip => {
-        const origin = trip['@origin'], 
+        const orig = trip['@origin'], 
               dest = trip['@destination'];
-        let results = `From: ${stationMap[origin]} (${trip['@origTimeDate']} ${trip['@origTimeMin']})`;
+        let results = `From: ${stationMap[orig]} (${trip['@origTimeDate']} ${trip['@origTimeMin']})`;
         results += `<br>To: ${stationMap[dest]} (${trip['@destTimeDate']} ${trip['@destTimeDate']})`;
         const legs = trip.leg.map( leg => {
             //stationMap
