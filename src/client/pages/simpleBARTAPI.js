@@ -9,6 +9,7 @@ import StationList from 'client/components/bart/stationsUI';
 import TrainList from 'client/components/bart/trainsUI';
 import Alerts from 'client/components/bart/alertUI';
 import Fares from 'client/components/bart/faresUI';
+import TripPlanner from 'client/components/bart/tripPlanner';
 import footer from 'client/components/footer';
 
 import {
@@ -95,6 +96,27 @@ async function renderFares() {
     }
 }
 
+let hasTripPlannerEvents = false;
+async function renderTripPlanner() {
+
+    const slist = document.getElementById( 'slist' );
+    slist.style.display = 'none';
+
+    const tlist = document.getElementById( 'tlist' );
+    tlist.style.display = 'none';
+
+    const parent = slist.parentNode;
+    const dropdowns = await TripPlanner();
+    const rdiv = dom.createElement( 'div', parent, {
+        id: 'trips-list'
+    } );
+    rdiv.innerHTML = dropdowns;
+    rdiv.style.display = 'block';
+    if ( !hasTripPlannerEvents ) {
+        //events.addEvent( rdiv, 'click', loadFares );
+    }
+}
+
 async function doOnLoadStuff() {
 
     const stationData = await StationList();
@@ -159,6 +181,9 @@ async function doOnLoadStuff() {
             break;
         case 'fare estimator':
             renderFares();
+            break;
+        case 'trip planner':
+            renderTripPlanner();
             break;
         default:
             break;
