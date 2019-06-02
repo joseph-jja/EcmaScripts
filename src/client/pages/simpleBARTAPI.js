@@ -114,15 +114,17 @@ async function renderFares() {
 
 let stationMap;
 async function listToMap() {
-    if (stationMap) { 
+    if ( stationMap ) {
         return;
     }
-    
+
     const stations = await StationList();
-    stations.map( item => { 
-        return { [item.abbr]: item.name };
-    });
-    
+    stations.map( item => {
+        return {
+            [ item.abbr ]: item.name
+        };
+    } );
+
     stationMap = stations;
 }
 
@@ -135,7 +137,7 @@ async function loadTripDetails() {
     if ( source.selectedIndex === 0 || destination.selectedIndex === 0 ) {
         return;
     }
-    
+
     await listToMap();
 
     const tripSource = source.options[ source.selectedIndex ].value;
