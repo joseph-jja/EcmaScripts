@@ -95,18 +95,6 @@ async function renderFares() {
     }
 }
 
-const stationMap = {};
-async function listToMap() {
-    if ( Object.keys( stationMap ).length > 0 ) {
-        return;
-    }
-
-    const stations = await StationList();
-    stations.forEach( item => {
-        stationMap[ item.abbr ] = item.name;
-    } );
-}
-
 async function loadTripDetails() {
 
     const source = document.getElementById( 'trip-source' );
@@ -121,6 +109,8 @@ async function loadTripDetails() {
     const tripDest = destination.options[ destination.selectedIndex ].value;
 
     const trips = await getDepartTrips( tripSource, tripDest, tripTime.value );
+
+    const stationMap = await StationList( true );
 
     const tripResults = trips.root.schedule.request.trip.map( trip => {
         const orig = trip[ '@origin' ],
@@ -154,7 +144,6 @@ let hasTripPlannerEvents = false;
 async function renderTripPlanner() {
 
     hideAll();
-    await listToMap();
 
     const slist = document.getElementById( 'slist' );
     const parent = slist.parentNode;

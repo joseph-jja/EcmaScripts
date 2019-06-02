@@ -6,7 +6,7 @@ const ONE_WEEK = 604800000; // 1000*60*60*24*7
 const STORAGE_KEY = 'SimpleBARTAPIStationList',
     STORAGE_TIME_KEY = 'SimpleBARTAPIStationListTime';
 
-export default async function StationList() {
+export default async function StationList( asMap = false ) {
 
     let stations = [];
 
@@ -34,6 +34,15 @@ export default async function StationList() {
 
     if ( webStorage.localEnabled ) {
         webStorage.localStore.setItem( STORAGE_KEY, JSON.stringify( stations ) );
+    }
+
+    if ( asMap ) {
+        const stationMap = {};
+        const stations = await StationList();
+        stations.forEach( item => {
+            stationMap[ item.abbr ] = item.name;
+        } );
+        return stationMap;
     }
 
     return stations;
