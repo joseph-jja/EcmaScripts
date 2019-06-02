@@ -80,17 +80,18 @@ function buildTripPlanUrl( origin, dest, planTime ) {
 async function getDepartTrips( origin, dest, planTime ) {
 
     const departingSchedule = await getJSON( `${Constants.SCHEDULE_DEPART}${buildTripPlanUrl(origin, dest, planTime)}` );
-
+    return departingSchedule;
 }
 
 async function getArrivalTrips( origin, dest, planTime ) {
 
     const arrivingSchedule = await getJSON( `${Constants.SCHEDULE_ARRIVE}${buildTripPlanUrl(origin, dest, planTime)}` );
+    return arrivingSchedule;
 }
 
 async function getFares( origin, dest ) {
+    
     const fares = await getJSON( `${Constants.FAIR_API}${origin}${Constants.FAIR_DEST}${dest}` );
-
     return fares;
 }
 
