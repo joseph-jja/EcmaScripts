@@ -41,7 +41,7 @@ module.exports = {
         "webEditor": "./src/client/pages/webEditor"
     },
     "context": path.resolve( "." ),
-    "devtool": "source-map",
+    "devtool": "none",
     "output": {
         "path": `${baseDir}/js`,
         "filename": "[name].js",
@@ -95,7 +95,6 @@ module.exports = {
                     "hoist_vars": true,
                     "if_return": false,
                     "join_vars": true,
-                    "warnings": false,
                     "side_effects": false
                 }
             }

@@ -1,4 +1,4 @@
-/* eslint indent: 1 */ 
+/* eslint indent: 1 */
 const {
     execSync
 } = require( 'child_process' ),
