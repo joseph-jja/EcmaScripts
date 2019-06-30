@@ -1,6 +1,6 @@
+import * as dom from 'client/dom/DOM';
+import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
-import * from dom from 'client/dom/DOM';
-import * from events from 'client/dom/events';
 import Grid from 'client/components/letters/Grid';
 import {
     convertFromBaseXToBaseTen
@@ -46,14 +46,14 @@ export default class Encoder extends Grid {
 
         events.addEvent( 'click', `#${this.parentID}`, ( e ) => {
             const tgt = events.getTarget( e );
-            if ( tgt.nodeName().toLowerCase() === 'input' && x.type === 'checkbox' ) {
+            if ( tgt.nodeName().toLowerCase() === 'input' && tgt.type === 'checkbox' ) {
                 const rowID = tgt.parentNode().id;
-                const eId = document.getElementById( `${rowId}_inp` ),
-                    binId = document.getElementById( `${rowId}_inp_bin` ),
+                const eId = document.getElementById( `${rowID}_inp` ),
+                    binId = document.getElementById( `${rowID}_inp_bin` ),
                     val = ( tgt.checked || 0 );
 
                 let cval = eId.value || '';
-                eId.value = `${oval}${val}`;
+                eId.value = `${cval}${val}`;
 
                 const binVal = convertFromBaseXToBaseTen( 2, eId.value );
                 binId.value = binVal;
