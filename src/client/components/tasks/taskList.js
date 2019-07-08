@@ -61,7 +61,7 @@ function TaskList() {
             events.addEvent( addButton, 'click', this.addTask, false );
             events.addEvent( editButton, 'click', this.editTask, false );
             events.addEvent( exportTasksButton, 'click', this.exportData, false );
-            //events.addEvent( importTasksButton, 'click', this.importData, false );
+            events.addEvent( importTasksButton, 'click', this.importData, false );
             events.addEvent( filterDisplaySelect, 'change', this.filterDisplay, false );
 
             // filter to show working items
