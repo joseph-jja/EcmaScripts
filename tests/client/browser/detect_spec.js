@@ -15,7 +15,6 @@ describe( 'detect js', () => {
 
     it( 'pretend to be opera exists', () => {
         window.opera = {};
-        document.all = {};
         const r = detect();
         expect( r.name ).toEqual( 'Opera' );
         delete window.opera;
