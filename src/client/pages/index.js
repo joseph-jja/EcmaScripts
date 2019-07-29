@@ -43,7 +43,6 @@ import WebWindow from 'client/components/wbWindow';
 // code
 const dt = detect();
 
-
 let defaultPosition = {},
     isCalendarDisplayed = false,
     mainWin,
@@ -164,6 +163,49 @@ function renderCalendar() {
     }
 }
 
+let softwareLoaded = false;
+async function loadSoftwareFrag() {
+
+    const frag = await fetcher( '/frags/software.frag' );
+
+    const softwareObj = dom.createElement( 'div', mainWin.windowArea, {
+        id: 'sofware-html'
+    } );
+    dom.html( softwareObj, frag );
+    css.addClass( softwareObj, 'left-align' );
+    softwareObj.style.display = 'block';
+
+    const mwtitle = selector( '.WebWindowTitleText', mainWin.titleBar ).get( 0 );
+    mwtitle.innerHTML = 'Programs';
+
+    if ( perf.hasPerformanceMetrics ) {
+        performance.measure( 'software render' );
+    }
+    softwareLoaded = true;
+}
+
+async function setupSoftware() {
+
+    if ( !softwareLoaded ) {
+        await loadSoftwareFrag();
+
+        // onclick toggleUL setup
+        let toplevel = selector( "span.toplevel" );
+        let i = 0,
+            len = toplevel.length;
+
+        for ( i = 0; i < len; i++ ) {
+            // we know the DOM here
+            let spanEle = toplevel.get( i );
+            let liParent = spanEle.parentNode;
+            let ulEle = selector( 'ul.tree_child_hidden', liParent ).get( 0 );
+            events.addEvent( spanEle, 'click', () => {
+                //toggleUL( ulEle.id, spanEle );
+            }, false );
+        }
+    }
+}
+
 events.addOnLoad( async function () {
 
     // clock
@@ -214,10 +256,10 @@ events.addOnLoad( async function () {
             }
         } );
 
+        stopStarSystem();
+        stopFishInfo();
         switch ( item ) {
         case 'resume':
-            stopStarSystem();
-            stopFishInfo();
             loadResume();
             Array.from( sideWin.windowArea.childNodes ).forEach( item => {
                 if ( item.nodeName.toLowerCase() === 'div' && css.hasClass( item, 'home-content' ) ) {
@@ -231,9 +273,9 @@ events.addOnLoad( async function () {
             stopStarSystem();
             startFishInfo();
             break;
+        case 'software':
         case 'home':
         default:
-            stopFishInfo();
             Array.from( sideWin.windowArea.childNodes ).forEach( item => {
                 if ( item.nodeName.toLowerCase() === 'div' && css.hasClass( item, 'home-content' ) ) {
                     item.style.display = 'block';
