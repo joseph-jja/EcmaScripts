@@ -57,7 +57,7 @@
     "karma-jsdom-launcher": "^7.1.1",
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "^4.0.2",
-    "setprototypeof": "^1.1.1",
+    "setprototypeof": "^1.2.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7"
