@@ -150,6 +150,12 @@ footer ul li {
     margin: 1em 0em 3em 0em;
 }
 
+@media only screen and (max-width: 600px) {
+    .container>div {
+        margin: 1em 0.5em 3em 1em;
+    }
+}
+
 .home-content {
     text-align: left;
 }
