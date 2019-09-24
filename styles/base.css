@@ -152,7 +152,7 @@ footer ul li {
 
 @media only screen and (max-width: 600px) {
     .container>div {
-        margin: 1em 0.5em 3em 1em;
+        margin: 1em 1em 3em 0.5em;
     }
 }
 
