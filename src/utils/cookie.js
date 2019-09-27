@@ -1,26 +1,26 @@
-const decode = ( typeof decodeURIComponent !== "undefined" ) ? decodeURIComponent : unescape;
-const encode = ( typeof encodeURIComponent !== "undefined" ) ? encodeURIComponent : escape;
+const decode = (typeof decodeURIComponent !== "undefined") ? decodeURIComponent : unescape;
+const encode = (typeof encodeURIComponent !== "undefined") ? encodeURIComponent : escape;
 
-function findCookieByName( cookieName, cookieData ) {
+function findCookieByName(cookieName, cookieData) {
     let name, value;
 
     // this will throw if in server mode and there is no document object :) 
-    const dc = ( cookieData || document.cookie ),
-        cookies = dc.split( ";" ),
+    const dc = (cookieData || document.cookie),
+        cookies = dc.split(";"),
         dclen = cookies.length;
-    for ( let x = 0; x < dclen; x += 1 ) {
-        let ck = cookies[ x ].match( /([^=]+)=/i );
-        if ( ck instanceof Array ) {
+    for (let x = 0; x < dclen; x += 1) {
+        let ck = cookies[x].match(/([^=]+)=/i);
+        if (ck instanceof Array) {
             try {
-                name = decode( ck[ 1 ] );
-                value = decode( cookies[ x ].substring( ck[ 1 ].length + 1 ) );
-            } catch ( ex ) {
+                name = decode(ck[1]);
+                value = decode(cookies[x].substring(ck[1].length + 1));
+            } catch (ex) {
                 // ignore
             }
         } else {
-            name = decode( cookies[ x ] );
+            name = decode(cookies[x]);
         }
-        if ( name === cookieName ) {
+        if (name === cookieName) {
             break;
         }
     }
@@ -28,64 +28,64 @@ function findCookieByName( cookieName, cookieData ) {
 };
 
 // can be used both server side or client side
-function get( name, cookieData ) {
-    return findCookieByName( name, cookieData );
+function get(name, cookieData) {
+    return findCookieByName(name, cookieData);
 };
 
-function checkOption( options, opt, useVal ) {
+function checkOption(options, opt, useVal) {
 
     let result = '';
 
-    if ( typeof options !== 'undefined' && options[ opt ] ) {
-        result = ";" + opt + ( useVal ? "=" + options[ opt ] : '' );
+    if (typeof options !== 'undefined' && options[opt]) {
+        result = ";" + opt + (useVal ? "=" + options[opt] : '');
     }
     return result;
 }
 
-function set( name, value, options ) {
+function set(name, value, options) {
     let ename, evalue, data,
         isServer;
 
-    ename = encode( name );
-    evalue = encode( value );
+    ename = encode(name);
+    evalue = encode(value);
 
     data = ename + "=" + evalue;
 
-    data += checkOption( options, 'path', true );
-    data += checkOption( options, 'domain', true );
+    data += checkOption(options, 'path', true);
+    data += checkOption(options, 'domain', true);
 
-    isServer = ( ( checkOption( options, 'server' ) !== '' ) ? true : false );
+    isServer = ((checkOption(options, 'server') !== '') ? true : false);
 
-    data += checkOption( options, 'expires', true );
-    data += checkOption( options, 'Max-Age', true );
+    data += checkOption(options, 'expires', true);
+    data += checkOption(options, 'Max-Age', true);
 
-    data += checkOption( options, 'Secure', false );
-    data += checkOption( options, 'HttpOnly', false );
-    data += checkOption( options, 'SameSite', true );
+    data += checkOption(options, 'Secure', false);
+    data += checkOption(options, 'HttpOnly', false);
+    data += checkOption(options, 'SameSite', true);
 
-    if ( !isServer ) {
+    if (!isServer) {
         document.cookie = data;
     }
     return data;
 };
 
-function remove( name ) {
+function remove(name) {
     const now = new Date(),
-        exists = findCookieByName( name );
-    if ( exists ) {
-        now.setFullYear( 1970 );
-        set( name, undefined, {
+        exists = findCookieByName(name);
+    if (exists) {
+        now.setFullYear(1970);
+        set(name, undefined, {
             expires: now
-        } );
+        });
     }
 };
 
-function count( cookieData ) {
-    return ( cookieData || document.cookie ).split( ";" ).length;
+function count(cookieData) {
+    return (cookieData || document.cookie).split(";").length;
 };
 
-function length( cookieData ) {
-    return ( cookieData || document.cookie ).length;
+function length(cookieData) {
+    return (cookieData || document.cookie).length;
 };
 
 export {

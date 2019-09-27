@@ -3,7 +3,7 @@ import footer from 'client/components/footer';
 import * as menu from 'client/components/menu';
 
 
-events.addOnLoad( () => {
+events.addOnLoad(() => {
     menu.basicMenu();
-    footer( 'footer' );
-} );
+    footer('footer');
+});

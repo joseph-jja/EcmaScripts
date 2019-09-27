@@ -10,25 +10,25 @@ import * as menu from 'client/components/menu';
 function doOnLoadStuff() {
 
     menu.basicMenu();
-    footer( 'footer' );
+    footer('footer');
 
-    let uploadFileObj = selector( "#upload-file" ).get( 0 );
+    let uploadFileObj = selector("#upload-file").get(0);
 
-    events.addEvent( uploadFileObj, "change", ( e ) => {
-        return file.selectFile( e, function ( data ) {
-            dom.html( '#text-editor-id', data );
+    events.addEvent(uploadFileObj, "change", (e) => {
+        return file.selectFile(e, function(data) {
+            dom.html('#text-editor-id', data);
             uploadFileObj.value = '';
-        } );
-    }, false );
+        });
+    }, false);
 
 
-    let downloadFileObj = selector( "#download-file" ).get( 0 );
+    let downloadFileObj = selector("#download-file").get(0);
 
-    events.addEvent( downloadFileObj, "click", () => {
-        let data = dom.html( '#text-editor-id' );
-        file.saveFile( data, 'saved.html' );
-    }, false );
+    events.addEvent(downloadFileObj, "click", () => {
+        let data = dom.html('#text-editor-id');
+        file.saveFile(data, 'saved.html');
+    }, false);
 
 }
 
-events.addOnLoad( doOnLoadStuff );
+events.addOnLoad(doOnLoadStuff);

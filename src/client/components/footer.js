@@ -10,10 +10,10 @@ const {
     monthShortNames
 } = df;
 
-function formatDate( dateObj ) {
+function formatDate(dateObj) {
 
-    const dayOfTheWeek = weekDayShortNames[ dateObj.getDay() ],
-        month = monthShortNames[ dateObj.getMonth() ];
+    const dayOfTheWeek = weekDayShortNames[dateObj.getDay()],
+        month = monthShortNames[dateObj.getMonth()];
 
     return `${dayOfTheWeek}, ${month} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
 }
@@ -21,15 +21,15 @@ function formatDate( dateObj ) {
 function getLastModifiedDate() {
 
     // last modified date
-    if ( exists( document.lastModified ) && document.lastModified.length > 0 ) {
+    if (exists(document.lastModified) && document.lastModified.length > 0) {
         // convert to a date
-        const moddate = Date.parse( document.lastModified );
+        const moddate = Date.parse(document.lastModified);
 
         const mdate = new Date();
-        mdate.setTime( moddate );
+        mdate.setTime(moddate);
 
         // return formatted our way
-        return formatDate( mdate );
+        return formatDate(mdate);
     }
     return '';
 }
@@ -37,13 +37,13 @@ function getLastModifiedDate() {
 function createFooter() {
     const dt = new Date();
 
-    const daynow = formatDate( dt );
+    const daynow = formatDate(dt);
 
     let buildFooter = `<li>Today is ${daynow}.</li>`;
 
     const lastmoddate = getLastModifiedDate();
 
-    if ( lastmoddate.length > 0 ) {
+    if (lastmoddate.length > 0) {
 
         // display the date
         buildFooter = buildFooter + `<li>Last modified on ${lastmoddate}.</li>`;
@@ -54,24 +54,24 @@ function createFooter() {
     return buildFooter;
 }
 
-export default function setFooter( footerParent ) {
+export default function setFooter(footerParent) {
     let ft;
-    if ( footerParent ) {
-        ft = dom.createElement( "ul", footerParent );
-        if ( ft ) {
+    if (footerParent) {
+        ft = dom.createElement("ul", footerParent);
+        if (ft) {
             ft.innerHTML = createFooter();
         }
     }
     // users with no query selector all go to home page to get nasty message
-    if ( typeof document.querySelectorAll === 'undefined' ) {
+    if (typeof document.querySelectorAll === 'undefined') {
         let loc = window.location.pathname;
-        loc = loc.substring( loc.lastIndexOf( "/" ) );
+        loc = loc.substring(loc.lastIndexOf("/"));
 
         // fish page
-        if ( loc.indexOf( "fish_pictures" ) !== -1 ) {
+        if (loc.indexOf("fish_pictures") !== -1) {
             // return to home page
             window.location.href = "../";
-        } else if ( loc.indexOf( "index.html" ) === -1 && loc !== "/" ) {
+        } else if (loc.indexOf("index.html") === -1 && loc !== "/") {
             window.location.href = "index.html";
         }
     }

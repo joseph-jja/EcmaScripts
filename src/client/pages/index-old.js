@@ -20,26 +20,26 @@ const dt = detect();
 let detected,
     capabilities = '';
 
-if ( !dt.capabilitiesDetected ) {
+if (!dt.capabilitiesDetected) {
     capabilities += "WARNING: Your browser version information was detected from useragent string only or not at all! ";
     capabilities += "<br />If you have problems viewing this site, please get a supported browser.";
 }
 detected = 'Detected Name = ' + dt.name + ' ' + dt.version + '.';
 detected += '<br /><br />Stated OS = ' + dt.OS + '.';
 detected += '<br />Stated Name - Version = ' + dt.name + ' - ' + dt.appVersion;
-detected += '<br /><br />Spoofable OS = ' + dt.uaOS + ( dt.uaOSVersion ? "(" + dt.uaOSVersion + ")" : "" ) + '.';
+detected += '<br /><br />Spoofable OS = ' + dt.uaOS + (dt.uaOSVersion ? "(" + dt.uaOSVersion + ")" : "") + '.';
 detected += '<br />Spoofable Name - Version = ' + dt.uaName + ' - ' + dt.uaAppVersion;
 detected += '<br />User Agent String = ' + dt.userAgent + '.';
 
-events.addOnLoad( () => {
+events.addOnLoad(() => {
     const myclock = new DigitalClock();
-    myclock.setId( "digiclock" );
+    myclock.setId("digiclock");
     myclock.startClock();
 
-    const cal = new Calendar( "calendarContainer" );
+    const cal = new Calendar("calendarContainer");
     cal.render();
 
-    dom.html( "#cautionContent", capabilities + detected );
+    dom.html("#cautionContent", capabilities + detected);
     menu.basicMenu();
-    footer( 'footer' );
-} );
+    footer('footer');
+});
