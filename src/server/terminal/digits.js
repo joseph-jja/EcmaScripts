@@ -1,6 +1,7 @@
 const baseDir = process.cwd(),
     {
-        sevenSegment
+        sevenSegment,
+        setColon
     } = require(`${baseDir}/src/server/terminal/sevenSegment`);
 
 function one(index) {
@@ -121,5 +122,6 @@ function digits(index, num) {
 }
 
 module.exports = {
-    digits
+    digits,
+    setColon
 };

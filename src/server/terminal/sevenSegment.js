@@ -15,15 +15,16 @@ const baseDir = process.cwd(),
         verticleSegment
     } = require(`${baseDir}/src/server/terminal/matrixDisplay`);
 
-const numberWidth = getNumberWidth(),
-    numberHeight = getNumberHeight(),
-    segmentHeight = getSegmentHeight();
-
 function setColon() {
 
-    const width = numberWidth * 2;
+    const width = getNumberWidth() * 2;
 
-    setMatrixPoint(row, col);
+    const row = Math.floor(getSegmentHeight() / 2) + 2;
+
+    const col = width + 6;
+
+    setMatrixPoint(row, col, '*');
+    setMatrixPoint(row + row, col, '*');
 }
 
 function sevenSegment(sevenSegmentItem, segment) {
@@ -61,5 +62,6 @@ function sevenSegment(sevenSegmentItem, segment) {
 }
 
 module.exports = {
-    sevenSegment
+    sevenSegment,
+    setColon
 }
