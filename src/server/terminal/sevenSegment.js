@@ -13,8 +13,8 @@ const baseDir = process.cwd(),
 function sevenSegment(sevenSegmentItem, segment) {
 
     let column = 1;
-    if (sevenSegment > 0 && sevenSegment <= 4) {
-        column = sevenSegment;
+    if (sevenSegmentItem > 0 && sevenSegmentItem <= 4) {
+        column = sevenSegmentItem;
     }
     let row = 1;
     switch (segment) {
