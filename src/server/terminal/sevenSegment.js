@@ -9,8 +9,8 @@ const baseDir = process.cwd(),
         getNumberHeight,
         getSegmentHeight,
         setMatrixPoint
-    } = require(`${baseDir}/src/server/terminal/matrix`) {
-        getIndexOffset,
+    } = require(`${baseDir}/src/server/terminal/matrix`),
+    {
         horizontalSegment,
         verticleSegment
     } = require(`${baseDir}/src/server/terminal/matrixDisplay`);
@@ -18,6 +18,13 @@ const baseDir = process.cwd(),
 const numberWidth = getNumberWidth(),
     numberHeight = getNumberHeight(),
     segmentHeight = getSegmentHeight();
+
+function setColon() {
+
+    const width = numberWidth * 2;
+
+    setMatrixPoint(row, col);
+}
 
 function sevenSegment(sevenSegmentItem, segment) {
 
