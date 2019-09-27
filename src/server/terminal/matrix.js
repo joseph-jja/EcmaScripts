@@ -1,8 +1,8 @@
 const cols = process.stdout.columns,
     rows = process.stdout.rows;
 
-const numberWidth = Math.floor(cols / 4) - 2,
-    numberHeight = Math.floor(rows - 2),
+const numberWidth = Math.floor(cols / 4) - 4,
+    numberHeight = Math.floor(rows - 4),
     segmentHeight = Math.floor(numberHeight / 2) - 1;
 
 const matrix = [];
