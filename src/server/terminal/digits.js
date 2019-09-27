@@ -82,7 +82,6 @@ function zero(index) {
     sevenSegment(index, 7);
 }
 
-
 function digits(index, num) {
 
     switch (num) {

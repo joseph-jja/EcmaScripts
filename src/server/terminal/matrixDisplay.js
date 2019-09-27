@@ -13,14 +13,14 @@ const numberWidth = getNumberWidth(),
     numberHeight = getNumberHeight(),
     segmentHeight = getSegmentHeight();
 
- function getIndexOffset(cols) {
-   const idx = ((cols - 1) * numberWidth);
-   if (cols === 3 ) {
-       return ((cols - 1) * numberWidth) + 4;
-   } else if (cols === 4 ) {
-     return ((cols - 1) * numberWidth) + 4;
-   }
-   return ((cols - 1) * numberWidth);
+function getIndexOffset(cols) {
+    const idx = ((cols - 1) * numberWidth);
+    if (cols === 3) {
+        return ((cols - 1) * numberWidth) + 4;
+    } else if (cols === 4) {
+        return ((cols - 1) * numberWidth) + 4;
+    }
+    return ((cols - 1) * numberWidth);
 }
 
 function horizontalSegment(row, colStart) {

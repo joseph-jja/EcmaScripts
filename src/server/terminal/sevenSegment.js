@@ -5,10 +5,19 @@ const baseDir = process.cwd(),
         writeMatrix
     } = require(`${baseDir}/src/server/terminal/matrix`),
     {
+        getNumberWidth,
+        getNumberHeight,
+        getSegmentHeight,
+        setMatrixPoint
+    } = require(`${baseDir}/src/server/terminal/matrix`) {
+        getIndexOffset,
         horizontalSegment,
         verticleSegment
     } = require(`${baseDir}/src/server/terminal/matrixDisplay`);
 
+const numberWidth = getNumberWidth(),
+    numberHeight = getNumberHeight(),
+    segmentHeight = getSegmentHeight();
 
 function sevenSegment(sevenSegmentItem, segment) {
 
