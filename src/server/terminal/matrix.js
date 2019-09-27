@@ -2,7 +2,7 @@ const cols = process.stdout.columns,
     rows = process.stdout.rows;
 
 const numberWidth = Math.floor(cols / 4) - 6,
-    numberHeight = Math.floor(rows - 4),
+    numberHeight = Math.floor(rows - 2),
     segmentHeight = Math.floor(numberHeight / 2) - 1;
 
 const matrix = [];
