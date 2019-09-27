@@ -33,7 +33,7 @@ function verticleSegment(rowStart, col, startEnd = 0) {
     offset = (startEnd === 0 ? offset : offset + numberWidth - 1);
     const rowSet = (rowStart === 1 ? rowStart + 1 : ((rowStart - 1) * (segmentHeight - 1))) - 1;
     for (let i = 1; i < segmentHeight - 1; i++) {
-        setMatrixPoint(rowSet + i, idx offset, '*');
+        setMatrixPoint(rowSet + i, idx + offset, '*');
     }
 }
 
