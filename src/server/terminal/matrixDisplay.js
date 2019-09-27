@@ -1,12 +1,17 @@
 const baseDir = process.cwd(),
     {
-        numberWidth,
-        numberHeight,
-        segmentHeight,
+        getNumberWidth,
+        getNumberHeight,
+        getSegmentHeight,
+        setMatrixPoint,
         clearScreen,
         clearMatrix,
         writeMatrix
     } = require(`${baseDir}/src/server/terminal/matrix`);
+
+const numberWidth = getNumberWidth(),
+    numberHeight = getNumberHeight(),
+    segmentHeight = getSegmentHeight();
 
 function horizontalSegment(row, colStart) {
 
@@ -17,7 +22,7 @@ function horizontalSegment(row, colStart) {
         rowSet -= 2;
     }
     for (let i = 0; i < numberWidth; i++) {
-        matrix[rowSet][idx + i + offset] = '*';
+        setMatrixPoint(rowSet, idx + i + offset, '*');
     }
 }
 
@@ -28,7 +33,7 @@ function verticleSegment(rowStart, col, startEnd = 0) {
     offset = (startEnd === 0 ? offset : offset + numberWidth - 1);
     const rowSet = (rowStart === 1 ? rowStart + 1 : ((rowStart - 1) * (segmentHeight - 1))) - 1;
     for (let i = 1; i < segmentHeight - 1; i++) {
-        matrix[rowSet + i][idx + offset] = '*';
+        setMatrixPoint(rowSet + i, idx offset, '*');
     }
 }
 

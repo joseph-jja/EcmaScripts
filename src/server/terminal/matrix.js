@@ -35,9 +35,18 @@ function writeMatrix() {
 }
 
 module.exports = {
-    numberWidth,
-    numberHeight,
-    segmentHeight,
+    getNumberWidth: () => {
+        return numberWidth
+    },
+    getNumberHeight: () => {
+        return numberHeight
+    },
+    getSegmentHeight: () => {
+        return segmentHeight
+    },
+    setMatrixPoint: (x, y, value) => {
+        matrix[x][y] = value
+    },
     clearScreen,
     clearMatrix,
     writeMatrix
