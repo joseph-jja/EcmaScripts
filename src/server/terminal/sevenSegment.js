@@ -11,17 +11,19 @@ const baseDir = process.cwd(),
         setMatrixPoint
     } = require(`${baseDir}/src/server/terminal/matrix`),
     {
+        getOffset,
         horizontalSegment,
         verticleSegment
     } = require(`${baseDir}/src/server/terminal/matrixDisplay`);
 
 function setColon() {
 
-    const width = getNumberWidth() * 2;
+    const leftMax = getOffset(2, 1),
+        rightMin = getOffset(3);
 
     const row = Math.floor(getSegmentHeight() / 2) + 2;
 
-    const col = width + 6;
+    const col = leftMax + Math.floor((rightMin - leftMax) / 2);
 
     setMatrixPoint(row, col, '*');
     setMatrixPoint(row + row, col, '*');
