@@ -1,7 +1,7 @@
 const cols = process.stdout.columns,
     rows = process.stdout.rows;
 
-const numberWidth = Math.floor(cols / 4) - 4,
+const numberWidth = Math.floor(cols / 4) - 6,
     numberHeight = Math.floor(rows - 4),
     segmentHeight = Math.floor(numberHeight / 2) - 1;
 

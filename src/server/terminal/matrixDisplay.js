@@ -13,9 +13,19 @@ const numberWidth = getNumberWidth(),
     numberHeight = getNumberHeight(),
     segmentHeight = getSegmentHeight();
 
+ function getIndexOffset(cols) {
+   const idx = ((cols - 1) * numberWidth);
+   if (cols === 3 ) {
+       return ((cols - 1) * numberWidth) + 4;
+   } else if (cols === 4 ) {
+     return ((cols - 1) * numberWidth) + 4;
+   }
+   return ((cols - 1) * numberWidth);
+}
+
 function horizontalSegment(row, colStart) {
 
-    const idx = ((colStart - 1) * numberWidth);
+    const idx = getIndexOffset(colStart);
     const offset = (colStart === 1 ? 2 : (2 * colStart));
     let rowSet = (row === 1 ? row + 1 : ((row - 1) * (segmentHeight - 1)));
     if (row === 3) {
@@ -28,7 +38,7 @@ function horizontalSegment(row, colStart) {
 
 function verticleSegment(rowStart, col, startEnd = 0) {
 
-    const idx = ((col - 1) * numberWidth);
+    const idx = getIndexOffset(col);
     let offset = (col === 1 ? 2 : (2 * col));
     offset = (startEnd === 0 ? offset : offset + numberWidth - 1);
     const rowSet = (rowStart === 1 ? rowStart + 1 : ((rowStart - 1) * (segmentHeight - 1))) - 1;
