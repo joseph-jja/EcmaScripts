@@ -35,6 +35,9 @@ function writeMatrix() {
 }
 
 module.exports = {
+    numberWidth,
+    numberHeight,
+    segmentHeight,
     clearScreen,
     clearMatrix,
     writeMatrix

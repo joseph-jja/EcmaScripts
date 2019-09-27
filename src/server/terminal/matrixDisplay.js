@@ -1,5 +1,8 @@
 const baseDir = process.cwd(),
     {
+        numberWidth,
+        numberHeight,
+        segmentHeight,
         clearScreen,
         clearMatrix,
         writeMatrix
@@ -29,7 +32,7 @@ function verticleSegment(rowStart, col, startEnd = 0) {
     }
 }
 
-module.exports {
+module.exports = {
     horizontalSegment,
     verticleSegment
 };
