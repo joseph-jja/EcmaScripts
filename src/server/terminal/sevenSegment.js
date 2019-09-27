@@ -21,7 +21,7 @@ function setColon() {
     const leftMax = getOffset(2, 1),
         rightMin = getOffset(3);
 
-    const row = Math.floor(getSegmentHeight() / 2) + 2;
+    const row = Math.floor(getSegmentHeight() / 2) + 1;
 
     const col = leftMax + Math.floor((rightMin - leftMax) / 2);
 
