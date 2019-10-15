@@ -68,6 +68,10 @@ footer ul li {
         display: block;
         margin-left: 1em;
     }
+
+    #welcome-content {
+        margin-right: 0.5em;
+    }
 }
 
 #page-name {
@@ -144,6 +148,12 @@ footer ul li {
 
 .container>div {
     margin: 1em 0em 3em 0em;
+}
+
+@media only screen and (max-width: 600px) {
+    .container>div {
+        margin: 1em 1em 3em 0.5em;
+    }
 }
 
 .home-content {

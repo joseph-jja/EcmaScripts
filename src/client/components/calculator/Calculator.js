@@ -6,13 +6,13 @@ import * as events from 'client/dom/events';
 import TotalsManager from 'client/components/calculator/TotalsManager';
 
 //the GUI Calculator
-function Calculator( parentID, options ) {
+function Calculator(parentID, options) {
     // calendar id
-    this.id = ( options && options.id ) ? options.id : "";
+    this.id = (options && options.id) ? options.id : "";
 
     // parent object
-    if ( !parentID ) {
-        throw ( "Could not create Calculator() because no parent object was specifiec!" );
+    if (!parentID) {
+        throw ("Could not create Calculator() because no parent object was specifiec!");
     }
     this.parentID = parentID;
 };
@@ -26,32 +26,32 @@ Calculator.prototype.handle = {
 };
 
 Calculator.display = [];
-( function () {
+(function() {
     const guiCalc = Calculator.display;
-    guiCalc.push( [ "1", "2", "3", "+", "sqrt", "n!" ] );
-    guiCalc.push( [ "4", "5", "6", "-", "sin", "1/x" ] );
-    guiCalc.push( [ "7", "8", "9", "*", "cos", "x^2" ] );
-    guiCalc.push( [ "+/-", "0", ".", "/", "tan", "x^3" ] );
-    guiCalc.push( [ "=", "clear", "log", "exp", "PI", "x^y" ] );
-} )();
+    guiCalc.push(["1", "2", "3", "+", "sqrt", "n!"]);
+    guiCalc.push(["4", "5", "6", "-", "sin", "1/x"]);
+    guiCalc.push(["7", "8", "9", "*", "cos", "x^2"]);
+    guiCalc.push(["+/-", "0", ".", "/", "tan", "x^3"]);
+    guiCalc.push(["=", "clear", "log", "exp", "PI", "x^y"]);
+})();
 
-Calculator.prototype.render = function () {
+Calculator.prototype.render = function() {
 
     const cols = 6,
         calcEnd = Calculator.display.length;
     let tr, td, optn, form;
 
-    let parentObj = selector( "#" + this.parentID ).get( 0 );
-    if ( !parentObj ) {
-        throw ( "Could not get parent element to attach calendar to!" );
+    let parentObj = selector("#" + this.parentID).get(0);
+    if (!parentObj) {
+        throw ("Could not get parent element to attach calendar to!");
     }
 
-    this.handle.table = dom.createElement( 'table', parentObj, {
+    this.handle.table = dom.createElement('table', parentObj, {
         "className": "Calculator"
-    } );
-    tr = dom.createElement( 'tr', this.handle.table );
-    td = dom.createElement( 'td', tr );
-    td.setAttribute( "colspan", cols );
+    });
+    tr = dom.createElement('tr', this.handle.table);
+    td = dom.createElement('td', tr);
+    td.setAttribute("colspan", cols);
     optn = {
         "name": "Calculator",
         "type": "text",
@@ -60,10 +60,10 @@ Calculator.prototype.render = function () {
     };
 
     // set handle form
-    form = dom.createElement( 'form', td );
+    form = dom.createElement('form', td);
 
     // set handle for div
-    this.handle.div = dom.createElement( "div", form, optn );
+    this.handle.div = dom.createElement("div", form, optn);
     /*
 	tr = dom.createElement('tr', this.handle.table);
 	td = dom.createElement('td', tr);
@@ -78,124 +78,124 @@ Calculator.prototype.render = function () {
 	}
 	 */
     //"A", "B", "C", "D", "E", "F" ];
-    for ( let i = 0; i < calcEnd; i++ ) {
+    for (let i = 0; i < calcEnd; i++) {
         const display = Calculator.display,
-            iDisplay = display[ i ];
+            iDisplay = display[i];
         let end = iDisplay.length;
-        tr = dom.createElement( 'tr', this.handle.table );
-        for ( let j = 0; j < end; j++ ) {
+        tr = dom.createElement('tr', this.handle.table);
+        for (let j = 0; j < end; j++) {
             let o = {
-                'innerHTML': iDisplay[ j ]
+                'innerHTML': iDisplay[j]
             };
-            dom.createElement( 'td', tr, o );
+            dom.createElement('td', tr, o);
         }
     }
 
     // we have to redo this because it gets lost
-    this.handle.div = form.getElementsByTagName( "div" )[ 0 ];
+    this.handle.div = form.getElementsByTagName("div")[0];
     this.handle.div.innerHTML = "0";
 
     const self = this;
-    const handleEvent = ( evt ) => {
-        self.handleClick( evt, this );
+    const handleEvent = (evt) => {
+        self.handleClick(evt, this);
     };
 
     // FIXME and support both!
-    if ( events.isTouchEnabled() ) {
-        events.addEvent( this.handle.table, 'touchstart', handleEvent, false );
+    if (events.isTouchEnabled()) {
+        events.addEvent(this.handle.table, 'touchstart', handleEvent, false);
     } else {
-        events.addEvent( this.handle.table, 'click', handleEvent, false );
+        events.addEvent(this.handle.table, 'click', handleEvent, false);
     }
 };
 
-Calculator.prototype.handleClick = function ( evt, obj ) {
+Calculator.prototype.handleClick = function(evt, obj) {
 
-    var e = events.getEvent( evt ),
+    var e = events.getEvent(evt),
         tgt,
         inp, callback = [],
         method;
 
-    tgt = events.getTarget( e );
+    tgt = events.getTarget(e);
     inp = obj.handle.div.innerHTML;
 
-    if ( tgt.nodeName.toLowerCase() !== "td" ) {
+    if (tgt.nodeName.toLowerCase() !== "td") {
         return;
     }
     var data = tgt.innerHTML;
-    if ( !isNaN( data ) || data === "A" || data === "B" || data === "C" || data === "D" || data === "E" || data === "F" ) {
-        obj.appendStorage( data );
-        if ( isNaN( inp ) ) {
+    if (!isNaN(data) || data === "A" || data === "B" || data === "C" || data === "D" || data === "E" || data === "F") {
+        obj.appendStorage(data);
+        if (isNaN(inp)) {
             obj.handle.div.innerHTML = inp + data;
         } else {
             obj.handle.div.innerHTML = obj.currentValue;
         }
     } else {
-        callback[ "." ] = function ( obj, inp, data ) {
-            obj.appendStorage( data );
+        callback["."] = function(obj, inp, data) {
+            obj.appendStorage(data);
             obj.handle.div.innerHTML = inp + data;
         };
-        callback[ "+/-" ] = function ( obj, inp, data ) {
-            obj.changeStorage( mathFunctions.inverse );
+        callback["+/-"] = function(obj, inp, data) {
+            obj.changeStorage(mathFunctions.inverse);
             obj.handle.div.innerHTML = obj.currentValue;
         };
-        callback[ "+" ] = function ( obj, inp, data ) {
-            obj.performLastMethod( mathFunctions.add );
+        callback["+"] = function(obj, inp, data) {
+            obj.performLastMethod(mathFunctions.add);
             obj.handle.div.innerHTML = inp + data;
         };
-        callback[ "-" ] = function ( obj, inp, data ) {
-            obj.performLastMethod( mathFunctions.subtract );
+        callback["-"] = function(obj, inp, data) {
+            obj.performLastMethod(mathFunctions.subtract);
             obj.handle.div.innerHTML = inp + data;
         };
-        callback[ "*" ] = function ( obj, inp, data ) {
-            obj.performLastMethod( mathFunctions.multiply );
+        callback["*"] = function(obj, inp, data) {
+            obj.performLastMethod(mathFunctions.multiply);
             obj.handle.div.innerHTML = inp + data;
         };
-        callback[ "/" ] = function ( obj, inp, data ) {
-            obj.performLastMethod( mathFunctions.divide );
+        callback["/"] = function(obj, inp, data) {
+            obj.performLastMethod(mathFunctions.divide);
             obj.handle.div.innerHTML = inp + data;
         };
-        callback[ "=" ] = function ( obj, inp, data ) {
+        callback["="] = function(obj, inp, data) {
             obj.equals();
             obj.handle.div.innerHTML = obj.currentTotal;
             obj.currentValue = obj.currentTotal;
         };
-        callback[ "clear" ] = function ( obj, inp, data ) {
+        callback["clear"] = function(obj, inp, data) {
             obj.clear();
             obj.handle.div.innerHTML = obj.currentTotal;
         };
-        callback[ "n!" ] = function ( obj, inp, data ) {
-            obj.changeStorage( mathFunctions.factorial );
+        callback["n!"] = function(obj, inp, data) {
+            obj.changeStorage(mathFunctions.factorial);
             obj.handle.div.innerHTML = obj.currentValue;
         };
-        callback[ "1/x" ] = function ( obj, inp, data ) {
-            obj.changeStorage( mathFunctions.oneOver );
+        callback["1/x"] = function(obj, inp, data) {
+            obj.changeStorage(mathFunctions.oneOver);
             obj.handle.div.innerHTML = obj.currentValue;
         };
-        callback[ "x^2" ] = function ( obj, inp, data ) {
-            obj.changeStorage( mathFunctions.square );
+        callback["x^2"] = function(obj, inp, data) {
+            obj.changeStorage(mathFunctions.square);
             obj.handle.div.innerHTML = obj.currentValue;
         };
-        callback[ "x^3" ] = function ( obj, inp, data ) {
-            obj.changeStorage( mathFunctions.cube );
+        callback["x^3"] = function(obj, inp, data) {
+            obj.changeStorage(mathFunctions.cube);
             obj.handle.div.innerHTML = obj.currentValue;
         };
-        callback[ "PI" ] = function ( obj, inp, data ) {
+        callback["PI"] = function(obj, inp, data) {
             obj.currentValue = Math.PI;
             obj.handle.div.innerHTML = inp + Math.PI;
         };
-        callback[ "x^y" ] = function ( obj, inp, data ) {
-            obj.performLastMethod( Math.pow );
+        callback["x^y"] = function(obj, inp, data) {
+            obj.performLastMethod(Math.pow);
             obj.handle.div.innerHTML = inp + "^";
         };
 
-        method = callback[ data ];
-        if ( !method ) {
-            if ( Math.hasOwnProperty( data ) ) {
-                obj.changeStorage( Math[ data ] );
+        method = callback[data];
+        if (!method) {
+            if (Math.hasOwnProperty(data)) {
+                obj.changeStorage(Math[data]);
                 obj.handle.div.innerHTML = obj.currentValue;
             }
         } else {
-            method( obj, inp, data );
+            method(obj, inp, data);
         }
     }
 };

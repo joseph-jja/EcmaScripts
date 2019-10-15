@@ -5,10 +5,10 @@ import selector from 'client/dom/selector';
 import footer from 'client/components/footer';
 import * as menu from 'client/components/menu';
 
-events.addOnLoad( () => {
+events.addOnLoad(() => {
 
     menu.basicMenu();
-    footer( 'footer' );
+    footer('footer');
 
     var mmddyyyy,
         todaysdate,
@@ -25,21 +25,21 @@ events.addOnLoad( () => {
     mid = "earthlink";
     end = "net";
 
-    bv = selector( "#browserVersion" ).get( 0 );
-    if ( bv ) {
+    bv = selector("#browserVersion").get(0);
+    if (bv) {
         bv.value = navigator.appVersion;
     }
-    p = selector( "#platform" ).get( 0 );
-    if ( p ) {
+    p = selector("#platform").get(0);
+    if (p) {
         p.value = navigator.appVersion;
     }
-    dom.createElement( "input", bv.parentNode, {
+    dom.createElement("input", bv.parentNode, {
         "id": "timedate",
         "value": timestamp
-    } );
-    dom.createElement( "input", bv.parentNode, {
+    });
+    dom.createElement("input", bv.parentNode, {
         "id": "RECIPIENT",
         "value": beg + "@" + mid + "." + end
-    } );
+    });
 
-} );
+});

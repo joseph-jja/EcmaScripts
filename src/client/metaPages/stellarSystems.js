@@ -15,30 +15,30 @@ let starSystemWorker,
 
 function setupStarSystem() {
 
-    starSystemWorker = exists( Worker ) ? new Worker( '/js/starSystem.js' ) : undefined;
-    if ( screenWidth > 800 ) {
-        canvasRef = canvas.create( 'star-system', 'canvas-container', 800, 700 );
+    starSystemWorker = exists(Worker) ? new Worker('/js/starSystem.js') : undefined;
+    if (screenWidth > 800) {
+        canvasRef = canvas.create('star-system', 'canvas-container', 800, 700);
     } else {
-        canvasRef = canvas.create( 'star-system', 'canvas-container', 250, 250 );
+        canvasRef = canvas.create('star-system', 'canvas-container', 250, 250);
     }
 
     // make canvas black
-    canvasRef.setBackgroundColor( 'black' );
+    canvasRef.setBackgroundColor('black');
 }
 
 let hasMeasured = false;
 
 function startStarSystem() {
 
-    if ( starSystemWorker ) {
+    if (starSystemWorker) {
         // make canvas black
-        canvasRef.setBackgroundColor( 'black' );
+        canvasRef.setBackgroundColor('black');
 
-        starSystemWorker.onmessage = ( msg ) => {
+        starSystemWorker.onmessage = (msg) => {
 
-            requestAnimationFrame( () => {
+            requestAnimationFrame(() => {
 
-                if ( msg.data.stars ) {
+                if (msg.data.stars) {
                     const stars = msg.data.stars,
                         black = stars.black,
                         white = stars.white,
@@ -51,37 +51,37 @@ function startStarSystem() {
                     // so we filter them out, then
                     // we reduce into 1 array
                     // finally render to canvas each item
-                    [ black, white, blackPlanet, shownPlanet ].filter( item => {
-                        if ( item ) {
+                    [black, white, blackPlanet, shownPlanet].filter(item => {
+                        if (item) {
                             return true;
                         }
                         return false;
-                    } ).reduce( ( acc, item ) => {
-                        return acc.concat( item );
-                    } ).forEach( item => {
-                        canvasRef.circle( item.x, item.y, item.radius, {
+                    }).reduce((acc, item) => {
+                        return acc.concat(item);
+                    }).forEach(item => {
+                        canvasRef.circle(item.x, item.y, item.radius, {
                             color: item.color,
                             fillStrokeClear: 'fill'
-                        } );
-                    } );
-                    if ( perf.hasPerformanceMetrics && !hasMeasured ) {
-                        performance.measure( 'binary star system render' );
+                        });
+                    });
+                    if (perf.hasPerformanceMetrics && !hasMeasured) {
+                        performance.measure('binary star system render');
                         hasMeasured = true;
                     }
                 }
-            } );
+            });
         };
-        starSystemWorker.postMessage( {
-            'setWidthHeight': [ canvasRef.width, canvasRef.height ]
-        } );
+        starSystemWorker.postMessage({
+            'setWidthHeight': [canvasRef.width, canvasRef.height]
+        });
     }
 }
 
 function stopStarSystem() {
-    if ( starSystemWorker ) {
-        starSystemWorker.postMessage( {
+    if (starSystemWorker) {
+        starSystemWorker.postMessage({
             'stop': 'stop'
-        } );
+        });
     }
 }
 
