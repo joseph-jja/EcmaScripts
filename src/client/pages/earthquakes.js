@@ -37,8 +37,7 @@ async function BuildEarthquakeUI() {
 
     const items = quakes.map( quake => {
 
-        return `import "@babel/runtime/regenerator";
-<div>${quake.title}</div>`;
+        return `<div>${quake.title}</div>`;
 
     } ).reduce( ( acc, item ) => {
         return acc + item;
