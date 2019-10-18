@@ -26,207 +26,207 @@ let tasks;
 
 function TaskList() {
 
-    this.taskListContainer = document.getElementById('taskListID');
+    this.taskListContainer = document.getElementById( 'taskListID' );
 
-    this.initialize = function() {
+    this.initialize = function () {
         tasks = new Task();
 
         this.render();
     };
 
-    this.render = function() {
+    this.render = function () {
 
         const options = {};
-        options.callback = (data) => {
+        options.callback = ( data ) => {
             let i = -1;
-            const rows = data.map((item) => {
+            const rows = data.map( ( item ) => {
                 i++;
 
-                return getTableRow(item.key,
+                return getTableRow( item.key,
                     item.value.short_description,
                     item.value.long_description,
                     item.value.work_date,
                     item.value.completed,
-                    ((i % 2 === 0) ? ' even' : ' odd'));
-            });
+                    ( ( i % 2 === 0 ) ? ' even' : ' odd' ) );
+            } );
 
-            this.taskListContainer.innerHTML = getTable(rows);
+            this.taskListContainer.innerHTML = getTable( rows );
             tableSort();
 
-            const addButton = selector('#addTaskID').get(0),
-                editButton = selector('#taskList').get(0),
-                exportTasksButton = selector('#exportTasksID').get(0),
-                importTasksButton = selector('#importTasksID').get(0),
-                filterDisplaySelect = selector('#filterDisplay').get(0);
-            events.addEvent(addButton, 'click', this.addTask, false);
-            events.addEvent(editButton, 'click', this.editTask, false);
-            events.addEvent(exportTasksButton, 'click', this.exportData, false);
-            events.addEvent(importTasksButton, 'click', this.importData, false);
-            events.addEvent(filterDisplaySelect, 'change', this.filterDisplay, false);
+            const addButton = selector( '#addTaskID' ).get( 0 ),
+                editButton = selector( '#taskList' ).get( 0 ),
+                exportTasksButton = selector( '#exportTasksID' ).get( 0 ),
+                importTasksButton = selector( '#importTasksID' ).get( 0 ),
+                filterDisplaySelect = selector( '#filterDisplay' ).get( 0 );
+            events.addEvent( addButton, 'click', this.addTask, false );
+            events.addEvent( editButton, 'click', this.editTask, false );
+            events.addEvent( exportTasksButton, 'click', this.exportData, false );
+            events.addEvent( importTasksButton, 'click', this.importData, false );
+            events.addEvent( filterDisplaySelect, 'change', this.filterDisplay, false );
 
             // filter to show working items
             filterDisplaySelect.selectedIndex = 2;
             this.filterDisplay();
         };
 
-        tasks.list(options);
+        tasks.list( options );
     };
 
-    this.filterDisplay = function() {
-        const selectFilter = document.getElementById('filterDisplay');
-        const selectedValue = selectFilter.options[selectFilter.selectedIndex].value.toLowerCase();
-        const rows = selector('#taskList tbody tr');
+    this.filterDisplay = function () {
+        const selectFilter = document.getElementById( 'filterDisplay' );
+        const selectedValue = selectFilter.options[ selectFilter.selectedIndex ].value.toLowerCase();
+        const rows = selector( '#taskList tbody tr' );
 
         // enable all rows
-        rows.each((r) => {
+        rows.each( ( r ) => {
             r.style.display = 'table-row';
-        });
+        } );
 
-        switch (selectedValue) {
-            case 'working':
-                rows.each((r) => {
-                    const cols = selector('td', r);
-                    const lastCol = cols.get(cols.length - 1);
-                    if (lastCol.innerHTML.toLowerCase() === 'done') {
-                        r.style.display = 'none';
-                    }
-                });
-                break;
-            case 'week':
-                const weekAgo = new Date().getTime() - SEVEN_DAYS;
-                rows.each((r) => {
-                    const cols = selector('td', r);
-                    const lastCol = cols.get(cols.length - 2);
-                    const date = Date.parse(lastCol.innerHTML);
-                    if (date < weekAgo) {
-                        r.style.display = 'none';
-                    }
-                });
-                break;
-            case 'month':
-                const aboutAMonthAgo = new Date().getTime() - ABOUT_A_MONTH;
-                rows.each((r) => {
-                    const cols = selector('td', r);
-                    const lastCol = cols.get(cols.length - 2);
-                    const date = Date.parse(lastCol.innerHTML);
-                    if (date < aboutAMonthAgo) {
-                        r.style.display = 'none';
-                    }
-                });
-                break;
-            default:
-                // this is the default to show all
-                // need to do nothing
-                break;
+        switch ( selectedValue ) {
+        case 'working':
+            rows.each( ( r ) => {
+                const cols = selector( 'td', r );
+                const lastCol = cols.get( cols.length - 1 );
+                if ( lastCol.innerHTML.toLowerCase() === 'done' ) {
+                    r.style.display = 'none';
+                }
+            } );
+            break;
+        case 'week':
+            const weekAgo = new Date().getTime() - SEVEN_DAYS;
+            rows.each( ( r ) => {
+                const cols = selector( 'td', r );
+                const lastCol = cols.get( cols.length - 2 );
+                const date = Date.parse( lastCol.innerHTML );
+                if ( date < weekAgo ) {
+                    r.style.display = 'none';
+                }
+            } );
+            break;
+        case 'month':
+            const aboutAMonthAgo = new Date().getTime() - ABOUT_A_MONTH;
+            rows.each( ( r ) => {
+                const cols = selector( 'td', r );
+                const lastCol = cols.get( cols.length - 2 );
+                const date = Date.parse( lastCol.innerHTML );
+                if ( date < aboutAMonthAgo ) {
+                    r.style.display = 'none';
+                }
+            } );
+            break;
+        default:
+            // this is the default to show all
+            // need to do nothing
+            break;
         }
 
         // properly style rows
         let i = 0;
-        rows.each((r) => {
-            if (r.style.display !== 'none') {
-                css.removeClass(r, 'even');
-                css.removeClass(r, 'odd');
-                const newClass = ((i % 2 === 0) ? ' even' : ' odd');
+        rows.each( ( r ) => {
+            if ( r.style.display !== 'none' ) {
+                css.removeClass( r, 'even' );
+                css.removeClass( r, 'odd' );
+                const newClass = ( ( i % 2 === 0 ) ? ' even' : ' odd' );
                 i++;
-                css.addClass(r, newClass);
+                css.addClass( r, newClass );
             }
-        });
+        } );
     };
 
-    this.addTask = function() {
+    this.addTask = function () {
         const addEditHTML = addEditTask();
-        selector('#taskEditID').get(0).innerHTML = addEditHTML;
+        selector( '#taskEditID' ).get( 0 ).innerHTML = addEditHTML;
 
-        const saveButton = selector('#saveTask').get(0),
-            cancelButton = selector('#cancelTask').get(0);
+        const saveButton = selector( '#saveTask' ).get( 0 ),
+            cancelButton = selector( '#cancelTask' ).get( 0 );
 
-        events.addEvent(saveButton, 'click', () => {
+        events.addEvent( saveButton, 'click', () => {
             const options = mapFromDom();
 
-            options.callback = (evt, err) => {
+            options.callback = ( evt, err ) => {
                 window.location.reload();
             };
 
-            tasks.create(options);
-        }, false);
+            tasks.create( options );
+        }, false );
 
-        events.addEvent(cancelButton, 'click', cancelButtonClick, false);
+        events.addEvent( cancelButton, 'click', cancelButtonClick, false );
     };
 
-    this.editTask = function(e) {
-        const evt = events.getEvent(e);
-        const target = events.getTarget(evt);
-        if (target.nodeName.toLowerCase() !== 'button') {
+    this.editTask = function ( e ) {
+        const evt = events.getEvent( e );
+        const target = events.getTarget( evt );
+        if ( target.nodeName.toLowerCase() !== 'button' ) {
             return;
         }
 
         const buttonHTML = target.innerHTML;
-        const taskId = buttonHTML.replace(/Edit\ /g, '').replace(/[\(\)]/g, '');
+        const taskId = buttonHTML.replace( /Edit\ /g, '' ).replace( /[\(\)]/g, '' );
 
         const options = {
             id: taskId
         };
-        options.callback = (item) => {
+        options.callback = ( item ) => {
 
-            const addEditHTML = addEditTask(item.id,
+            const addEditHTML = addEditTask( item.id,
                 item.work_date, item.short_description,
-                item.long_description, item.completed);
+                item.long_description, item.completed );
 
-            selector('#taskEditID').get(0).innerHTML = addEditHTML;
+            selector( '#taskEditID' ).get( 0 ).innerHTML = addEditHTML;
 
-            const saveButton = selector('#saveTask').get(0),
-                cancelButton = selector('#cancelTask').get(0);
+            const saveButton = selector( '#saveTask' ).get( 0 ),
+                cancelButton = selector( '#cancelTask' ).get( 0 );
 
-            events.addEvent(saveButton, 'click', () => {
+            events.addEvent( saveButton, 'click', () => {
                 const record = mapFromDom();
-                record.id = dom.html('#task_id');
+                record.id = dom.html( '#task_id' );
 
-                record.callback = (evt, err) => {
+                record.callback = ( evt, err ) => {
                     window.location.reload();
                 };
-                tasks.update(record);
-            }, false);
+                tasks.update( record );
+            }, false );
 
-            events.addEvent(cancelButton, 'click', cancelButtonClick, false);
+            events.addEvent( cancelButton, 'click', cancelButtonClick, false );
         };
 
-        tasks.fetch(options);
+        tasks.fetch( options );
     };
 
-    this.importData = function() {
+    this.importData = function () {
 
         const fileToLoad = 'data/all-tasks.json';
 
-        fetcher(`/${fileToLoad}`)
-            .then((data) => {
-                console.log('success');
-                const tasksToImport = JSON.parse(data);
-                tasksToImport.forEach(item => {
+        fetcher( `/${fileToLoad}` )
+            .then( ( data ) => {
+                console.log( 'success' );
+                const tasksToImport = JSON.parse( data );
+                tasksToImport.forEach( item => {
 
                     const options = {
                         'completed': item.completed,
-                        'work_date': item['work_date'],
-                        'short_description': item['short_description'],
-                        'long_description': item['long_description']
+                        'work_date': item[ 'work_date' ],
+                        'short_description': item[ 'short_description' ],
+                        'long_description': item[ 'long_description' ]
                     };
 
-                    options.callback = (evt, err) => {};
+                    options.callback = ( evt, err ) => {};
 
-                    tasks.create(options);
+                    tasks.create( options );
 
-                });
-                console.log(data);
-            }).catch((err) => {
-                console.log(err);
-            });
+                } );
+                console.log( data );
+            } ).catch( ( err ) => {
+                console.log( err );
+            } );
     };
 
-    this.exportData = function() {
+    this.exportData = function () {
 
         const options = {};
-        options.callback = (data) => {
+        options.callback = ( data ) => {
 
-            const rows = data.map((item) => {
+            const rows = data.map( ( item ) => {
 
                 return {
                     key: item.key,
@@ -236,9 +236,9 @@ function TaskList() {
                     'work_date': item.value.work_date,
                     'completed': item.value.completed
                 };
-            });
-            const results = JSON.stringify(rows);
-            console.log(results);
+            } );
+            const results = JSON.stringify( rows );
+            console.log( results );
 
             const fileToSave = 'data/all-tasks.json';
             const downloadOptions = {
@@ -247,21 +247,21 @@ function TaskList() {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Content-Length': results.length
                 },
-                body: JSON.stringify({
+                body: JSON.stringify( {
                     data: results
-                })
+                } )
             };
 
-            fetcher(`/${fileToSave}?saveFile=${fileToSave}`, downloadOptions)
-                .then((data) => {
-                    console.log('success');
-                    console.log(data);
-                }).catch((err) => {
-                    console.log(err);
-                });
+            fetcher( `/${fileToSave}?saveFile=${fileToSave}`, downloadOptions )
+                .then( ( data ) => {
+                    console.log( 'success' );
+                    console.log( data );
+                } ).catch( ( err ) => {
+                    console.log( err );
+                } );
         };
 
-        tasks.list(options);
+        tasks.list( options );
     };
 }
 

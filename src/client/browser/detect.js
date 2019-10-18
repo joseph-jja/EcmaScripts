@@ -66,7 +66,7 @@ export default function detect() {
     base.capabilitiesDetected = true;
     // start with IE as it is the easiest to detect
     // version 3 was the first version to support JScript
-    if (base.isIE) {
+    if ( base.isIE ) {
         base.name = "Internet Explorer";
         base.hasJscript = true;
 
@@ -103,38 +103,38 @@ export default function detect() {
 			base.version = 10.0;
 		@end @*/
 
-        if (document.compatMode) {
+        if ( document.compatMode ) {
             base.version = 6.0;
         }
-        if (window.XMLHttpRequest) {
+        if ( window.XMLHttpRequest ) {
             base.version = 7.0;
         }
-        if (document.querySelector) {
+        if ( document.querySelector ) {
             base.version = 8.0;
         }
         // finally compatible with other browsers!
-        if (document.addEventListener && document.getElementsByClassName) {
+        if ( document.addEventListener && document.getElementsByClassName ) {
             base.version = 9.0;
         }
 
-        if (window.atob) {
+        if ( window.atob ) {
             base.version = 10.0;
         }
 
-        if (crypto && crypto.getRandomValues) {
+        if ( crypto && crypto.getRandomValues ) {
             base.version = 11.0;
         }
 
-        base.docMode = (document.documentMode) ? document.documentMode : base.version;
+        base.docMode = ( document.documentMode ) ? document.documentMode : base.version;
 
-        if (win.ActiveXObject) {
+        if ( win.ActiveXObject ) {
             base.hasActiveX = true;
         }
-    } else if (doc.layers) {
+    } else if ( doc.layers ) {
         // netscape 4 is the only browser to support document.layers
         base.name = "Netscape Navigator";
         base.version = 4;
-    } else if (win.opera || doc.all) {
+    } else if ( win.opera || doc.all ) {
         // while this is not 100% accurate it is good enough 
         // Opera 5 and later have window.opera
         // document.all is a IE4+ thing that some Opera versions support
@@ -147,48 +147,48 @@ export default function detect() {
         // see here http://www.opera.com/docs/history/
         base.name = "Opera";
         base.version = 4; // document.all
-        if (win.opera) {
+        if ( win.opera ) {
             base.version = 5;
-            if ((win.print && win.opera.buildNumber) || doc.getElementsByTagName) {
+            if ( ( win.print && win.opera.buildNumber ) || doc.getElementsByTagName ) {
                 base.version = 6;
             }
-            if (doc.readyState) {
+            if ( doc.readyState ) {
                 // added support for readyState in v7
                 base.version = 7;
             }
             // this was introduced in opera version 8
-            if (doc.implementation && doc.implementation.createDocument) {
+            if ( doc.implementation && doc.implementation.createDocument ) {
                 // version 8 has the createDocument not 7
                 base.version = 8;
             }
-            if (doc.createEntityReference) {
+            if ( doc.createEntityReference ) {
                 // createEntityReference was introduced in 9, from opera's docs
                 base.version = 9;
             }
-            if (doc.querySelectorAll) {
+            if ( doc.querySelectorAll ) {
                 // this is part of the w3c selector api and 10 is where this is supposed to be supported
                 base.version = 10;
             }
-            if (typeof WebSocket !== "undefined") {
+            if ( typeof WebSocket !== "undefined" ) {
                 base.version = 11;
             }
-            if (window.document.hasOwnProperty('on drag')) {
+            if ( window.document.hasOwnProperty( 'on drag' ) ) {
                 base.version = 12;
             }
         }
-    } else if (doc.getElementById && doc.childNodes && !nav.taintEnabled && nav.vendor) {
+    } else if ( doc.getElementById && doc.childNodes && !nav.taintEnabled && nav.vendor ) {
 
         // webkit based browsers fall here
-        if (nav.vendor === "Apple Computer, Inc.") {
+        if ( nav.vendor === "Apple Computer, Inc." ) {
             // safari 
             // interesting thing about safari, is that versions are acutally
             // 1.0, 1.1, 1.2, and 1.3, etc, so we define minor versions
             // we also assume that mac owners update so they all should 
             // have the latest safari
             base.name = "Safari";
-        } else if (nav.vendor.toUpperCase() === "KDE") {
+        } else if ( nav.vendor.toUpperCase() === "KDE" ) {
             base.name = "Konqueror";
-        } else if (win.chrome || nav.vendor.indexOf("Google") !== -1) {
+        } else if ( win.chrome || nav.vendor.indexOf( "Google" ) !== -1 ) {
             base.name = "Chrome";
             // check out docs here 
             // http://developer.chrome.com/extensions/api_index.html
@@ -196,7 +196,7 @@ export default function detect() {
             base.name = nav.vendor;
         }
 
-    } else if (nav.product) {
+    } else if ( nav.product ) {
         // TODO double check this
         // netscape to firefox and mozilla version mapping
         // 9.0	firefox 1.5?
@@ -219,27 +219,27 @@ export default function detect() {
 
         // we add build id in for geck rendering engines, it would be nice to be able to 
         // link back build id to actual versions
-        if (nav.buildID) {
+        if ( nav.buildID ) {
             base.buildID = nav.buildID;
         }
-        if (nav.product !== "Gecko") {
+        if ( nav.product !== "Gecko" ) {
             base.name = "Gecko / " + nav.product;
         }
     }
 
-    if (doc.getElementById && doc.implementation) {
+    if ( doc.getElementById && doc.implementation ) {
         base.isDOMCapable = true;
     }
 
     // detect touch
-    if (doc.documentElement && ('ontouchstart' in doc.documentElement || 'touchstart' in doc.documentElement)) {
+    if ( doc.documentElement && ( 'ontouchstart' in doc.documentElement || 'touchstart' in doc.documentElement ) ) {
         base.touchEnabled = true;
     }
 
     function getBrowserName() {
         var i, name;
 
-        let browsers = [{
+        let browsers = [ {
             bProp: window.chrome,
             name: 'chrome'
         }, {
@@ -254,11 +254,11 @@ export default function detect() {
         }, {
             bProp: document.all,
             name: 'ie'
-        }];
+        } ];
 
-        for (i in browsers) {
-            if (typeof browsers[i].bProp !== 'undefined') {
-                name = browsers[i].name;
+        for ( i in browsers ) {
+            if ( typeof browsers[ i ].bProp !== 'undefined' ) {
+                name = browsers[ i ].name;
                 break;
             }
         }

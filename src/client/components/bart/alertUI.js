@@ -1,14 +1,14 @@
 import * as API from 'client/components/bart/api';
 
-export default async function Alerts(station) {
+export default async function Alerts( station ) {
 
     const alerts = await API.getAlerts();
 
-    if (!alerts) {
-        throw ('Could not get alerts!');
+    if ( !alerts ) {
+        throw ( 'Could not get alerts!' );
     }
 
-    const items = alerts.map(alert => {
+    const items = alerts.map( alert => {
 
         return `<div>
                   Date Time: ${alert.dateTime}
@@ -16,9 +16,9 @@ export default async function Alerts(station) {
                   <br><br>Description: ${alert.description['#cdata-section']}
                </div>`;
 
-    }).reduce((acc, item) => {
+    } ).reduce( ( acc, item ) => {
         return acc + item;
-    });
+    } );
 
     return `<div id="bart-alert-list">${items}</div>`;
 

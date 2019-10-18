@@ -43,13 +43,13 @@ export default {
     userAgent: nav.userAgent,
 
     // spoofable version string
-    appVersion: parseFloat(rawVersion, 10),
+    appVersion: parseFloat( rawVersion, 10 ),
 
     // spoofable version string
-    uaAppVersion: parseFloat(rawVersion, 10),
+    uaAppVersion: parseFloat( rawVersion, 10 ),
 
     // if capabilitiesDetected then we change this
-    version: parseFloat(rawVersion, 10),
+    version: parseFloat( rawVersion, 10 ),
 
     uaOSVersion: '',
 

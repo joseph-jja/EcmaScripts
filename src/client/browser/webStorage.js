@@ -3,39 +3,39 @@
 
 import * as Store from "utils/store";
 
-const sessionEnabled = (function() {
+const sessionEnabled = ( function () {
     let sEnabled = false;
-    if (window.sessionStorage) {
+    if ( window.sessionStorage ) {
         try {
-            window.sessionStorage.setItem("testData", "dunny");
-            window.sessionStorage.removeItem("testData");
+            window.sessionStorage.setItem( "testData", "dunny" );
+            window.sessionStorage.removeItem( "testData" );
             sEnabled = true;
-        } catch (e) {
+        } catch ( e ) {
 
         }
     }
     return sEnabled;
-})();
+} )();
 
 
 // here we check to see if local storage is enabled or not
-const localEnabled = (function() {
+const localEnabled = ( function () {
     let lEnabled = false;
     try {
-        if (window.localStorage) {
-            window.localStorage.setItem("testData", "dunny");
-            window.localStorage.removeItem("testData");
+        if ( window.localStorage ) {
+            window.localStorage.setItem( "testData", "dunny" );
+            window.localStorage.removeItem( "testData" );
             lEnabled = true;
         }
-    } catch (e) {
+    } catch ( e ) {
 
     }
     return lEnabled;
-})();
+} )();
 
-const sessionStore = (sessionEnabled ? window.sessionStorage : new Store.Store());
+const sessionStore = ( sessionEnabled ? window.sessionStorage : new Store.Store() );
 
-const localStore = (localEnabled ? window.localStorage : new Store.Store());
+const localStore = ( localEnabled ? window.localStorage : new Store.Store() );
 
 // used for testing mainly but can be a simple key - value store
 export function createKeyStore() {

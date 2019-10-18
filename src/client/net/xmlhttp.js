@@ -7,7 +7,7 @@
 export default function XmlHttp() {
     let xmlhttp = false;
     // try to use the default xml http request object first
-    if (typeof XMLHttpRequest !== 'undefined') {
+    if ( typeof XMLHttpRequest !== 'undefined' ) {
         xmlhttp = new XMLHttpRequest();
     } else {
         // fall back for IE here, conditional compilation for IE or later only
@@ -30,7 +30,7 @@ export default function XmlHttp() {
 			@end @*/
     }
     // last try is here
-    if (!xmlhttp && (typeof XMLHttpRequest !== 'undefined')) {
+    if ( !xmlhttp && ( typeof XMLHttpRequest !== 'undefined' ) ) {
         xmlhttp = new XMLHttpRequest();
     }
     return xmlhttp;

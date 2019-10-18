@@ -2,7 +2,7 @@ import * as events from 'client/dom/events';
 
 import TaskList from 'client/components/tasks/taskList';
 
-events.addOnLoad(() => {
+events.addOnLoad( () => {
 
     //menu.basicMenu();
     //footer( 'footer' );
@@ -10,4 +10,4 @@ events.addOnLoad(() => {
     const listOfTasks = new TaskList();
     listOfTasks.initialize();
 
-});
+} );

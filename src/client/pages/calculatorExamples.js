@@ -7,11 +7,11 @@ import * as menu from 'client/components/menu';
 import Calculator from 'client/components/calculator/Calculator';
 
 
-events.addOnLoad((onloadFN) => {
+events.addOnLoad( ( onloadFN ) => {
     menu.basicMenu();
     //footer( 'footer' );
 
-    const calc = new Calculator('xcalc');
+    const calc = new Calculator( 'xcalc' );
     calc.render();
 
-});
+} );

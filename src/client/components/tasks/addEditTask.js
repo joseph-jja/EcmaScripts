@@ -1,7 +1,7 @@
-export default function addEditTask(taskId = '', workDate = new Date(),
-    shortDescription = '', longDescription = '', completed = false) {
+export default function addEditTask( taskId = '', workDate = new Date(),
+    shortDescription = '', longDescription = '', completed = false ) {
 
-    const isChecked = (completed ? 'checked' : '');
+    const isChecked = ( completed ? 'checked' : '' );
 
     return `<form method="POST" onsubmit="return false;">
 <input type="text" name="task_id" id="task_id" disabled value="${taskId}">

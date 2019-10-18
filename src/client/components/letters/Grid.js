@@ -5,16 +5,16 @@ import selector from 'client/dom/selector';
 //this builds the table that has the cells for the individual pixels
 export default class Grid {
 
-    constructor(parentID, tableID) {
+    constructor( parentID, tableID ) {
         this.parentID = parentID;
         this.tableID = tableID;
         this.matrix = [];
     }
 
     reset() {
-        const cells = selector("#" + this.parentID + ' td.grid-cell').each(cell => {
+        const cells = selector( "#" + this.parentID + ' td.grid-cell' ).each( cell => {
             cell.style.background = "white";
-        });
+        } );
     };
 
     // build function builds the grid
@@ -22,24 +22,24 @@ export default class Grid {
         const cols = 7,
             rows = 9;
 
-        const parent = selector("#" + this.parentID).get(0);
+        const parent = selector( "#" + this.parentID ).get( 0 );
 
-        const table = dom.createElement('table', undefined, {
+        const table = dom.createElement( 'table', undefined, {
             "id": this.tableID + 'table'
-        });
+        } );
 
-        for (let i = 0; i < rows; i += 1) {
-            const row = dom.createElement('tr', table, {
+        for ( let i = 0; i < rows; i += 1 ) {
+            const row = dom.createElement( 'tr', table, {
                 "id": this.tableID + 'row' + i
-            });
-            for (let j = 0; j < cols; j += 1) {
-                const cell = dom.createElement('td', row, {
+            } );
+            for ( let j = 0; j < cols; j += 1 ) {
+                const cell = dom.createElement( 'td', row, {
                     "id": this.tableID + 'cell' + i + '_' + j
-                });
+                } );
                 cell.className = 'grid-cell';
             }
         }
-        parent.appendChild(table);
+        parent.appendChild( table );
     };
 
 };

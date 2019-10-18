@@ -1,12 +1,12 @@
-const querystring = require('querystring');
+const querystring = require( 'querystring' );
 
-function parseUrl(requestUrl) {
+function parseUrl( requestUrl ) {
     let parsedUrl;
-    const i = requestUrl.indexOf('?');
-    if (i > -1) {
+    const i = requestUrl.indexOf( '?' );
+    if ( i > -1 ) {
         parsedUrl = {
-            pathname: requestUrl.substring(0, i),
-            searchParams: querystring.parse(requestUrl.substring(i + 1))
+            pathname: requestUrl.substring( 0, i ),
+            searchParams: querystring.parse( requestUrl.substring( i + 1 ) )
         };
     } else {
         parsedUrl = {

@@ -15,30 +15,30 @@ import * as events from 'client/dom/events';
 import Dragndrop from 'client/dom/dragndrop';
 import selector from 'client/dom/selector';
 
-export default function wbWindow(title, x, y, width, height, winID) {
+export default function wbWindow( title, x, y, width, height, winID ) {
 
     // 1 div for the main window
     // all WebWindows are web window mains
     var buildButton, nht;
 
     // try to get the window, if not crate it from template
-    const mainWin = selector("#" + winID).get(0);
-    if (mainWin) {
+    const mainWin = selector( "#" + winID ).get( 0 );
+    if ( mainWin ) {
         this.mainWindow = mainWin;
 
-        this.titleBar = selector('.WebWindowTitle', this.mainWindow).get(0);
+        this.titleBar = selector( '.WebWindowTitle', this.mainWindow ).get( 0 );
         this.titleBar.id = "WebWindowTitle" + winID;
 
-        this.windowArea = selector('.WebWindowArea', this.mainWindow).get(0);
+        this.windowArea = selector( '.WebWindowArea', this.mainWindow ).get( 0 );
         this.windowArea.id = "WebWindowArea" + winID;
 
-        this.footerArea = selector('.WebWindowFooter', this.mainWindow).get(0);
+        this.footerArea = selector( '.WebWindowFooter', this.mainWindow ).get( 0 );
         this.footerArea.id = "WebWindowFooter" + winID;
     } else {
-        this.mainWindow = dom.createElement("div", document.body, {
+        this.mainWindow = dom.createElement( "div", document.body, {
             "className": "WebWindowMain",
             "id": winID
-        });
+        } );
 
         // set some style properties for this window
         // left, top, width, and height
@@ -48,27 +48,27 @@ export default function wbWindow(title, x, y, width, height, winID) {
         this.mainWindow.style.height = height + "px";
 
         // 3 divs to contain the data
-        this.titleBar = dom.createElement("div", this.mainWindow, {
+        this.titleBar = dom.createElement( "div", this.mainWindow, {
             "className": "WebWindowTitle",
             "id": "WebWindowTitle" + winID
-        });
+        } );
 
-        this.windowArea = dom.createElement("div", this.mainWindow, {
+        this.windowArea = dom.createElement( "div", this.mainWindow, {
             "className": "WebWindowArea",
             "id": "WebWindowArea" + winID
-        });
+        } );
 
         // now the footer of the window
-        this.footerArea = dom.createElement("div", this.mainWindow, {
+        this.footerArea = dom.createElement( "div", this.mainWindow, {
             "className": "WebWindowFooter",
             "id": "WebWindowFooter" + winID
-        });
+        } );
 
     }
     // we create a span in the title bar
-    var titleTable = dom.createElement("span", this.titleBar, {
+    var titleTable = dom.createElement( "span", this.titleBar, {
         "className": "WebWindowTitleText"
-    });
+    } );
     titleTable.innerHTML = title;
 
 
@@ -76,28 +76,28 @@ export default function wbWindow(title, x, y, width, height, winID) {
     let options = {
         "className": "WebWindowButtonBox"
     };
-    var buttonBox = dom.createElement("span", this.titleBar, options);
+    var buttonBox = dom.createElement( "span", this.titleBar, options );
 
     // because buttons need a form
     options = {
         "name": "WW" + winID,
         "onsubmit": "return false;"
     };
-    var form = dom.createElement("form", buttonBox, options);
+    var form = dom.createElement( "form", buttonBox, options );
 
     // maximize, minimize and destroy
-    this.maximize = function() {
+    this.maximize = function () {
         return false;
     };
-    this.minimize = function() {
+    this.minimize = function () {
         return false;
     };
-    this.destroy = function() {
+    this.destroy = function () {
         return false;
     };
 
     // function for building buttons
-    buildButton = function(parent, winID, name, value, fn) {
+    buildButton = function ( parent, winID, name, value, fn ) {
 
         // IE6 does not support button.type? BUG!!
         //button.type = "button";
@@ -110,7 +110,7 @@ export default function wbWindow(title, x, y, width, height, winID) {
                 "id": name + winID
             };
 
-        button = dom.createElement("button", parent, opts);
+        button = dom.createElement( "button", parent, opts );
         button.innerHTML = value;
         button.onclick = fn;
 
@@ -118,16 +118,16 @@ export default function wbWindow(title, x, y, width, height, winID) {
         // when you create a button type button
         phtml = parent.innerHTML;
         phtml = phtml.toLowerCase();
-        bclass = new RegExp("button class");
-        while (phtml.match(bclass)) {
-            phtml = phtml.replace(bclass, "button type=\"button\" class");
+        bclass = new RegExp( "button class" );
+        while ( phtml.match( bclass ) ) {
+            phtml = phtml.replace( bclass, "button type=\"button\" class" );
         }
     };
 
     // create buttons: 3 cells
-    buildButton(form, winID, "rollup", "-", this.minimize);
-    buildButton(form, winID, "rolldown", "o", this.maximize);
-    buildButton(form, winID, "destroy", "X", this.destroy);
+    buildButton( form, winID, "rollup", "-", this.minimize );
+    buildButton( form, winID, "rolldown", "o", this.maximize );
+    buildButton( form, winID, "destroy", "X", this.destroy );
 
     // now we set the main container to the window
     // this is where any content will be going
@@ -142,41 +142,41 @@ export default function wbWindow(title, x, y, width, height, winID) {
     this.dragndrop = new Dragndrop();
 };
 
-wbWindow.prototype.popToFront = function(evt) {
+wbWindow.prototype.popToFront = function ( evt ) {
     var tgtWin, tgt, e;
-    e = events.getEvent(evt);
-    tgt = events.getTarget(e);
-    tgtWin = dom.findParent(tgt, "div.WebWindowMain");
-    if (!tgtWin) {
+    e = events.getEvent( evt );
+    tgt = events.getTarget( e );
+    tgtWin = dom.findParent( tgt, "div.WebWindowMain" );
+    if ( !tgtWin ) {
         return;
     }
     //document.body.appendChild(tgtWin);
 };
 
-wbWindow.prototype.enableDrag = function() {
+wbWindow.prototype.enableDrag = function () {
     var pop = this.popToFront;
     this.dragndrop.initialize();
-    this.dragndrop.setDragable(this.mainWindow.id, this.titleBar.id);
-    events.addEvent(this.mainWindow, "mousedown", pop, false);
+    this.dragndrop.setDragable( this.mainWindow.id, this.titleBar.id );
+    events.addEvent( this.mainWindow, "mousedown", pop, false );
 };
 
-wbWindow.prototype.disableDrag = function() {
+wbWindow.prototype.disableDrag = function () {
     var pop = this.popToFront;
     this.dragndrop.initialize();
-    this.dragndrop.setNONDragable(this.mainWindow.id, this.titleBar.id);
-    events.removeEvent(this.mainWindow, "mousedown", pop, false);
+    this.dragndrop.setNONDragable( this.mainWindow.id, this.titleBar.id );
+    events.removeEvent( this.mainWindow, "mousedown", pop, false );
 };
 
 //to set the tile
-wbWindow.prototype.setTitle = function(title) {
-    var titlearea = this.titleBar.getElementsByTagName("span");
-    if (titlearea && titlearea.length > 0) {
-        titlearea[0].innerHTML = title;
+wbWindow.prototype.setTitle = function ( title ) {
+    var titlearea = this.titleBar.getElementsByTagName( "span" );
+    if ( titlearea && titlearea.length > 0 ) {
+        titlearea[ 0 ].innerHTML = title;
     }
 };
 
 //to set content, just makes it a little easier
 //not implemented
-wbWindow.prototype.setContent = function(content) {
-    dom.html(this.windowArea, content);
+wbWindow.prototype.setContent = function ( content ) {
+    dom.html( this.windowArea, content );
 };

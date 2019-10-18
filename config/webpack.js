@@ -19,6 +19,7 @@ module.exports = {
         "calculatorExamples": "./src/client/pages/calculatorExamples",
         "calendarExamples": "./src/client/pages/calendarExamples",
         "canvasTest": "./src/client/pages/canvasTest",
+        "earthquakes": "./src/client/pages/earthquakes",
         "emailForm": "./src/client/pages/emailForm",
         "emailThankYou": "./src/client/pages/emailThankYou",
         "fishLog": "./src/client/pages/fishLog",

@@ -4,26 +4,26 @@ let y = 5,
     direction = 1,
     timerID;
 
-onmessage = (msg) => {
+onmessage = ( msg ) => {
 
-    if (msg && msg.data && msg.data.start) {
-        timerID = setInterval(() => {
-            if (direction) {
+    if ( msg && msg.data && msg.data.start ) {
+        timerID = setInterval( () => {
+            if ( direction ) {
                 y++;
             } else {
                 y--;
             }
-            if (y > 15) {
+            if ( y > 15 ) {
                 direction = 0;
-            } else if (y < 6) {
+            } else if ( y < 6 ) {
                 direction = 1;
             }
-            postMessage({
+            postMessage( {
                 mouth: y,
-                omouth: MF.subtract(y, 4)
-            });
-        }, 100);
-    } else if (msg && msg.data && msg.data.stop) {
-        clearInterval(timerID);
+                omouth: MF.subtract( y, 4 )
+            } );
+        }, 100 );
+    } else if ( msg && msg.data && msg.data.stop ) {
+        clearInterval( timerID );
     }
 };

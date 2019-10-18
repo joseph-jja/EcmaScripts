@@ -7,35 +7,35 @@ let browser = [],
     detect = dtct();
 
 uaCleaned = detect.userAgent.toLowerCase();
-uaCleaned = uaCleaned.replace(/_/, ".");
+uaCleaned = uaCleaned.replace( /_/, "." );
 
-function getVersion(map, uaString, version) {
+function getVersion( map, uaString, version ) {
     let nVer = version,
         idx;
-    if (map.search !== map.version) {
-        idx = uaString.indexOf(map.version) + map.version.length + 1;
-        if (idx !== -1) {
-            nVer = parseFloat(uaString.substr(idx), 10);
+    if ( map.search !== map.version ) {
+        idx = uaString.indexOf( map.version ) + map.version.length + 1;
+        if ( idx !== -1 ) {
+            nVer = parseFloat( uaString.substr( idx ), 10 );
         }
     }
     return nVer;
 };
 
-function parse(map, cb, uaString) {
+function parse( map, cb, uaString ) {
     let name, version, search, idx = -1,
         i, ilen;
 
     ilen = map.length;
-    for (i = 0; i < ilen; i += 1) {
-        search = map[i].search;
-        if (uaString.lastIndexOf(search) !== -1) {
-            name = (!name) ? map[i].name : name;
-            idx = uaString.indexOf(search) + search.length + 1;
-            version = getVersion(map[i], uaString, parseFloat(uaString.substr(idx), 10));
-            if (cb) {
-                cb.call(detect, idx, map, name, version);
+    for ( i = 0; i < ilen; i += 1 ) {
+        search = map[ i ].search;
+        if ( uaString.lastIndexOf( search ) !== -1 ) {
+            name = ( !name ) ? map[ i ].name : name;
+            idx = uaString.indexOf( search ) + search.length + 1;
+            version = getVersion( map[ i ], uaString, parseFloat( uaString.substr( idx ), 10 ) );
+            if ( cb ) {
+                cb.call( detect, idx, map, name, version );
             }
-            if (version) {
+            if ( version ) {
                 break;
             }
         }
@@ -50,7 +50,7 @@ function parse(map, cb, uaString) {
 //	map of main browsers 
 // jsmeter says that arrays of objects are complex at the 'program level'
 //	map of main browsers 
-browser = [{
+browser = [ {
     search: "msie",
     name: "Internet Explorer",
     version: "msie"
@@ -126,10 +126,10 @@ browser = [{
     search: "mozilla",
     name: "Unknown Mozilla Compatible",
     version: "mozilla"
-}];
+} ];
 
 // map of main os
-os = [{
+os = [ {
     search: "media center pc",
     name: "Microsoft Media Center PC",
     version: "media center pc"
@@ -253,24 +253,24 @@ os = [{
     search: "win9",
     name: "Microsoft Windows",
     version: "win9"
-}];
+} ];
 
-rules["os"] = function(idx, map, name, version) {
+rules[ "os" ] = function ( idx, map, name, version ) {
 
-    if (name === "Android" && detect.uaName === "Safari") {
+    if ( name === "Android" && detect.uaName === "Safari" ) {
         detect.uaName = "Android Web Browser";
-    } else if ((name === "iPhone" || name === "iPad") && detect.uaName === "Safari") {
+    } else if ( ( name === "iPhone" || name === "iPad" ) && detect.uaName === "Safari" ) {
         detect.uaName = "Mobile Safari";
-    } else if (name === 'Blackbery' && detect.uaName === "Safari") {
+    } else if ( name === 'Blackbery' && detect.uaName === "Safari" ) {
         detect.uaName = "Blackberry Webkit";
     }
 };
 
-result = parse(browser, undefined, uaCleaned);
+result = parse( browser, undefined, uaCleaned );
 detect.uaName = result.name;
 detect.uaAppVersion = result.version;
 
-result = parse(os, rules["os"], uaCleaned);
+result = parse( os, rules[ "os" ], uaCleaned );
 detect.uaOS = result.name;
 detect.uaOSVersion = result.version;
 
