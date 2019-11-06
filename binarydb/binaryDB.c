@@ -25,9 +25,13 @@ splitHash(napi_env env, napi_callback_info info) {
   napi_value argv[1];
   NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, NULL, NULL));
 
-  char buf[1024];
+  // get size of argument
+  size_t argSize;
+  NAPI_CALL(env, napi_get_value_string_utf8(env, argv[0], NULL, 0, &argSize));
+
+  char *buf = malloc(argSize + 1);
   size_t res;
-  NAPI_CALL(env, napi_get_value_string_utf8(env, argv[0], buf, sizeof(buf), &res));
+  NAPI_CALL(env, napi_get_value_string_utf8(env, argv[0], buf, argSize + 1, &res));
 
   int i, len = strlen(buf);
   for (i = 0; i < len; i++) {
