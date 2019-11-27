@@ -16,9 +16,11 @@ module.exports = {
     "mode": "production",
     "entry": {
         "animatedFish": "./src/client/workers/animatedFish",
+        "asciiTable": "./src/client/pages/asciiTable",
         "calculatorExamples": "./src/client/pages/calculatorExamples",
         "calendarExamples": "./src/client/pages/calendarExamples",
         "canvasTest": "./src/client/pages/canvasTest",
+        "colorTable": "./src/client/pages/colorTable",
         "earthquakes": "./src/client/pages/earthquakes",
         "emailForm": "./src/client/pages/emailForm",
         "emailThankYou": "./src/client/pages/emailThankYou",
