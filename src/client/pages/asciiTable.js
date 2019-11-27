@@ -1,5 +1,6 @@
 import "@babel/runtime/regenerator";
 
+import * as events from 'client/dom/events';
 import WebWindow from 'client/components/wbWindow';
 import asciiTable from 'client/components/asciiTable';
 
