@@ -23,7 +23,27 @@ async function doOnloadStuff() {
 
     const content = wwin.windowArea;
 
-    content.innerHTML = results;
+
+    let data = '<table>';
+    data += '<tr>';
+    data += '<th>Decimal</th>';
+    data += '<th>Character</th>';
+    data += '<th>Hexidecimal</th>';
+    data += '<th>Octal</th>';
+    data += '<th>Binary</th>';
+    data += '</tr>';
+    for ( let i = 0, end = results.length; i < end; i++ ) {
+        data += '<tr>';
+        data += `<td>${results.decimal}</td>`;
+        data += `<td>${results.character}</td>`;
+        data += `<td>${results.hex}</td>`;
+        data += `<td>${results.octal}</td>`;
+        data += `<td>${results.binary}</td>`;
+        data += '</tr>';
+    }
+    data += '<table>';
+
+    content.innerHTML = data;
 }
 
 events.addOnLoad( doOnloadStuff );
