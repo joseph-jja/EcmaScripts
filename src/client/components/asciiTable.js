@@ -16,8 +16,9 @@ const NONE_PRINT_CHARACTERS = [ "NUL (null)", "SOH (start of heading)", "STX (st
     "RS (record separator)", "US (unit separator)", "SPACE"
 ];
 
+const NPCL = NONE_PRINT_CHARACTERS.length;
 // printable characters
-for ( let i = 33; i < 127; i++ ) {
+for ( let i = NPCL; i < 127; i++ ) {
     NONE_PRINT_CHARACTERS[ i ] = `${String.fromCharCode(i)}`;
 }
 
@@ -41,8 +42,8 @@ for ( let i = 0, end = NONE_PRINT_CHARACTERS.length; i < end; i++ ) {
     };
     results.push( row );
 
-    let line = `${row.decimal} ${row.character} ${row.hex} ${row.octal} ${row.binary} `;
-    console.log( line );
+    //let line = `${row.decimal} ${row.character} ${row.hex} ${row.octal} ${row.binary} `;
+    //console.log( line );
 }
 
 export {
