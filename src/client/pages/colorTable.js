@@ -25,7 +25,7 @@ async function doOnloadStuff() {
 
     let results = '';
     for ( const color of colors ) {
-        results += `<div><span style="background-color: ${color}">&nbsp;&nbsp;&nbsp;</:wqspan>${color}</div>`;
+        results += `<div><span style="background-color: ${color}">&nbsp;&nbsp;&nbsp;</span>${color}</div>`;
     }
 
     content.innerHTML = results;
