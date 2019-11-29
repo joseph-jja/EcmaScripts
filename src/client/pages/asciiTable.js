@@ -8,7 +8,7 @@ function getMainWindow() {
     const mw = document.getElementById( 'main-window' );
     const styles = window.getComputedStyle( mw );
 
-    return new WebWindow( 'Quake Info',
+    return new WebWindow( 'ASCII Table',
         styles.offsetLeft,
         styles.offsetTop,
         styles.offsetWidth,
