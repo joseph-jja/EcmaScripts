@@ -8,7 +8,7 @@ function getMainWindow() {
     const mw = document.getElementById( 'main-window' );
     const styles = window.getComputedStyle( mw );
 
-    return new WebWindow( 'Quake Info',
+    return new WebWindow( 'Color Table',
         styles.offsetLeft,
         styles.offsetTop,
         styles.offsetWidth,
@@ -24,7 +24,8 @@ async function doOnloadStuff() {
     const content = wwin.windowArea;
 
     let results = '';
-    for ( const color of colors ) {
+    for ( let i = 0, end = colors.length; i < end; i++ ) {
+        const color = colors[ i ];
         results += `<div><span style="background-color: ${color}">&nbsp;&nbsp;&nbsp;</span>${color}</div>`;
     }
 
