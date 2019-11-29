@@ -2,7 +2,7 @@ import "@babel/runtime/regenerator";
 
 import * as events from 'client/dom/events';
 import WebWindow from 'client/components/wbWindow';
-import asciiTable from 'client/components/asciiTable';
+import * as asciiTable from 'client/components/asciiTable';
 
 function getMainWindow() {
     const mw = document.getElementById( 'main-window' );
@@ -23,7 +23,6 @@ async function doOnloadStuff() {
 
     const content = wwin.windowArea;
 
-
     let data = '<table>';
     data += '<tr>';
     data += '<th>Decimal</th>';
@@ -33,16 +32,17 @@ async function doOnloadStuff() {
     data += '<th>Binary</th>';
     data += '</tr>';
     for ( let i = 0, end = results.length; i < end; i++ ) {
+        const item = results[ i ];
         data += '<tr>';
-        data += `<td>${results.decimal}</td>`;
-        data += `<td>${results.character}</td>`;
-        data += `<td>${results.hex}</td>`;
-        data += `<td>${results.octal}</td>`;
-        data += `<td>${results.binary}</td>`;
+        data += `<td>${item.decimal}</td>`;
+        data += `<td>${item.character}</td>`;
+        data += `<td>${item.hex}</td>`;
+        data += `<td>${item.octal}</td>`;
+        data += `<td>${item.binary}</td>`;
         data += '</tr>';
     }
     data += '<table>';
-
+    //console.log( data );
     content.innerHTML = data;
 }
 
