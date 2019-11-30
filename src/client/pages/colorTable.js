@@ -2,7 +2,7 @@ import "@babel/runtime/regenerator";
 
 import * as events from 'client/dom/events';
 import WebWindow from 'client/components/wbWindow';
-import colorTable from 'client/components/colorTable';
+import * as colorTable from 'client/components/colorTable';
 
 function getMainWindow() {
     const mw = document.getElementById( 'main-window' );
