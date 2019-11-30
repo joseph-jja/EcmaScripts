@@ -12,6 +12,7 @@ describe( "date functions tests", function () {
 
     it( "test getDaysInMonth Feb 2016", function () {
         const x = new Date();
+        x.setDate( 1 );
         x.setFullYear( 2016 );
         x.setMonth( 1 );
         expect( DF.getDaysInMonth( x ) ).toEqual( 29 );
@@ -20,6 +21,7 @@ describe( "date functions tests", function () {
 
     it( "test getDaysInMonth Mar 2016", function () {
         const x = new Date();
+        x.setDate( 1 );
         x.setFullYear( 2016 );
         x.setMonth( 2 );
         expect( DF.getDaysInMonth( x ) ).toEqual( 31 );
@@ -27,6 +29,7 @@ describe( "date functions tests", function () {
 
     it( "test getDaysInMonth Feb 1990", function () {
         const x = new Date();
+        x.setDate( 1 );
         x.setFullYear( 1990 );
         x.setMonth( 1 );
         expect( DF.getDaysInMonth( x ) ).toEqual( 28 );
@@ -34,6 +37,7 @@ describe( "date functions tests", function () {
 
     it( "test getDaysInMonth Feb 2004", function () {
         const x = new Date();
+        x.setDate( 1 );
         x.setFullYear( 2004 );
         x.setMonth( 1 );
         expect( DF.getDaysInMonth( x ) ).toEqual( 29 );
@@ -41,6 +45,7 @@ describe( "date functions tests", function () {
 
     it( "test getDaysInMonth Feb 2000", function () {
         const x = new Date();
+        x.setDate( 1 );
         x.setFullYear( 2000 );
         x.setMonth( 1 );
         expect( DF.getDaysInMonth( x ) ).toEqual( 29 );
@@ -48,6 +53,7 @@ describe( "date functions tests", function () {
 
     it( "test getDaysInMonth Feb 1900", function () {
         const x = new Date();
+        x.setDate( 1 );
         x.setFullYear( 1900 );
         x.setMonth( 1 );
         expect( DF.getDaysInMonth( x ) ).toEqual( 28 );
@@ -55,6 +61,7 @@ describe( "date functions tests", function () {
 
     it( "test getDaysInMonth false month", function () {
         const x = new Date();
+        x.setDate( 1 );
         x.setFullYear( 2000 );
         x.setMonth( false );
         expect( DF.getDaysInMonth( x ) ).toBeGreaterThan( 0 );
@@ -62,6 +69,7 @@ describe( "date functions tests", function () {
 
     it( "test getDaysInMonth false month", function () {
         const x = new Date();
+        x.setDate( 1 );
         x.setFullYear( 2000 );
         x.setMonth( false );
         expect( DF.getDaysInMonth( x ) ).toBeLessThan( 32 );
