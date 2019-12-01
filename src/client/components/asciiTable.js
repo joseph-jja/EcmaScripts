@@ -18,7 +18,7 @@ const NONE_PRINT_CHARACTERS = [ "NUL (null)", "SOH (start of heading)", "STX (st
 
 const NPCL = NONE_PRINT_CHARACTERS.length;
 // printable characters
-for ( let i = NPCL; i < 127; i++ ) {
+for ( let i = NPCL; i < 256; i++ ) {
     NONE_PRINT_CHARACTERS[ i ] = `${String.fromCharCode(i)}`;
 }
 
