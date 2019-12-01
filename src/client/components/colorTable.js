@@ -11,7 +11,7 @@ function sortColors(rgb1, rgb2) {
       g2 = convertFromBaseXToBaseTen(16, rgb2.substring(2,3)),
       b2 = convertFromBaseXToBaseTen(16, rgb2.substring (3,4));
   
-    if (r < r2 &&  b1 < b2 && g1 < g2) {
+    if (r1 < r2 && b1 < b2 && g1 < g2) {
         return -1;
     } 
     return 1;
