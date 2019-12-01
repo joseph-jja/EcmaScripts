@@ -3,6 +3,32 @@ import {
     convertFromBaseTenToBaseX
 } from 'utils/mathFunctions';
 
+function rgbToHsl( r, g, b ) {
+    const max = Math.max( r, g, b ),
+        min = Math.min( r, g, b );
+    let h, s, l = ( max + min ) / 2;
+
+    if ( max === min ) {
+        h = s = 0; // achromatic
+    } else {
+        let d = max - min;
+        s = l > 0.5 ? d / ( 2 - max - min ) : d / ( max + min );
+        switch ( max ) {
+        case r:
+            h = ( g - b ) / d + ( g < b ? 6 : 0 );
+            break;
+        case g:
+            h = ( b - r ) / d + 2;
+            break;
+        case b:
+            h = ( r - g ) / d + 4;
+            break;
+        }
+        h /= 6;
+    }
+    return new Array( h * 360, s * 100, l * 100 );
+}
+
 function sortColors( rgb1, rgb2 ) {
     const r1 = convertFromBaseXToBaseTen( 16, rgb1.substring( 1, 2 ) ),
         g1 = convertFromBaseXToBaseTen( 16, rgb1.substring( 2, 3 ) ),
@@ -11,33 +37,10 @@ function sortColors( rgb1, rgb2 ) {
         g2 = convertFromBaseXToBaseTen( 16, rgb2.substring( 2, 3 ) ),
         b2 = convertFromBaseXToBaseTen( 16, rgb2.substring( 3, 4 ) );
 
-    const res1 = ( +r1 + +b1 + +g1 ),
-        res2 = ( +r2 + +b2 + +g2 ),
-        sres1 = [ r1, b1, g1 ].sort()[ 2 ],
-        sres2 = [ r2, b2, g2 ].sort()[ 2 ];
+    const hsl1 = rgbToHsl( r1 / 255, g1 / 255, b1 / 255 )[ 0 ],
+        hsl2 = rgbToHsl( r2 / 255, g2 / 255, b2 / 255 )[ 0 ];
 
-    if ( r1 < r2 ) {
-        return -1;
-    } else if ( r1 > r2 ) {
-        return 1;
-    } else if ( g1 < g2 ) {
-        return -1;
-    } else if ( g1 > g2 ) {
-        return 1;
-    } else if ( b1 < b2 ) {
-        return -1;
-    } else if ( b1 > b2 ) {
-        return 1;
-    } else if ( +res1 < +res2 ) {
-        return -1;
-    } else if ( +res1 > +res2 ) {
-        return 1;
-    } else if ( +sres1 < +sres2 ) {
-        return -1;
-    } else if ( +sres1 > +sres2 ) {
-        return 1;
-    }
-    return 0;
+    return hsl2 - hsl1;
 }
 
 function getHexValues() {
