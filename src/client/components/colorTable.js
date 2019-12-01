@@ -12,9 +12,9 @@ function sortColors( rgb1, rgb2 ) {
         b2 = convertFromBaseXToBaseTen( 16, rgb2.substring( 3, 4 ) );
 
     const res1 = ( +r1 + +b1 + +g1 ),
-        res2 = ( +r2 + +b2 + +g2 ), 
-        sres1 = [r1, b1, g1].sort()[2], 
-        sres2 = [r2, b2, g2].sort()[2];
+        res2 = ( +r2 + +b2 + +g2 ),
+        sres1 = [ r1, b1, g1 ].sort()[ 2 ],
+        sres2 = [ r2, b2, g2 ].sort()[ 2 ];
     if ( res1 < res2 && sres1 < sres1 ) {
         return -1;
     }
