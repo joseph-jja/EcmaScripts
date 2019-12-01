@@ -28,11 +28,7 @@ function sortColors( rgb1, rgb2 ) {
         return -1;
     } else if ( b1 > b2 ) {
         return 1;
-    } else {
-        return 0;
-    }
-
-    /*if ( +res1 < +res2 ) {
+    } else if ( +res1 < +res2 ) {
         return -1;
     } else if ( +res1 > +res2 ) {
         return 1;
@@ -41,7 +37,7 @@ function sortColors( rgb1, rgb2 ) {
     } else if ( +sres1 > +sres2 ) {
         return 1;
     }
-    return 0;*/
+    return 0;
 }
 
 function getHexValues() {
