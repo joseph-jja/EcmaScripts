@@ -9,7 +9,10 @@ function getHexValues() {
         for ( let j = 0; j < 16; j++ ) {
             const left = convertFromBaseTenToBaseX( 16, i ),
                 right = convertFromBaseTenToBaseX( 16, j );
-            rgbVal.push( `${left}${right}` );
+// for simplicity instead of rrggbb we just do rgb 
+// so black is 000 not 000000 and we reduce the number of colors
+// rgbVal.push( `${left}${right}` );
+            rgbVal.push( `${left}` );
         }
     }
     return rgbVal;
