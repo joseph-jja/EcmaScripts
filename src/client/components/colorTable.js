@@ -24,11 +24,21 @@ function getHex() {
     const results = [];
     const colors = getHexValues();
     const rlen = colors.length;
-    for ( let a = 0; a < rlen; a++ ) {
+    for ( let a = 0; a < 10; a++ ) {
         const i = colors[ a ];
-        for ( let b = 0; b < rlen; b++ ) {
+        for ( let b = 0; b < 10; b++ ) {
             const j = colors[ b ];
-            for ( let c = 0; c < rlen; c++ ) {
+            for ( let c = 0; c < 10; c++ ) {
+                const k = colors[ c ];
+                results.push( `#${i}${j}${k}` );
+            }
+        }
+    }
+    for ( let a = 10; a < rlen; a++ ) {
+        const i = colors[ a ];
+        for ( let b = 10; b < rlen; b++ ) {
+            const j = colors[ b ];
+            for ( let c = 10; c < rlen; c++ ) {
                 const k = colors[ c ];
                 results.push( `#${i}${j}${k}` );
             }
