@@ -13,9 +13,9 @@ function sortColors( rgb1, rgb2 ) {
 
     const res1 = ( +r1 + +b1 + +g1 ),
         res2 = ( +r2 + +b2 + +g2 ), 
-        sres1 = [r1, b1, g1].sort(), 
-        sres2 = [r2, b2, g2].sort();
-    if ( res1 < res2 ) {
+        sres1 = [r1, b1, g1].sort()[2], 
+        sres2 = [r2, b2, g2].sort()[2];
+    if ( res1 < res2 && sres1 < sres1 ) {
         return -1;
     }
     return 1;
