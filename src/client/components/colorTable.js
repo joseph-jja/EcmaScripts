@@ -19,9 +19,9 @@ function sortColors( rgb1, rgb2 ) {
         return -1;
     } else if ( +res1 > +res2 ) {
         return 1;
-    } else if ( +sres1 < +sres1 ) {
+    } else if ( +sres1 < +sres2 ) {
         return -1;
-    } else if ( +sres1 > +sres1 ) {
+    } else if ( +sres1 > +sres2 ) {
         return 1;
     }
     return 0;
