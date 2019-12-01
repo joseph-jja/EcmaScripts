@@ -3,17 +3,19 @@ import {
     convertFromBaseTenToBaseX
 } from 'utils/mathFunctions';
 
-function sortColors(rgb1, rgb2) {
-  const r1 = convertFromBaseXToBaseTen(16, rgb1.substring(1,2)),
-      g1 = convertFromBaseXToBaseTen(16, rgb1.substring(2,3)),
-      b1 = convertFromBaseXToBaseTen(16, rgb1.substring (3,4)),
-      r2 = convertFromBaseXToBaseTen(16, rgb2.substring(1,2)),
-      g2 = convertFromBaseXToBaseTen(16, rgb2.substring(2,3)),
-      b2 = convertFromBaseXToBaseTen(16, rgb2.substring (3,4));
-  
-    if (r1 < r2 && b1 < b2 && g1 < g2) {
+function sortColors( rgb1, rgb2 ) {
+    const r1 = convertFromBaseXToBaseTen( 16, rgb1.substring( 1, 2 ) ),
+        g1 = convertFromBaseXToBaseTen( 16, rgb1.substring( 2, 3 ) ),
+        b1 = convertFromBaseXToBaseTen( 16, rgb1.substring( 3, 4 ) ),
+        r2 = convertFromBaseXToBaseTen( 16, rgb2.substring( 1, 2 ) ),
+        g2 = convertFromBaseXToBaseTen( 16, rgb2.substring( 2, 3 ) ),
+        b2 = convertFromBaseXToBaseTen( 16, rgb2.substring( 3, 4 ) );
+
+    const res1 = ( +r1 + +b1 + +g1 ),
+        res2 = ( +r2 + +b2 + +g2 );
+    if ( res1 < res2 ) {
         return -1;
-    } 
+    }
     return 1;
 }
 
@@ -55,7 +57,7 @@ function getHex() {
     const rlen = colors.length;
 
     renderThrees( results, colors, 0, rlen );
-    return results.sort(sortColors);
+    return results.sort( sortColors );
 }
 
 export {
