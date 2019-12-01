@@ -1,6 +1,21 @@
 import {
+    convertFromBaseXToBaseTen,
     convertFromBaseTenToBaseX
 } from 'utils/mathFunctions';
+
+function sortColors(rgb1, rgb2) {
+  const r1 = convertFromBaseXToBaseTen(16, rgb1.substring(1,2)),
+      g1 = convertFromBaseXToBaseTen(16, rgb1.substring(2,3)),
+      b1 = convertFromBaseXToBaseTen(16, rgb1.substring (3,4)),
+      r2 = convertFromBaseXToBaseTen(16, rgb2.substring(1,2)),
+      g2 = convertFromBaseXToBaseTen(16, rgb2.substring(2,3)),
+      b2 = convertFromBaseXToBaseTen(16, rgb2.substring (3,4));
+  
+    if (r < r2 &&  b1 < b2 && g1 < g2) {
+        return -1;
+    } 
+    return 1;
+}
 
 function getHexValues() {
 
@@ -40,7 +55,7 @@ function getHex() {
     const rlen = colors.length;
 
     renderThrees( results, colors, 0, rlen );
-    return results;
+    return results.sort(sortColors);
 }
 
 export {
