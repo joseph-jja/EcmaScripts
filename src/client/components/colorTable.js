@@ -18,31 +18,29 @@ function getHexValues() {
     return rgbVal;
 }
 
+function renderThrees( results, colors, start, end ) {
+
+    for ( let a = start; a < end; a++ ) {
+        const i = colors[ a ];
+        for ( let b = start; b < end; b++ ) {
+            const j = colors[ b ];
+            for ( let c = start; c < end; c++ ) {
+                const k = colors[ c ];
+                results.push( `#${i}${j}${k}` );
+            }
+        }
+    }
+}
+
 // should return hex values from #000000 to ffffff
 function getHex() {
 
     const results = [];
     const colors = getHexValues();
     const rlen = colors.length;
-    for ( let a = 0; a < 10; a++ ) {
-        const i = colors[ a ];
-        for ( let b = 0; b < 10; b++ ) {
-            const j = colors[ b ];
-            for ( let c = 0; c < 10; c++ ) {
-                const k = colors[ c ];
-                results.push( `#${i}${j}${k}` );
-            }
-        }
-    }
-    for ( let a = 10; a < rlen; a++ ) {
-        const i = colors[ a ];
-        for ( let b = 10; b < rlen; b++ ) {
-            const j = colors[ b ];
-            for ( let c = 10; c < rlen; c++ ) {
-                const k = colors[ c ];
-                results.push( `#${i}${j}${k}` );
-            }
-        }
+
+    for ( let i = 0; i < 16; i++ ) {
+        renderThrees( results, colors, i, i + 1 );
     }
     return results;
 }

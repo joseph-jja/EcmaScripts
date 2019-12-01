@@ -8,7 +8,7 @@ function getMainWindow() {
     const mw = document.getElementById( 'main-window' );
     const styles = window.getComputedStyle( mw );
 
-    return new WebWindow( 'Color Table',
+    return new WebWindow( 'RGB Color Table',
         styles.offsetLeft,
         styles.offsetTop,
         styles.offsetWidth,
