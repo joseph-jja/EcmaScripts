@@ -39,8 +39,8 @@ function getHex() {
     const colors = getHexValues();
     const rlen = colors.length;
 
-    for ( let i = 0; i < 16; i++ ) {
-        renderThrees( results, colors, i, i + 1 );
+    for ( let i = 0; i < 16; i += 2 ) {
+        renderThrees( results, colors, i, i + 2 );
     }
     return results;
 }
