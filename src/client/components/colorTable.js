@@ -7,7 +7,9 @@ function getHexValues() {
     const rgbVal = [];
     for ( let i = 0; i < 16; i++ ) {
         for ( let j = 0; j < 16; j++ ) {
-            rgbVal.push( `${convertFromBaseTenToBaseX(j, 16)}${convertFromBaseTenToBaseX(i)}` );
+            const left = convertFromBaseTenToBaseX( 16, i ),
+                right = convertFromBaseTenToBaseX( 16, j );
+            rgbVal.push( `${left}${right}` );
         }
     }
     return rgbVal;
@@ -17,12 +19,15 @@ function getHexValues() {
 function getHex() {
 
     const results = [];
-    const redVal = getHexValues();
-    for ( const i of redVal ) {
-        const greenVal = getHexValues();
-        for ( const j of greenVal ) {
-            const blueVal = getHexValues();
-            for ( const k of blueVal ) {
+    const redVal = getHexValues(),
+        greenVal = getHexValues(),
+        blueVal = getHexValues();
+    for ( let a = 0; a < redVal.length; a++ ) {
+        const i = redVal[ a ];
+        for ( let b = 0; b < greenVal.length; b++ ) {
+            const j = greenVal[ b ];
+            for ( let c = 0; c < blueVal.length; c++ ) {
+                const k = blueVal[ c ];
                 results.push( `#${i}${j}${k}` );
             }
         }
