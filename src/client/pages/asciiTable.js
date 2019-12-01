@@ -41,7 +41,7 @@ async function doOnloadStuff() {
         data += `<td>${item.binary}</td>`;
         data += '</tr>';
     }
-    data += '<table>';
+    data += '</table>';
     //console.log( data );
     content.innerHTML = data;
 }
