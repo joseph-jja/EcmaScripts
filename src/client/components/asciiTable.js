@@ -33,9 +33,16 @@ const results = [];
 
 for ( let i = 0, end = NONE_PRINT_CHARACTERS.length; i < end; i++ ) {
 
+    let character = NONE_PRINT_CHARACTERS[ i ].padStart( max, ' ' );
+    if ( i === 127 ) {
+        character = 'DEL';
+    } else if ( i > 127 ) {
+        character = '';
+    }
+
     let row = {
         'decimal': i.toString().padStart( 4, ' ' ).padEnd( 8, ' ' ),
-        'character': NONE_PRINT_CHARACTERS[ i ].padStart( max, ' ' ),
+        'character': character,
         'hex': convertFromBaseTenToBaseX( 16, i ).padStart( 10, ' ' ),
         'octal': convertFromBaseTenToBaseX( 8, i ).padStart( 10, ' ' ),
         'binary': convertFromBaseTenToBaseX( 2, i ).padStart( 8, '0' )
