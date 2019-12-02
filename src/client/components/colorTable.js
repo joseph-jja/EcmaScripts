@@ -4,6 +4,7 @@ import {
 } from 'utils/mathFunctions';
 
 function sortColors( rgb1, rgb2 ) {
+
     const r1 = convertFromBaseXToBaseTen( 16, rgb1.substring( 1, 2 ) ),
         g1 = convertFromBaseXToBaseTen( 16, rgb1.substring( 2, 3 ) ),
         b1 = convertFromBaseXToBaseTen( 16, rgb1.substring( 3, 4 ) ),
@@ -34,17 +35,9 @@ function sortColors( rgb1, rgb2 ) {
         } else if ( b1 === max1 ) {
             return b1 - b2;
         }
-    } else if ( min1 === min2 ) {
-        if ( r1 === min1 ) {
-            return r1 - r2;
-        } else if ( g1 === min1 ) {
-            return g1 - g2;
-        } else if ( b1 === min1 ) {
-            return b1 - b2;
-        }
     }
 
-    return res1 - res2;
+    return 0;
 }
 
 function getHexValues() {
