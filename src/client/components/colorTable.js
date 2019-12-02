@@ -11,20 +11,40 @@ function sortColors( rgb1, rgb2 ) {
         g2 = convertFromBaseXToBaseTen( 16, rgb2.substring( 2, 3 ) ),
         b2 = convertFromBaseXToBaseTen( 16, rgb2.substring( 3, 4 ) );
 
-    const res1 = ( +r1 + +g1 + +b1), 
-        res2 = ( +r2 + +g2 + +b2);
+    const res1 = ( +r1 + +g1 + +b1 ),
+        res2 = ( +r2 + +g2 + +b2 );
 
     const max1 = Math.max( r1, g1, b1 ),
-        min1 = Math.min( r1, g1, b1 ), 
+        min1 = Math.min( r1, g1, b1 ),
         max2 = Math.max( r2, g2, b2 ),
         min2 = Math.min( r2, g2, b2 );
 
     if ( max1 === min1 && max2 === min2 ) {
         // handle 000 vs 111
         return max1 - max2;
-    } 
+    } else if ( max1 < max2 ) {
+        return -1;
+    } else if ( max1 > max2 ) {
+        return 1;
+    } else if ( max1 === max2 ) {
+        if ( r1 === max1 ) {
+            return r1 - r2;
+        } else if ( g1 === max1 ) {
+            return g1 - g2;
+        } else if ( b1 === max1 ) {
+            return b1 - b2;
+        }
+    } else if ( min1 === min2 ) {
+        if ( r1 === min1 ) {
+            return r1 - r2;
+        } else if ( g1 === min1 ) {
+            return g1 - g2;
+        } else if ( b1 === min1 ) {
+            return b1 - b2;
+        }
+    }
 
-    return res2 - res1;
+    return res1 - res2;
 }
 
 function getHexValues() {
