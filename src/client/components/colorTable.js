@@ -3,6 +3,10 @@ import {
     convertFromBaseTenToBaseX
 } from 'utils/mathFunctions';
 
+function reverseSort( a, b ) {
+    return ( a < b ? 1 : ( a === b ? 0 : -1 ) );
+}
+
 function sortColors( rgb1, rgb2 ) {
 
     const r1 = convertFromBaseXToBaseTen( 16, rgb1.substring( 1, 2 ) ),
@@ -14,6 +18,9 @@ function sortColors( rgb1, rgb2 ) {
 
     const res1 = ( +r1 + +g1 + +b1 ),
         res2 = ( +r2 + +g2 + +b2 );
+
+    const ares1 = [ r1, g1, b1 ].sort( reverseSort ),
+        ares2 = [ r2, g2, b2 ].sort( reverseSort );
 
     const max1 = Math.max( r1, g1, b1 ),
         min1 = Math.min( r1, g1, b1 ),
