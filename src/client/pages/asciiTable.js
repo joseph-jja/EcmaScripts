@@ -23,7 +23,7 @@ async function doOnloadStuff() {
 
     const content = wwin.windowArea;
 
-    let data = '<table>';
+    let data = '<table class="ascii">';
     data += '<tr>';
     data += '<th>Decimal</th>';
     data += '<th>Character</th>';
@@ -35,7 +35,7 @@ async function doOnloadStuff() {
 
         if ( i === 128 ) {
             data += '</table>';
-            data += '<table>';
+            data += '<table class="extended">';
             data += '<tr>';
             data += '<th>Decimal</th>';
             data += '<th>Hexidecimal</th>';
