@@ -19,6 +19,11 @@ function sortColors( rgb1, rgb2 ) {
         max2 = Math.max( r2, g2, b2 ),
         min2 = Math.min( r2, g2, b2 );
 
+    if ( max1 === min1 && max2 === min2 ) {
+        // handle 000 vs 111
+        return max1 - max2;
+    } 
+
     return res2 - res1;
 }
 
