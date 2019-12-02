@@ -37,8 +37,8 @@ function sortColors( rgb1, rgb2 ) {
         g2 = convertFromBaseXToBaseTen( 16, rgb2.substring( 2, 3 ) ),
         b2 = convertFromBaseXToBaseTen( 16, rgb2.substring( 3, 4 ) );
 
-    const hsl1 = rgbToHsl( r1 / 16, g1 / 16, b1 / 16 )[ 0 ],
-        hsl2 = rgbToHsl( r2 / 16, g2 / 16, b2 / 16 )[ 0 ];
+    const hsl1 = rgbToHsl( ( r1 * 17) / 255, ( g1 * 17) / 255, ( b1 * 17) / 255 )[ 0 ],
+        hsl2 = rgbToHsl( ( r2 * 17) / 255, ( g2 * 17) / 255, ( b2 * 17) / 255)[ 0 ];
 
     return hsl2 - hsl1;
 }
