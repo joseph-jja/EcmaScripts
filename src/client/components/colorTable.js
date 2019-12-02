@@ -43,6 +43,11 @@ function sortColors( rgb1, rgb2 ) {
     const res1 = ( +r1 + +g1 + +b1), 
         res2 = ( +r2 + +g2 + +b2);
 
+    const max1 = Math.max( r1, g1, b1 ),
+        min1 = Math.min( r1, g1, b1 ), 
+        max2 = Math.max( r2, g2, b2 ),
+        min2 = Math.min( r2, g2, b2 );
+
     return hsl2 - hsl1;
 }
 
