@@ -32,10 +32,21 @@ async function doOnloadStuff() {
     data += '<th>Binary</th>';
     data += '</tr>';
     for ( let i = 0, end = results.length; i < end; i++ ) {
+
+        if ( i === 128 ) {
+            data += '</table>';
+            data += '<table>';
+            data += '<tr>';
+            data += '<th>Decimal</th>';
+            data += '<th>Hexidecimal</th>';
+            data += '<th>Octal</th>';
+            data += '<th>Binary</th>';
+            data += '</tr>';
+        }
         const item = results[ i ];
         data += '<tr>';
         data += `<td>${item.decimal}</td>`;
-        data += `<td>${item.character}</td>`;
+        data += ( i < 128 ? `<td>${item.character}</td>` : '' );
         data += `<td>${item.hex}</td>`;
         data += `<td>${item.octal}</td>`;
         data += `<td>${item.binary}</td>`;
