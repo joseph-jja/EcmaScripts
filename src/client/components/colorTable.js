@@ -40,6 +40,9 @@ function sortColors( rgb1, rgb2 ) {
     const hsl1 = rgbToHsl( ( r1 * 17) / 255, ( g1 * 17) / 255, ( b1 * 17) / 255 )[ 0 ],
         hsl2 = rgbToHsl( ( r2 * 17) / 255, ( g2 * 17) / 255, ( b2 * 17) / 255)[ 0 ];
 
+    const res1 = ( +r1 + +g1 + +b1), 
+        res2 = ( +r2 + +g2 + +b2);
+
     return hsl2 - hsl1;
 }
 
