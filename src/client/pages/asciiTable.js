@@ -44,7 +44,7 @@ async function doOnloadStuff() {
             data += '</tr>';
         }
         const item = results[ i ];
-        data += '<tr>';
+        data += `<tr class="${ i % 2 === 0 ? 'even' : 'odd' }">`;
         data += `<td>${item.decimal}</td>`;
         data += ( i < 128 ? `<td>${item.character}</td>` : '' );
         data += `<td>${item.hex}</td>`;
