@@ -15,16 +15,22 @@ function getHeader() {
         '<th>Short Description</th>' +
         '<th>Long Description</th>' +
         '<th>Last Access Date</th>' +
+        '<th>Start Date</th>' +
+        '<th>End Date</th>' +
         '<th>Status</th>' +
         '</tr></thead>';
 }
 
-function getTableRow( key, shortDescription, longDescription, workDate, completed, className ) {
+function getTableRow( key, shortDescription, longDescription, workDate,
+    startDate, endDate, completed, className ) {
+
     return `<tbody><tr class="${className}">` +
         getButtonCell( key, className ) +
         getCell( shortDescription, className ) +
         getCell( longDescription, className ) +
         getCell( workDate, className ) +
+        getCell( startDate, className ) +
+        getCell( endDate, className ) +
         getCell( ( completed ? 'Done' : 'Working' ) ) +
         '</tr></tbody>';
 }

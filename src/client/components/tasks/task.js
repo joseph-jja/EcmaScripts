@@ -4,9 +4,12 @@ import * as Constants from 'db/constants';
 
 function getRecordFromOptions( options = {} ) {
 
+    const isCompleted = options[ 'completed' ] || false;
     const result = {
-        'completed': options[ 'completed' ] || false,
+        'completed': isCompleted,
         'work_date': options[ 'work_date' ] || new Date(),
+        'start_date': options[ 'start_date' ] || options[ 'work_date' ] || new Date(),
+        'end_date': options[ 'end_date' ] || ( isCompleted ? options[ 'work_date' ] : '' ),
         'short_description': options[ 'short_description' ] || '',
         'long_description': options[ 'long_description' ] || ''
     };

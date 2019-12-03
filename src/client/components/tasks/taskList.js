@@ -46,6 +46,8 @@ function TaskList() {
                     item.value.short_description,
                     item.value.long_description,
                     item.value.work_date,
+                    ( item.value.start_date || item.value.work_date ),
+                    ( item.value.end_date || ( item.value.completed ? item.value.work_date : '' ) ),
                     item.value.completed,
                     ( ( i % 2 === 0 ) ? ' even' : ' odd' ) );
             } );
@@ -169,7 +171,10 @@ function TaskList() {
         options.callback = ( item ) => {
 
             const addEditHTML = addEditTask( item.id,
-                item.work_date, item.short_description,
+                item.work_date,
+                item.start_date || item.work_date,
+                item.end_date || ( item.completed ? new Date() : '' ),
+                item.short_description,
                 item.long_description, item.completed );
 
             selector( '#taskEditID' ).get( 0 ).innerHTML = addEditHTML;

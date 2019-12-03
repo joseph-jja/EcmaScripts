@@ -9,6 +9,8 @@ function mapFromDom() {
     const options = {
         'completed': completed,
         'work_date': dom.html( '#work_date' ),
+        'start_date': dom.html( '#start_date' ) || dom.html( '#work_date' ),
+        'end_date': dom.html( '#end_date' ) || ( completed ? dom.html( '#work_date' ) : '' ),
         'short_description': dom.html( '#short_description' ),
         'long_description': dom.html( '#long_description' )
     };
