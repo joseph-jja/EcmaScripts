@@ -174,7 +174,7 @@ function TaskList() {
         options.callback = ( item ) => {
 
             const addEditHTML = addEditTask( item.id,
-                item.work_date,
+                new Date(),
                 item.start_date || item.work_date,
                 item.end_date || ( item.completed ? new Date() : '' ),
                 item.short_description,
