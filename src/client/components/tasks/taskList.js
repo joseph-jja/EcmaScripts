@@ -16,7 +16,8 @@ import {
 import {
     mapFromDom,
     tableSort,
-    cancelButtonClick
+    cancelButtonClick,
+    setEndDate
 } from 'client/components/tasks/taskUtils';
 
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000,
@@ -140,7 +141,8 @@ function TaskList() {
         selector( '#taskEditID' ).get( 0 ).innerHTML = addEditHTML;
 
         const saveButton = selector( '#saveTask' ).get( 0 ),
-            cancelButton = selector( '#cancelTask' ).get( 0 );
+            cancelButton = selector( '#cancelTask' ).get( 0 ),
+            completed = selector( '#completed' ).get( 0 );
 
         events.addEvent( saveButton, 'click', () => {
             const options = mapFromDom();
@@ -152,6 +154,7 @@ function TaskList() {
             tasks.create( options );
         }, false );
 
+        events.addEvent( completed, 'change', setEndDate, false );
         events.addEvent( cancelButton, 'click', cancelButtonClick, false );
     };
 
@@ -180,7 +183,8 @@ function TaskList() {
             selector( '#taskEditID' ).get( 0 ).innerHTML = addEditHTML;
 
             const saveButton = selector( '#saveTask' ).get( 0 ),
-                cancelButton = selector( '#cancelTask' ).get( 0 );
+                cancelButton = selector( '#cancelTask' ).get( 0 ),
+                completed = selector( '#completed' ).get( 0 );
 
             events.addEvent( saveButton, 'click', () => {
                 const record = mapFromDom();
@@ -192,6 +196,7 @@ function TaskList() {
                 tasks.update( record );
             }, false );
 
+            events.addEvent( completed, 'change', setEndDate, false );
             events.addEvent( cancelButton, 'click', cancelButtonClick, false );
         };
 
@@ -211,6 +216,8 @@ function TaskList() {
                     const options = {
                         'completed': item.completed,
                         'work_date': item[ 'work_date' ],
+                        'start_date': item[ 'start_date' ] || item[ 'work_date' ],
+                        'end_date': item[ 'end_date' ] || ( item.completed ? item[ 'work_date' ] : '' ),
                         'short_description': item[ 'short_description' ],
                         'long_description': item[ 'long_description' ]
                     };
@@ -239,6 +246,8 @@ function TaskList() {
                     'short_description': item.value.short_description,
                     'long_description': item.value.long_description,
                     'work_date': item.value.work_date,
+                    'start_date': item.value.start_date || item.value.work_date,
+                    'end_date': item.value.end_date || ( item.value.completed ? item.value.work_date : '' ),
                     'completed': item.value.completed
                 };
             } );

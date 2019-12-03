@@ -51,8 +51,18 @@ function cancelButtonClick() {
     window.location.reload();
 }
 
+function setEndDate() {
+    const completed = selector( '#completed' ).get( 0 ).checked;
+    if ( completed ) {
+        selector( '#end_date' ).get( 0 ).value = new Date();
+    } else {
+        selector( '#end_date' ).get( 0 ).value = '';
+    }
+}
+
 export {
     mapFromDom,
     tableSort,
-    cancelButtonClick
+    cancelButtonClick,
+    setEndDate
 };
