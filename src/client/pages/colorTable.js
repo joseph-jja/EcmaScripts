@@ -16,6 +16,16 @@ function getMainWindow() {
         'main-window' );
 }
 
+function showColor( e ) {
+    const tgt = e.target;
+    const nName = tgt.nodeName.toLowerCase();
+    if ( nName === 'span' ) {
+        alert( tgt.dataset.hexcode );
+    } else {
+        alert( tgt.firstChild );
+    }
+}
+
 async function doOnloadStuff() {
 
     const colors = colorTable.getHex();
@@ -23,13 +33,22 @@ async function doOnloadStuff() {
 
     const content = wwin.windowArea;
 
-    let results = '';
+    let results = '<table>';
     for ( let i = 0, end = colors.length; i < end; i++ ) {
         const color = colors[ i ];
-        results += `<div><span style="background-color: ${color}">&nbsp;&nbsp;&nbsp;</span>${color}</div>`;
+        if ( i % 64 === 0 ) {
+            if ( i > 64 ) {
+                results += '</tr>';
+            }
+            results += '<tr>';
+        }
+        results += `<td><span style="background-color: ${color}" data-hexcode="${color}">&nbsp;&nbsp;&nbsp;</span></td>`;
     }
+    results += '</tr></table>';
 
     content.innerHTML = results;
+    events.addEvent( wwin.windowArea, 'click', showColor, false );
+
 }
 
 events.addOnLoad( doOnloadStuff );
