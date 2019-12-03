@@ -1,10 +1,37 @@
 import {
+    add,
+    subtract,
+    multiply,
+    divide,
     convertFromBaseXToBaseTen,
     convertFromBaseTenToBaseX
 } from 'utils/mathFunctions';
 
-function reverseSort( a, b ) {
-    return ( a < b ? 1 : ( a === b ? 0 : -1 ) );
+function alpha( r, g, b ) {
+    return multiply( 0.5, subtract( multiply( 2, r ), g, b ) );
+}
+
+function beta( g, b ) {
+    return ( divide( Math.sqrt( 3 ), 2 ) * subtract( g, b ) );
+}
+
+function hue( a, b ) {
+    return Math.atan2( b, a );
+}
+
+function chroma( a, b ) {
+    return Math.sqrt( add( ( a * a ), ( b * b ) ) );
+}
+
+function hcl( red, green, blue ) {
+
+    const a = alpha( red, green, blue ),
+        b = beta( green, blue );
+
+    const h = hue( a, b ),
+        c = chroma( a, b );
+
+    return [ h, c ];
 }
 
 function sortColors( rgb1, rgb2 ) {
@@ -16,18 +43,19 @@ function sortColors( rgb1, rgb2 ) {
         g2 = convertFromBaseXToBaseTen( 16, rgb2.substring( 2, 3 ) ),
         b2 = convertFromBaseXToBaseTen( 16, rgb2.substring( 3, 4 ) );
 
-    const res1 = ( +r1 + +g1 + +b1 ),
-        res2 = ( +r2 + +g2 + +b2 );
-
-    const ares1 = [ r1, g1, b1 ].sort( reverseSort ),
-        ares2 = [ r2, g2, b2 ].sort( reverseSort );
-
     const max1 = Math.max( r1, g1, b1 ),
         min1 = Math.min( r1, g1, b1 ),
         max2 = Math.max( r2, g2, b2 ),
         min2 = Math.min( r2, g2, b2 );
 
-    if ( max1 === min1 && max2 === min2 ) {
+    // hue chroma
+    const chroma1 = max1 - min1,
+        chroma2 = max2 - min2;
+
+    /*const hcl1 = hcl( r1, g1, b1 ),
+        hcl2 = hcl( r2, g2, b2 );*/
+
+    if ( chroma1 === 0 && chroma2 === 0 ) {
         // handle 000 vs 111
         return max1 - max2;
     } else if ( max1 < max2 ) {
@@ -44,6 +72,7 @@ function sortColors( rgb1, rgb2 ) {
         }
     }
 
+    // it does not seem like we get here
     return 0;
 }
 
@@ -54,7 +83,7 @@ function getHexValues() {
         //for ( let j = 0; j < 16; j++ ) {
         const left = convertFromBaseTenToBaseX( 16, i );
         //    right = convertFromBaseTenToBaseX( 16, j );
-        // for simplicity instead of rrggbb we just do rgb 
+        // for simplicity instead of rrggbb we just do rgb
         // so black is 000 not 000000 and we reduce the number of colors
         // rgbVal.push( `${left}${right}` );
         rgbVal.push( `${left}` );
