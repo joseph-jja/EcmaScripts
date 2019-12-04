@@ -108,7 +108,7 @@ function TaskList() {
             const weekAgo = new Date().getTime() - SEVEN_DAYS;
             rows.each( ( r ) => {
                 const cols = selector( 'td', r );
-                const lastCol = cols.get( cols.length - 2 );
+                const lastCol = cols.get( cols.length - 4 );
                 const date = Date.parse( lastCol.innerHTML );
                 if ( date < weekAgo ) {
                     r.style.display = 'none';
@@ -119,7 +119,7 @@ function TaskList() {
             const aboutAMonthAgo = new Date().getTime() - ABOUT_A_MONTH;
             rows.each( ( r ) => {
                 const cols = selector( 'td', r );
-                const lastCol = cols.get( cols.length - 2 );
+                const lastCol = cols.get( cols.length - 4 );
                 const date = Date.parse( lastCol.innerHTML );
                 if ( date < aboutAMonthAgo ) {
                     r.style.display = 'none';
