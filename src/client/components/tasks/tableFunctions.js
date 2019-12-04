@@ -5,8 +5,9 @@ const addTask = '<button id="addTaskID">Add Task</button>',
 const selectFilter = '<select id="filterDisplay">' +
     '<option value="week">Week</option>' +
     '<option value="month">Month</option>' +
-    '<option value="working">Still Working On</option>' +
-    '<option selected="selected" value="all">All</option>' +
+    '<option selected value="working">Still Working On</option>' +
+    '<option value="done">Completed</option>' +
+    '<option value="all">All</option>' +
     '</select>';
 
 function getHeader() {

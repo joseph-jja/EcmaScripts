@@ -95,6 +95,15 @@ function TaskList() {
                 }
             } );
             break;
+        case 'done':
+            rows.each( ( r ) => {
+                const cols = selector( 'td', r );
+                const lastCol = cols.get( cols.length - 1 );
+                if ( lastCol.innerHTML.toLowerCase() === 'working' ) {
+                    r.style.display = 'none';
+                }
+            } );
+            break;
         case 'week':
             const weekAgo = new Date().getTime() - SEVEN_DAYS;
             rows.each( ( r ) => {
