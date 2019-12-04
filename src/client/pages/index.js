@@ -178,6 +178,25 @@ async function loadSoftwareFrag() {
     const mwtitle = selector( '.WebWindowTitleText', mainWin.titleBar ).get( 0 );
     mwtitle.innerHTML = 'Programs';
 
+    const linksObj = dom.createElement( 'div', sideWin.windowArea, {
+        id: 'software-links'
+    } );
+
+    linksObj.innerHTML = `In my spare time I work on the projects on this page. Some of them,
+    I consider to be completed, like TkNotePad.
+    These are are all released as "Open Source".
+    These programs are provided as is and with no warranty expressed or implied!
+        While I have tested them, I am not responsible
+    for
+    anything that might happen
+    if you use them.
+    They just might not work the way you
+    think that they should! < br / >
+        Please notify me
+    if you intend to include any of this software as a part of any distribution or mirror site.Thank you!`;
+
+    //<!--a href="email_form.html" >Email me with any questions or comments.< /a-->
+
     if ( perf.hasPerformanceMetrics ) {
         performance.measure( 'software render' );
     }
@@ -274,6 +293,7 @@ events.addOnLoad( async function () {
             break;
         case 'software':
             mwtitle.innerHTML = 'Software';
+            swtitle.innerHTML = 'Local Pages';
             loadSoftwareFrag();
             break;
         case 'home':
