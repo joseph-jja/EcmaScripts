@@ -270,10 +270,12 @@ events.addOnLoad( async function () {
         case 'fish':
             mwtitle.innerHTML = 'Fish Information';
             swtitle.innerHTML = 'Animated Fish';
-            stopStarSystem();
             startFishInfo();
             break;
         case 'software':
+            mwtitle.innerHTML = 'Software';
+            loadSoftwareFrag();
+            break;
         case 'home':
         default:
             Array.from( sideWin.windowArea.childNodes ).forEach( item => {
