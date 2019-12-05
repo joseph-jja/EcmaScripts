@@ -182,6 +182,7 @@ async function loadSoftwareFrag() {
         id: 'software-links'
     } );
 
+    linksObj.style.display = 'block';
     linksObj.innerHTML = `In my spare time I work on the projects on this page. Some of them,
     I consider to be completed, like TkNotePad.
     These are are all released as "Open Source".
