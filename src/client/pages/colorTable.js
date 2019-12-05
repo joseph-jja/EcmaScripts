@@ -4,6 +4,9 @@ import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import WebWindow from 'client/components/wbWindow';
 import * as colorTable from 'client/components/colorTable';
+import {
+    createOverlay
+} from 'client/components/overlay';
 
 function getMainWindow() {
     const mw = document.getElementById( 'main-window' );
@@ -20,12 +23,20 @@ function getMainWindow() {
 function showColor( e ) {
     const tgt = e.target;
     const nName = tgt.nodeName.toLowerCase();
+    let content = '';
     if ( nName === 'span' ) {
-        alert( tgt.dataset.hexcode );
+        content = tgt.dataset.hexcode;
     } else {
         const cNode = selector( 'span', tgt ).get( 0 );
-        alert( cNode.dataset.hexcode );
+        content = cNode.dataset.hexcode;
     }
+    createOverlay( {
+        id: 'colorOverlay',
+        styles: {
+            width: 'auto',
+            height: 'auto'
+        }
+    }, `<div style="text-align: center;padding: 0.5em;">${content}</div>` );
 }
 
 async function doOnloadStuff() {

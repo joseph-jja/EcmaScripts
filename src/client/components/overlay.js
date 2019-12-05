@@ -5,7 +5,7 @@ import * as events from 'client/dom/events';
 
 function createOverlay( options, content ) {
 
-    const overlay = dom.createElement( 'div', parent, {
+    const overlay = dom.createElement( 'div', document.body, {
         'id': options.id || 'overlay'
     } );
 
@@ -21,6 +21,10 @@ function createOverlay( options, content ) {
 
     if ( !overlay.style.height ) {
         overlay.style.height = '4em';
+    }
+
+    if ( content ) {
+        overlay.innerHTML = content;
     }
 
     return overlay;
