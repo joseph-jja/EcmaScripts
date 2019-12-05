@@ -1,6 +1,7 @@
 import "@babel/runtime/regenerator";
 
 import * as events from 'client/dom/events';
+import selector from 'client/dom/selector';
 import WebWindow from 'client/components/wbWindow';
 import * as colorTable from 'client/components/colorTable';
 
@@ -22,7 +23,8 @@ function showColor( e ) {
     if ( nName === 'span' ) {
         alert( tgt.dataset.hexcode );
     } else {
-        alert( tgt.firstChild );
+        const cNode = selector( 'span', tgt ).get( 0 );
+        alert( cNode.dataset.hexcode );
     }
 }
 
