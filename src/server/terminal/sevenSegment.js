@@ -66,4 +66,4 @@ function sevenSegment( sevenSegmentItem, segment ) {
 module.exports = {
     sevenSegment,
     setColon
-}
+};

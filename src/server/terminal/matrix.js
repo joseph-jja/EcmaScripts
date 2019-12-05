@@ -36,16 +36,16 @@ function writeMatrix() {
 
 module.exports = {
     getNumberWidth: () => {
-        return numberWidth
+        return numberWidth;
     },
     getNumberHeight: () => {
-        return numberHeight
+        return numberHeight;
     },
     getSegmentHeight: () => {
-        return segmentHeight
+        return segmentHeight;
     },
     setMatrixPoint: ( x, y, value ) => {
-        matrix[ x ][ y ] = value
+        matrix[ x ][ y ] = value;
     },
     clearScreen,
     clearMatrix,
