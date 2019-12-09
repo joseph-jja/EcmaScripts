@@ -44,28 +44,29 @@ module.exports = {
         "resume": "./src/client/pages/resume",
         "tropicalFish": "./src/client/pages/tropicalFish"
     },
-    "context": path.resolve( "." ),
-    "devtool": "none",
-    "output": {
+    context: path.resolve( "." ),
+    devtool: "none",
+    output: {
         "path": `${baseDir}/js`,
         "filename": "[name].js",
         "chunkFilename": "[file].bundle.js",
         "sourceMapFilename": "[file].source.map"
     },
-    "resolve": {
-        "modules": [
+    optimization: {},
+    resolve: {
+        modules: [
             "node_modules",
             path.join( __dirname, "src" )
         ],
-        "alias": {
+        alias: {
             "db": path.resolve( "src/db" ),
             "utils": path.resolve( "src/utils" ),
             "client": path.resolve( "src/client" ),
             "@babel": path.resolve( "node_modules/@babel" )
         }
     },
-    "module": {
-        "rules": [ {
+    module: {
+        rules: [ {
             test: /\.js$/,
             exclude: /node_modules/,
             use: {
