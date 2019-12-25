@@ -42,15 +42,12 @@ const parentDir = {
     isFile: false
 };
 
-async function listDir(dir, response) {
+async function listDir(dir, response, referer = '') {
 
     const fullpath = path.resolve(runDir, dir);
     const isDir = await statfile(fullpath);
 
-    let isEditor = false;
-    if (fullpath.indexOf('views/web-editor.html') > -1) {
-        isEditor = true;
-    }
+    const isEditor = (referer.indexOf('views/web-editor.html') > -1);
 
     if (isDir.isDirectory()) {
         const pdir = path.resolve(fullpath, '..');
@@ -72,12 +69,16 @@ async function listDir(dir, response) {
         const results = files.filter(item => {
             return (item.name.indexOf('node_modules') === -1);
         }).map(item => {
-            const fname = item.name.replace(runDir, '').replace( /^\//, '' );
+            const fname = item.name.replace(runDir, '').replace(/^\//, '');
             let url;
-            if (item.isFile) {
-                url = `<li class="file_type">${fname}</li>`;
+            if (isEditor) {
+                if (item.isFile) {
+                    url = `<li class="file_type">${fname}</li>`;
+                } else {
+                    url = `<li class="dir_type">${fname}</li>`;
+                }
             } else {
-                url = `<li class="dir_type">${fname}</li>`;
+                url = `<a href="${fname}">${fname}</a><br>`;
             }
             return url;
         }).reduce((acc, item) => {
@@ -85,7 +86,7 @@ async function listDir(dir, response) {
         });
 
         response.writeHead(200, {
-            'Content-Type': 'text/plain'
+            'Content-Type': (isEditor ? 'text/plain' : 'text/html')
         });
         response.end(results);
     } else {
@@ -114,7 +115,8 @@ const httpOrhttps = (enableHTTPS ? https : http);
 
 const server = httpOrhttps.createServer(options, (request, response) => {
 
-    const parsedUrl = parseUrl(request.url);
+    const parsedUrl = parseUrl(request.url),
+        referer = request.headers['referer'];
 
     const urlPath = parsedUrl.pathname,
         searchParams = parsedUrl.searchParams;
@@ -164,7 +166,7 @@ const server = httpOrhttps.createServer(options, (request, response) => {
         return;
     }
 
-    listDir(`${runDir}/${urlPath}`, response);
+    listDir(`${runDir}/${urlPath}`, response, referer);
 });
 
 try {
