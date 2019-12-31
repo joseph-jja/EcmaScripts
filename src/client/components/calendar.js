@@ -231,8 +231,6 @@ Calendar.prototype.getCalendarDate = function () {
 };
 
 Calendar.prototype.setCalendarDate = function ( mm, dd, yyyy ) {
-    this.date.setMonth( mm );
-    this.date.setDate( dd );
-    this.date.setFullYear( yyyy );
+    this.date = new Date(yyyy, mm, dd);
     this.render();
 };
