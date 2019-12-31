@@ -44,10 +44,10 @@ DateFunctions.getDaysInMonth = function ( dIn ) {
 
 // simple method to set the date given m - d - y
 DateFunctions.setFullDate = function ( m, d, y ) {
-    let today = new Date();
-    today.setMonth( m );
-    today.setDate( d );
-    today.setFullYear( y );
+    let today = Date.UTC();
+    today.setUTCMonth( m );
+    today.setUTCDate( d );
+    today.setUTCFullYear( y );
     return today;
 };
 
