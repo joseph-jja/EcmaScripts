@@ -19,9 +19,9 @@ DateFunctions.getFirstOfMonthDayOfWeek = function ( dIn ) {
 
 // get the number of days in the month
 DateFunctions.getDaysInMonth = function ( dIn ) {
-    const today = new Date( dIn.getTime() ); // day of the month
-    const month = today.getMonth();
-    const year = today.getFullYear();
+    const today = Date.UTC( dIn.getUTCFullYear(), dIn.getUTCMonth(), dIn.getUTCDate() ); // day of the month
+    const month = today.getUTCMonth();
+    const year = today.getUTCFullYear();
     if ( month === 1 ) {
         if ( ( year % 4 ) === 0 ) {
             if ( ( year % 400 ) === 0 ) {
@@ -41,7 +41,7 @@ DateFunctions.getDaysInMonth = function ( dIn ) {
 
 // simple method to set the date given m - d - y
 DateFunctions.setFullDate = function ( m, d, y ) {
-    return Date.UTC(y, m, d);
+    return Date.UTC( y, m, d );
 };
 
 // find out if that was AM or PM as we want 12 hour clock not 24
