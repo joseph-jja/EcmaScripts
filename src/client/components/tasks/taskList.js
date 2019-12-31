@@ -223,6 +223,7 @@ function TaskList() {
                 tasksToImport.forEach( item => {
 
                     const options = {
+                        'key': item.key,
                         'completed': item.completed,
                         'work_date': item[ 'work_date' ],
                         'start_date': item[ 'start_date' ] || item[ 'work_date' ],
@@ -250,8 +251,7 @@ function TaskList() {
             const rows = data.map( ( item ) => {
 
                 return {
-                    key: item.key,
-                    id: item.key,
+                    'key': item.key,
                     'short_description': item.value.short_description,
                     'long_description': item.value.long_description,
                     'work_date': item.value.work_date,
