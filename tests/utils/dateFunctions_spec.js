@@ -1,6 +1,6 @@
 import DF from "utils/dateFunctions";
 
-fdescribe( "date functions tests", function () {
+describe( "date functions tests", function () {
 
     it( "test getFirstOfMonthDayOfWeek Apr 3, 2016", function () {
         const x = new Date();
