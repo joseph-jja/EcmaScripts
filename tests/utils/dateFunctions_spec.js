@@ -1,12 +1,12 @@
 import DF from "utils/dateFunctions";
 
-describe( "date functions tests", function () {
+fdescribe( "date functions tests", function () {
 
-    it( "test getFirstOfMonthDayOfWeek", function () {
+    it( "test getFirstOfMonthDayOfWeek Apr 3, 2016", function () {
         const x = new Date();
         x.setFullYear( 2016 );
-        x.setMonth( 3 );
         x.setDate( 3 );
+        x.setMonth( 3 );
         expect( DF.getFirstOfMonthDayOfWeek( x ) ).toEqual( 5 );
     } );
 
