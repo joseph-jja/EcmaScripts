@@ -224,6 +224,7 @@ function TaskList() {
 
                     const options = {
                         'key': item.key,
+                        'id': item.key,
                         'completed': item.completed,
                         'work_date': item[ 'work_date' ],
                         'start_date': item[ 'start_date' ] || item[ 'work_date' ],
@@ -232,10 +233,17 @@ function TaskList() {
                         'long_description': item[ 'long_description' ]
                     };
 
-                    options.callback = ( evt, err ) => {};
-
-                    tasks.create( options );
-
+                    options.callback = ( evt, err ) => {
+                        options.callback = ( evt, err ) => {};
+                        if ( err ) {
+                            delete options.key;
+                            delete options.id;
+                            tasks.create( options );
+                        } else {
+                            tasks.update( options );
+                        }
+                    };
+                    tasks.fetch( options );
                 } );
                 console.log( data );
             } ).catch( ( err ) => {
@@ -252,6 +260,7 @@ function TaskList() {
 
                 return {
                     'key': item.key,
+                    'id': item.key,
                     'short_description': item.value.short_description,
                     'long_description': item.value.long_description,
                     'work_date': item.value.work_date,
