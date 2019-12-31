@@ -13,11 +13,8 @@ DateFunctions.weekDayNames = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thur
 
 // get the first day of the current month
 DateFunctions.getFirstOfMonthDayOfWeek = function ( dIn ) {
-    let fomd,
-        today = new Date( dIn.getTime() ); // day of the month
-    today.setDate( 1 );
-    fomd = today.getDay(); // day of the week
-    return fomd;
+    const today = Date.UTC( dIn.getUTCFullYear(), dIn.getUTCMonth(), 1 ); // day of the month
+    return today.getUTCDay(); // day of the week
 };
 
 // get the number of days in the month
@@ -44,11 +41,7 @@ DateFunctions.getDaysInMonth = function ( dIn ) {
 
 // simple method to set the date given m - d - y
 DateFunctions.setFullDate = function ( m, d, y ) {
-    let today = Date.UTC();
-    today.setUTCMonth( m );
-    today.setUTCDate( d );
-    today.setUTCFullYear( y );
-    return today;
+    return Date.UTC(y, m, d);
 };
 
 // find out if that was AM or PM as we want 12 hour clock not 24
