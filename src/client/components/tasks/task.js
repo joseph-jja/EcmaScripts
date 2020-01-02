@@ -49,6 +49,14 @@ export default class Task {
 
     }
 
+    clear( options ) {
+        this.indexedDB.clear( Constants.StoreName, ( evt, err ) => {
+            if ( options.callback ) {
+                options.callback( evt, err );
+            }
+        } );
+    }
+
     create( options = {} ) {
 
         this.record = getRecordFromOptions( options );
