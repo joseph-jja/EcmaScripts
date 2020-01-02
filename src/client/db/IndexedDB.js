@@ -66,6 +66,33 @@ SQLQuery.prototype.destroyDB = function ( dbName ) {
     window.indexedDB.deleteDatabase( dbName );
 };
 
+SQLQuery.prototype.clear = function ( storeName, callback ) {
+    const clearTransaction = () => {
+        let cbCalled = false;
+        const cbWrapper = ( evt, err ) => {
+            if ( !cbCalled ) {
+                callback( evt, err );
+                cbCalled = true;
+            }
+        };
+        const request = getObjectStore( this.iDB, storeName, "readwrite", cbWrapper ).clear();
+        processRequest( this, request, cbWrapper );
+    };
+    if ( this.isOpen ) {
+        clearTransaction();
+    } else {
+        this.open( this.name, storeName, this.version, ( evt, status ) => {
+            this.iDB = evt.target.result;
+            if ( status === Constants.DB_SUCCESS ) {
+                clearTransaction();
+            } else {
+                callback( evt, Constants.DB_ERROR );
+            }
+        } );
+    }
+};
+
+// callback gets the object data and success for fail
 SQLQuery.prototype.add = function ( storeName, data, callback ) {
     const addTransaction = () => {
         const request = getObjectStore( this.iDB, storeName, "readwrite" ).add( data );
