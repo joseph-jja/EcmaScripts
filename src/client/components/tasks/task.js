@@ -52,14 +52,18 @@ export default class Task {
     clear( options ) {
         this.indexedDB.clear( Constants.StoreName, ( evt, err ) => {
             if ( options.callback ) {
-                options.callback( evt, err );
+                options.callback( evt );
             }
         } );
     }
 
-    create( options = {} ) {
+    create( options = {}, isImport = false ) {
 
         this.record = getRecordFromOptions( options );
+
+        if ( isImport && options.key ) {
+            this.record.key = options.key;
+        }
 
         this.indexedDB.add( Constants.StoreName, this.record, ( evt, err ) => {
             if ( options.callback ) {

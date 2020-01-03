@@ -220,32 +220,26 @@ function TaskList() {
             .then( ( data ) => {
                 console.log( 'success' );
                 const tasksToImport = JSON.parse( data );
-                tasksToImport.forEach( item => {
+                tasks.clear( {
+                    callback: ( evt, err ) => {
+                        tasksToImport.forEach( item => {
 
-                    const options = {
-                        'key': item.key,
-                        'id': item.key,
-                        'completed': item.completed,
-                        'work_date': item[ 'work_date' ],
-                        'start_date': item[ 'start_date' ] || item[ 'work_date' ],
-                        'end_date': item[ 'end_date' ] || ( item.completed ? item[ 'work_date' ] : '' ),
-                        'short_description': item[ 'short_description' ],
-                        'long_description': item[ 'long_description' ]
-                    };
+                            const options = {
+                                'key': item.key,
+                                'completed': item.completed,
+                                'work_date': item[ 'work_date' ],
+                                'start_date': item[ 'start_date' ] || item[ 'work_date' ],
+                                'end_date': item[ 'end_date' ] || ( item.completed ? item[ 'work_date' ] : '' ),
+                                'short_description': item[ 'short_description' ],
+                                'long_description': item[ 'long_description' ]
+                            };
 
-                    options.callback = ( evt, err ) => {
-                        options.callback = ( evt, err ) => {};
-                        if ( err ) {
-                            delete options.key;
-                            delete options.id;
-                            tasks.create( options );
-                        } else {
-                            tasks.update( options );
-                        }
-                    };
-                    tasks.fetch( options );
+                            options.callback = ( evt, err ) => {};
+                            tasks.create( options, true );
+                        } );
+                        console.log( data );
+                    }
                 } );
-                console.log( data );
             } ).catch( ( err ) => {
                 console.log( err );
             } );

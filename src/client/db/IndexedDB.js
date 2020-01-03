@@ -68,14 +68,10 @@ SQLQuery.prototype.destroyDB = function ( dbName ) {
 
 SQLQuery.prototype.clear = function ( storeName, callback ) {
     const clearTransaction = () => {
-        let cbCalled = false;
         const cbWrapper = ( evt, err ) => {
-            if ( !cbCalled ) {
-                callback( evt, err );
-                cbCalled = true;
-            }
+            console.log( 'Callback ' + err );
         };
-        const request = getObjectStore( this.iDB, storeName, "readwrite", cbWrapper ).clear();
+        const request = getObjectStore( this.iDB, storeName, "readwrite", callback ).clear();
         processRequest( this, request, cbWrapper );
     };
     if ( this.isOpen ) {
@@ -95,8 +91,16 @@ SQLQuery.prototype.clear = function ( storeName, callback ) {
 // callback gets the object data and success for fail
 SQLQuery.prototype.add = function ( storeName, data, callback ) {
     const addTransaction = () => {
-        const request = getObjectStore( this.iDB, storeName, "readwrite" ).add( data );
-        processRequest( this, request, callback );
+        if ( data.key ) {
+            const key = data.key;
+            const ndata = Object.assign( {}, data );
+            delete ndata.key;
+            const request = getObjectStore( this.iDB, storeName, "readwrite" ).add( data, key );
+            processRequest( this, request, callback );
+        } else {
+            const request = getObjectStore( this.iDB, storeName, "readwrite" ).add( data );
+            processRequest( this, request, callback );
+        }
     };
     if ( this.isOpen ) {
         addTransaction();
