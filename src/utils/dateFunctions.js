@@ -44,7 +44,7 @@ DateFunctions.getDaysInMonth = function ( dIn ) {
 
 // simple method to set the date given m - d - y
 DateFunctions.setFullDate = function ( m, d, y ) {
-    return  new Date(y, m, d);
+    return new Date( y, m, d );
 };
 
 // find out if that was AM or PM as we want 12 hour clock not 24
