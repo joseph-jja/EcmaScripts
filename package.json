@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "styles": "node tools/css-compressor.js",
-    "eslint": "./node_modules/.bin/eslint --quiet -c config/eslint.json .",
+    "eslint": "npx gulp",
     "clean": "rm -rf js work npm-debug.log coverage",
-    "build": "./node_modules/gulp/bin/gulp.js && ./node_modules/.bin/webpack --config config/webpack.js",
-    "analyze": "./node_modules/.bin/webpack --json --config config/webpack.js > stats.json",
+    "beautify": "npx gulp",
+    "build": "npx webpack --config config/webpack.js",
+    "analyze": "npx webpack --json --config config/webpack.js > stats.json",
     "test": "./node_modules/karma/bin/karma start config/karma.conf.js"
   },
   "repository": {

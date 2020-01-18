@@ -53,6 +53,7 @@ module.exports = {
         "sourceMapFilename": "[file].source.map"
     },
     optimization: {
+
         minimize: true,
         minimizer: [ new TerserPlugin() ]
     },
