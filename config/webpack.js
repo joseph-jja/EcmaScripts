@@ -2,7 +2,7 @@ var path = require( "path" ),
     webpack = require( "webpack" ),
     fs = require( 'fs' ),
     baseDir = process.cwd(),
-    UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' ),
+    TerserPlugin = require( 'terser-webpack-plugin' ),
     babelConfig = JSON.parse( fs.readFileSync( `${baseDir}/config/babel-config.json` ) );
 
 const eslintConfig = fs.readFileSync( path.resolve( "./config/eslint.json" ) ).toString();
@@ -52,7 +52,10 @@ module.exports = {
         "chunkFilename": "[file].bundle.js",
         "sourceMapFilename": "[file].source.map"
     },
-    optimization: {},
+    optimization: {
+        minimize: true,
+        minimizer: [ new TerserPlugin() ]
+    },
     resolve: {
         modules: [
             "node_modules",
@@ -79,30 +82,5 @@ module.exports = {
             options: esJSON
         } ]
     },
-    plugins: [
-        new UglifyJsPlugin( {
-            sourceMap: true,
-            uglifyOptions: {
-                maxLineLen: 10000,
-                compress: {
-                    "sequences": false,
-                    "properties": false,
-                    "dead_code": true,
-                    "drop_debugger": true,
-                    "unsafe": false,
-                    "conditionals": false,
-                    "comparisons": false,
-                    "evaluate": false,
-                    "booleans": false,
-                    "loops": false,
-                    "unused": false,
-                    "hoist_funs": false,
-                    "hoist_vars": true,
-                    "if_return": false,
-                    "join_vars": true,
-                    "side_effects": false
-                }
-            }
-        } )
-    ]
+    plugins: []
 };
