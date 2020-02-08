@@ -7,7 +7,7 @@
     "styles": "node tools/css-compressor.js",
     "eslint": "npx gulp",
     "clean": "rm -rf js work npm-debug.log coverage",
-    "beautify": "npx gulp",
+    "beautify": "node tools/beautify-all.js",
     "build": "npx webpack --config config/webpack.js",
     "analyze": "npx webpack --json --config config/webpack.js > stats.json",
     "test": "./node_modules/karma/bin/karma start config/karma.conf.js"
