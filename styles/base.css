@@ -154,6 +154,12 @@ footer ul li {
     .container>div {
         margin: 1em 1em 3em 0.5em;
     }
+
+    #resume-html,
+    #sofware-html,
+    #fins-info-section {
+        padding-bottom: 7.5em
+    }
 }
 
 .home-content {
