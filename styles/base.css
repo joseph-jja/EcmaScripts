@@ -135,7 +135,7 @@ footer ul li {
     #welcome-content {
         grid-column: 1 / span 2;
         grid-row: 2 / span 1;
-        max-height: 375px;
+        min-height: 375px;
         overflow: auto;
     }
 }
