@@ -10,7 +10,7 @@
     "beautify": "node tools/beautify-all.js",
     "build": "npx webpack --config config/webpack.js",
     "analyze": "npx webpack --json --config config/webpack.js > stats.json",
-    "test": "./node_modules/karma/bin/karma start config/karma.conf.js"
+    "test": "npx karma start config/karma.conf.js"
   },
   "repository": {
     "type": "git",
