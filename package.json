@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "styles": "node tools/css-compressor.js",
-    "eslint": "npx gulp",
+    "eslint": "sh tools/eslint.sh",
     "clean": "rm -rf js work npm-debug.log coverage",
     "beautify": "node tools/beautify-all.js",
     "build": "npx webpack --config config/webpack.js",
@@ -44,9 +44,6 @@
     "eslint": "6.8.0",
     "eslint-loader": "3.0.3",
     "eslint-scope": "^5.0.0",
-    "gulp": "^4.0.2",
-    "gulp-eslint": "6.0.0",
-    "gulp-jsbeautifier": "^3.0.1",
     "istanbul-instrumenter-loader": "^3.0.1",
     "jasmine-core": "^3.5.0",
     "jsdom": "16.0.0",
