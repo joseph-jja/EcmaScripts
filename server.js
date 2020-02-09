@@ -170,7 +170,7 @@ const server = httpOrhttps.createServer( options, ( request, response ) => {
 } );
 
 try {
-    const ipaddr = childProcess.execSync( 'ifconfig | grep inet ' ).toString();
+    const ipaddr = childProcess.execSync( '/sbin/ifconfig | grep inet ' ).toString();
     const rex = /[\d]*\.[\d]*\.[\d]*\.[\d]*/;
 
     const filtered = ipaddr.split( ' ' ).filter( item => {
