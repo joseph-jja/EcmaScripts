@@ -28,8 +28,8 @@ function tableSort() {
         const timeA = new Date( tdDateA ).getTime(),
             timeB = new Date( tdDateB ).getTime();
 
-        const delta = ( timeA - timeB );
-        if ( delta > 0 ) {
+        const delta = ( timeA > timeB );
+        if ( timeA > timeB ) {
             tbody.prepend( a );
         } else {
             tbody.prepend( b );
