@@ -136,6 +136,7 @@ const server = httpOrhttps.createServer( options, ( request, response ) => {
                     const filedata = JSON.parse( Buffer.concat( res ).toString() ).data;
                     saveFile( fullpath, filedata )
                         .then( () => {
+                            console.log( `File saved ${searchParams.saveFile}` );
                             response.setHeader( 'Connection', 'Close' );
                             response.writeHead( 200, {
                                 'Content-Type': 'text/html'
