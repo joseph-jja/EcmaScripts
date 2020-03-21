@@ -10,7 +10,7 @@ import {
 import {
     Star,
     Planet
-} from 'client/workers/space/celestialBody';
+} from 'client/components/space/celestialBody';
 
 const timeout = 100;
 
