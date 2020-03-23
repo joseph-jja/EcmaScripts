@@ -19,25 +19,25 @@ let center,
 
 function getStars( center, orbitalRadius, yOribialRadius ) {
 
-    return [ new Star({
+    return [ new Star( {
         color: '#FDB813',
-        radius: 24,
+        radius: 20,
         direction: 'counterClockwise',
         startAngle: 180,
         xRadius: orbitalRadius,
         yRadius: yOribialRadius,
         isFixedCenter: true,
         centerPoints: center
-    }), new Star({
+    } ), new Star( {
         color: '#FDB813',
-        radius: 18,
+        radius: 14,
         direction: 'counterClockwise',
         startAngle: 0,
         xRadius: orbitalRadius,
         yRadius: yOribialRadius,
         isFixedCenter: true,
         centerPoints: center
-    }) ];
+    } ) ];
 }
 
 onmessage = ( msg ) => {
@@ -46,14 +46,13 @@ onmessage = ( msg ) => {
         const width = msg.data.setWidthHeight[ 0 ],
             height = msg.data.setWidthHeight[ 1 ];
 
-        center = getRectangleCenter( width, height ); // [125,125] or [400, 300]
+        center = getRectangleCenter( width, height ); // [175, 175]
 
         const corner = getRectangleCorner( width, height );
-        const orbitalRadius = Math.ceil( divide( corner, ( width > 600 ? 1.5 : 1.25 ) ) ); // 120 or 51
-        const yOribialRadius = ( width > 600 ? add( orbitalRadius, 50 ) : orbitalRadius );
+        const orbitalRadius = Math.ceil( divide( corner, 1.35 ) );
 
         // stars
-        const gstars = getStars( center, orbitalRadius, yOribialRadius );
+        const gstars = getStars( center, orbitalRadius, orbitalRadius );
         const bigStar = gstars[ 0 ],
             smallerStar = gstars[ 1 ];
 
@@ -63,7 +62,7 @@ onmessage = ( msg ) => {
         ];
 
         // planets
-        const planetRadius = Math.floor( divide( orbitalRadius, ( width > 600 ? 3 : 1.65 ) ) );
+        const planetRadius = Math.floor( divide( orbitalRadius, 1.65 ) );
         const smallPlanet = new Planet( {
             color: '#17e3ea',
             radius: 3,
@@ -74,8 +73,8 @@ onmessage = ( msg ) => {
             xRadius: planetRadius
         } );
 
-        const pradius = add( planetRadius, ( width > 600 ? 28 : 17 ) );
-        const xradius = add( pradius, ( width > 600 ? 50 : 8 ) );
+        const pradius = add( planetRadius, 17 );
+        const xradius = add( pradius, 8 );
         const planetTwo = new Planet( {
             color: '#17e3ea',
             radius: 7,
@@ -87,11 +86,11 @@ onmessage = ( msg ) => {
             yRadius: xradius
         } );
 
-        const ePradius = add( orbitalRadius, 75 );
-        const exradius = add( ePradius, 55 );
+        const ePradius = add( orbitalRadius, 25 );
+        const exradius = add( ePradius, 15 );
         const planetThree = new Planet( {
             color: '#17e3ea',
-            radius: ( width > 600 ? 6 : 0 ),
+            radius: 5,
             direction: 'counterClockwise',
             startAngle: 270,
             speed: 1,
@@ -100,11 +99,9 @@ onmessage = ( msg ) => {
         } );
 
         const planets = [ smallPlanet.getVisablePosition( stars[ 0 ] ),
-            planetTwo.getVisablePosition( stars[ 0 ] )
+            planetTwo.getVisablePosition( stars[ 0 ] ),
+            planetThree.getVisablePosition( stars[ 0 ] )
         ];
-        if ( width > 600 ) {
-            planets.push( planetThree.getVisablePosition( stars[ 0 ] ) );
-        }
 
         postMessage( {
             stars: {
@@ -128,13 +125,10 @@ onmessage = ( msg ) => {
                 mPlanetTwo = planetTwo.getNextPosition();
             const blackPlanets = [
                 sPlanetOne.hidden,
-                mPlanetTwo.hidden
+                mPlanetTwo.hidden,
+                planetThree.getHiddenPosition( black[ 0 ] )
             ];
-            if ( width > 600 ) {
-                blackPlanets.push( planetThree.getHiddenPosition( black[ 0 ] ) );
-            }
 
-            // increment planets
             planetThree.increment();
 
             const white = [
@@ -143,34 +137,9 @@ onmessage = ( msg ) => {
             ];
             const whitePlanets = [
                 sPlanetOne.visable,
-                mPlanetTwo.visable
+                mPlanetTwo.visable,
+                planetThree.getVisablePosition( white[ 0 ] )
             ];
-            if ( width > 600 ) {
-                whitePlanets.push( planetThree.getVisablePosition( white[ 0 ] ) );
-
-                // check if 2 circles intersect
-                const mfCentersDistance = distanceBetweenCirclesCenters( whitePlanets[ 1 ].x, whitePlanets[ 1 ].y, whitePlanets[ 2 ].x, whitePlanets[ 2 ].y );
-                const centersDistance = Math.ceil( square( mfCentersDistance ) );
-
-                // radius + 5 in case they are near
-                const radiusIntersect = square( add( 7, 6 ) ),
-                    radiusClose = square( add( 7, 5, 6, 5 ) );
-
-                // touch
-                if ( centersDistance === radiusIntersect ) {
-                    console.log( 'Touching %s %s %s %s', whitePlanets[ 1 ].x, whitePlanets[ 1 ].y, whitePlanets[ 2 ].x, whitePlanets[ 2 ].y );
-                }
-                if ( centersDistance === radiusClose ) {
-                    console.log( 'Close touching %s %s %s %s', whitePlanets[ 1 ].x, whitePlanets[ 1 ].y, whitePlanets[ 2 ].x, whitePlanets[ 2 ].y );
-                }
-                // intersect
-                if ( centersDistance < radiusIntersect ) {
-                    console.log( 'Intersecting %s %s %s %s', whitePlanets[ 1 ].x, whitePlanets[ 1 ].y, whitePlanets[ 2 ].x, whitePlanets[ 2 ].y );
-                }
-                if ( centersDistance < radiusClose ) {
-                    console.log( 'Close intersecting %s %s %s %s', whitePlanets[ 1 ].x, whitePlanets[ 1 ].y, whitePlanets[ 2 ].x, whitePlanets[ 2 ].y );
-                }
-            }
 
             postMessage( {
                 stars: {
