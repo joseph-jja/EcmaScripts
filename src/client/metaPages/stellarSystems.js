@@ -19,7 +19,7 @@ function setupStarSystem() {
     if ( screenWidth > 800 ) {
         canvasRef = canvas.create( 'star-system', 'canvas-container', 800, 700 );
     } else {
-        canvasRef = canvas.create( 'star-system', 'canvas-container', 250, 250 );
+        canvasRef = canvas.create( 'star-system', 'canvas-container', 350, 350 );
     }
 
     // make canvas black
