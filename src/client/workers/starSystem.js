@@ -19,7 +19,7 @@ let center,
 
 function getStars( center, orbitalRadius, yOribialRadius ) {
 
-    return [ {
+    return [ new Star({
         color: '#FDB813',
         radius: 24,
         direction: 'counterClockwise',
@@ -28,7 +28,7 @@ function getStars( center, orbitalRadius, yOribialRadius ) {
         yRadius: yOribialRadius,
         isFixedCenter: true,
         centerPoints: center
-    }, {
+    }), new Star({
         color: '#FDB813',
         radius: 18,
         direction: 'counterClockwise',
@@ -37,7 +37,7 @@ function getStars( center, orbitalRadius, yOribialRadius ) {
         yRadius: yOribialRadius,
         isFixedCenter: true,
         centerPoints: center
-    } ];
+    }) ];
 }
 
 onmessage = ( msg ) => {
@@ -48,14 +48,14 @@ onmessage = ( msg ) => {
 
         center = getRectangleCenter( width, height ); // [125,125] or [400, 300]
 
-        const orbitalRadius = Math.ceil( divide( getRectangleCorner( width, height ), ( width > 600 ? 1.5 : 1.25 ) ) ); // 120 or 51
-
+        const corner = getRectangleCorner( width, height );
+        const orbitalRadius = Math.ceil( divide( corner, ( width > 600 ? 1.5 : 1.25 ) ) ); // 120 or 51
         const yOribialRadius = ( width > 600 ? add( orbitalRadius, 50 ) : orbitalRadius );
 
         // stars
         const gstars = getStars( center, orbitalRadius, yOribialRadius );
-        const bigStar = new Star( gstars[ 0 ] ),
-            smallerStar = new Star( gstars[ 1 ] );
+        const bigStar = gstars[ 0 ],
+            smallerStar = gstars[ 1 ];
 
         const stars = [
             bigStar.getInitialPosition(),
