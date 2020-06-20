@@ -14,8 +14,9 @@
   * remove npm-debug.log
   * remove work directory 
   * remove js directory 
+* npm run beautify
+  * beautify files in project repo
 * npm run build
-  * gulp is used to beautify js files and run eslint on the files
   * webpack runs eslint and babel and creates js directory with output files 
 * npm run tests
   * runs all the tests
