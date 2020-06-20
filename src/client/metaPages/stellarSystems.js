@@ -13,9 +13,13 @@ const screenWidth = dom.screen.maxx();
 let starSystemWorker,
     canvasRef;
 
+function getWorker( filename ) {
+    return exists( Worker ) ? new Worker( filename ) : undefined;
+}
+
 function setupStarSystem() {
 
-    starSystemWorker = exists( Worker ) ? new Worker( '/js/starSystem.js' ) : undefined;
+    starSystemWorker = getWorker( '/js/starSystem.js' );
     canvasRef = canvas.create( 'star-system', 'canvas-container', 350, 350 );
 
     // make canvas black
