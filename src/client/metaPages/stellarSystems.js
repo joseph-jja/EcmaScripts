@@ -35,26 +35,24 @@ function startStarSystem() {
             requestAnimationFrame( () => {
 
                 if ( msg.data.stars ) {
-                    const stars = msg.data.stars,
-                        black = stars.black,
-                        white = stars.white,
-                        planets = msg.data.planets,
-                        shownPlanet = planets.shownPlanet,
-                        blackPlanet = planets.blackPlanet;
+                    const msgData = msg.data,
+                        stars = msgData.stars,
+                        planets = msgData.planets;
 
-                    // because we want them done in order
-                    // black items don't come the first time
-                    // so we filter them out, then
-                    // we reduce into 1 array
-                    // finally render to canvas each item
-                    [ black, white, blackPlanet, shownPlanet ].filter( item => {
-                        if ( item ) {
-                            return true;
-                        }
-                        return false;
-                    } ).reduce( ( acc, item ) => {
-                        return acc.concat( item );
-                    } ).forEach( item => {
+                    const starsList = Object.keys( stars ).map( item => {
+                        return stars[ item ];
+                    } ).reduce( ( acc, next ) => {
+                        return acc.concat( next );
+                    } );
+
+                    const planetsList = Object.keys( planets ).map( item => {
+                        return planets[ item ];
+                    } ).reduce( ( acc, next ) => {
+                        return acc.concat( next );
+                    } );
+
+                    const starsNPlanets = Array.from( starsList ).concat( Array.from( planetsList ) );
+                    starsNPlanets.forEach( item => {
                         canvasRef.circle( item.x, item.y, item.radius, {
                             color: item.color,
                             fillStrokeClear: 'fill'
