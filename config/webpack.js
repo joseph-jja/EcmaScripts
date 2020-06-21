@@ -25,6 +25,7 @@ module.exports = {
         "index": "./src/client/pages/index",
         "simpleBARTAPI": "./src/client/pages/simpleBARTAPI",
         "starSystem": "./src/client/workers/starSystem",
+        "triStarSystem": "./src/client/workers/triStarSystem",
         "taskManager": "./src/client/pages/taskManager",
         "textEditor": "./src/client/pages/textEditor",
         "rssEditor": "./src/client/pages/rssEditor",
