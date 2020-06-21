@@ -173,9 +173,9 @@ footer ul li {
     width: 100%;
 }
 
-#star-system {
+#canvas-container canvas {
     padding: 0;
-    margin: auto;
+    margin: 1em auto;
     display: block;
     border: 1px solid black;
 }
