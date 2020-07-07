@@ -176,8 +176,8 @@ footer ul li {
 #canvas-container canvas {
     padding: 0;
     margin: 1em auto;
-    display: block;
-    border: 1px solid black;
+    padding: 1em;
+    display: inline-block;
 }
 
 .section-heading {
