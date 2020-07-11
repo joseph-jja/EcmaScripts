@@ -96,6 +96,8 @@ async function listDir( dir, response, referer = '' ) {
             ltype = 'text/css';
         } else if ( fullpath.substring( fullpath.length - 3 ) === '.js' ) {
             ltype = 'text/css';
+        } else if ( fullpath.substring( fullpath.length - 4 ) === '.jpg' ) {
+            ltype = 'image/jpg';
         }
 
         response.writeHead( 200, {
