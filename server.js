@@ -100,6 +100,8 @@ async function listDir( dir, response, referer = '' ) {
             ltype = 'image/jpg';
         } else if ( fullpath.substring( fullpath.length - 5 ) === '.mpeg' ) {
             ltype = 'video/mpeg';
+        } else if ( fullpath.substring( fullpath.length - 4 ) === '.mp4' ) {
+            ltype = 'video/mp4';
         }
 
         response.writeHead( 200, {
