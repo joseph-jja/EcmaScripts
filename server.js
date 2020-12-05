@@ -98,6 +98,8 @@ async function listDir( dir, response, referer = '' ) {
             ltype = 'text/css';
         } else if ( fullpath.substring( fullpath.length - 4 ) === '.jpg' ) {
             ltype = 'image/jpg';
+        } else if ( fullpath.substring( fullpath.length - 4 ) === '.png' ) {
+            ltype = 'image/png';
         } else if ( fullpath.substring( fullpath.length - 5 ) === '.mpeg' ) {
             ltype = 'video/mpeg';
         } else if ( fullpath.substring( fullpath.length - 4 ) === '.mp4' ) {
