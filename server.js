@@ -44,7 +44,8 @@ const parentDir = {
 
 async function listDir( dir, response, referer = '' ) {
 
-    const fullpath = path.resolve( runDir, dir );
+    const cdir = dir.replace( /\/\//g, '/' );
+    const fullpath = path.resolve( runDir, cdir );
     const isDir = await statfile( fullpath );
 
     const isEditor = ( referer.indexOf( 'views/web-editor.html' ) > -1 );
@@ -78,7 +79,7 @@ async function listDir( dir, response, referer = '' ) {
                     url = `<li class="dir_type">${fname}</li>`;
                 }
             } else {
-                url = `<a href="${fname}">${fname}</a><br>`;
+                url = `<a href="/${fname}">${fname}</a><br>`;
             }
             return url;
         } ).reduce( ( acc, item ) => {
