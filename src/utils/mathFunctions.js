@@ -209,7 +209,10 @@ const hexidecimal = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B"
  * not so good at converting from base 10 to base 10
  * up to base 16 or HEX */
 function convertFromBaseTenToBaseX( xbase, inval ) {
-    let xinval = inval;
+
+    return inval.toString( xbase ).toUpperCase();
+
+    /* let xinval = inval;
     let remainder = hexidecimal[ xinval % xbase ];
     while ( xinval >= xbase ) {
         let r1 = subtract( xinval, ( xinval % xbase ) );
@@ -221,7 +224,7 @@ function convertFromBaseTenToBaseX( xbase, inval ) {
             remainder = hexidecimal[ xinval ] + remainder;
         }
     }
-    return remainder;
+    return remainder; */
 };
 
 /* convert from base x to base ten
