@@ -37,13 +37,15 @@ async function BuildEarthquakeUI() {
 
     const items = quakes.map( quake => {
 
-        return `<div>${quake.title}</div>`;
+        return `<tr><td>${quake.title}</td><td>${new Date(quake.time)}</td></tr>`;
 
     } ).reduce( ( acc, item ) => {
         return acc + item;
     } );
 
-    return `<div id="earthquake-list">${items}</div>`;
+    const tableHeader = '<table><tr><th>Title</th><th>Time</th></tr>';
+
+    return `<div id="earthquake-list">${tableHeader}${items}</table></div>`;
 }
 
 function getMainWindow() {
