@@ -14,7 +14,7 @@ export default function addEditTask( taskId = '', workDate = new Date(),
 <label>Short Description: </label><input type="text" name="short_description" id="short_description" size="80" value="${shortDescription}">
 
 <label>Long Description: </label>
-<textarea name="long_description" id="long_description" ros="4" cols="80">${longDescription}</textarea>
+<textarea name="long_description" id="long_description" rows="10" cols="80">${longDescription}</textarea>
 
 <label>Completed: </label>
 <input type="checkbox" name="completed" id="completed" ${isChecked}>
