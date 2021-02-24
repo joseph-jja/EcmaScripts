@@ -3,3 +3,12 @@
     margin-left: 2em;
     margin-top: 0.5em;
 }
+
+#earthquake-list table {
+    border: 1px solid black;
+}
+
+#earthquake-list td {
+    border: 1px solid black;
+    margin: 1em;
+}
