@@ -46,7 +46,7 @@ module.exports = {
         "tropicalFish": "./src/client/pages/tropicalFish"
     },
     context: path.resolve( "." ),
-    devtool: "none",
+    devtool: "cheap-source-map",
     output: {
         "path": `${baseDir}/js`,
         "filename": "[name].js",

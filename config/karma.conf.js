@@ -61,18 +61,24 @@ module.exports = function ( config ) {
             module: {
                 rules: [ {
                     test: /\.js$/,
-                    exclude: /(node_modules)/,
-                    loader: 'babel-loader',
-                    query: babelConfig
+                    exclude: /node_modules/,
+                    use: {
+                        loader: "babel-loader",
+                        options: babelConfig
+                    }
                 }, {
                     test: /\.js$/,
                     exclude: /(node_modules|tests)/,
-                    loader: 'istanbul-instrumenter-loader',
-                    query: {
-                        esModules: true
+                    use: {
+                        loader: 'istanbul-instrumenter-loader',
+                        options: {
+                            esModules: true
+                        }
                     }
                 } ]
             },
+            plugins: [],
+            context: webpackConfig.context,
             resolve: webpackConfig.resolve
         },
 
