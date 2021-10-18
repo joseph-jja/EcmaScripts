@@ -1,16 +1,23 @@
 import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
 
-import footer from 'client/components/footer';
-import * as menu from 'client/components/menu';
+import WebWindow from 'client/components/wbWindow';
 import * as canvas from 'client/components/canvas';
 
 events.addOnLoad( () => {
 
-    menu.basicMenu();
-    footer( 'footer' );
+    const mw = document.getElementById( 'main-window' );
+    const styles = window.getComputedStyle( mw );
 
-    var res = canvas.create( "canvasTest", "container", 600, 430 );
+    return new WebWindow( 'Canvas Test',
+        styles.offsetLeft,
+        styles.offsetTop,
+        styles.offsetWidth,
+        styles.offsetHeight,
+        'main-window' );
+
+
+    var res = canvas.create( "canvasTest", "canvas-container", 800, 600 );
     if ( res && res.canvas && res.ctx ) {
         res.circle( 50, 50, 75, {
             "color": "orange"
