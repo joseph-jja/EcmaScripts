@@ -7,11 +7,11 @@ import WebWindow from 'client/components/wbWindow';
 import * as canvas from 'client/components/canvas';
 
 function generateCanvas( ){
-    
+
     const mw = document.getElementById( 'main-window' );
     const styles = window.getComputedStyle( mw );
 
-    return new WebWindow( 'Canvas Test',
+    const webWin = new WebWindow( 'Canvas Test',
         styles.offsetLeft,
         styles.offsetTop,
         styles.offsetWidth,
@@ -112,4 +112,3 @@ function generateCanvas( ){
 }
 
 addOnLoad( generateCanvas );
-
