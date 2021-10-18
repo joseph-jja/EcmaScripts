@@ -18,21 +18,21 @@ function generateCanvas( ){
         styles.offsetHeight,
         'main-window' );
 
-    const res = canvas.create( "canvas-test", "canvas-container", 800, 600 );
+    const res = canvas.create( "canvas-test", "canvas-container", 800, 500 );
     if ( res && res.canvas && res.ctx ) {
         res.circle( 50, 50, 75, {
             "color": "orange"
         } );
 
-        res.halfCircle( 200, 50, 50, {
+        res.halfCircle( 200, 100, 50, {
             "color": "blue"
         } );
 
-        res.hexagon( 50, 50, 75, {
+        res.hexagon( 100, 100, 75, {
             "color": "red"
         } );
 
-        res.octagon( 50, 50, 75, {
+        res.octagon( 100, 100, 75, {
             "color": "purple"
         } );
 
@@ -88,7 +88,7 @@ function generateCanvas( ){
             "fillStrokeClear": "fill"
         } );
 
-        res.circle( 50, 30, 75, {
+        res.circle( 100, 230, 75, {
             "color": "blue"
         } );
 
