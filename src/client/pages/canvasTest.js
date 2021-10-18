@@ -16,7 +16,7 @@ events.addOnLoad( () => {
         styles.offsetHeight,
         'main-window' );
 
-    var res = canvas.create( "canvasTest", "canvas-container", 800, 600 );
+    const res = canvas.create( "canvasTest", "canvas-container", 800, 600 );
     if ( res && res.canvas && res.ctx ) {
         res.circle( 50, 50, 75, {
             "color": "orange"
@@ -102,7 +102,7 @@ events.addOnLoad( () => {
         //         })();
 
     } else {
-        var msg = dom.createElement( "div", "container" );
+        const msg = dom.createElement( "div", "container" );
         if ( msg ) {
             msg.innerHTML = "I guess your browser does not support the canvas object!";
         }
