@@ -1,11 +1,13 @@
 import * as dom from 'client/dom/DOM';
-import * as events from 'client/dom/events';
+import {
+    addOnLoad
+} from 'client/dom/events';
 
 import WebWindow from 'client/components/wbWindow';
 import * as canvas from 'client/components/canvas';
 
-events.addOnLoad( () => {
-
+function generateCanvas( ){
+    
     const mw = document.getElementById( 'main-window' );
     const styles = window.getComputedStyle( mw );
 
@@ -16,7 +18,7 @@ events.addOnLoad( () => {
         styles.offsetHeight,
         'main-window' );
 
-    const res = canvas.create( "canvasTest", "canvas-container", 800, 600 );
+    const res = canvas.create( "canvas-test", "canvas-container", 800, 600 );
     if ( res && res.canvas && res.ctx ) {
         res.circle( 50, 50, 75, {
             "color": "orange"
@@ -107,4 +109,7 @@ events.addOnLoad( () => {
             msg.innerHTML = "I guess your browser does not support the canvas object!";
         }
     }
-} );
+}
+
+addOnLoad( generateCanvas );
+
