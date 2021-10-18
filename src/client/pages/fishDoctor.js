@@ -19,7 +19,7 @@ function generateFish( )
         styles.offsetHeight,
         'main-window' );
 
-    const res = canvas.create( "canvas-test", "canvas-container", 800, 500 );
+    const res = canvas.create( "fish-doctor", "canvas-container", 800, 500 );
     window.canvasRef = res;
 }
 
