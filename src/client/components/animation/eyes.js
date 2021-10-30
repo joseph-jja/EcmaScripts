@@ -5,11 +5,12 @@ export function setupEyes( canvas ) {
         const eyeOptions = Object.assign( {}, options );
         
         // handle white of the eye
-        eyeOptions.color = eyeOptions.eyeColor || 'white';
         eyeOptions.shape = ( options.shape &&
             ( options.shape === 'circle' || options.shape === 'oval' ) ?
             options.shape : 'circle' );
 
+        eyeOptions.color = eyeOptions.eyeColor || 'black';
+        eyeOptions.fillStrokeClear = eyeOptions.pupalColor || 'stroke';
         if ( eyeOptions.shape === 'oval' && eyeOptions.eyeWidth && eyeOptions.eyeHeight ) {
             canvas.oval( xCenter, yCenter, eyeOptions.eyeWidth, eyeOptions.eyeHeight, eyeOptions );
         } else {
