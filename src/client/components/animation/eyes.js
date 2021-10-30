@@ -18,12 +18,12 @@ export function setupEyes( canvas ) {
 
         // handle pupal
         eyeOptions.color = eyeOptions.pupalColor || 'brown';
-        eyeOptions.fillStrokeClear = eyeOptions.pupalColor || 'brown';
+        eyeOptions.fillStrokeClear = eyeOptions.pupalColor || 'fill';
         canvas.circle( xIrisCenter, yIrisCenter, eyeOptions.pupalRadius || 15, eyeOptions );
 
         // handle iris
         eyeOptions.color = eyeOptions.irisColor || 'black';
-        eyeOptions.fillStrokeClear = eyeOptions.irisColor || 'black';
+        eyeOptions.fillStrokeClear = eyeOptions.irisColor || 'fill';
         canvas.circle( xIrisCenter, yIrisCenter, eyeOptions.irisRadius || 10, eyeOptions );
     };
 }
