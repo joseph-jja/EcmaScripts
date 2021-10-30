@@ -20,7 +20,7 @@ function setProperties( canvas ) {
 
     canvas.line = function ( startX, startY, endX, endY, options ) {
 
-        var cx, offsetX = 0,
+        let cx, offsetX = 0,
             offsetY = 0,
             ox, oy,
             color, rotateAngle;
@@ -60,7 +60,7 @@ function setProperties( canvas ) {
 
     canvas.circle = function ( x, y, radius, options ) {
 
-        var stroke, cx, color, fillStrokeClear;
+        let stroke, cx, color, fillStrokeClear;
 
         cx = this.ctx;
 
@@ -82,7 +82,7 @@ function setProperties( canvas ) {
 
     canvas.halfCircle = function ( x, y, radius, options ) {
 
-        var stroke, cx, offsetX = 0,
+        let stroke, cx, offsetX = 0,
             offsetY = 0,
             color, rotateAngle, fillStrokeClear, openTop;
 
@@ -126,7 +126,7 @@ function setProperties( canvas ) {
         // the bezierCurve code and kappa was taken from stack overflow
         // rotation has been added
         // also we adjust the x and y to be the middle of the oval instead of the top left and right positions
-        var stroke, cx, color, fillStrokeClear, rotateAngle, offsetX = 0,
+        let stroke, cx, color, fillStrokeClear, rotateAngle, offsetX = 0,
             offsetY = 0,
             kappa = .5522848,
             x = xi - w / 2, // adjust x to be the real middle
@@ -177,7 +177,7 @@ function setProperties( canvas ) {
     // fillStrokeClear is either fill stroke or clear
     canvas.rectangle = function ( x, y, width, height, options ) {
 
-        var stroke, cx, offsetX = 0,
+        let stroke, cx, offsetX = 0,
             offsetY = 0,
             color, rotateAngle, fillStrokeClear;
 
@@ -216,7 +216,7 @@ function setProperties( canvas ) {
 
     canvas.triangle = function ( ax, ay, bx, by, cx, cy, options ) {
 
-        var ctx, stroke,
+        let ctx, stroke,
             offsetX = 0,
             offsetY = 0,
             color, rotateAngle, fillStrokeClear;
@@ -256,7 +256,8 @@ function setProperties( canvas ) {
     };
 
     canvas.equilateralTriangle = function ( ax, ay, size, options ) {
-        var c, psize, orientation;
+
+        let c, psize, orientation;
 
         if ( options ) {
             orientation = options[ 'orientation' ];
@@ -275,7 +276,7 @@ function setProperties( canvas ) {
 
     // x,y is center and size is the size of the side
     canvas.hexagon = function ( ax, ay, size, options ) {
-        var cx,
+        let cx,
             c, psize, stroke,
             fillStrokeClear, color, rotateAngle,
             offsetX = 0,
@@ -329,7 +330,7 @@ function setProperties( canvas ) {
 
     // x,y is center and size is the size of the side
     canvas.octagon = function ( x, y, size, options ) {
-        var cx,
+        let cx,
             c, psize, stroke,
             fillStrokeClear, color, rotateAngle, offsetX = 0,
             offsetY = 0;
@@ -390,13 +391,13 @@ function setProperties( canvas ) {
 // setup canvas and context
 // will set up all the methods on this object
 export function create( id, parent, width, height ) {
-    var cvs = {
-            canvas: null,
-            ctx: null,
-            width: 0,
-            height: 0
-        },
-        result;
+    const cvs = {
+        canvas: null,
+        ctx: null,
+        width: 0,
+        height: 0
+    };
+    let result;
 
     cvs.canvas = dom.createElement( "canvas", parent, {
         "id": id

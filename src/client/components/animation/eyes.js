@@ -23,6 +23,7 @@ export function setupEyes( canvas ) {
 
         // handle iris
         eyeOptions.color = eyeOptions.irisColor || 'black';
+        eyeOptions.fillStrokeClear = eyeOptions.irisColor || 'black';
         canvas.circle( xIrisCenter, yIrisCenter, eyeOptions.irisRadius || 10, eyeOptions );
-    }
+    };
 }

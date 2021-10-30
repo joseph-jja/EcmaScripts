@@ -1,10 +1,12 @@
-import * as dom from 'client/dom/DOM';
 import {
     addOnLoad
 } from 'client/dom/events';
 
 import WebWindow from 'client/components/wbWindow';
 import * as canvas from 'client/components/canvas';
+import {
+    setupEyes
+} from 'client/components/animation/eyes';
 
 function generateFish() {
 
@@ -19,13 +21,8 @@ function generateFish() {
         'main-window' );
 
     const res = canvas.create( "fish-doctor", "canvas-container", 800, 500 );
-    ref.circle( 650, 250, 10, {
-        color: 'black',
-        fillStrokeClear: 'fill'
-    } );
-    ref.circle( 650, 250, 20, {
-        color: 'black'
-    } );
+
+    setupEyes( res );
 
     window.canvasRef = res;
 }
