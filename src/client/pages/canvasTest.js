@@ -6,7 +6,7 @@ import {
 import WebWindow from 'client/components/wbWindow';
 import * as canvas from 'client/components/canvas';
 
-function generateCanvas( ){
+function generateCanvas() {
 
     const mw = document.getElementById( 'main-window' );
     const styles = window.getComputedStyle( mw );
