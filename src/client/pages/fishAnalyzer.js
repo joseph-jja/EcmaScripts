@@ -20,7 +20,7 @@ function generateFish() {
         styles.offsetHeight,
         'main-window' );
 
-    const res = canvas.create( "fish-doctor", "canvas-container", 800, 500 );
+    const res = canvas.create( "fish-analyzer", "canvas-container", 800, 500 );
 
     setupEyes( res );
 
