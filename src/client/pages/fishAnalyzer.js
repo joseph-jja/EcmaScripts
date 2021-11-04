@@ -27,8 +27,4 @@ function generateFish() {
     window.canvasRef = res;
 }
 
-<<<<<<< Updated upstream
 addOnLoad( generateFish );
-=======
-addOnLoad(generateFish);
->>>>>>> Stashed changes
