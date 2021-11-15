@@ -13,7 +13,6 @@ class SQLQuery {
         }
         this.version = 1;
         this.iDB = undefined;
-        this.usePromises = false;
     }
 
     hasIndexedDBSuppor() {
