@@ -73,6 +73,21 @@ SQLQuery.prototype.destroyDB = function ( dbName ) {
     window.indexedDB.deleteDatabase( dbName );
 };
 
+SQLQuery.prototype.openCallback = function ( storeName, successHandler, errorHandler ) {
+    if ( this.isOpen ) {
+        successHandler();
+    } else {
+        this.open( this.name, storeName, this.version, ( evt, status ) => {
+            this.iDB = evt.target.result;
+            if ( status === Constants.DB_SUCCESS ) {
+                successHandler();
+            } else {
+                errorHandler( evt, Constants.DB_ERROR );
+            }
+        } );
+    }
+};
+
 SQLQuery.prototype.clear = function ( storeName, callback ) {
     const clearTransaction = () => {
         const cbWrapper = ( evt, err ) => {
@@ -85,18 +100,7 @@ SQLQuery.prototype.clear = function ( storeName, callback ) {
             cbWrapper( err.evt, err.status );
         } );
     };
-    if ( this.isOpen ) {
-        clearTransaction();
-    } else {
-        this.open( this.name, storeName, this.version, ( evt, status ) => {
-            this.iDB = evt.target.result;
-            if ( status === Constants.DB_SUCCESS ) {
-                clearTransaction();
-            } else {
-                callback( evt, Constants.DB_ERROR );
-            }
-        } );
-    }
+    this.openCallback( storeName, clearTransaction, callback );
 };
 
 // callback gets the object data and success for fail
@@ -121,18 +125,7 @@ SQLQuery.prototype.add = function ( storeName, data, callback ) {
             } );
         }
     };
-    if ( this.isOpen ) {
-        addTransaction();
-    } else {
-        this.open( this.name, storeName, this.version, ( evt, status ) => {
-            this.iDB = evt.target.result;
-            if ( status === Constants.DB_SUCCESS ) {
-                addTransaction();
-            } else {
-                callback( evt, Constants.DB_ERROR );
-            }
-        } );
-    }
+    this.openCallback( storeName, addTransaction, callback );
 };
 
 // callback gets the object data and success for fail
@@ -145,18 +138,7 @@ SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
             callback( err.evt, err.status );
         } );
     };
-    if ( this.isOpen ) {
-        fetchTransaction();
-    } else {
-        this.open( this.name, storeName, this.version, ( evt, status ) => {
-            this.iDB = evt.target.result;
-            if ( status === Constants.DB_SUCCESS ) {
-                fetchTransaction();
-            } else {
-                callback( evt, Constants.DB_ERROR );
-            }
-        } );
-    }
+    this.openCallback( storeName, fetchTransaction, callback );
 };
 
 // update gets and then updates
@@ -169,18 +151,7 @@ SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
             callback( err.evt, err.status );
         } );
     };
-    if ( this.isOpen ) {
-        updateTransaction();
-    } else {
-        this.open( this.name, storeName, this.version, ( evt, status ) => {
-            this.iDB = evt.target.result;
-            if ( status === Constants.DB_SUCCESS ) {
-                updateTransaction();
-            } else {
-                callback( evt, Constants.DB_ERROR );
-            }
-        } );
-    }
+    this.openCallback( storeName, updateTransaction, callback );
 };
 
 SQLQuery.prototype.remove = function ( storeName, key, callback ) {
@@ -192,18 +163,7 @@ SQLQuery.prototype.remove = function ( storeName, key, callback ) {
             callback( err.evt, err.status );
         } );
     };
-    if ( this.isOpen ) {
-        removeTransaction();
-    } else {
-        this.open( this.name, storeName, this.version, ( evt, err ) => {
-            this.iDB = evt.target.result;
-            if ( err === Constants.DB_SUCCESS ) {
-                removeTransaction();
-            } else {
-                callback( evt, Constants.DB_ERROR );
-            }
-        } );
-    }
+    this.openCallback( storeName, removeTransaction, callback );
 };
 
 SQLQuery.prototype.list = function ( storeName, callback ) {
@@ -226,16 +186,7 @@ SQLQuery.prototype.list = function ( storeName, callback ) {
             }
         };
     };
-    if ( this.isOpen ) {
-        listTransaction();
-    } else {
-        this.open( this.name, storeName, this.version, ( evt, status ) => {
-            if ( status === Constants.DB_SUCCESS ) {
-                this.iDB = evt.target.result;
-                listTransaction();
-            }
-        } );
-    }
+    this.openCallback( storeName, listTransaction, callback );
 };
 
 export default SQLQuery;
