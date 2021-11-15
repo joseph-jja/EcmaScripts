@@ -40,7 +40,11 @@ SQLQuery.prototype.open = function ( name, store, version, callback ) {
 
     iDB.onupgradeneeded = ( evt ) => {
         this.iDB = evt.target.result;
-        this.createObjectStore( this.store, callback );
+        this.createObjectStore( this.store ).then( res => {
+            callback( res.evt, res.status );
+        } ).catch( err => {
+            callback( err.evt, err.status );
+        } );
     };
 };
 
@@ -61,11 +65,7 @@ SQLQuery.prototype.createObjectStore = function ( store, callback ) {
         keypath: 'id',
         autoIncrement: true
     } );
-    processRequest.call( this, request ).then( res => {
-        callback( res.evt, res.status );
-    } ).catch( err => {
-        callback( err.evt, err.status );
-    } );
+    return processRequest.call( this, request );
 };
 
 SQLQuery.prototype.destroyDB = function ( dbName ) {
