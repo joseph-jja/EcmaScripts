@@ -17,7 +17,7 @@ export function getObjectStore( db, storeName, mode = 'readonly', txCompletedHan
 }
 
 // DRY the code
-export function processRequest( self, request, callback ) {
+export function processRequest(request, callback ) {
 
     request.onerror = function ( evt ) {
         callback( evt, Constants.DB_ERROR );
