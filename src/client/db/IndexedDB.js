@@ -15,10 +15,10 @@ class SQLQuery {
         this.iDB = undefined;
         this.usePromises = false;
     }
-};
 
-SQLQuery.prototype.hasIndexedDBSupport = function () {
-    return ( typeof window.indexedDB !== 'undefined' );
+    hasIndexedDBSuppor() {
+        return ( typeof window.indexedDB !== 'undefined' );
+    }
 };
 
 SQLQuery.prototype.open = function ( name, store, version, callback ) {
@@ -61,7 +61,11 @@ SQLQuery.prototype.createObjectStore = function ( store, callback ) {
         keypath: 'id',
         autoIncrement: true
     } );
-    processRequest.call( this, request, callback );
+    processRequest.call( this, request ).then( res => {
+        callback( res.evt, res.status );
+    } ).catch( err => {
+        callback( err.evt, err.status );
+    } );
 };
 
 SQLQuery.prototype.destroyDB = function ( dbName ) {
@@ -75,7 +79,11 @@ SQLQuery.prototype.clear = function ( storeName, callback ) {
             console.log( 'Callback ' + err );
         };
         const request = getObjectStore( this.iDB, storeName, "readwrite", callback ).clear();
-        processRequest.call( this, request, cbWrapper );
+        processRequest.call( this, request ).then( res => {
+            cbWrapper( res.evt, res.status );
+        } ).catch( err => {
+            cbWrapper( err.evt, err.status );
+        } );
     };
     if ( this.isOpen ) {
         clearTransaction();
@@ -99,10 +107,18 @@ SQLQuery.prototype.add = function ( storeName, data, callback ) {
             const ndata = Object.assign( {}, data );
             delete ndata.key;
             const request = getObjectStore( this.iDB, storeName, "readwrite" ).add( data, key );
-            processRequest.call( this, request, callback );
+            processRequest.call( this, request ).then( res => {
+                callback( res.evt, res.status );
+            } ).catch( err => {
+                callback( err.evt, err.status );
+            } );
         } else {
             const request = getObjectStore( this.iDB, storeName, "readwrite" ).add( data );
-            processRequest.call( this, request, callback );
+            processRequest.call( this, request ).then( res => {
+                callback( res.evt, res.status );
+            } ).catch( err => {
+                callback( err.evt, err.status );
+            } );
         }
     };
     if ( this.isOpen ) {
@@ -123,7 +139,11 @@ SQLQuery.prototype.add = function ( storeName, data, callback ) {
 SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
     const fetchTransaction = () => {
         const request = getObjectStore( this.iDB, storeName, "readonly" ).get( key );
-        processRequest.call( this, request, callback );
+        processRequest.call( this, request ).then( res => {
+            callback( res.evt, res.status );
+        } ).catch( err => {
+            callback( err.evt, err.status );
+        } );
     };
     if ( this.isOpen ) {
         fetchTransaction();
@@ -143,7 +163,11 @@ SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
 SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
     const updateTransaction = () => {
         const request = getObjectStore( this.iDB, storeName, "readwrite" ).put( data, key );
-        processRequest.call( this, request, callback );
+        processRequest.call( this, request ).then( res => {
+            callback( res.evt, res.status );
+        } ).catch( err => {
+            callback( err.evt, err.status );
+        } );
     };
     if ( this.isOpen ) {
         updateTransaction();
@@ -162,7 +186,11 @@ SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
 SQLQuery.prototype.remove = function ( storeName, key, callback ) {
     const removeTransaction = () => {
         const request = getObjectStore( this.iDB, storeName, "readwrite" ).delete( key );
-        processRequest.call( this, request, callback );
+        processRequest.call( this, request ).then( res => {
+            callback( res.evt, res.status );
+        } ).catch( err => {
+            callback( err.evt, err.status );
+        } );
     };
     if ( this.isOpen ) {
         removeTransaction();

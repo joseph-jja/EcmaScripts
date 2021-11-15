@@ -3,7 +3,7 @@ export function setupEyes( canvas ) {
     canvas.createEye = function ( xIrisCenter, yIrisCenter, xCenter, yCenter, options = {} ) {
 
         const eyeOptions = Object.assign( {}, options );
-        
+
         // handle white of the eye
         eyeOptions.shape = ( options.shape &&
             ( options.shape === 'circle' || options.shape === 'oval' ) ?
