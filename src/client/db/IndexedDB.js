@@ -60,7 +60,7 @@ SQLQuery.prototype.createDB = function ( name, store, version, callback ) {
     this.close();
 };
 
-SQLQuery.prototype.createObjectStore = function ( store, callback ) {
+SQLQuery.prototype.createObjectStore = function ( store ) {
     const request = this.iDB.createObjectStore( store, {
         keypath: 'id',
         autoIncrement: true
