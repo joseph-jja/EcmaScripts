@@ -18,6 +18,25 @@ class SQLQuery {
     hasIndexedDBSuppor() {
         return ( typeof window.indexedDB !== 'undefined' );
     }
+
+    close() {
+        if ( this.isOpen ) {
+            this.iDB.close();
+        }
+    }
+
+    createObjectStore( store ) {
+        const request = this.iDB.createObjectStore( store, {
+            keypath: 'id',
+            autoIncrement: true
+        } );
+        return processRequest.call( this, request );
+    }
+
+    destroyDB( dbName ) {
+        // TODO implement?
+        window.indexedDB.deleteDatabase( dbName );
+    }
 };
 
 SQLQuery.prototype.open = function ( name, store, version, callback ) {
@@ -47,29 +66,10 @@ SQLQuery.prototype.open = function ( name, store, version, callback ) {
     };
 };
 
-SQLQuery.prototype.close = function () {
-    if ( this.isOpen ) {
-        this.iDB.close();
-    }
-};
-
 // open and create do the same thing :/
 SQLQuery.prototype.createDB = function ( name, store, version, callback ) {
     this.open( name, store, version, callback );
     this.close();
-};
-
-SQLQuery.prototype.createObjectStore = function ( store ) {
-    const request = this.iDB.createObjectStore( store, {
-        keypath: 'id',
-        autoIncrement: true
-    } );
-    return processRequest.call( this, request );
-};
-
-SQLQuery.prototype.destroyDB = function ( dbName ) {
-    // TODO implement?
-    window.indexedDB.deleteDatabase( dbName );
 };
 
 SQLQuery.prototype.openCallback = function ( storeName, successHandler, errorHandler ) {
