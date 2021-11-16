@@ -4,7 +4,7 @@ import selector from 'client/dom/selector';
 import Grid from 'client/components/letters/Grid';
 import {
     convertFromBaseXToBaseTen
-} from 'util/mathFunctions';
+} from 'utils/mathFunctions';
 
 //the character render engine
 //this can be used to create a character on the grid
