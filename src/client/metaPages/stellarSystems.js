@@ -8,7 +8,7 @@ import {
 // canvas
 import * as canvas from 'client/components/canvas';
 
-const screenWidth = dom.screen.maxx();
+//const screenWidth = dom.screen.maxx();
 
 let starSystemWorker,
     canvasRef,

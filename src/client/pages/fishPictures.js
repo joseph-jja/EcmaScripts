@@ -4,7 +4,7 @@ import {
 } from 'client/dom/events';
 import {
     html,
-    createElement,
+    //createElement,
     toggleDisplay
 } from 'client/dom/DOM';
 import * as menu from 'client/components/menu';
@@ -57,7 +57,7 @@ addOnLoad( () => {
         return;
     }
 
-    function goModal() {
+    /*function goModal() {
         var bodies = document.getElementsByTagName( "body" );
         if ( bodies.length <= 0 ) {
             return;
@@ -75,7 +75,7 @@ addOnLoad( () => {
         overlay.style.width = '100%';
         overlay.style.height = '100%';
         overlay.style.zIndex = '100000';
-    }
+    }*/
 
     // loop through document to manipulate the images
     var fn = document.getElementById( "fishnavmenu" );

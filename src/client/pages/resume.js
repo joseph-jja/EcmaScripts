@@ -35,7 +35,7 @@ function parseSkills( XMLDOMDocument ) {
         // then need skills
         for ( let s = 0; s < skills.length; s++ ) {
             var skill = skills[ s ].childNodes[ 0 ].nodeValue;
-            var skill_level = skills[ s ].getAttribute( "level" );
+            //var skill_level = skills[ s ].getAttribute( "level" );
             result += skill;
             if ( s < skills.length - 1 ) {
                 result += ", ";
@@ -132,7 +132,7 @@ function parseJobs( XMLDOMDocument ) {
 
     for ( let i = 0; i < jobNodes.length; i++ ) {
 
-        var job = jobNodes[ i ].childNodes;
+        //var job = jobNodes[ i ].childNodes;
 
         // get the current job as a document object
         var jobNode = jobNodes[ i ].cloneNode( true );
@@ -179,7 +179,7 @@ function parseJobs( XMLDOMDocument ) {
     return result;
 }
 
-events.addOnLoad( ( onloadFN ) => {
+events.addOnLoad( () => {
 
     menu.basicMenu();
     footer( 'footer' );
