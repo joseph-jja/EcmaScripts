@@ -45,9 +45,9 @@
     "eslint-loader": "4.0.2",
     "eslint-scope": "^5.1.1",
     "istanbul-instrumenter-loader": "^3.0.1",
-    "jasmine-core": "3.7.1",
-    "js-beautify": "1.13.13",
-    "jsdom": "16.5.3",
+    "jasmine-core": "^3.10.1",
+    "js-beautify": "^1.14.0",
+    "jsdom": "^18.1.0",
     "karma": "6.3.2",
     "karma-babel-preprocessor": "^8.0.1",
     "karma-chrome-launcher": "^3.1.0",
@@ -58,9 +58,9 @@
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "5.0.0",
     "setprototypeof": "^1.2.0",
-    "terser-webpack-plugin": "5.1.1",
-    "webpack": "5.33.2",
-    "webpack-cli": "4.6.0"
+    "terser-webpack-plugin": "^5.2.5",
+    "webpack": "^5.64.1",
+    "webpack-cli": "^4.9.1"
   },
   "dependencies": {}
 }
