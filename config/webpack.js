@@ -69,6 +69,10 @@ module.exports = {
             "utils": path.resolve( "src/utils" ),
             "client": path.resolve( "src/client" ),
             "@babel": path.resolve( "node_modules/@babel" )
+        },
+        fallback: {
+            "querystring": false,
+            "util": false
         }
     },
     module: {
