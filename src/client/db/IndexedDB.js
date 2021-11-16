@@ -100,7 +100,7 @@ SQLQuery.prototype.clear = function ( storeName, callback ) {
         const cbWrapper = ( evt, err ) => {
             console.log( 'Callback ' + err );
         };
-        const request = getObjectStore( this.iDB, storeName, "readwrite", callback ).clear();
+        const request = getObjectStore( this.iDB, storeName, "readwrite" ).clear();
         this.processRequestHandler( request, cbWrapper );
     };
     this.openCallback( storeName, clearTransaction, callback );
