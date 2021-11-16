@@ -69,7 +69,7 @@
         } ],
         "max-depth": 1,
         "max-statements": [ 1, {
-            "max": 25
+            "max": 50
         } ],
         "complexity": 1,
         "max-len": 0,
