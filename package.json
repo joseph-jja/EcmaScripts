@@ -57,10 +57,8 @@
     "karma-jsdom-launcher": "11.0.0",
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "5.0.0",
-    "querystring-es3": "0.2.1",
     "setprototypeof": "1.2.0",
     "terser-webpack-plugin": "5.2.5",
-    "util": "0.12.4",
     "webpack": "5.64.1",
     "webpack-cli": "4.9.1"
   },
