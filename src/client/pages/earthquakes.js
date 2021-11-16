@@ -2,7 +2,6 @@ import "@babel/runtime/regenerator";
 import fetcher from 'client/net/fetcher';
 
 import * as events from 'client/dom/events';
-import * as dom from 'client/dom/DOM';
 
 import WebWindow from 'client/components/wbWindow';
 
@@ -31,7 +30,7 @@ async function earthquakeList() {
     return data;
 }
 
-async function BuildEarthquakeUI() {
+async function buildEarthquakeUI() {
 
     const quakes = await earthquakeList();
 
@@ -62,7 +61,7 @@ function getMainWindow() {
 
 async function doOnloadStuff() {
 
-    const quakes = await BuildEarthquakeUI();
+    const quakes = await buildEarthquakeUI();
     const wwin = getMainWindow();
 
     const content = wwin.windowArea;
