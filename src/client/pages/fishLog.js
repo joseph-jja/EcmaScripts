@@ -5,7 +5,7 @@ import * as ajax from 'client/net/ajax';
 import simpleRSSFeedParser from 'client/components/simpleRSSFeedParser';
 import * as xml from 'client/browser/xml';
 
-events.addOnLoad( ( onloadFN ) => {
+events.addOnLoad( () => {
     menu.basicMenu();
     footer( 'footer' );
 

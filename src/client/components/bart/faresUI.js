@@ -2,7 +2,7 @@ import stationsList from 'client/components/bart/stationsList';
 
 const pleaseSelect = '<option>Please Select A Station</option>';
 
-export default async function Fares() {
+export default async function fares() {
 
     const stations = await stationsList();
 

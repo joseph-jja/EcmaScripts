@@ -87,17 +87,21 @@ SQLQuery.prototype.openCallback = function ( storeName, successHandler, errorHan
     }
 };
 
+SQLQuery.prototype.processRequestHandler = function ( request, callback ) {
+    processRequest.call( this, request ).then( res => {
+        callback( res.evt, res.status );
+    } ).catch( err => {
+        callback( err.evt, err.status );
+    } );
+};
+
 SQLQuery.prototype.clear = function ( storeName, callback ) {
     const clearTransaction = () => {
         const cbWrapper = ( evt, err ) => {
             console.log( 'Callback ' + err );
         };
         const request = getObjectStore( this.iDB, storeName, "readwrite", callback ).clear();
-        processRequest.call( this, request ).then( res => {
-            cbWrapper( res.evt, res.status );
-        } ).catch( err => {
-            cbWrapper( err.evt, err.status );
-        } );
+        this.processRequestHandler( request, cbWrapper );
     };
     this.openCallback( storeName, clearTransaction, callback );
 };
@@ -110,18 +114,10 @@ SQLQuery.prototype.add = function ( storeName, data, callback ) {
             const ndata = Object.assign( {}, data );
             delete ndata.key;
             const request = getObjectStore( this.iDB, storeName, "readwrite" ).add( data, key );
-            processRequest.call( this, request ).then( res => {
-                callback( res.evt, res.status );
-            } ).catch( err => {
-                callback( err.evt, err.status );
-            } );
+            this.processRequestHandler( request, callback );
         } else {
             const request = getObjectStore( this.iDB, storeName, "readwrite" ).add( data );
-            processRequest.call( this, request ).then( res => {
-                callback( res.evt, res.status );
-            } ).catch( err => {
-                callback( err.evt, err.status );
-            } );
+            this.processRequestHandler( request, callback );
         }
     };
     this.openCallback( storeName, addTransaction, callback );
@@ -131,11 +127,7 @@ SQLQuery.prototype.add = function ( storeName, data, callback ) {
 SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
     const fetchTransaction = () => {
         const request = getObjectStore( this.iDB, storeName, "readonly" ).get( key );
-        processRequest.call( this, request ).then( res => {
-            callback( res.evt, res.status );
-        } ).catch( err => {
-            callback( err.evt, err.status );
-        } );
+        this.processRequestHandler( request, callback );
     };
     this.openCallback( storeName, fetchTransaction, callback );
 };
@@ -144,11 +136,7 @@ SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
 SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
     const updateTransaction = () => {
         const request = getObjectStore( this.iDB, storeName, "readwrite" ).put( data, key );
-        processRequest.call( this, request ).then( res => {
-            callback( res.evt, res.status );
-        } ).catch( err => {
-            callback( err.evt, err.status );
-        } );
+        this.processRequestHandler( request, callback );
     };
     this.openCallback( storeName, updateTransaction, callback );
 };
@@ -156,11 +144,7 @@ SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
 SQLQuery.prototype.remove = function ( storeName, key, callback ) {
     const removeTransaction = () => {
         const request = getObjectStore( this.iDB, storeName, "readwrite" ).delete( key );
-        processRequest.call( this, request ).then( res => {
-            callback( res.evt, res.status );
-        } ).catch( err => {
-            callback( err.evt, err.status );
-        } );
+        this.processRequestHandler( request, callback );
     };
     this.openCallback( storeName, removeTransaction, callback );
 };

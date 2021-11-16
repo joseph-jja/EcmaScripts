@@ -333,7 +333,7 @@ function generateGUID() {
 
     let guid = '';
     for ( let i = 0, l = hexval.length; i < l; i += 1 ) {
-        guid += ( hexval[ i ] << 1 );
+        guid += ( hexval[ i ] << 1 ); // eslint-disable-line
     }
 
     guid = hexval + convertFromBaseTenToBaseX( 16, guid );

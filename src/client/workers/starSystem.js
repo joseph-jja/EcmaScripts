@@ -2,9 +2,7 @@ import {
     add,
     divide,
     getRectangleCenter,
-    getRectangleCorner,
-    distanceBetweenCirclesCenters,
-    square
+    getRectangleCorner
 } from 'utils/mathFunctions';
 
 import {

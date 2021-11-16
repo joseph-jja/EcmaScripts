@@ -9,10 +9,9 @@ import StationList from 'client/components/bart/stationsList';
 import StationUI from 'client/components/bart/stationsUI';
 import TrainList from 'client/components/bart/trainsUI';
 import Alerts from 'client/components/bart/alertUI';
-import Fares from 'client/components/bart/faresUI';
+import fares from 'client/components/bart/faresUI';
 import fetchFareData from 'client/components/bart/fetchFareData';
 import TripPlanner from 'client/components/bart/tripPlanner';
-import footer from 'client/components/footer';
 
 import {
     getDepartTrips
@@ -82,7 +81,7 @@ async function renderFares() {
 
     const slist = document.getElementById( 'slist' );
     const parent = slist.parentNode;
-    const dropdowns = await Fares();
+    const dropdowns = await fares();
     const rdiv = dom.createElement( 'div', parent, {
         id: 'fare-list'
     } );
