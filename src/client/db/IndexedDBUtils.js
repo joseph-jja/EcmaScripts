@@ -17,19 +17,13 @@ export function getObjectStore( db, storeName, mode = 'readonly', txCompletedHan
 }
 
 // DRY the code with a promisified version
-export async function processRequest( request ) {
+export function processRequest( request, callback ) {
 
     request.onerror = function ( evt ) {
-        return Promise.reject( {
-            evt,
-            status: Constants.DB_ERROR
-        } );
+        callback( evt, Constants.DB_ERROR );
     };
 
     request.onsuccess = function ( evt ) {
-        return Promise.resolve( {
-            evt,
-            status: Constants.DB_SUCCESS
-        } );
+        callback( evt, Constants.DB_SUCCESS );
     };
 }
