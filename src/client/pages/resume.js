@@ -53,10 +53,10 @@ function parseMisc( XMLDOMDocument ) {
 
     var misc = XMLDOMDocument.getElementsByTagName( "misc" );
 
-    var misc_exp = misc[ 0 ].getElementsByTagName( "misc_exp" );
+    var miscExp = misc[ 0 ].getElementsByTagName( "misc_exp" );
 
-    var otherexp = misc_exp[ 0 ];
-    var militaryexp = misc_exp[ 1 ];
+    var otherexp = miscExp[ 0 ];
+    var militaryexp = miscExp[ 1 ];
 
     var result = '<span class="misc"><a href="javascript:WebBrowser.dom.toggleDisplay(\'misc1\');">';
     result += otherexp.getElementsByTagName( "name" )[ 0 ].childNodes[ 0 ].nodeValue;
@@ -140,10 +140,10 @@ function parseJobs( XMLDOMDocument ) {
         var jobtitle = jobNode.getElementsByTagName( "jobtitle" )[ 0 ].childNodes[ 0 ].nodeValue;
         var company = jobNode.getElementsByTagName( "company" )[ 0 ].childNodes[ 0 ].nodeValue;
 
-        var joburl = "";
+        /*let url;
         if ( jobNode.getElementsByTagName( "url" ) ) {
-            var url = jobNode.getElementsByTagName( "company" )[ 0 ].childNodes[ 0 ].nodeValue;
-        }
+            url = jobNode.getElementsByTagName( "company" )[ 0 ].childNodes[ 0 ].nodeValue;
+        }*/
 
         var jobCity = jobNode.getElementsByTagName( "city" )[ 0 ].childNodes[ 0 ].nodeValue;
         var stateObj = jobNode.getElementsByTagName( "state" )[ 0 ];
@@ -184,8 +184,6 @@ events.addOnLoad( () => {
     menu.basicMenu();
     footer( 'footer' );
 
-    var jsonData = [];
-
     var obj = document.getElementById( "container" );
 
     let callback;
@@ -196,11 +194,11 @@ events.addOnLoad( () => {
                 var result = this.xmlhttp.responseText;
                 var DOMDoc = xml.getAsXMLDocument( result );
 
-                jsonData = xml.xml2json( DOMDoc );
+                //const jsonData = xml.xml2json( DOMDoc );
 
                 var header = '<table width="100%"><tr><td align="left">';
 
-                var url = getFirstNodeText( DOMDoc, "url" );
+                //var url = getFirstNodeText( DOMDoc, "url" );
 
                 header += '</td></tr></table>';
 
@@ -219,7 +217,7 @@ events.addOnLoad( () => {
         };
 
         // try hard parsing here
-        var ajaxObj = ajax.get( callback, "resume_data.xml", null );
+        ajax.get( callback, "resume_data.xml", null );
 
     } catch ( xmlException ) {
 
