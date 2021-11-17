@@ -1,13 +1,17 @@
 import * as Constants from 'db/constants';
 
 // DRY the code
-export function getObjectStore( db, storeName, mode = 'readonly' ) {
+export function getObjectStore( db, storeName, mode = 'readonly', txCompletedHandler ) {
     const tx = db.transaction( storeName, mode );
-    tx.oncomplete = function ( evt ) {
-        console.log( 'Transaction completed!' );
-    };
+    if (typeof txCompletedHandler === 'function') {
+        tx.oncomplete = txCompletedHandler;
+    } else {
+        tx.oncomplete = function ( evt ) {
+            console.log( 'Transaction completed!', evt );
+        };
+    }
     tx.onerror = function ( evt ) {
-        console.log( `Transaction error: ${tx.error}` );
+        console.log( `Transaction error: ${tx.error}` , evt);
     };
     return tx.objectStore( storeName );
 }
