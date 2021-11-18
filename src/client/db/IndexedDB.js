@@ -1,7 +1,6 @@
 import {
     getObjectStore,
-    processRequest,
-    processOpenRequest
+    processRequest
 } from 'client/db/IndexedDBUtils';
 
 import * as Constants from 'db/constants';
@@ -40,25 +39,6 @@ class SQLQuery {
     }
 };
 
-SQLQuery.prototype.openWithCallback = function ( name, store, version, callback ) {
-    const iDB = window.indexedDB.open( name, version );
-
-    this.name = name;
-    this.store = store;
-    this.version = version;
-
-    processOpenRequest( iDB, callback );
-
-    iDB.onupgradeneeded = ( evt ) => {
-        this.iDB = evt.target.result;
-        this.createObjectStore( this.store ).then( res => {
-            callback( res.evt, res.status );
-        } ).catch( err => {
-            callback( err.evt, err.status );
-        } );
-    };
-};
-
 SQLQuery.prototype.open = function ( name, store, version ) {
     return new Promise( ( resolve, reject ) => {
 
@@ -69,8 +49,6 @@ SQLQuery.prototype.open = function ( name, store, version ) {
                     status
                 } );
             } else {
-                this.iDB = evt.target.result;
-                this.isOpen = true;
                 resolve( {
                     evt,
                     status
@@ -78,7 +56,29 @@ SQLQuery.prototype.open = function ( name, store, version ) {
             }
         };
 
-        this.openWithCallback( name, store, version, openHandler );
+        const iDB = window.indexedDB.open( name, version );
+
+        this.name = name;
+        this.store = store;
+        this.version = version;
+
+        iDB.onerror = ( evt ) => {
+            openHandler( evt, Constants.DB_ERROR );
+        };
+
+        iDB.onsuccess = ( evt ) => {
+            this.iDB = evt.target.result;
+            this.isOpen = true;
+            openHandler( evt, Constants.DB_SUCCESS );
+        };
+        iDB.onupgradeneeded = ( evt ) => {
+            this.iDB = evt.target.result;
+            this.createObjectStore( this.store ).then( res => {
+                openHandler( res.evt, res.status );
+            } ).catch( err => {
+                openHandler( err.evt, err.status );
+            } );
+        };
     } );
 };
 

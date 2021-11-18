@@ -27,14 +27,3 @@ export function processRequest( request, callback ) {
         callback( evt, Constants.DB_SUCCESS );
     };
 }
-
-export function processOpenRequest( iDB, callback ) {
-
-    iDB.onerror = ( evt ) => {
-        callback( evt, Constants.DB_ERROR );
-    };
-
-    iDB.onsuccess = ( evt ) => {
-        callback( evt, Constants.DB_SUCCESS );
-    };
-}
