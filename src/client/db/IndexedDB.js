@@ -25,7 +25,7 @@ class SQLQuery {
         }
     }
 
-    createObjectStore( store ) {
+    async createObjectStore( store ) {
         const request = this.iDB.createObjectStore( store, {
             keypath: 'id',
             autoIncrement: true
@@ -39,7 +39,7 @@ class SQLQuery {
     }
 };
 
-SQLQuery.prototype.open = function ( name, store, version, callback ) {
+SQLQuery.prototype.openWithCallback = function ( name, store, version, callback ) {
     const iDB = window.indexedDB.open( name, version );
 
     this.name = name;
@@ -66,9 +66,31 @@ SQLQuery.prototype.open = function ( name, store, version, callback ) {
     };
 };
 
+SQLQuery.prototype.open = function ( name, store, version ) {
+    return new Promise((resolve, reject) => {
+        this.openWithCallback( name, store, version, (evt, status) => {
+            if (status === Constants.DB_ERROR) {
+                reject({
+                    evt,
+                    status
+                });
+            } else {
+                resolve({
+                    evt,
+                    status
+                });
+            }
+        });
+    });
+};
+
 // open and create do the same thing :/
 SQLQuery.prototype.createDB = function ( name, store, version, callback ) {
-    this.open( name, store, version, callback );
+    this.open( name, store, version ).then(res => {
+        callback(res.evt, res.status);
+    }).catch( err =>{
+        callback(err.evt, err.status);
+    } );
     this.close();
 };
 
@@ -76,14 +98,16 @@ SQLQuery.prototype.openCallback = function ( storeName, successHandler, errorHan
     if ( this.isOpen ) {
         successHandler();
     } else {
-        this.open( this.name, storeName, this.version, ( evt, status ) => {
-            this.iDB = evt.target.result;
-            if ( status === Constants.DB_SUCCESS ) {
+        this.open( this.name, storeName, this.version ).then(res => {
+            this.iDB = res.evt.target.result;
+            if ( res.status === Constants.DB_SUCCESS ) {
                 successHandler();
             } else {
-                errorHandler( evt, Constants.DB_ERROR );
+                errorHandler( res.evt, Constants.DB_ERROR );
             }
-        } );
+        } ).catch(err => {
+            errorHandler( err.evt, Constants.DB_ERROR );
+        });
     }
 };
 
