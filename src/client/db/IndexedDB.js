@@ -88,10 +88,11 @@ SQLQuery.prototype.open = function ( name, store, version ) {
 SQLQuery.prototype.createDB = function ( name, store, version, callback ) {
     this.open( name, store, version ).then(res => {
         callback(res.evt, res.status);
+        this.close();
     }).catch( err =>{
         callback(err.evt, err.status);
+        this.close();
     } );
-    this.close();
 };
 
 SQLQuery.prototype.openCallback = function ( storeName, successHandler, errorHandler ) {
