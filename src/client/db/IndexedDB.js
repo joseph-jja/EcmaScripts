@@ -1,6 +1,7 @@
 import {
     getObjectStore,
-    processRequest
+    processRequest,
+    processOpenRequest
 } from 'client/db/IndexedDBUtils';
 
 import * as Constants from 'db/constants';
@@ -46,15 +47,7 @@ SQLQuery.prototype.openWithCallback = function ( name, store, version, callback 
     this.store = store;
     this.version = version;
 
-    iDB.onerror = ( evt ) => {
-        callback( evt, Constants.DB_ERROR );
-    };
-
-    iDB.onsuccess = ( evt ) => {
-        this.iDB = evt.target.result;
-        this.isOpen = true;
-        callback( evt, Constants.DB_SUCCESS );
-    };
+    processOpenRequest( iDB, callback );
 
     iDB.onupgradeneeded = ( evt ) => {
         this.iDB = evt.target.result;
@@ -67,30 +60,35 @@ SQLQuery.prototype.openWithCallback = function ( name, store, version, callback 
 };
 
 SQLQuery.prototype.open = function ( name, store, version ) {
-    return new Promise((resolve, reject) => {
-        this.openWithCallback( name, store, version, (evt, status) => {
-            if (status === Constants.DB_ERROR) {
-                reject({
+    return new Promise( ( resolve, reject ) => {
+
+        const openHandler = ( evt, status ) => {
+            if ( status === Constants.DB_ERROR ) {
+                reject( {
                     evt,
                     status
-                });
+                } );
             } else {
-                resolve({
+                this.iDB = evt.target.result;
+                this.isOpen = true;
+                resolve( {
                     evt,
                     status
-                });
+                } );
             }
-        });
-    });
+        };
+
+        this.openWithCallback( name, store, version, openHandler );
+    } );
 };
 
 // open and create do the same thing :/
 SQLQuery.prototype.createDB = function ( name, store, version, callback ) {
-    this.open( name, store, version ).then(res => {
-        callback(res.evt, res.status);
+    this.open( name, store, version ).then( res => {
+        callback( res.evt, res.status );
         this.close();
-    }).catch( err =>{
-        callback(err.evt, err.status);
+    } ).catch( err => {
+        callback( err.evt, err.status );
         this.close();
     } );
 };
@@ -99,16 +97,16 @@ SQLQuery.prototype.openHandler = function ( storeName, successHandler, errorHand
     if ( this.isOpen ) {
         successHandler();
     } else {
-        this.open( this.name, storeName, this.version ).then(res => {
+        this.open( this.name, storeName, this.version ).then( res => {
             this.iDB = res.evt.target.result;
             if ( res.status === Constants.DB_SUCCESS ) {
                 successHandler();
             } else {
                 errorHandler( res.evt, Constants.DB_ERROR );
             }
-        } ).catch(err => {
+        } ).catch( err => {
             errorHandler( err.evt, Constants.DB_ERROR );
-        });
+        } );
     }
 };
 
