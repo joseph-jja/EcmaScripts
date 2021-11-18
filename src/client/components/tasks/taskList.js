@@ -40,7 +40,7 @@ function TaskList() {
         const options = {};
         options.callback = ( data ) => {
             let i = -1;
-            const rows = data.map( ( item ) => {
+            const rows = (data || []).map( ( item ) => {
                 i++;
 
                 return getTableRow( item.key,
