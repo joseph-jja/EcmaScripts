@@ -1,6 +1,6 @@
 import * as API from 'client/components/bart/api';
 
-export default async function TrainList( station ) {
+export default async function trainList( station ) {
 
     const trains = await API.getTrainsByStation( station );
 
@@ -13,7 +13,7 @@ export default async function TrainList( station ) {
     }
 
     const items = trains.sort( ( a, b ) => {
-        // it is either north or south  
+        // it is either north or south
         if ( a.direction === 'North' ) {
             return 1;
         }

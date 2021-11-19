@@ -6,7 +6,7 @@ function leftPadd( i ) {
     return ( i < 10 ? `0${i}` : `${i}` );
 }
 
-export default async function TripPlanner() {
+export default async function tripPlanner() {
 
     const stations = await stationsList();
 

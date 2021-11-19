@@ -1,8 +1,8 @@
-import StationsList from 'client/components/bart/stationsList';
+import stationsList from 'client/components/bart/stationsList';
 
-export default async function Stations() {
+export default async function stations() {
 
-    const stations = await StationsList();
+    const stations = await stationsList();
 
     const items = stations.map( station => {
 

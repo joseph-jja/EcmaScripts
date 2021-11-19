@@ -5,13 +5,13 @@ import * as dom from 'client/dom/DOM';
 import fetcher from 'client/net/fetcher';
 
 // components
-import StationList from 'client/components/bart/stationsList';
-import StationUI from 'client/components/bart/stationsUI';
-import TrainList from 'client/components/bart/trainsUI';
-import Alerts from 'client/components/bart/alertUI';
+import stationList from 'client/components/bart/stationsList';
+import stationUI from 'client/components/bart/stationsUI';
+import trainList from 'client/components/bart/trainsUI';
+import alerts from 'client/components/bart/alertUI';
 import fares from 'client/components/bart/faresUI';
 import fetchFareData from 'client/components/bart/fetchFareData';
-import TripPlanner from 'client/components/bart/tripPlanner';
+import tripPlanner from 'client/components/bart/tripPlanner';
 
 import {
     getDepartTrips
@@ -109,7 +109,7 @@ async function loadTripDetails() {
 
     const trips = await getDepartTrips( tripSource, tripDest, tripTime.value );
 
-    const stationMap = await StationList( true );
+    const stationMap = await stationList( true );
 
     const tripResults = trips.root.schedule.request.trip.map( trip => {
         const orig = trip[ '@origin' ],
@@ -146,7 +146,7 @@ async function renderTripPlanner() {
 
     const slist = document.getElementById( 'slist' );
     const parent = slist.parentNode;
-    const dropdowns = await TripPlanner();
+    const dropdowns = await tripPlanner();
     const rdiv = dom.createElement( 'div', parent, {
         id: 'trips-list'
     } );
@@ -161,7 +161,7 @@ async function renderTripPlanner() {
 
 async function doOnLoadStuff() {
 
-    const stationData = await StationUI();
+    const stationData = await stationUI();
 
     const wwin = getMainWindow();
 
@@ -195,14 +195,14 @@ async function doOnLoadStuff() {
         }
 
         const selectedStation = tgt.attributes[ 'data-abbr' ].value;
-        const listOfTrains = await TrainList( selectedStation );
+        const listOfTrains = await trainList( selectedStation );
         ldiv.innerHTML = listOfTrains;
 
     };
     events.addEvent( content, 'click', stationClick );
 
     const alertButtonClick = async function ( e ) {
-        const alertList = await Alerts();
+        const alertList = await alerts();
         ldiv.innerHTML = alertList;
     };
 
