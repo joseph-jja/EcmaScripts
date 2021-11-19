@@ -129,7 +129,7 @@ function startFishInfo() {
             } );
 
         const mainWindow = document.getElementById( 'main-window' );
-        const title = selector( '.WebWindowTitle span', mainWindow ).get( 0 );
+        //const title = selector( '.WebWindowTitle span', mainWindow ).get( 0 );
 
         const winArea = selector( '.WebWindowArea', mainWindow ).get( 0 );
         const fishInfoSection = dom.createElement( 'div', winArea, {

@@ -1,4 +1,3 @@
-import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
 
 // default libs
@@ -10,7 +9,7 @@ import * as menu from 'client/components/menu';
 import Calendar from 'client/components/calendar';
 
 // TODO clean up this detection stuff
-// code 
+// code
 var detected,
     capabilities = '',
     dt = detect();
