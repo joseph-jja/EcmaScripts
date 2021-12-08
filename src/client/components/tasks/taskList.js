@@ -22,7 +22,7 @@ import {
 
 const ONE_DAY = 24 * 60 * 60 * 1000,
     SEVEN_DAYS = 7 * ONE_DAY,
-    ABOUT_A_MONTH = SEVEN_DAYS * 4;
+    ABOUT_A_MONTH = SEVEN_DAYS * 4,
     ABOUT_A_YEAR = ONE_DAY * 365;
 
 let tasks;
@@ -134,7 +134,7 @@ function TaskList() {
                 const cols = selector( 'td', r );
                 const lastCol = cols.get( cols.length - 4 );
                 const date = Date.parse( lastCol.innerHTML );
-                if ( date < aboutAYearAg ) {
+                if ( date < aboutAYearAgo ) {
                     r.style.display = 'none';
                 }
             } );
