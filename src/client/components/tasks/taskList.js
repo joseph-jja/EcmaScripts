@@ -20,8 +20,10 @@ import {
     setEndDate
 } from 'client/components/tasks/taskUtils';
 
-const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000,
+const ONE_DAY = 24 * 60 * 60 * 1000,
+    SEVEN_DAYS = 7 * ONE_DAY,
     ABOUT_A_MONTH = SEVEN_DAYS * 4;
+    ABOUT_A_YEAR = ONE_DAY * 365;
 
 let tasks;
 
@@ -122,6 +124,17 @@ function TaskList() {
                 const lastCol = cols.get( cols.length - 4 );
                 const date = Date.parse( lastCol.innerHTML );
                 if ( date < aboutAMonthAgo ) {
+                    r.style.display = 'none';
+                }
+            } );
+            break;
+        case 'year':
+            const aboutAYearAgo = new Date().getTime() - ABOUT_A_YEAR;
+            rows.each( ( r ) => {
+                const cols = selector( 'td', r );
+                const lastCol = cols.get( cols.length - 4 );
+                const date = Date.parse( lastCol.innerHTML );
+                if ( date < aboutAYearAg ) {
                     r.style.display = 'none';
                 }
             } );
