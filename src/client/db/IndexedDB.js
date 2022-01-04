@@ -9,7 +9,7 @@ class SQLQuery {
         this.iDB = undefined;
     }
 
-    hasIndexedDBSuppor() {
+    hasIndexedDBSupport() {
         return ( typeof window.indexedDB !== 'undefined' );
     }
 
