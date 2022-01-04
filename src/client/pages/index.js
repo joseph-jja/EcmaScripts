@@ -7,7 +7,7 @@ import fetcher from 'client/net/fetcher';
 import * as perf from 'client/browser/performance';
 
 // default libs
-import detect from 'client/browser/detect';
+import detect from 'client/browser/userAgentParser';
 
 // components
 import footer from 'client/components/footer';
@@ -39,28 +39,17 @@ import {
 // window
 import WebWindow from 'client/components/wbWindow';
 
-// TODO clean up this detection stuff
-// code
-const dt = detect();
-
 let defaultPosition = {},
     isCalendarDisplayed = false,
     mainWin,
     sideWin;
 
-let detected,
-    capabilities = '<br><div class="home-content">';
-
-if ( !dt.capabilitiesDetected ) {
-    capabilities += "WARNING: Your browser version information was detected from useragent string only or not at all! ";
-    capabilities += "<br />If you have problems viewing this site, please get a supported browser.";
-}
-detected = 'Detected Name = ' + dt.name + ' ' + dt.version + '.';
-detected += '<br />Stated OS = ' + dt.OS + '.';
-detected += '<br />Stated Name - Version = ' + dt.name + ' - ' + dt.appVersion;
-detected += '<br />Spoofable OS = ' + dt.uaOS + ( dt.uaOSVersion ? "(" + dt.uaOSVersion + ")" : "" ) + '.';
-detected += '<br />Spoofable Name - Version = ' + dt.uaName + ' - ' + dt.uaAppVersion;
-detected += '<br />User Agent String = ' + dt.userAgent + '.</div>';
+let capabilities = '<br><div class="home-content">';
+capabilities += 'Info pulled from your browsers user agent.';
+capabilities += '<br />If you have problems viewing this site, please update your browser.';
+capabilities += '<br />Spoofable OS = ' + detect.uaOS + ( detect.uaOSVersion ? '(' + detect.uaOSVersion + ')' : '' ) + '.';
+capabilities += '<br />Spoofable Name - Version = ' + detect.uaName + ' - ' + detect.uaAppVersion;
+capabilities += '<br />User Agent String = ' + navigator.userAgent + '.</div>';
 
 async function buildNav() {
     const navFrag = '/frags/nav.frag';
@@ -185,7 +174,7 @@ async function loadSoftwareFrag() {
     linksObj.style.display = 'block';
     linksObj.innerHTML = `In my spare time I work on the projects on this page. Some of them,
     I consider to be completed, like TkNotePad.
-    These are are all released as "Open Source".
+    These are are all released as 'Open Source'.
     These programs are provided as is and with no warranty expressed or implied!
         While I have tested them, I am not responsible
     for
@@ -210,7 +199,7 @@ async function setupSoftware() {
         await loadSoftwareFrag();
 
         // onclick toggleUL setup
-        let toplevel = selector( "span.toplevel" );
+        let toplevel = selector( 'span.toplevel' );
         let i = 0,
             len = toplevel.length;
 
@@ -230,7 +219,7 @@ events.addOnLoad( async function () {
 
     // clock
     const myclock = new DigitalClock();
-    myclock.setId( "digiclock" );
+    myclock.setId( 'digiclock' );
     myclock.startClock();
 
     // footer
@@ -248,7 +237,7 @@ events.addOnLoad( async function () {
 
     await buildNav();
     const indexData = await getIndex();
-    sideWin.windowArea.innerHTML = indexData + capabilities + detected;
+    sideWin.windowArea.innerHTML = indexData + capabilities;
 
     const dropdown = selector( '.url-wrapper select' ).get( 0 );
     events.addEvent( dropdown, 'change', ( e ) => {
