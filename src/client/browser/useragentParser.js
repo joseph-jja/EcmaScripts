@@ -1,10 +1,9 @@
-import dtct from 'client/browser/detect';
 import browserList from 'client/browser/browserList';
 import osList from 'client/browser/osList';
 
-const detect = dtct();
+const detect = {};
 
-const uaCleaned = detect.userAgent.toLowerCase().replace( /_/, '.' );
+const uaCleaned = navigator.userAgent.toLowerCase().replace( /_/, '.' );
 
 function ruleHandler( idx, map, name, version ) {
 
