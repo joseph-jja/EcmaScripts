@@ -7,7 +7,7 @@ import fetcher from 'client/net/fetcher';
 import * as perf from 'client/browser/performance';
 
 // default libs
-import detect from 'client/browser/userAgentParser';
+import detect from 'client/browser/useragentParser';
 
 // components
 import footer from 'client/components/footer';
