@@ -1,6 +1,12 @@
 import * as ajax from 'client/net/ajax';
 import SQLQuery from 'client/db/IndexedDB';
-import * as Constants from 'db/constants';
+
+const DBName = 'tasksDB',
+    StoreName = 'tasks',
+    {
+        DB_SUCCESS,
+        DB_ERROR
+    } = SQLQuery;
 
 function getRecordFromOptions( options = {} ) {
 
@@ -23,7 +29,7 @@ export default class Task {
 
     constructor() {
 
-        this.indexedDB = new SQLQuery( Constants.DBName );
+        this.indexedDB = new SQLQuery( DBName );
 
         this.record = getRecordFromOptions();
     }
@@ -34,8 +40,8 @@ export default class Task {
         }
         this.record.id = options.id;
 
-        this.indexedDB.fetch( Constants.StoreName, ( +this.record.id ), ( evt, err ) => {
-            if ( err === Constants.DB_SUCCESS ) {
+        this.indexedDB.fetch( StoreName, ( +this.record.id ), ( evt, err ) => {
+            if ( err === DB_SUCCESS ) {
                 const result = evt.target.result;
                 this.record = getRecordFromOptions( Object.assign( {}, {
                     id: this.record.id
@@ -50,7 +56,7 @@ export default class Task {
     }
 
     clear( options ) {
-        this.indexedDB.clear( Constants.StoreName, ( evt, err ) => {
+        this.indexedDB.clear( StoreName, ( evt, err ) => {
             if ( options.callback ) {
                 options.callback( evt );
             }
@@ -65,7 +71,7 @@ export default class Task {
             this.record.key = options.key;
         }
 
-        this.indexedDB.add( Constants.StoreName, this.record, ( evt, err ) => {
+        this.indexedDB.add( StoreName, this.record, ( evt, err ) => {
             if ( options.callback ) {
                 options.callback( evt, err );
             }
@@ -79,7 +85,7 @@ export default class Task {
 
         this.record = getRecordFromOptions( options );
 
-        this.indexedDB.update( Constants.StoreName, ( +this.record.id ), this.record, ( evt, err ) => {
+        this.indexedDB.update( StoreName, ( +this.record.id ), this.record, ( evt, err ) => {
             if ( options.callback ) {
                 options.callback( evt, err );
             }
@@ -92,7 +98,7 @@ export default class Task {
         }
         this.record = getRecordFromOptions( options );
 
-        this.indexedDB.update( Constants.StoreName, ( +this.record.id ), this.record, ( evt, err ) => {
+        this.indexedDB.update( StoreName, ( +this.record.id ), this.record, ( evt, err ) => {
             if ( options.callback ) {
                 options.callback( evt, err );
             }
@@ -104,6 +110,6 @@ export default class Task {
             return;
         }
 
-        this.indexedDB.list( Constants.StoreName, options.callback );
+        this.indexedDB.list( StoreName, options.callback );
     }
 }

@@ -1,11 +1,5 @@
-import {
-    getObjectStore,
-    processRequest
-} from 'client/db/IndexedDBUtils';
-
-import * as Constants from 'db/constants';
-
 class SQLQuery {
+
     constructor( name ) {
         this.isOpen = false;
         if ( typeof name !== 'undefined' ) {
@@ -39,11 +33,42 @@ class SQLQuery {
     }
 };
 
+SQLQuery.DB_SUCCESS = 200;
+SQLQuery.DB_ERROR = 500;
+
+// DRY the code
+function getObjectStore( db, storeName, mode = 'readonly', txCompletedHandler ) {
+    const tx = db.transaction( storeName, mode );
+    if ( typeof txCompletedHandler === 'function' ) {
+        tx.oncomplete = txCompletedHandler;
+    } else {
+        tx.oncomplete = function ( evt ) {
+            console.log( 'Transaction completed!', evt );
+        };
+    }
+    tx.onerror = function ( evt ) {
+        console.log( `Transaction error: ${tx.error}`, evt );
+    };
+    return tx.objectStore( storeName );
+}
+
+// DRY the code with a promisified version
+function processRequest( request, callback ) {
+
+    request.onerror = function ( evt ) {
+        callback( evt, SQLQuery.DB_ERROR );
+    };
+
+    request.onsuccess = function ( evt ) {
+        callback( evt, SQLQuery.DB_SUCCESS );
+    };
+}
+
 SQLQuery.prototype.open = function ( name, store, version ) {
     return new Promise( ( resolve, reject ) => {
 
         const openHandler = ( evt, status ) => {
-            if ( status === Constants.DB_ERROR ) {
+            if ( status === SQLQuery.DB_ERROR ) {
                 reject( {
                     evt,
                     status
@@ -63,18 +88,18 @@ SQLQuery.prototype.open = function ( name, store, version ) {
         this.version = version;
 
         iDB.onerror = ( evt ) => {
-            openHandler( evt, Constants.DB_ERROR );
+            openHandler( evt, SQLQuery.DB_ERROR );
         };
 
         iDB.onsuccess = ( evt ) => {
             this.iDB = (evt || {})[('target' || {})].result;
             this.isOpen = true;
-            openHandler( evt, Constants.DB_SUCCESS );
+            openHandler( evt, SQLQuery.DB_SUCCESS );
         };
         iDB.onupgradeneeded = ( evt ) => {
             this.iDB = (evt || {})[('target' || {})].result;
             if (!this.iDB) {
-                openHandler( evt, Constants.DB_ERROR);
+                openHandler( evt, SQLQuery.DB_ERROR);
                 return;
             }
             this.createObjectStore( this.store ).then( res => {
@@ -103,13 +128,13 @@ SQLQuery.prototype.openHandler = function ( storeName, successHandler, errorHand
     } else {
         this.open( this.name, storeName, this.version ).then( res => {
             this.iDB = res.evt.target.result;
-            if ( res.status === Constants.DB_SUCCESS ) {
+            if ( res.status === SQLQuery.DB_SUCCESS ) {
                 successHandler();
             } else {
-                errorHandler( res.evt, Constants.DB_ERROR );
+                errorHandler( res.evt, SQLQuery.DB_ERROR );
             }
         } ).catch( err => {
-            errorHandler( err.evt, Constants.DB_ERROR );
+            errorHandler( err.evt, SQLQuery.DB_ERROR );
         } );
     }
 };

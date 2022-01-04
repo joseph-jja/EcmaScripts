@@ -64,7 +64,6 @@ module.exports = {
             path.join( __dirname, "src" )
         ],
         alias: {
-            "db": path.resolve( "src/db" ),
             "utils": path.resolve( "src/utils" ),
             "client": path.resolve( "src/client" ),
             "@babel": path.resolve( "node_modules/@babel" )
