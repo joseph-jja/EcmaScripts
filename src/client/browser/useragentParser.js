@@ -1,16 +1,21 @@
-import dtct from "client/browser/detect";
-import browserList from "client/browser/browserList";
-import osList from "client/browser/osList";
+import dtct from 'client/browser/detect';
+import browserList from 'client/browser/browserList';
+import osList from 'client/browser/osList';
 
-const browser = browserList,
-    os = osList;
+const detect = dtct();
 
-let uaCleaned, rules = [],
-    result,
-    detect = dtct();
+const uaCleaned = detect.userAgent.toLowerCase().replace( /_/, '.' );
 
-uaCleaned = detect.userAgent.toLowerCase();
-uaCleaned = uaCleaned.replace( /_/, "." );
+function ruleHandler( idx, map, name, version ) {
+
+    if ( name === 'Android' && detect.uaName === 'Safari' ) {
+        detect.uaName = 'Android Web Browser';
+    } else if ( ( name === 'iPhone' || name === 'iPad' ) && detect.uaName === 'Safari' ) {
+        detect.uaName = 'Mobile Safari';
+    } else if ( name === 'Blackbery' && detect.uaName === 'Safari' ) {
+        detect.uaName = 'Blackberry Webkit';
+    }
+};
 
 function getVersion( map, uaString, version ) {
     let nVer = version,
@@ -25,15 +30,13 @@ function getVersion( map, uaString, version ) {
 };
 
 function parse( map, cb, uaString ) {
-    let name, version, search, idx = -1,
-        i, ilen;
+    let name, version;
 
-    ilen = map.length;
-    for ( i = 0; i < ilen; i += 1 ) {
-        search = map[ i ].search;
+    for ( let i = 0, end = map.length; i < end; i += 1 ) {
+        const search = map[ i ].search;
         if ( uaString.lastIndexOf( search ) !== -1 ) {
             name = ( !name ) ? map[ i ].name : name;
-            idx = uaString.indexOf( search ) + search.length + 1;
+            const idx = uaString.indexOf( search ) + search.length + 1;
             version = getVersion( map[ i ], uaString, parseFloat( uaString.substr( idx ), 10 ) );
             if ( cb ) {
                 cb.call( detect, idx, map, name, version );
@@ -44,28 +47,17 @@ function parse( map, cb, uaString ) {
         }
     }
     return {
-        "name": name,
-        "version": version
+        'name': name,
+        'version': version
     };
 };
 
-rules[ "os" ] = function ( idx, map, name, version ) {
+const browserResult = parse( browserList, undefined, uaCleaned );
+detect.uaName = browserResult.name;
+detect.uaAppVersion = browserResult.version;
 
-    if ( name === "Android" && detect.uaName === "Safari" ) {
-        detect.uaName = "Android Web Browser";
-    } else if ( ( name === "iPhone" || name === "iPad" ) && detect.uaName === "Safari" ) {
-        detect.uaName = "Mobile Safari";
-    } else if ( name === 'Blackbery' && detect.uaName === "Safari" ) {
-        detect.uaName = "Blackberry Webkit";
-    }
-};
-
-result = parse( browser, undefined, uaCleaned );
-detect.uaName = result.name;
-detect.uaAppVersion = result.version;
-
-result = parse( os, rules[ "os" ], uaCleaned );
-detect.uaOS = result.name;
-detect.uaOSVersion = result.version;
+const osResult = parse( osList, ruleHandler, uaCleaned );
+detect.uaOS = osResult.name;
+detect.uaOSVersion = osResult.version;
 
 export default detect;
