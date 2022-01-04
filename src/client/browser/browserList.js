@@ -3,6 +3,10 @@ const browserList = [ {
     name: "Internet Explorer",
     version: "msie"
 }, {
+    search: 'Edg',
+    name: 'IE Edge',
+    version: 'Edg'
+}, {
     search: "opera mobi",
     name: "Opera Mobile",
     version: "version"
