@@ -36,7 +36,6 @@ module.exports = {
         "emailThankYou": "./src/client/pages/emailThankYou",
         "fishLog": "./src/client/pages/fishLog",
         "fishPictures": "./src/client/pages/fishPictures",
-        "index-old": "./src/client/pages/index-old",
         "local": "./src/client/pages/local",
         "myLinks": "./src/client/pages/myLinks",
         "helloWorld": "./src/client/pages/helloWorld",
