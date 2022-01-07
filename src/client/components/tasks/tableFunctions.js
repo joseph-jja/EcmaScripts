@@ -26,7 +26,7 @@ function getHeader() {
 function getTableRow( key, shortDescription, longDescription, workDate,
     startDate, endDate, completed, className ) {
 
-    return `<tbody><tr class="${className}">` +
+    return `<tr class="${className} row-data">` +
         getButtonCell( key, className ) +
         getCell( shortDescription, className ) +
         getCell( longDescription, className ) +
@@ -34,7 +34,7 @@ function getTableRow( key, shortDescription, longDescription, workDate,
         getCell( startDate, className ) +
         getCell( endDate, className ) +
         getCell( ( completed ? 'Done' : 'Working' ) ) +
-        '</tr></tbody>';
+        '</tr>';
 }
 
 function colorize() {
@@ -62,7 +62,7 @@ function getTable( rows ) {
         } );
     }
 
-    return `<div>${addTask}${selectFilter}<br>${exportTasks}<br>${importTasks}<br><table id="taskList">${getHeader()}${rowData}</table></div>`;
+    return `<div>${addTask}${selectFilter}<br>${exportTasks}<br>${importTasks}<br><table id="taskList">${getHeader()}<tbody>${rowData}</tbody></table></div>`;
 }
 
 function getCell( content ) {
