@@ -35,8 +35,19 @@ function TaskList() {
         tasks = new Task();
 
         this.render();
-    };
 
+        events.addEvent( document, 'click', ( e ) => {
+            const target = events.getTarget( e );
+            const targetName = ( target.nodeName || '' ).toLowerCase();
+            if ( targetName && targetName === 'th' ) {
+                const cellNumber = target.getAttribute( 'data-cell-number' ).replace( 'cell-', '' ),
+                    type = target.getAttribute( 'data-type' );
+                if ( cellNumber > 1 ) {
+                    tableSort( cellNumber, type );
+                }
+            }
+        } );
+    };
     this.render = function () {
 
         const options = {};

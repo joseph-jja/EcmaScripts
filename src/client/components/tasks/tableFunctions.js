@@ -13,13 +13,13 @@ const selectFilter = '<select id="filterDisplay">' +
 
 function getHeader() {
     return '<thead><tr>' +
-        '<th>Edit</th>' +
-        '<th data-type="text">Short Description</th>' +
-        '<th data-type="text">Long Description</th>' +
-        '<th data-type="date">Last Access Date</th>' +
-        '<th data-type="date">Start Date</th>' +
-        '<th data-type="date">End Date</th>' +
-        '<th data-type="text">Status</th>' +
+        '<th data-cell-number="cell-1">Edit</th>' +
+        '<th data-type="text" data-cell-number="cell-2">Short Description</th>' +
+        '<th data-type="text" data-cell-number="cell-3">Long Description</th>' +
+        '<th data-type="date" data-cell-number="cell-4">Last Access Date</th>' +
+        '<th data-type="date" data-cell-number="cell-5">Start Date</th>' +
+        '<th data-type="date" data-cell-number="cell-6">End Date</th>' +
+        '<th data-type="text" data-cell-number="cell-7">Status</th>' +
         '</tr></thead>';
 }
 
@@ -66,7 +66,7 @@ function getTable( rows ) {
 }
 
 function getCell( content, cellNumber ) {
-    return `<td data-column-umber="${cellNumber}">${content}</td>`;
+    return `<td data-column-number="${cellNumber}">${content}</td>`;
 }
 
 function getButtonCell( id, className ) {

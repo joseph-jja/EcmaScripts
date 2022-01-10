@@ -18,32 +18,46 @@ function mapFromDom() {
     return options;
 }
 
-function tableSort() {
+function tableSort( cellNumber = 3, type = 'date' ) {
 
     const tbody = selector( '#taskList tbody' ).get( 0 );
     const rows = selector( '#taskList tbody tr' ).toArray();
 
-    function dateSort( cellNumber ) {
+    const realCellNumber = cellNumber - 1;
+
+    function dateSort() {
 
         rows.sort( ( a, b ) => {
-            const tdDateA = a.childNodes[ cellNumber ].innerHTML,
-                tdDateB = b.childNodes[ cellNumber ].innerHTML;
+            const tdDataA = a.childNodes[ realCellNumber ].innerHTML,
+                tdDataB = b.childNodes[ realCellNumber ].innerHTML;
 
-            const timeA = new Date( tdDateA ).getTime(),
-                timeB = new Date( tdDateB ).getTime();
+            if ( type === 'date' ) {
+                const timeA = new Date( tdDataA ).getTime(),
+                    timeB = new Date( tdDataB ).getTime();
+                const delta = ( timeA > timeB );
+                if ( timeA >= timeB ) {
+                    tbody.prepend( a );
+                } else {
+                    tbody.prepend( b );
+                }
 
-            const delta = ( timeA > timeB );
-            if ( timeA > timeB ) {
-                tbody.prepend( a );
+                return delta;
             } else {
-                tbody.prepend( b );
+                const dataA = tdDataA.toLowerCase(),
+                    dataB = tdDataB.toLowerCase();
+                const delta = ( dataA === dataB );
+                console.log( delta, tdDataA, tdDataB );
+                if ( tdDataA === dataB ) {
+                    dataA.prepend( a );
+                } else {
+                    tbody.prepend( b );
+                }
+                return delta;
             }
-
-            return delta;
         } );
     }
 
-    dateSort( 3 );
+    dateSort();
 
     return rows;
 }
