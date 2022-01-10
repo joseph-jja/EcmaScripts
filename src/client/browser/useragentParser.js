@@ -59,11 +59,11 @@ const osResult = parse( osList, ruleHandler, uaCleaned );
 detect.uaOS = osResult.name;
 detect.uaOSVersion = osResult.version;
 
-if (navigator.userAgentData && navigator.userAgentData.platform) {
+if ( navigator.userAgentData && navigator.userAgentData.platform ) {
     detect.uaOS = navigator.userAgentData.platform;
-} else if (navigator.vendor) {
-    const uaOSPart = navigator.userAgent.split('AppleWebKit')[0];
-    detect.uaOS = uaOSPart.split('(')[1].replace(')', '').trim();
+} else if ( navigator.vendor ) {
+    const uaOSPart = navigator.userAgent.split( 'AppleWebKit' )[ 0 ];
+    detect.uaOS = uaOSPart.split( '(' )[ 1 ].replace( ')', '' ).trim();
 }
 
 export default detect;

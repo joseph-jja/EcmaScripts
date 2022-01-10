@@ -92,14 +92,14 @@ SQLQuery.prototype.open = function ( name, store, version ) {
         };
 
         iDB.onsuccess = ( evt ) => {
-            this.iDB = (evt || {})[('target' || {})].result;
+            this.iDB = ( evt || {} )[ ( 'target' || {} ) ].result;
             this.isOpen = true;
             openHandler( evt, SQLQuery.DB_SUCCESS );
         };
         iDB.onupgradeneeded = ( evt ) => {
-            this.iDB = (evt || {})[('target' || {})].result;
-            if (!this.iDB) {
-                openHandler( evt, SQLQuery.DB_ERROR);
+            this.iDB = ( evt || {} )[ ( 'target' || {} ) ].result;
+            if ( !this.iDB ) {
+                openHandler( evt, SQLQuery.DB_ERROR );
                 return;
             }
             this.createObjectStore( this.store ).then( res => {

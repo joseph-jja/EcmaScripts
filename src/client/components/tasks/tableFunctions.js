@@ -14,12 +14,12 @@ const selectFilter = '<select id="filterDisplay">' +
 function getHeader() {
     return '<thead><tr>' +
         '<th>Edit</th>' +
-        '<th>Short Description</th>' +
-        '<th>Long Description</th>' +
-        '<th>Last Access Date</th>' +
-        '<th>Start Date</th>' +
-        '<th>End Date</th>' +
-        '<th>Status</th>' +
+        '<th data-type="text">Short Description</th>' +
+        '<th data-type="text">Long Description</th>' +
+        '<th data-type="date">Last Access Date</th>' +
+        '<th data-type="date">Start Date</th>' +
+        '<th data-type="date">End Date</th>' +
+        '<th data-type="text">Status</th>' +
         '</tr></thead>';
 }
 
@@ -27,13 +27,13 @@ function getTableRow( key, shortDescription, longDescription, workDate,
     startDate, endDate, completed, className ) {
 
     return `<tr class="${className} row-data">` +
-        getButtonCell( key, className ) +
-        getCell( shortDescription, className ) +
-        getCell( longDescription, className ) +
-        getCell( workDate, className ) +
-        getCell( startDate, className ) +
-        getCell( endDate, className ) +
-        getCell( ( completed ? 'Done' : 'Working' ) ) +
+        getButtonCell( key, 'cell-1' ) +
+        getCell( shortDescription, 'cell-2' ) +
+        getCell( longDescription, 'cell-3' ) +
+        getCell( workDate, 'cell-4' ) +
+        getCell( startDate, 'cell-5' ) +
+        getCell( endDate, 'cell-6' ) +
+        getCell( ( completed ? 'Done' : 'Working' ), 'cell-7' ) +
         '</tr>';
 }
 
@@ -65,8 +65,8 @@ function getTable( rows ) {
     return `<div>${addTask}${selectFilter}<br>${exportTasks}<br>${importTasks}<br><table id="taskList">${getHeader()}<tbody>${rowData}</tbody></table></div>`;
 }
 
-function getCell( content ) {
-    return `<td>${content}</td>`;
+function getCell( content, cellNumber ) {
+    return `<td data-column-umber="${cellNumber}">${content}</td>`;
 }
 
 function getButtonCell( id, className ) {

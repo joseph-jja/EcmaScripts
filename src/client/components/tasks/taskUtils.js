@@ -19,26 +19,33 @@ function mapFromDom() {
 }
 
 function tableSort() {
+
     const tbody = selector( '#taskList tbody' ).get( 0 );
     const rows = selector( '#taskList tbody tr' ).toArray();
-    const sortedRows = rows.sort( ( a, b ) => {
-        const tdDateA = a.childNodes[ 3 ].innerHTML,
-            tdDateB = b.childNodes[ 3 ].innerHTML;
 
-        const timeA = new Date( tdDateA ).getTime(),
-            timeB = new Date( tdDateB ).getTime();
+    function dateSort( cellNumber ) {
 
-        const delta = ( timeA > timeB );
-        if ( timeA > timeB ) {
-            tbody.prepend( a );
-        } else {
-            tbody.prepend( b );
-        }
+        rows.sort( ( a, b ) => {
+            const tdDateA = a.childNodes[ cellNumber ].innerHTML,
+                tdDateB = b.childNodes[ cellNumber ].innerHTML;
 
-        return delta;
-    } );
+            const timeA = new Date( tdDateA ).getTime(),
+                timeB = new Date( tdDateB ).getTime();
 
-    return sortedRows;
+            const delta = ( timeA > timeB );
+            if ( timeA > timeB ) {
+                tbody.prepend( a );
+            } else {
+                tbody.prepend( b );
+            }
+
+            return delta;
+        } );
+    }
+
+    dateSort( 3 );
+
+    return rows;
 }
 
 function cancelButtonClick() {
