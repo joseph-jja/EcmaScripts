@@ -45,10 +45,9 @@ function tableSort( cellNumber = 3, type = 'date' ) {
             } else {
                 const dataA = tdDataA.toLowerCase(),
                     dataB = tdDataB.toLowerCase();
-                const delta = ( dataA === dataB );
-                console.log( delta, tdDataA, tdDataB );
+                const delta = ( dataA.localeCompare( dataB ) );
                 if ( tdDataA === dataB ) {
-                    dataA.prepend( a );
+                    tbody.prepend( a );
                 } else {
                     tbody.prepend( b );
                 }
