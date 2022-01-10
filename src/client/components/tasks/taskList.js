@@ -44,6 +44,17 @@ function TaskList() {
                     type = target.getAttribute( 'data-type' );
                 if ( cellNumber > 1 ) {
                     tableSort( cellNumber, type );
+                    let i = 0;
+                    const rows = selector( '#taskList tbody tr' );
+                    rows.each( ( r ) => {
+                        if ( r.style.display !== 'none' ) {
+                            css.removeClass( r, 'even' );
+                            css.removeClass( r, 'odd' );
+                            const newClass = ( ( i % 2 === 0 ) ? ' even' : ' odd' );
+                            i++;
+                            css.addClass( r, newClass );
+                        }
+                    } );
                 }
             }
         } );

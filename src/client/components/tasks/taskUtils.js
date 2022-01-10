@@ -35,7 +35,7 @@ function tableSort( cellNumber = 3, type = 'date' ) {
                 const timeA = Date.parse( tdDataA ),
                     timeB = Date.parse( tdDataB );
                 const delta = ( timeA === timeB ? 0 : timeA > timeB ? 1 : -1 );
-                if ( delta > 0 ) {
+                if ( delta >= 0 ) {
                     tbody.prepend( a );
                 } else {
                     tbody.prepend( b );
@@ -46,7 +46,7 @@ function tableSort( cellNumber = 3, type = 'date' ) {
                 const dataA = tdDataA.toLowerCase(),
                     dataB = tdDataB.toLowerCase();
                 const delta = ( dataA.localeCompare( dataB ) );
-                if ( delta < 0 ) {
+                if ( delta >= 0 ) {
                     tbody.prepend( a );
                 } else {
                     tbody.prepend( b );
