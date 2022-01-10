@@ -32,9 +32,9 @@ function tableSort( cellNumber = 3, type = 'date' ) {
                 tdDataB = b.childNodes[ realCellNumber ].innerHTML;
 
             if ( type === 'date' ) {
-                const timeA = new Date( tdDataA ).getTime(),
-                    timeB = new Date( tdDataB ).getTime();
-                const delta = ( timeA > timeB );
+                const timeA = Date.parse( tdDataA ),
+                    timeB = Date.parse( tdDataB );
+                const delta = ( timeA >= timeB );
                 if ( timeA >= timeB ) {
                     tbody.prepend( a );
                 } else {
@@ -46,7 +46,7 @@ function tableSort( cellNumber = 3, type = 'date' ) {
                 const dataA = tdDataA.toLowerCase(),
                     dataB = tdDataB.toLowerCase();
                 const delta = ( dataA.localeCompare( dataB ) );
-                if ( tdDataA === dataB ) {
+                if ( delta >= 0 ) {
                     tbody.prepend( a );
                 } else {
                     tbody.prepend( b );
