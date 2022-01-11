@@ -25,38 +25,31 @@ function tableSort( cellNumber = 3, type = 'date' ) {
 
     const realCellNumber = cellNumber - 1;
 
-    function dateSort() {
+    const sortableRows = rows.map( ( item, i ) => {
+        return {
+            rowData: item.childNodes[ realCellNumber ].innerHTML,
+            index: i
+        };
+    } );
 
-        rows.sort( ( a, b ) => {
-            const tdDataA = a.childNodes[ realCellNumber ].innerHTML,
-                tdDataB = b.childNodes[ realCellNumber ].innerHTML;
+    sortableRows.sort( ( a, b ) => {
+        const tdDataA = a.rowData,
+            tdDataB = b.rowData;
 
-            if ( type === 'date' ) {
-                const timeA = Date.parse( tdDataA ),
-                    timeB = Date.parse( tdDataB );
-                const delta = ( timeA === timeB ? 0 : timeA > timeB ? 1 : -1 );
-                if ( delta >= 0 ) {
-                    tbody.prepend( a );
-                } else {
-                    tbody.prepend( b );
-                }
+        if ( type === 'date' ) {
+            const timeA = Date.parse( tdDataA ),
+                timeB = Date.parse( tdDataB );
+            return ( timeA === timeB ? 0 : timeA > timeB ? -1 : 1 );
+        } else {
+            const dataA = tdDataA.toLowerCase(),
+                dataB = tdDataB.toLowerCase();
+            return ( dataA.localeCompare( dataB ) );
+        }
+    } );
 
-                return delta;
-            } else {
-                const dataA = tdDataA.toLowerCase(),
-                    dataB = tdDataB.toLowerCase();
-                const delta = ( dataA.localeCompare( dataB ) );
-                if ( delta >= 0 ) {
-                    tbody.prepend( a );
-                } else {
-                    tbody.prepend( b );
-                }
-                return delta;
-            }
-        } );
-    }
-
-    dateSort();
+    sortableRows.forEach( item => {
+        tbody.append( rows[ item.index ] );
+    } );
 
     return rows;
 }
