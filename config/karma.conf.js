@@ -1,14 +1,9 @@
 // Karma configuration
 const path = require( "path" ),
-    os = require( 'os' ),
     fs = require( 'fs' ),
     baseDir = process.cwd(),
     babelConfig = JSON.parse( fs.readFileSync( 'config/babel-config.json' ) ),
     webpackConfig = require( `${baseDir}/config/webpack` );
-
-const platform = os.platform();
-
-const isAndroid = ( platform === 'android' );
 
 const files = [],
     excludeFiles = [];
@@ -17,16 +12,19 @@ files.push( {
     included: false,
     nocache: true
 } );
-if ( isAndroid ) {
-    files.push( 'tests/polyfills/performance-timings.js' );
-    files.push( 'tests/polyfills/fetch.js' );
-    excludeFiles.push( 'tests/client/components/canvas*.js' );
-    excludeFiles.push( 'tests/client/net/fetcher*.js' );
-    excludeFiles.push( 'tests/client/dom/toggleUL_spec.js' );
-}
 files.push( 'tests/**/**_spec*.js' );
 files.push( {
-    pattern: 'src/**/**.js',
+    pattern: 'src/client/**/**.js',
+    included: false,
+    nocache: true
+} );
+files.push( {
+    pattern: 'src/utils/**/**.js',
+    included: false,
+    nocache: true
+} );
+files.push( {
+    pattern: 'src/polyfills/**/**.js',
     included: false,
     nocache: true
 } );
@@ -136,7 +134,7 @@ module.exports = function ( config ) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: [ ( isAndroid ? 'jsdom' : 'ChromeHeadless' ) ],
+        browsers: [ 'ChromeHeadless' ],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits

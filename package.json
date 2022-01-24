@@ -55,7 +55,6 @@
     "karma-coverage": "2.0.3",
     "karma-coverage-istanbul-reporter": "3.0.3",
     "karma-jasmine": "4.0.1",
-    "karma-jsdom-launcher": "11.0.0",
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "5.0.0",
     "setprototypeof": "1.2.0",
