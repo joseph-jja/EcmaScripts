@@ -63,7 +63,7 @@ SQLQuery.DB_ERROR = 500;
 SQLQuery.prototype.open = function ( name, store, version ) {
     return new Promise( ( resolve, reject ) => {
 
-        const openHandler = ( evt, status ) => {
+        const promiseHandler = ( evt, status ) => {
             if ( status === SQLQuery.DB_ERROR ) {
                 reject( {
                     evt,
@@ -84,24 +84,24 @@ SQLQuery.prototype.open = function ( name, store, version ) {
         this.version = version;
 
         iDB.onerror = ( evt ) => {
-            openHandler( evt, SQLQuery.DB_ERROR );
+            promiseHandler( evt, SQLQuery.DB_ERROR );
         };
 
         iDB.onsuccess = ( evt ) => {
             this.iDB = ( evt || {} )[ ( 'target' || {} ) ].result;
             this.isOpen = true;
-            openHandler( evt, SQLQuery.DB_SUCCESS );
+            promiseHandler( evt, SQLQuery.DB_SUCCESS );
         };
         iDB.onupgradeneeded = ( evt ) => {
             this.iDB = ( evt || {} )[ ( 'target' || {} ) ].result;
             if ( !this.iDB ) {
-                openHandler( evt, SQLQuery.DB_ERROR );
+                promiseHandler( evt, SQLQuery.DB_ERROR );
                 return;
             }
             this.createObjectStore( this.store ).then( res => {
-                openHandler( res.evt, res.status );
+                promiseHandler( res.evt, res.status );
             } ).catch( err => {
-                openHandler( err.evt, err.status );
+                promiseHandler( err.evt, err.status );
             } );
         };
     } );
