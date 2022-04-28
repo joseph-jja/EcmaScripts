@@ -107,38 +107,41 @@ SQLQuery.prototype.open = function ( name, store, version ) {
     } );
 };
 
-SQLQuery.prototype.openHandler = function ( storeName, successHandler, errorHandler ) {
-    if ( this.isOpen ) {
-        successHandler();
-    } else {
-        this.open( this.name, storeName, this.version ).then( res => {
-            this.iDB = res.evt.target.result;
-            if ( res.status === SQLQuery.DB_SUCCESS ) {
-                successHandler();
-            } else {
-                errorHandler( res.evt, SQLQuery.DB_ERROR );
-            }
-        } ).catch( err => {
-            errorHandler( err.evt, SQLQuery.DB_ERROR );
-        } );
-    }
+SQLQuery.prototype.openHandler = function ( storeName ) {
+    return new Promise((resolve, reject) => {
+        if ( this.isOpen ) {
+            return resolve();
+        } else {
+            this.open( this.name, storeName, this.version ).then( res => {
+                this.iDB = res.evt.target.result;
+                if ( res.status === SQLQuery.DB_SUCCESS ) {
+                    return resolve();
+                } else {
+                    return reject( res.evt );
+                }
+            } ).catch( err => {
+                return reject( err.evt );
+            } );
+        }
+    });
 };
 
 SQLQuery.prototype.clear = function ( storeName, callback ) {
-    const clearTransaction = () => {
+    this.openHandler( storeName ).then(res => {
         const request = this.getObjectStore( storeName, 'readwrite' ).clear();
         this.processRequest( request ).then(evt => {
             callback(evt, SQLQuery.DB_SUCCESS);
         }).catch(evt => {
             callback(evt, SQLQuery.DB_ERROR);
         });
-    };
-    this.openHandler( storeName, clearTransaction, callback );
+    }).catch(err => {
+        callback(err, SQLQuery.DB_ERROR);
+    });
 };
 
 // callback gets the object data and success for fail
 SQLQuery.prototype.add = function ( storeName, data, callback ) {
-    const addTransaction = () => {
+    this.openHandler( storeName ).then(res => {
         if ( data.key ) {
             const key = data.key;
             const ndata = Object.assign( {}, data );
@@ -157,50 +160,54 @@ SQLQuery.prototype.add = function ( storeName, data, callback ) {
                 callback(evt, SQLQuery.DB_ERROR);
             });
         }
-    };
-    this.openHandler( storeName, addTransaction, callback );
+    }).catch(err => {
+        callback(err, SQLQuery.DB_ERROR);
+    });
 };
 
 // callback gets the object data and success for fail
 SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
-    const fetchTransaction = () => {
+    this.openHandler( storeName ).then(res => {
         const request = this.getObjectStore( storeName, 'readonly' ).get( key );
         this.processRequest( request ).then(evt => {
             callback(evt, SQLQuery.DB_SUCCESS);
         }).catch(evt => {
             callback(evt, SQLQuery.DB_ERROR);
         });
-    };
-    this.openHandler( storeName, fetchTransaction, callback );
+    }).catch(err => {
+        callback(err, SQLQuery.DB_ERROR);
+    });
 };
 
 // update gets and then updates
 SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
-    const updateTransaction = () => {
+    this.openHandler( storeName ).then(res => {
         const request = this.getObjectStore( storeName, 'readwrite' ).put( data, key );
         this.processRequest( request ).then(evt => {
             callback(evt, SQLQuery.DB_SUCCESS);
         }).catch(evt => {
             callback(evt, SQLQuery.DB_ERROR);
         });
-    };
-    this.openHandler( storeName, updateTransaction, callback );
+    }).catch(err => {
+        callback(err, SQLQuery.DB_ERROR);
+    });
 };
 
 SQLQuery.prototype.remove = function ( storeName, key, callback ) {
-    const removeTransaction = () => {
+    this.openHandler( storeName ).then(res => {
         const request = this.getObjectStore( storeName, 'readwrite' ).delete( key );
         this.processRequest( request ).then(evt => {
             callback(evt, SQLQuery.DB_SUCCESS);
         }).catch(evt => {
             callback(evt, SQLQuery.DB_ERROR);
         });
-    };
-    this.openHandler( storeName, removeTransaction, callback );
+    }).catch(err => {
+        callback(err, SQLQuery.DB_ERROR);
+    });
 };
 
 SQLQuery.prototype.list = function ( storeName, callback ) {
-    const listTransaction = () => {
+    this.openHandler( storeName ).then(res => {
         const lb = window.IDBKeyRange.lowerBound( 0 );
 
         const store = this.getObjectStore( storeName, 'readonly' );
@@ -218,8 +225,9 @@ SQLQuery.prototype.list = function ( storeName, callback ) {
                 callback( data );
             }
         };
-    };
-    this.openHandler( storeName, listTransaction, callback );
+    }).catch(err => {
+        callback(err, SQLQuery.DB_ERROR);
+    });
 };
 
 export default SQLQuery;
