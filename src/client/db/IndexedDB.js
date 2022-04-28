@@ -107,17 +107,6 @@ SQLQuery.prototype.open = function ( name, store, version ) {
     } );
 };
 
-// open and create do the same thing :/
-SQLQuery.prototype.createDB = function ( name, store, version, callback ) {
-    this.open( name, store, version ).then( res => {
-        callback( res.evt, res.status );
-        this.close();
-    } ).catch( err => {
-        callback( err.evt, err.status );
-        this.close();
-    } );
-};
-
 SQLQuery.prototype.openHandler = function ( storeName, successHandler, errorHandler ) {
     if ( this.isOpen ) {
         successHandler();
