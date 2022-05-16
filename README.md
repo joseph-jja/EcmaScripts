@@ -1,4 +1,4 @@
-# EcmaScripts with test coverage varies but threshold is about 50% on files that have tests
+# EcmaScripts with test coverage varies but threshold is about 70% on files that have tests
 
 * using es6 and babel this will be some scripts for my personal website
 * all tests are done in jasmine 2 with karma, webpack, and babel 
