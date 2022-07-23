@@ -22,7 +22,7 @@ class SQLQuery {
     }
 
     processRequest( request ) {
-        return new Promise((resolve, reject) => {
+        return new Promise( ( resolve, reject ) => {
             request.onerror = function ( evt ) {
                 reject( evt );
             };
@@ -30,7 +30,7 @@ class SQLQuery {
             request.onsuccess = function ( evt ) {
                 resolve( evt );
             };
-        });
+        } );
     }
 
     hasIndexedDBSupport() {
@@ -108,7 +108,7 @@ SQLQuery.prototype.open = function ( name, store, version ) {
 };
 
 SQLQuery.prototype.openHandler = function ( storeName ) {
-    return new Promise((resolve, reject) => {
+    return new Promise( ( resolve, reject ) => {
         if ( this.isOpen ) {
             return resolve();
         } else {
@@ -123,91 +123,91 @@ SQLQuery.prototype.openHandler = function ( storeName ) {
                 return reject( err.evt );
             } );
         }
-    });
+    } );
 };
 
 SQLQuery.prototype.clear = function ( storeName, callback ) {
-    this.openHandler( storeName ).then(res => {
+    this.openHandler( storeName ).then( res => {
         const request = this.getObjectStore( storeName, 'readwrite' ).clear();
-        this.processRequest( request ).then(evt => {
-            callback(evt, SQLQuery.DB_SUCCESS);
-        }).catch(evt => {
-            callback(evt, SQLQuery.DB_ERROR);
-        });
-    }).catch(err => {
-        callback(err, SQLQuery.DB_ERROR);
-    });
+        this.processRequest( request ).then( evt => {
+            callback( evt, SQLQuery.DB_SUCCESS );
+        } ).catch( evt => {
+            callback( evt, SQLQuery.DB_ERROR );
+        } );
+    } ).catch( err => {
+        callback( err, SQLQuery.DB_ERROR );
+    } );
 };
 
 // callback gets the object data and success for fail
 SQLQuery.prototype.add = function ( storeName, data, callback ) {
-    this.openHandler( storeName ).then(res => {
+    this.openHandler( storeName ).then( res => {
         if ( data.key ) {
             const key = data.key;
             const ndata = Object.assign( {}, data );
             delete ndata.key;
             const request = this.getObjectStore( storeName, 'readwrite' ).add( data, key );
-            this.processRequest( request ).then(evt => {
-                callback(evt, SQLQuery.DB_SUCCESS);
-            }).catch(evt => {
-                callback(evt, SQLQuery.DB_ERROR);
-            });
+            this.processRequest( request ).then( evt => {
+                callback( evt, SQLQuery.DB_SUCCESS );
+            } ).catch( evt => {
+                callback( evt, SQLQuery.DB_ERROR );
+            } );
         } else {
             const request = this.getObjectStore( storeName, 'readwrite' ).add( data );
-            this.processRequest( request ).then(evt => {
-                callback(evt, SQLQuery.DB_SUCCESS);
-            }).catch(evt => {
-                callback(evt, SQLQuery.DB_ERROR);
-            });
+            this.processRequest( request ).then( evt => {
+                callback( evt, SQLQuery.DB_SUCCESS );
+            } ).catch( evt => {
+                callback( evt, SQLQuery.DB_ERROR );
+            } );
         }
-    }).catch(err => {
-        callback(err, SQLQuery.DB_ERROR);
-    });
+    } ).catch( err => {
+        callback( err, SQLQuery.DB_ERROR );
+    } );
 };
 
 // callback gets the object data and success for fail
 SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
-    this.openHandler( storeName ).then(res => {
+    this.openHandler( storeName ).then( res => {
         const request = this.getObjectStore( storeName, 'readonly' ).get( key );
-        this.processRequest( request ).then(evt => {
-            callback(evt, SQLQuery.DB_SUCCESS);
-        }).catch(evt => {
-            callback(evt, SQLQuery.DB_ERROR);
-        });
-    }).catch(err => {
-        callback(err, SQLQuery.DB_ERROR);
-    });
+        this.processRequest( request ).then( evt => {
+            callback( evt, SQLQuery.DB_SUCCESS );
+        } ).catch( evt => {
+            callback( evt, SQLQuery.DB_ERROR );
+        } );
+    } ).catch( err => {
+        callback( err, SQLQuery.DB_ERROR );
+    } );
 };
 
 // update gets and then updates
 SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
-    this.openHandler( storeName ).then(res => {
+    this.openHandler( storeName ).then( res => {
         const request = this.getObjectStore( storeName, 'readwrite' ).put( data, key );
-        this.processRequest( request ).then(evt => {
-            callback(evt, SQLQuery.DB_SUCCESS);
-        }).catch(evt => {
-            callback(evt, SQLQuery.DB_ERROR);
-        });
-    }).catch(err => {
-        callback(err, SQLQuery.DB_ERROR);
-    });
+        this.processRequest( request ).then( evt => {
+            callback( evt, SQLQuery.DB_SUCCESS );
+        } ).catch( evt => {
+            callback( evt, SQLQuery.DB_ERROR );
+        } );
+    } ).catch( err => {
+        callback( err, SQLQuery.DB_ERROR );
+    } );
 };
 
 SQLQuery.prototype.remove = function ( storeName, key, callback ) {
-    this.openHandler( storeName ).then(res => {
+    this.openHandler( storeName ).then( res => {
         const request = this.getObjectStore( storeName, 'readwrite' ).delete( key );
-        this.processRequest( request ).then(evt => {
-            callback(evt, SQLQuery.DB_SUCCESS);
-        }).catch(evt => {
-            callback(evt, SQLQuery.DB_ERROR);
-        });
-    }).catch(err => {
-        callback(err, SQLQuery.DB_ERROR);
-    });
+        this.processRequest( request ).then( evt => {
+            callback( evt, SQLQuery.DB_SUCCESS );
+        } ).catch( evt => {
+            callback( evt, SQLQuery.DB_ERROR );
+        } );
+    } ).catch( err => {
+        callback( err, SQLQuery.DB_ERROR );
+    } );
 };
 
 SQLQuery.prototype.list = function ( storeName, callback ) {
-    this.openHandler( storeName ).then(res => {
+    this.openHandler( storeName ).then( res => {
         const lb = window.IDBKeyRange.lowerBound( 0 );
 
         const store = this.getObjectStore( storeName, 'readonly' );
@@ -225,9 +225,9 @@ SQLQuery.prototype.list = function ( storeName, callback ) {
                 callback( data );
             }
         };
-    }).catch(err => {
-        callback(err, SQLQuery.DB_ERROR);
-    });
+    } ).catch( err => {
+        callback( err, SQLQuery.DB_ERROR );
+    } );
 };
 
 export default SQLQuery;
