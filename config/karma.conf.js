@@ -64,7 +64,7 @@ module.exports = function ( config ) {
                         loader: "babel-loader",
                         options: babelConfig
                     }
-                }, {
+                }/*, {
                     test: /\.js$/,
                     exclude: /(node_modules|tests)/,
                     use: {
@@ -73,7 +73,7 @@ module.exports = function ( config ) {
                             esModules: true
                         }
                     }
-                } ]
+                } */]
             },
             plugins: [],
             context: webpackConfig.context,
