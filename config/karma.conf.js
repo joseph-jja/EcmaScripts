@@ -50,7 +50,7 @@ module.exports = function ( config ) {
         frameworks: [ 'jasmine' ],
 
         preprocessors: {
-            'src/**/**.js': [ 'babel', 'webpack' ],
+            'src/**/**.js': [ 'babel', 'webpack', 'coverage' ],
             'tests/**/**.js': [ 'webpack' ]
         },
 
@@ -64,16 +64,7 @@ module.exports = function ( config ) {
                         loader: "babel-loader",
                         options: babelConfig
                     }
-                }/*, {
-                    test: /\.js$/,
-                    exclude: /(node_modules|tests)/,
-                    use: {
-                        loader: 'istanbul-instrumenter-loader',
-                        options: {
-                            esModules: true
-                        }
-                    }
-                } */]
+                }]
             },
             plugins: [],
             context: webpackConfig.context,
@@ -96,15 +87,15 @@ module.exports = function ( config ) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: [ 'spec' ], //, 'coverage' ],
+        reporters: [ 'spec' , 'coverage' ],
 
-        /*coverageReporter: {
+        coverageReporter: {
             dir: 'coverage/',
             reporters: [ {
                 type: 'html',
                 subdir: 'report-html'
             } ]
-        },*/
+        },
 
         /*coverageIstanbulReporter: {
             reports: [ 'text-summary' ],
