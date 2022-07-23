@@ -96,17 +96,17 @@ module.exports = function ( config ) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: [ 'spec', 'coverage' ],
+        reporters: [ 'spec' ]//, 'coverage' ],
 
-        coverageReporter: {
+        /*coverageReporter: {
             dir: 'coverage/',
             reporters: [ {
                 type: 'html',
                 subdir: 'report-html'
             } ]
-        },
+        },*/
 
-        coverageIstanbulReporter: {
+        /*coverageIstanbulReporter: {
             reports: [ 'text-summary' ],
             thresholds: {
                 emitWarning: true,
@@ -117,7 +117,7 @@ module.exports = function ( config ) {
                     functions: 50
                 }
             }
-        },
+        },*/
 
         // web server port
         port: 9876,
