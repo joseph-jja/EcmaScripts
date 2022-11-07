@@ -2,7 +2,9 @@
 js/
 coverage/
 work/
-js/
 node_modules/
 npm-debug.log
-data/all-tasks.json
+data/
+ssl-keys/
+stats.json
+binarydb/build/
