@@ -43,7 +43,7 @@ class SQLQuery {
         }
     }
 
-    async createObjectStore( store ) {
+    createObjectStore( store ) {
         const request = this.iDB.createObjectStore( store, {
             keypath: 'id',
             autoIncrement: true
