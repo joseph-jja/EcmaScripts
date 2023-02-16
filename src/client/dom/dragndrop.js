@@ -15,7 +15,7 @@ export default function dragndrop() {
         posY = 0,
         isInitialized = false;
 
-    let find = function ( evt, dndRef ) {
+    const find = ( evt, dndRef ) => {
 
         let dnd = self,
             e, tgt;
@@ -38,7 +38,7 @@ export default function dragndrop() {
         return dnd;
     };
 
-    let cleanSelection = function () {
+    const cleanSelection = () => {
         let select;
 
         if ( window.getSelection ) {
@@ -56,7 +56,7 @@ export default function dragndrop() {
         }
     };
 
-    const toggleDrag = function ( toggleOn, moveObjID, eventObjID ) {
+    const toggleDrag = ( toggleOn, moveObjID, eventObjID ) => {
         // object being moved
         const obj = selector( "#" + moveObjID ).get( 0 ),
             // find event target object or its the same as the object being moved
@@ -79,9 +79,9 @@ export default function dragndrop() {
         }
     };
 
-    self.dragableObjects = [];
+    this.dragableObjects = [];
 
-    self.initialize = function () {
+    this.initialize = () => {
         const dnd = self;
         if ( dnd.isInitialized ) {
             return;
@@ -97,7 +97,7 @@ export default function dragndrop() {
         dnd.isInitialized = true;
     };
 
-    self.findDragableParent = function ( element ) {
+    this.findDragableParent = ( element ) => {
         const dnd = self;
         if ( !element || !element.nodeName || element.nodeName.toLowerCase() === "body" ) {
             return undefined;
@@ -108,13 +108,13 @@ export default function dragndrop() {
         return element;
     };
 
-    self.mousemove = function ( evt ) {
+    this.mousemove = ( evt ) => {
         find( evt, "dragableCoverMask" );
         cleanSelection();
         return false;
     };
 
-    self.mouseup = function ( evt ) {
+    this.mouseup = ( evt ) => {
         const dnd = find( evt, "currentDragObject" );
 
         // hide and stop
@@ -125,7 +125,7 @@ export default function dragndrop() {
         cleanSelection();
     };
 
-    self.mousedown = function ( evt ) {
+    this.mousedown = function ( evt ) {
 
         const dnd = self,
             e = events.getEvent( evt );
@@ -164,12 +164,12 @@ export default function dragndrop() {
         return false;
     };
 
-    self.setDragable = function ( moveObjID, eventObjID ) {
+    this.setDragable = function ( moveObjID, eventObjID ) {
         toggleDrag( true, moveObjID, eventObjID );
     };
 
-    self.setNONDragable = function ( moveObjID, eventObjID ) {
+    this.setNONDragable = function ( moveObjID, eventObjID ) {
         toggleDrag( false, moveObjID, eventObjID );
     };
-    return self;
+    return this;
 }

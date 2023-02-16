@@ -7,9 +7,9 @@ let addEvent,
 
 if ( window.attachEvent && !window.addEventListener ) {
     addEvent = function ( obj, eventType, fn, capture ) {
-        const result = obj.attachEvent( "on" + eventType, fn );
+        const result = obj.attachEvent( 'on' + eventType, fn );
         if ( !result ) {
-            throw ( "Event " + eventType + " could not be added!" );
+            throw ( 'Event ' + eventType + ' could not be added!' );
         }
     };
 } else if ( window.addEventListener ) {
@@ -21,9 +21,9 @@ if ( window.attachEvent && !window.addEventListener ) {
 
 if ( window.detachEvent && !window.removeEventListener ) {
     removeEvent = function ( obj, eventType, fn, capture ) {
-        const result = obj.detachEvent( "on" + eventType, fn );
+        const result = obj.detachEvent( 'on' + eventType, fn );
         if ( !result ) {
-            throw ( "Event " + eventType + " could not be removed!" );
+            throw ( 'Event ' + eventType + ' could not be removed!' );
         }
     };
 } else if ( window.removeEventListener ) {
@@ -76,7 +76,7 @@ const getEventPosY = function ( evt ) {
 
 if ( document.createEvent ) {
     createEvent = function ( name, obj, options ) {
-        let evt = document.createEvent( "Event" );
+        let evt = document.createEvent( 'Event' );
         if ( !evt ) {
             return undefined;
         }
@@ -89,7 +89,7 @@ if ( document.createEvent ) {
         if ( !options.cancellable ) {
             options.cancellable = true;
         }
-        evt[ "initEvent" ]( "Event", options.canBubble, options.cancellable );
+        evt[ 'initEvent' ]( 'Event', options.canBubble, options.cancellable );
         return evt;
     };
 
