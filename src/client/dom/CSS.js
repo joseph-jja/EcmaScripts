@@ -3,7 +3,7 @@ import selector from 'client/dom/selector';
 import * as typeCheck from 'utils/typeCheck';
 
 const addClass = function ( obj, cls ) {
-    if ( obj.className.indexOf( cls ) === -1 ) {
+    if ( obj?.className?.indexOf( cls ) === -1 ) {
         obj.className += " " + cls;
     }
 };

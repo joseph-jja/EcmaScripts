@@ -55,7 +55,7 @@
     "karma-spec-reporter": "0.0.36",
     "karma-webpack": "5.0.0",
     "setprototypeof": "1.2.0",
-    "terser": "5.16.2",
+    "terser": "5.16.3",
     "terser-webpack-plugin": "5.3.6",
     "webpack": "5.75.0",
     "webpack-cli": "5.0.1"
