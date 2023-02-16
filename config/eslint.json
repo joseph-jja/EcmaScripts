@@ -1,7 +1,7 @@
 {
     "parserOptions": {
         "sourceType": "module",
-        "ecmaVersion": "2022"
+        "ecmaVersion": "2020"
     },
     "env": {
         "browser": true,

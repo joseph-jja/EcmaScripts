@@ -1,4 +1,7 @@
 //css methods
+import {
+    byId
+} from 'client/dom/shortcuts';
 import selector from 'client/dom/selector';
 import * as typeCheck from 'utils/typeCheck';
 
@@ -8,10 +11,10 @@ const addClass = function ( obj, cls ) {
     }
 };
 
-const removeClass = function ( obj, cls ) {
+const removeClass = function ( obj = {}, cls ) {
     let ridx = -1,
         i,
-        cssClasses = obj.className.split( " " );
+        cssClasses = obj.className?.split( " " );
 
     const clen = cssClasses.length;
     for ( i = 0; i < clen; i += 1 ) {
@@ -35,7 +38,7 @@ const replaceClass = function ( obj, ocls, ncls ) {
 const hasClass = function ( element, cssClass ) {
     let eObj = element;
     if ( typeCheck.isString( element ) ) {
-        eObj = document.getElementById( element );
+        eObj = byId( element );
     }
     if ( eObj && eObj.className ) {
         // now we have the object
