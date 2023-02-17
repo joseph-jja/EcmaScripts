@@ -13,7 +13,6 @@
 import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
 import Dragndrop from 'client/dom/dragndrop';
-import selector from 'client/dom/selector';
 import {
     byId,
     queryAll
