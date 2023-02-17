@@ -22,7 +22,7 @@ import {
 export default function wbWindow( title, x, y, width, height, winID ) {
 
     // try to get the window, if not crate it from template
-    const mainWin = byId( "#" + winID );
+    const mainWin = byId( winID );
     if ( mainWin ) {
         this.mainWindow = mainWin;
 
