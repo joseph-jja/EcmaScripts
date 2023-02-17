@@ -9,11 +9,14 @@ const userAgentString = nav.userAgent;
 
 const userAgentParts = userAgentString.replace( /\(|\)/g, '' ).split( ' ' );
 
-const filteredVersion = userAgentParts.filter( agent => {
+const filteredUserAgent = userAgentParts.filter( agent => {
     const ua = agent.toLowerCase();
     return ( ua.indexOf( '/' ) > -1 && !ua.startsWith( 'gecko' ) &&
+        !ua.startsWith( 'safari' ) &&
         !ua.startsWith( 'applewebkit' ) && !ua.startsWith( 'mozilla' ) );
-} )[ 0 ];
+} );
+
+const filteredVersion = filteredUserAgent[ filteredUserAgent.length - 1  ];
 
 const rawVersion = parseFloat( filteredVersion.split('/')[1] );
 
