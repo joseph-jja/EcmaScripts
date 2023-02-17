@@ -98,26 +98,21 @@ export default function wbWindow( title, x, y, width, height, winID ) {
     // function for building buttons
     const buildButton = ( parent, winID, name, value, fn ) => {
 
-        // IE6 does not support button.type? BUG!!
-        //button.type = "button";
-        let bclass,
-            phtml,
-            button,
-            opts = {
-                "className": "WebWindowButton",
-                "name": name,
-                "id": name + winID
-            };
+        const opts = {
+            "className": "WebWindowButton",
+            "name": name,
+            "id": name + winID
+        };
 
-        button = dom.createElement( "button", parent, opts );
+        const button = dom.createElement( "button", parent, opts );
         button.innerHTML = value;
         button.onclick = fn;
 
         // this is all to workaround the but in IE
         // when you create a button type button
-        phtml = parent.innerHTML;
+        let phtml = parent.innerHTML;
         phtml = phtml.toLowerCase();
-        bclass = new RegExp( "button class" );
+        const bclass = new RegExp( "button class" );
         while ( phtml.match( bclass ) ) {
             phtml = phtml.replace( bclass, "button type=\"button\" class" );
         }
