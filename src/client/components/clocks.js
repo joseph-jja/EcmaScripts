@@ -12,39 +12,37 @@ class Clock {
         // one can now change this and change the time that the update occurs
         this.updateInterval = 1000;
     }
+
+    //default function to run the clock that MUST be overridden by subclass
+    runClock() {
+        throw ( "Override this function" );
+    }
+
+    startClock() {
+
+        // create an object to reference later
+        const clockObj = this;
+
+        // create a variable as a pointer to this function
+        const runClock = function () {
+            clockObj.runClock();
+        };
+
+        // call the set timeout function with our function and one second
+        this.setIntervalReturnCode = window.setInterval( runClock, this.updateInterval );
+
+    }
+
+    //function to stop a clock
+    stopClock() {
+        clearTimeout( this.setIntervalReturnCode );
+    }
+
+    //function to set the id
+    setId( clockId ) {
+        this.clockId = clockId;
+    }
 }
-
-//default function to run the clock that MUST be overridden by subclass
-Clock.prototype.runClock = function () {
-    throw ( "Override this function" );
-};
-
-//function to start a clock
-Clock.prototype.startClock = function () {
-
-    // create an object to reference later
-    const clockObj = this;
-
-    // create a variable as a pointer to this function
-    const runClock = function () {
-        clockObj.runClock();
-    };
-
-    // call the set timeout function with our function and one second
-    this.setIntervalReturnCode = window.setInterval( runClock, this.updateInterval );
-
-};
-
-//function to stop a clock
-Clock.prototype.stopClock = function () {
-    clearTimeout( this.setIntervalReturnCode );
-};
-
-//function to set the id
-Clock.prototype.setId = function ( clockId ) {
-    this.clockId = clockId;
-};
-
 //pretty basic and stupid thing to show a digital clock
 //clockId is the id of an element that supports innerHTML
 class DigitalClock extends Clock {
