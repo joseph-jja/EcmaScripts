@@ -5,15 +5,7 @@ import selector from 'client/dom/selector';
 //drag and drop events
 export default function dragndrop() {
 
-    let self = this,
-        dragableCoverMask = null,
-        currentDragObject = null,
-        moving = false,
-        offsetX = 0,
-        offsetY = 0,
-        posX = 0,
-        posY = 0,
-        isInitialized = false;
+    const self = this;
 
     const find = ( evt, dndRef ) => {
 
