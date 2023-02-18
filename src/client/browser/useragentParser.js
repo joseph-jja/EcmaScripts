@@ -5,7 +5,7 @@ const detect = {};
 
 const uaCleaned = navigator.userAgent.toLowerCase().replace( /_/, '.' );
 
-function ruleHandler( idx, map, name, version ) {
+function ruleHandler( idx, map, name ) {
 
     if ( name === 'Android' && detect.uaName === 'Safari' ) {
         detect.uaName = 'Android Web Browser';
