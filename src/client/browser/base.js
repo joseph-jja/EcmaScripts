@@ -16,11 +16,11 @@ const filteredUserAgent = userAgentParts.filter( agent => {
         !ua.startsWith( 'applewebkit' ) && !ua.startsWith( 'mozilla' ) );
 } );
 
-const filteredVersion = filteredUserAgent[ filteredUserAgent.length - 1  ];
+const filteredVersion = filteredUserAgent[ filteredUserAgent.length - 1 ];
 
-const rawVersion = parseFloat( filteredVersion.split('/')[1] );
+const rawVersion = parseFloat( filteredVersion.split( '/' )[ 1 ] );
 
-const rawBaseName = filteredVersion.split('/')[0];
+const rawBaseName = filteredVersion.split( '/' )[ 0 ];
 const appName = rawBaseName.toLowerCase() === 'version' ? 'Safari' : rawBaseName;
 
 export default {
