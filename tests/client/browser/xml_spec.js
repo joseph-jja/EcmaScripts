@@ -41,7 +41,7 @@ describe( "tests on web xml object", function () {
 
         const doc = xml.getAsXMLDocument( xmlString );
         const jsonData = xml.xml2json( doc );
-        const nowXML = xml.jsonToXML( jsonData );
+        const _nowXML = xml.jsonToXML( jsonData );
         expect( doc.getElementsByTagName( 'item' ).length ).toEqual( 1 );
     } );
     /*

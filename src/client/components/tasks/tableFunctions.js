@@ -37,7 +37,7 @@ function getTableRow( key, shortDescription, longDescription, workDate,
         '</tr>';
 }
 
-function colorize() {
+/*function colorize() {
     let i = 0;
     const rows = document.querySelectorAll( '#taskList tr' );
     [].forEach.call( rows, function ( idx, x ) {
@@ -51,7 +51,7 @@ function colorize() {
             i += 1;
         }
     } );
-};
+};*/
 
 function getTable( rows ) {
     let rowData = '';

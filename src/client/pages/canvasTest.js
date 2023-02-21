@@ -11,7 +11,7 @@ function generateCanvas() {
     const mw = document.getElementById( 'main-window' );
     const styles = window.getComputedStyle( mw );
 
-    const webWin = new WebWindow( 'Canvas Test',
+    const _webWin = new WebWindow( 'Canvas Test',
         styles.offsetLeft,
         styles.offsetTop,
         styles.offsetWidth,

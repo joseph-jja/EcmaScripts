@@ -1,5 +1,4 @@
 import Calculator from 'client/components/calculator/Calculator';
-import * as events from 'client/dom/events';
 
 describe( 'testing calculator', () => {
 

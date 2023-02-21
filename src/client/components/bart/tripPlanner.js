@@ -2,10 +2,6 @@ import stationsList from 'client/components/bart/stationsList';
 
 const pleaseSelect = '<option>Please Select A Station</option>';
 
-function leftPadd( i ) {
-    return ( i < 10 ? `0${i}` : `${i}` );
-}
-
 export default async function tripPlanner() {
 
     const stations = await stationsList();
@@ -24,12 +20,12 @@ export default async function tripPlanner() {
     // need depart or arriving button
     const now = new Date();
     let hours = now.getHours(),
-        ampm = 'AM';
+        _ampm = 'AM';
     if ( hours === 0 ) {
         hours = 12;
     } else if ( hours > 12 ) {
         hours -= 12;
-        ampm = 'PM';
+        _ampm = 'PM';
     }
 
     const tripTime = 'now'; //leftPadd( hours ) + ':' + leftPadd( now.getMinutes() ) + ' ' + ampm;

@@ -37,11 +37,6 @@ const statfile = util.promisify( fs.stat );
 
 const intialFile = `${baseDir}/coverage/report-html/index.html`;
 
-const parentDir = {
-    name: runDir,
-    isFile: false
-};
-
 async function listDir( dir, response, referer = '' ) {
 
     const cdir = dir.replace( /\/\//g, '/' );
@@ -134,7 +129,7 @@ const server = httpOrhttps.createServer( options, ( request, response ) => {
     if ( searchParams && searchParams.saveFile ) {
         const fullpath = path.resolve( runDir, searchParams.saveFile );
         statfile( fullpath )
-            .then( stats => {
+            .then( _stats => {
                 let res = [];
                 request.on( 'data', ( d, err ) => {
                     if ( !err ) {
@@ -200,7 +195,7 @@ try {
         hostIP = filtered[ 0 ];
         server.listen( port, hostIP );
     }
-    console.log( `Server listening on port ${port} and IP ${hostIP || filtered[0]}.` );
+    console.log( `Server listening on port ${port} and IP ${hostIP || filtered[0]} using protocol ${protocol}.` );
 
 } catch ( e ) {
     console.log( e );

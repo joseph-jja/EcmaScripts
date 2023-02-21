@@ -52,8 +52,8 @@ function sortColors( rgb1, rgb2 ) {
     const chroma1 = max1 - min1,
         chroma2 = max2 - min2;
 
-    /*const hcl1 = hcl( r1, g1, b1 ),
-        hcl2 = hcl( r2, g2, b2 );*/
+    const _hcl1 = hcl( r1, g1, b1 ),
+        _hcl2 = hcl( r2, g2, b2 );
 
     if ( chroma1 === 0 && chroma2 === 0 ) {
         // handle 000 vs 111

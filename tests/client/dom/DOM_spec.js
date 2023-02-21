@@ -8,7 +8,7 @@ describe( "tests on DOM object", function () {
     } );
 
     it( "create element test", function () {
-        var r, x = dom.createElement( 'div', undefined, {
+        var x = dom.createElement( 'div', undefined, {
             id: 'domCreateTest'
         } );
 
@@ -51,9 +51,7 @@ describe( "tests on DOM object", function () {
     // TODO test this
     xit( 'tests on input fields', function () {
 
-        var i, r, s, x = dom.createElement( 'div', undefined, {
-            id: 'domCreateTest'
-        } );
+        var i, r;
 
         r = dom.createElement( 'input', "domCreateTest", {
             id: 'domThingNode',

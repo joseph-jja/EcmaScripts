@@ -12,7 +12,7 @@ export default class Grid {
     }
 
     reset() {
-        const cells = selector( "#" + this.parentID + ' td.grid-cell' ).each( cell => {
+        const _cells = selector( "#" + this.parentID + ' td.grid-cell' ).each( cell => {
             cell.style.background = "white";
         } );
     };

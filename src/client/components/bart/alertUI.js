@@ -1,6 +1,6 @@
 import * as API from 'client/components/bart/api';
 
-export default async function alerts( station ) {
+export default async function alerts( _station ) {
 
     const alerts = await API.getAlerts();
 

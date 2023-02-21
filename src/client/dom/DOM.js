@@ -118,7 +118,7 @@ const findParent = function ( slctr, pslctr, i ) {
     }
 
     getParent = function ( node, pNodeName ) {
-        let prnt, inStr;
+        let prnt;
 
         // no node :(
         if ( !node ) {
@@ -205,7 +205,7 @@ const setTextFieldCursorPosition = function ( obj, pos, epos ) {
 //callback: callback function after onload
 const loadScript = function ( scriptURL, options, jsonpOptions ) {
     let body = document.body,
-        script, remove, abort, scriptList = [];
+        script, remove, scriptList = [];
     if ( !scriptURL ) {
         return;
     }
@@ -228,11 +228,6 @@ const loadScript = function ( scriptURL, options, jsonpOptions ) {
                 script = null;
             };
             if ( jsonpOptions.callback ) {
-                abort = function () {
-                    if ( script ) {
-                        script.onload( undefined, true );
-                    }
-                };
                 // taken in part from jquery
                 script.onload = script.onreadystatechange = function ( x, isAbort ) {
                     if ( isAbort || !script.readyState || /loaded|complete/.test( script.readyState ) ) {

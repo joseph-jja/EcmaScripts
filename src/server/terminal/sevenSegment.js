@@ -1,12 +1,5 @@
 const baseDir = process.cwd(),
     {
-        clearScreen,
-        clearMatrix,
-        writeMatrix
-    } = require( `${baseDir}/src/server/terminal/matrix` ),
-    {
-        getNumberWidth,
-        getNumberHeight,
         getSegmentHeight,
         setMatrixPoint
     } = require( `${baseDir}/src/server/terminal/matrix` ),
@@ -35,7 +28,6 @@ function sevenSegment( sevenSegmentItem, segment ) {
     if ( sevenSegmentItem > 0 && sevenSegmentItem <= 4 ) {
         column = sevenSegmentItem;
     }
-    let row = 1;
     switch ( segment ) {
     case 1:
         verticleSegment( 1, column, 0 );

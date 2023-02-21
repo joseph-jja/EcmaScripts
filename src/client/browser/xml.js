@@ -233,7 +233,7 @@ export function getAsXMLDocument( xmlString ) {
 
     let xmlDocument = null,
         xmlInput = xmlString,
-        parser, bFound, i, objXML;
+        parser;
 
     if ( isDOMParserCapable() ) {
         // then try this

@@ -60,17 +60,20 @@
         "no-irregular-whitespace": 1,
         "no-new": 1,
         "no-plusplus": 0,
-        "no-unused-vars": 1,
+        "no-unused-vars": ["error", {
+            "argsIgnorePattern": "^_",
+            "varsIgnorePattern": "^_"
+        }],
         "strict": 0,
         "comma-dangle": 1,
         "no-trailing-spaces": 0,
-        "max-params": [ 1, {
+        "max-params": [1, {
             "max": 10
-        } ],
+        }],
         "max-depth": 1,
-        "max-statements": [ 1, {
+        "max-statements": [1, {
             "max": 50
-        } ],
+        }],
         "complexity": 1,
         "max-len": 0,
 

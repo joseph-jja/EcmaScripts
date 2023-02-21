@@ -23,7 +23,7 @@ async function compressStyles() {
 
     const styleFiles = await listDirectory( 'styles' );
 
-    const results = styleFiles.filter( item => {
+    styleFiles.filter( item => {
         return item.isFile;
     } ).map( item => {
         return item.name;

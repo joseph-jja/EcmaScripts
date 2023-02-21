@@ -1,11 +1,9 @@
-import * as ajax from 'client/net/ajax';
 import SQLQuery from 'client/db/IndexedDB';
 
 const DBName = 'tasksDB',
     StoreName = 'tasks',
     {
-        DB_SUCCESS,
-        DB_ERROR
+        DB_SUCCESS
     } = SQLQuery;
 
 function getRecordFromOptions( options = {} ) {
@@ -56,7 +54,7 @@ export default class Task {
     }
 
     clear( options ) {
-        this.indexedDB.clear( StoreName, ( evt, err ) => {
+        this.indexedDB.clear( StoreName, ( evt, _err ) => {
             if ( options.callback ) {
                 options.callback( evt );
             }

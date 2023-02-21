@@ -5,7 +5,7 @@ import selector from "client/dom/selector";
 describe( "tests on CSS object", function () {
 
     it( "tests adding and removing css classes test", function () {
-        var r, x = dom.createElement( 'div', undefined, {
+        var x = dom.createElement( 'div', undefined, {
             id: 'domCreateTest'
         } );
 
@@ -21,7 +21,7 @@ describe( "tests on CSS object", function () {
     } );
 
     it( "another css test", function () {
-        var r, x = dom.createElement( 'div', undefined, {
+        var x = dom.createElement( 'div', undefined, {
             id: 'domCreateTest',
             'className': 'world-class'
         } );

@@ -11,7 +11,7 @@ describe( 'testing ajax', () => {
         const get = ajax.get,
             cancel = ajax.cancelRequest;
 
-        const request = get( ( data ) => {
+        const request = get( ( _data ) => {
 
         }, './data.json' );
 
@@ -30,7 +30,7 @@ describe( 'testing ajax', () => {
         const post = ajax.post,
             cancel = ajax.cancelRequest;
 
-        const request = post( ( data ) => {
+        const request = post( ( _data ) => {
 
         }, './bob' );
 

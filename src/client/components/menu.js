@@ -66,8 +66,8 @@ if ( storage.sessionEnabled &&
 
     addMetrics = function ( optns ) {
         var key, prop, mix = [],
-            i, len, data = "",
-            store, sdata, render, xtitle;
+            data = "",
+            store, render, xtitle;
 
         key = optns.key;
         xtitle = optns.title;
@@ -99,8 +99,6 @@ if ( storage.sessionEnabled &&
             'value': prop[ 'pageLoadTime' ]
         } );
 
-        len = mix.length;
-
         data = JSON.stringify( mix );
 
         store = storage.sessionStore;
@@ -110,7 +108,7 @@ if ( storage.sessionEnabled &&
         if ( key === 'performance' ) {
             render = function () {
                 var x, xlen, xkey, xdata, xresult = "",
-                    xjson, xitem, y, xdlen, element, ytitle,
+                    y, xdlen, element, ytitle,
                     store = storage.sessionStore;
                 xlen = store.length;
                 for ( x = 0; x < xlen; x += 1 ) {

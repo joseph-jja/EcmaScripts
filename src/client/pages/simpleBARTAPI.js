@@ -201,7 +201,7 @@ async function doOnLoadStuff() {
     };
     events.addEvent( content, 'click', stationClick );
 
-    const alertButtonClick = async function ( e ) {
+    const alertButtonClick = async function ( _e ) {
         const alertList = await alerts();
         ldiv.innerHTML = alertList;
     };

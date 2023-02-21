@@ -127,7 +127,7 @@ SQLQuery.prototype.openHandler = function ( storeName ) {
 };
 
 SQLQuery.prototype.clear = function ( storeName, callback ) {
-    this.openHandler( storeName ).then( res => {
+    this.openHandler( storeName ).then( _res => {
         const request = this.getObjectStore( storeName, 'readwrite' ).clear();
         this.processRequest( request ).then( evt => {
             callback( evt, SQLQuery.DB_SUCCESS );
@@ -141,7 +141,7 @@ SQLQuery.prototype.clear = function ( storeName, callback ) {
 
 // callback gets the object data and success for fail
 SQLQuery.prototype.add = function ( storeName, data, callback ) {
-    this.openHandler( storeName ).then( res => {
+    this.openHandler( storeName ).then( _res => {
         if ( data.key ) {
             const key = data.key;
             const ndata = Object.assign( {}, data );
@@ -167,7 +167,7 @@ SQLQuery.prototype.add = function ( storeName, data, callback ) {
 
 // callback gets the object data and success for fail
 SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
-    this.openHandler( storeName ).then( res => {
+    this.openHandler( storeName ).then( _res => {
         const request = this.getObjectStore( storeName, 'readonly' ).get( key );
         this.processRequest( request ).then( evt => {
             callback( evt, SQLQuery.DB_SUCCESS );
@@ -181,7 +181,7 @@ SQLQuery.prototype.fetch = function ( storeName, key, callback ) {
 
 // update gets and then updates
 SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
-    this.openHandler( storeName ).then( res => {
+    this.openHandler( storeName ).then( _res => {
         const request = this.getObjectStore( storeName, 'readwrite' ).put( data, key );
         this.processRequest( request ).then( evt => {
             callback( evt, SQLQuery.DB_SUCCESS );
@@ -194,7 +194,7 @@ SQLQuery.prototype.update = function ( storeName, key, data, callback ) {
 };
 
 SQLQuery.prototype.remove = function ( storeName, key, callback ) {
-    this.openHandler( storeName ).then( res => {
+    this.openHandler( storeName ).then( _res => {
         const request = this.getObjectStore( storeName, 'readwrite' ).delete( key );
         this.processRequest( request ).then( evt => {
             callback( evt, SQLQuery.DB_SUCCESS );
@@ -207,7 +207,7 @@ SQLQuery.prototype.remove = function ( storeName, key, callback ) {
 };
 
 SQLQuery.prototype.list = function ( storeName, callback ) {
-    this.openHandler( storeName ).then( res => {
+    this.openHandler( storeName ).then( _res => {
         const lb = window.IDBKeyRange.lowerBound( 0 );
 
         const store = this.getObjectStore( storeName, 'readonly' );

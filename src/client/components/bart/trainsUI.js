@@ -12,7 +12,7 @@ export default async function trainList( station ) {
         return `<div id="bart-train-list">No trains found</div>`;
     }
 
-    const items = trains.sort( ( a, b ) => {
+    const items = trains.sort( ( a, _b ) => {
         // it is either north or south
         if ( a.direction === 'North' ) {
             return 1;
