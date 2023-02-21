@@ -1,6 +1,6 @@
-import wbWindow from 'client/components/wbWindow';
+import WebWindow from 'client/components/WebWindow';
 
-describe( 'testing wbWindow', () => {
+describe( 'testing WebWindow', () => {
 
     let parent;
 
@@ -18,32 +18,32 @@ describe( 'testing wbWindow', () => {
         }
     } );
 
-    it( 'wbWindow test', () => {
-        expect( wbWindow ).toBeDefined();
+    it( 'WebWindow test', () => {
+        expect( WebWindow ).toBeDefined();
     } );
 
-    it( 'wbWindow create test', () => {
-        const win = new wbWindow( parent.id );
+    it( 'WebWindow create test', () => {
+        const win = new WebWindow( parent.id );
         expect( win ).toBeDefined();
     } );
 
-    it( 'wbWindow create test', () => {
-        const win = new wbWindow( parent.id );
+    it( 'WebWindow create test', () => {
+        const win = new WebWindow( parent.id );
         win.setTitle( 'This is a test' );
         const ele = win.titleBar.querySelectorAll( 'span' )[ 0 ];
         expect( ele.innerHTML ).toEqual( 'This is a test' );
     } );
 
-    it( 'wbWindow create test', () => {
-        const win = new wbWindow( parent.id );
+    it( 'WebWindow create test', () => {
+        const win = new WebWindow( parent.id );
         const dnd = win.dragndrop;
         spyOn( dnd, 'setNONDragable' );
         win.disableDrag();
         expect( dnd.setNONDragable ).toHaveBeenCalled();
     } );
 
-    it( 'wbWindow enableDrag test', () => {
-        const win = new wbWindow( parent.id );
+    it( 'WebWindow enableDrag test', () => {
+        const win = new WebWindow( parent.id );
         const dnd = win.dragndrop;
         spyOn( dnd, 'setDragable' );
         win.enableDrag();
