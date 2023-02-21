@@ -1,5 +1,6 @@
 // Karma configuration
 const fs = require( 'fs' ),
+    webpack = require('webpack'), /* eslint-disable-line  */
     baseDir = process.cwd(),
     babelConfig = JSON.parse( fs.readFileSync( 'config/babel-config.json' ) ),
     webpackConfig = require( `${baseDir}/config/webpack` );
