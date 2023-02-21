@@ -1,7 +1,7 @@
 import * as events from 'client/dom/events';
 
 // default libs
-import detect from 'client/browser/userAgentParser';
+import detect from 'client/browser/useragentParser';
 
 // components
 import Calendar from 'client/components/calendar';
