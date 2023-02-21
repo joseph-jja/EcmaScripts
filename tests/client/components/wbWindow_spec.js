@@ -1,4 +1,4 @@
-import WebWindow from 'client/components/WebWindow';
+import WebWindow from 'client/components/wbWindow';
 
 describe( 'testing WebWindow', () => {
 
