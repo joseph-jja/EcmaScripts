@@ -19,28 +19,12 @@ function removeDoubleSpaces( instr ) {
     return out;
 };
 
-function ltrim( instr ) {
-    return ( instr ? instr.replace( /^\s+/g, '' ) : instr );
-};
-
-
-function rtrim( instr ) {
-    return ( instr ? instr.replace( /\s+$/g, '' ) : instr );
-};
-
-function trim( inStr ) {
-    return ltrim( rtrim( inStr ) );
-};
-
 function isEmpty( inStr ) {
-    return ( !inStr || trim( inStr ) === "" );
+    return ( !inStr || inStr.trim() === "" );
 };
 
 export {
     reverse,
     removeDoubleSpaces,
-    ltrim,
-    rtrim,
-    trim,
     isEmpty
 };
