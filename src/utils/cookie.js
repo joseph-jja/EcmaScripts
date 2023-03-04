@@ -35,8 +35,8 @@ function findCookieByName( cookieName, cookieData ) {
         const {
             value
         } = cookie;
-        return value;   
-    });
+        return value;
+    } );
     return result[ 0 ];
 };
 
