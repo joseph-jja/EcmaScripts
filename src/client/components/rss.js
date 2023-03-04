@@ -129,18 +129,14 @@ let insertRecord = function () {
     updateRecord();
 };
 
-let saveData = function () {
+const saveData = function () {
 
-    let xmlData = '',
-        c,
-        wbStringRA = stringUtils.replaceAll;
-
-    xmlData = xml.jsonToXML( jsonDATA );
-    xmlData = wbStringRA( xmlData, "&", "&amp;amp;" );
-    xmlData = wbStringRA( xmlData, "><", ">\n<" );
-    xmlData = wbStringRA( xmlData, "<", "&lt;" );
-    xmlData = wbStringRA( xmlData, ">", "&gt;" );
-    c = document.getElementById( "feedOutput" );
+    const xmlData = xml.jsonToXML( jsonDATA )
+        .replaceAll( "&", "&amp;amp;" )
+        .replaceAll( "><", ">\n<" )
+        .replaceAll( "<", "&lt;" )
+        .replaceAll( ">", "&gt;" );
+    cont c = document.getElementById( "feedOutput" );
     c.innerHTML = '&lt;?xml version="1.0" encoding="utf-8"?&gt;' + xmlData;
 };
 

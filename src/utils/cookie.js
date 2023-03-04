@@ -15,7 +15,7 @@ const decodeKeyValue = ( cookie ) => {
             // ignore
         }
     } else {
-        result[ 'name' ] = decode( cookies[ x ] );
+        result[ 'name' ] = decode( cookie );
     }
     return result;
 };
@@ -24,16 +24,19 @@ function findCookieByName( cookieName, cookieData ) {
 
     // this will throw if in server mode and there is no document object :) 
     const dc = ( cookieData || document.cookie || '' ),
-        cookies = dc.split( SPLIT_COOKIES ),
-        dclen = cookies.length;
+        cookies = dc.split( SPLIT_COOKIES );
 
     const result = cookies.filter( cookie => {
         const {
-            name,
-            value
-        } = decodeKeyValue( cookies[ x ] );
+            name
+        } = decodeKeyValue( cookie );
         return ( name === cookieName );
-    } );
+    } ).map( cookie => {
+        const {
+            value
+        } = cookie;
+        return value;   
+    });
     return result[ 0 ];
 };
 
