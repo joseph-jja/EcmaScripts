@@ -1,30 +1,40 @@
 const decode = ( typeof decodeURIComponent !== "undefined" ) ? decodeURIComponent : unescape;
 const encode = ( typeof encodeURIComponent !== "undefined" ) ? encodeURIComponent : escape;
 
+const COOKIE_MATCH = /([^=]+)=/i,
+    SPLIT_COOKIES = /; /g;
+
+const decodeKeyValue = ( cookie ) => {
+    const ck = cookie.match( COOKIE_MATCH );
+    let result = {};
+    if ( ck instanceof Array ) {
+        try {
+            result[ 'name' ] = decode( ck[ 1 ] );
+            result[ 'value' ] = decode( cookie.substring( ck[ 1 ].length + 1 ) );
+        } catch ( ex ) {
+            // ignore
+        }
+    } else {
+        result[ 'name' ] = decode( cookies[ x ] );
+    }
+    return result;
+};
+
 function findCookieByName( cookieName, cookieData ) {
-    let name, value;
 
     // this will throw if in server mode and there is no document object :) 
-    const dc = ( cookieData || document.cookie ),
-        cookies = dc.split( ";" ),
+    const dc = ( cookieData || document.cookie || '' ),
+        cookies = dc.split( SPLIT_COOKIES ),
         dclen = cookies.length;
-    for ( let x = 0; x < dclen; x += 1 ) {
-        let ck = cookies[ x ].match( /([^=]+)=/i );
-        if ( ck instanceof Array ) {
-            try {
-                name = decode( ck[ 1 ] );
-                value = decode( cookies[ x ].substring( ck[ 1 ].length + 1 ) );
-            } catch ( ex ) {
-                // ignore
-            }
-        } else {
-            name = decode( cookies[ x ] );
-        }
-        if ( name === cookieName ) {
-            break;
-        }
-    }
-    return value;
+
+    const result = cookies.filter( cookie => {
+        const {
+            name,
+            value
+        } = decodeKeyValue( cookies[ x ] );
+        return ( name === cookieName );
+    } );
+    return result[ 0 ];
 };
 
 // can be used both server side or client side
@@ -81,7 +91,7 @@ function remove( name ) {
 };
 
 function count( cookieData ) {
-    return ( cookieData || document.cookie ).split( ";" ).length;
+    return ( cookieData || document.cookie ).split( SPLIT_COOKIES ).length;
 };
 
 function length( cookieData ) {
