@@ -11,22 +11,6 @@ function reverse( inStr ) {
     return outStr;
 };
 
-function replaceAll( inStr, oStr, nStr ) {
-    // js does not allow us to change the string passed in
-    let outStr = inStr,
-        idx = inStr.indexOf( oStr ),
-        olen = oStr.length,
-        found = ( idx !== -1 );
-    while ( found ) {
-        outStr = outStr.substring( 0, idx ) + nStr + outStr.substring( idx + olen );
-        const sStr = outStr.substring( idx + olen );
-        idx = sStr.indexOf( oStr );
-        found = ( idx !== -1 );
-        idx += outStr.length - sStr.length;
-    }
-    return outStr;
-};
-
 function removeDoubleSpaces( instr ) {
     let out = instr;
     while ( out && out.match( /\s\s/ ) ) {
@@ -54,7 +38,6 @@ function isEmpty( inStr ) {
 
 export {
     reverse,
-    replaceAll,
     removeDoubleSpaces,
     ltrim,
     rtrim,
