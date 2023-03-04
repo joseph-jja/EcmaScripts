@@ -136,7 +136,7 @@ const saveData = function () {
         .replaceAll( "><", ">\n<" )
         .replaceAll( "<", "&lt;" )
         .replaceAll( ">", "&gt;" );
-    cont c = document.getElementById( "feedOutput" );
+    const c = document.getElementById( "feedOutput" );
     c.innerHTML = '&lt;?xml version="1.0" encoding="utf-8"?&gt;' + xmlData;
 };
 

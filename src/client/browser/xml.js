@@ -1,5 +1,5 @@
 //functions for xml processing
-import * as stringUtils from 'utils/stringUtils';
+import isEmpty from 'utils/stringUtils';
 
 let tAttributes = "attributes";
 
@@ -46,7 +46,7 @@ export function simpleRSSToJSON( obj ) {
         name, attrs, val, setAttrs, checkNode;
 
     setAttrs = function ( jdata, val, name ) {
-        if ( val && stringUtils.trim( val ) !== '' ) {
+        if ( val && val.trim() !== '' ) {
             jdata[ name ][ 'text' ] = val;
             attrs = processAttributes( obj.childNodes[ j ] );
             if ( attrs ) {
@@ -139,7 +139,7 @@ export function jsonToXML( json, pNode ) {
             for ( h in attrs ) {
                 r += h + '="' + attrs[ h ] + '" ';
             }
-            r = stringUtils.rtrim( r ); // remove trailing space
+            r = r.trimRight(); // remove trailing space
             string += makeXMLtag( i, jsonToXML( json[ i ], i ), r );
         } else if ( childNodeType === 'object' ) {
             if ( isNaN( i ) ) {
@@ -197,7 +197,7 @@ export function xml2json( xmlNode ) {
                         nodeContent[ name ][ tAttributes ] = attrs;
                     }
                 }
-            } else if ( !stringUtils.isEmpty( value ) ) {
+            } else if ( !isEmpty( value ) ) {
                 if ( isTextNode( name ) && nodeContent[ name ] ) {
                     nodeContent[ name ] += value;
                 } else {
