@@ -1,19 +1,13 @@
 import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
-import selector from 'client/dom/selector';
+import {
+    byId
+} from 'client/dom/shortcuts';
 
 //drag and drop events
 export default function dragndrop() {
 
-    let self = this,
-        dragableCoverMask = null,
-        currentDragObject = null,
-        moving = false,
-        offsetX = 0,
-        offsetY = 0,
-        posX = 0,
-        posY = 0,
-        isInitialized = false;
+    const self = this;
 
     const find = ( evt, dndRef ) => {
 
@@ -58,11 +52,11 @@ export default function dragndrop() {
 
     const toggleDrag = ( toggleOn, moveObjID, eventObjID ) => {
         // object being moved
-        const obj = selector( "#" + moveObjID ).get( 0 ),
+        const obj = byId( moveObjID ),
             // find event target object or its the same as the object being moved
             dndEvtObjID = ( eventObjID ) ? eventObjID : moveObjID;
 
-        const evtObj = selector( "#" + dndEvtObjID ).get( 0 );
+        const evtObj = byId( dndEvtObjID );
         if ( !obj || !evtObj ) {
             return;
         }
@@ -86,7 +80,7 @@ export default function dragndrop() {
         if ( dnd.isInitialized ) {
             return;
         }
-        dnd.dragableCoverMask = selector( "#" + "-dragndrop-enabled-x" ).get( 0 );
+        dnd.dragableCoverMask = byId( "-dragndrop-enabled-x" );
         if ( !dnd.dragableCoverMask ) {
             dnd.dragableCoverMask = dom.createElement( "div", document.body );
             dnd.dragableCoverMask.id = "-dragndrop-enabled-x";

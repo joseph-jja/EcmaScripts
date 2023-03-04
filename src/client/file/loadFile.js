@@ -20,7 +20,7 @@ function selectFile( evt, callback ) {
     let reader = new FileReader();
 
     // fileObj is an object 
-    reader.onload = ( ( fileObj ) => {
+    reader.onload = ( ( _fileObj ) => {
         return ( e ) => {
             // could this be more confusing?  but works
             callback( e.target.result );

@@ -1,5 +1,4 @@
 var path = require( "path" ),
-    webpack = require( "webpack" ),
     fs = require( 'fs' ),
     baseDir = process.cwd(),
     TerserPlugin = require( 'terser-webpack-plugin' ),

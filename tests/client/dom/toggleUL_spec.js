@@ -23,7 +23,7 @@ describe( 'testing toggleUL', () => {
                 const li = dom.createElement( 'li', uls[ i ], {
                     id: `{uls[ i ].id}_li_$i}`
                 } );
-                const span = dom.createElement( 'span', li );
+                const _span = dom.createElement( 'span', li );
             }
         }
     } );

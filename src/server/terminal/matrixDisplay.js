@@ -1,16 +1,11 @@
 const baseDir = process.cwd(),
     {
         getNumberWidth,
-        getNumberHeight,
         getSegmentHeight,
-        setMatrixPoint,
-        clearScreen,
-        clearMatrix,
-        writeMatrix
+        setMatrixPoint
     } = require( `${baseDir}/src/server/terminal/matrix` );
 
 const numberWidth = Math.floor( getNumberWidth() * 0.8 ),
-    numberHeight = Math.floor( getNumberHeight() * 0.9 ),
     segmentHeight = Math.floor( getSegmentHeight() * 0.9 );
 
 function getIndexOffset( cols ) {
@@ -42,7 +37,6 @@ function horizontalSegment( row, colStart ) {
 
 function verticleSegment( rowStart, col, startEnd = 0 ) {
 
-    const idx = getIndexOffset( col );
     let offset = getOffset( col, startEnd );
     const rowSet = ( rowStart === 1 ? rowStart + 1 : ( ( rowStart - 1 ) * ( segmentHeight - 1 ) ) ) - 1;
     for ( let i = 1; i < segmentHeight - 1; i++ ) {

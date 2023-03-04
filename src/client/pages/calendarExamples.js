@@ -1,25 +1,20 @@
 import * as events from 'client/dom/events';
 
 // default libs
-import detect from 'client/browser/detect';
+import detect from 'client/browser/useragentParser';
 
 // components
-import footer from 'client/components/footer';
-import * as menu from 'client/components/menu';
 import Calendar from 'client/components/calendar';
 
 // TODO clean up this detection stuff
 // code
-var detected,
-    capabilities = '',
-    dt = detect();
+const dt = detect();
 
-if ( !dt.capabilitiesDetected ) {
-    capabilities += "WARNING: Your browser version information was detected from useragent string only or not at all! ";
-    capabilities += "<br />If you have problems viewing this site, please get a supported browser.";
-}
-detected = 'Detected Name = ' + dt.name + ' ' + dt.version + '.';
-detected += '<br /><br />for = ' + dt.OS + '.';
+let capabilities = "WARNING: Your browser version information was detected from useragent string only or not at all! ";
+capabilities += "<br />If you have problems viewing this site, please get a supported browser.";
+
+let detected = 'Detected Name = ' + dt.uaName + ' ' + dt.uaVersion + '.';
+detected += '<br /><br />for = ' + dt.uaOS + '.';
 
 var cal1, cal2, cal3;
 

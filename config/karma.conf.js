@@ -1,6 +1,6 @@
 // Karma configuration
-const path = require( "path" ),
-    fs = require( 'fs' ),
+const fs = require( 'fs' ),
+    webpack = require('webpack'), /* eslint-disable-line  */
     baseDir = process.cwd(),
     babelConfig = JSON.parse( fs.readFileSync( 'config/babel-config.json' ) ),
     webpackConfig = require( `${baseDir}/config/webpack` );
@@ -30,9 +30,6 @@ files.push( {
 } );
 
 module.exports = function ( config ) {
-
-    var source = path.resolve( "./src" ),
-        tests = path.resolve( "./tests" );
 
     config.set( {
 

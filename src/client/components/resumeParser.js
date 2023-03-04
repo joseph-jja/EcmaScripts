@@ -29,7 +29,7 @@ function parseSkills( XMLDOMDocument ) {
         // then need skills
         for ( let s = 0; s < skills.length; s++ ) {
             var skill = skills[ s ].childNodes[ 0 ].nodeValue;
-            var skill_level = skills[ s ].getAttribute( "level" );
+            var _skill_level = skills[ s ].getAttribute( "level" );
             result += skill;
             if ( s < skills.length - 1 ) {
                 result += ", ";
@@ -105,8 +105,8 @@ function parseDegree( XMLDOMDocument ) {
     var level = degrees[ 0 ].getElementsByTagName( "level" )[ 0 ].childNodes[ 0 ].nodeValue;
     var major = degrees[ 0 ].getElementsByTagName( "major" )[ 0 ].childNodes[ 0 ].nodeValue;
     var inst = degrees[ 0 ].getElementsByTagName( "institution" )[ 0 ].childNodes[ 0 ].nodeValue;
-    var mon = degrees[ 0 ].getElementsByTagName( "month" )[ 0 ].childNodes[ 0 ].nodeValue;
-    var year = degrees[ 0 ].getElementsByTagName( "year" )[ 0 ].childNodes[ 0 ].nodeValue;
+    var _mon = degrees[ 0 ].getElementsByTagName( "month" )[ 0 ].childNodes[ 0 ].nodeValue;
+    var _year = degrees[ 0 ].getElementsByTagName( "year" )[ 0 ].childNodes[ 0 ].nodeValue;
 
     var para = degrees[ 0 ].getElementsByTagName( "para" )[ 0 ].childNodes[ 0 ].nodeValue;
 
@@ -148,9 +148,9 @@ function parseJobs( XMLDOMDocument, options = {} ) {
         var jobtitle = jobNode.getElementsByTagName( "jobtitle" )[ 0 ].childNodes[ 0 ].nodeValue;
         var company = jobNode.getElementsByTagName( "company" )[ 0 ].childNodes[ 0 ].nodeValue;
 
-        var joburl = "";
+        var _joburl = "";
         if ( jobNode.getElementsByTagName( "url" ) ) {
-            var url = jobNode.getElementsByTagName( "company" )[ 0 ].childNodes[ 0 ].nodeValue;
+            var _url = jobNode.getElementsByTagName( "company" )[ 0 ].childNodes[ 0 ].nodeValue;
         }
 
         var jobCity = jobNode.getElementsByTagName( "city" )[ 0 ].childNodes[ 0 ].nodeValue;
@@ -192,9 +192,9 @@ export default function processResume( result, options = {} ) {
 
     const DOMDoc = xml.getAsXMLDocument( result );
 
-    const jsonData = xml.xml2json( DOMDoc );
+    const _jsonData = xml.xml2json( DOMDoc );
 
-    const url = getFirstNodeText( DOMDoc, "url" );
+    const _url = getFirstNodeText( DOMDoc, "url" );
 
     const jobs = parseJobs( DOMDoc, options );
 

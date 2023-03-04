@@ -199,11 +199,11 @@ async function setupSoftware() {
         await loadSoftwareFrag();
 
         // onclick toggleUL setup
-        let toplevel = selector( 'span.toplevel' );
-        let i = 0,
-            len = toplevel.length;
+        //let toplevel = selector( 'span.toplevel' );
+        //let i = 0,
+        //    len = toplevel.length;
 
-        for ( i = 0; i < len; i++ ) {
+        /*for ( i = 0; i < len; i++ ) {
             // we know the DOM here
             let spanEle = toplevel.get( i );
             let liParent = spanEle.parentNode;
@@ -211,7 +211,7 @@ async function setupSoftware() {
             events.addEvent( spanEle, 'click', () => {
                 //toggleUL( ulEle.id, spanEle );
             }, false );
-        }
+        }*/
     }
 }
 
@@ -227,6 +227,7 @@ events.addOnLoad( async function () {
 
     // setup windows and positions
     setDefaultPosition();
+    setupSoftware();
 
     // calendar setup
     const calendarButton = selector( 'footer ul li:first-child' );

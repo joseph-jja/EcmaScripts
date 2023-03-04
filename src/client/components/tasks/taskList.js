@@ -191,7 +191,7 @@ function TaskList() {
         events.addEvent( saveButton, 'click', () => {
             const options = mapFromDom();
 
-            options.callback = ( evt, err ) => {
+            options.callback = ( _evt, _err ) => {
                 window.location.reload();
             };
 
@@ -234,7 +234,7 @@ function TaskList() {
                 const record = mapFromDom();
                 record.id = dom.html( '#task_id' );
 
-                record.callback = ( evt, err ) => {
+                record.callback = ( _evt, _err ) => {
                     window.location.reload();
                 };
                 tasks.update( record );
@@ -256,7 +256,7 @@ function TaskList() {
                 console.log( 'success' );
                 const tasksToImport = JSON.parse( data );
                 tasks.clear( {
-                    callback: ( evt, err ) => {
+                    callback: ( _evt, _err ) => {
                         tasksToImport.forEach( item => {
 
                             const options = {
@@ -269,7 +269,7 @@ function TaskList() {
                                 'long_description': item[ 'long_description' ]
                             };
 
-                            options.callback = ( evt, err ) => {};
+                            options.callback = ( _evt, _err ) => {};
                             tasks.create( options, true );
                         } );
                         console.log( data );

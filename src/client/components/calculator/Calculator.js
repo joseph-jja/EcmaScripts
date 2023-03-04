@@ -134,7 +134,7 @@ Calculator.prototype.handleClick = function ( evt, obj ) {
             obj.appendStorage( data );
             obj.handle.div.innerHTML = inp + data;
         };
-        callback[ "+/-" ] = function ( obj, inp, data ) {
+        callback[ "+/-" ] = function ( obj, _inp, _data ) {
             obj.changeStorage( mathFunctions.inverse );
             obj.handle.div.innerHTML = obj.currentValue;
         };
@@ -154,36 +154,36 @@ Calculator.prototype.handleClick = function ( evt, obj ) {
             obj.performLastMethod( mathFunctions.divide );
             obj.handle.div.innerHTML = inp + data;
         };
-        callback[ "=" ] = function ( obj, inp, data ) {
+        callback[ "=" ] = function ( obj, _inp, _data ) {
             obj.equals();
             obj.handle.div.innerHTML = obj.currentTotal;
             obj.currentValue = obj.currentTotal;
         };
-        callback[ "clear" ] = function ( obj, inp, data ) {
+        callback[ "clear" ] = function ( obj, _inp, _data ) {
             obj.clear();
             obj.handle.div.innerHTML = obj.currentTotal;
         };
-        callback[ "n!" ] = function ( obj, inp, data ) {
+        callback[ "n!" ] = function ( obj, _inp, _data ) {
             obj.changeStorage( mathFunctions.factorial );
             obj.handle.div.innerHTML = obj.currentValue;
         };
-        callback[ "1/x" ] = function ( obj, inp, data ) {
+        callback[ "1/x" ] = function ( obj, _inp, _data ) {
             obj.changeStorage( mathFunctions.oneOver );
             obj.handle.div.innerHTML = obj.currentValue;
         };
-        callback[ "x^2" ] = function ( obj, inp, data ) {
+        callback[ "x^2" ] = function ( obj, _inp, _data ) {
             obj.changeStorage( mathFunctions.square );
             obj.handle.div.innerHTML = obj.currentValue;
         };
-        callback[ "x^3" ] = function ( obj, inp, data ) {
+        callback[ "x^3" ] = function ( obj, _inp, _data ) {
             obj.changeStorage( mathFunctions.cube );
             obj.handle.div.innerHTML = obj.currentValue;
         };
-        callback[ "PI" ] = function ( obj, inp, data ) {
+        callback[ "PI" ] = function ( obj, inp, _data ) {
             obj.currentValue = Math.PI;
             obj.handle.div.innerHTML = inp + Math.PI;
         };
-        callback[ "x^y" ] = function ( obj, inp, data ) {
+        callback[ "x^y" ] = function ( obj, inp, _data ) {
             obj.performLastMethod( Math.pow );
             obj.handle.div.innerHTML = inp + "^";
         };

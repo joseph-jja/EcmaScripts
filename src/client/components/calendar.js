@@ -1,7 +1,6 @@
 //below is the calendar object
 import WBDate from 'utils/dateFunctions';
 import selector from 'client/dom/selector';
-import * as typeCheck from 'utils/typeCheck';
 import * as css from 'client/dom/CSS';
 import * as dom from 'client/dom/DOM';
 import * as events from 'client/dom/events';
@@ -106,7 +105,7 @@ export default function Calendar( parentID, options ) {
     // render or re-render the calendar object
     this.render = function () {
         var result, selectObjs, callback, _self, tds,
-            yeadTD, p, content, x, yearTD,
+            p, content, yearTD,
             parentObj, po;
 
         // actual dom reference object

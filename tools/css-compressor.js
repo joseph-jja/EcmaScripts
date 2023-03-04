@@ -1,9 +1,9 @@
 /* eslint indent: 1 */
-const {
-    execSync
-} = require( 'child_process' ),
-    fs = require( 'fs' ),
-    path = require( 'path' );
+const fs = require( 'fs' ),
+    path = require( 'path' ),
+    {
+        execSync
+    } = require( 'child_process' );
 
 const CleanCSS = require( 'clean-css' ),
     minifier = new CleanCSS( {} );
@@ -23,7 +23,7 @@ async function compressStyles() {
 
     const styleFiles = await listDirectory( 'styles' );
 
-    const results = styleFiles.filter( item => {
+    styleFiles.filter( item => {
         return item.isFile;
     } ).map( item => {
         return item.name;

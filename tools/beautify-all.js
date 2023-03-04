@@ -28,7 +28,7 @@ async function basefiles() {
 
 async function walkDir( dir ) {
 
-    const files = Array.from( await readdir( dir ) ).map( file => {
+    Array.from( await readdir( dir ) ).map( file => {
         return `${dir}/${file}`;
     } ).forEach( async ( file ) => {
         const isDir = await stats( file );

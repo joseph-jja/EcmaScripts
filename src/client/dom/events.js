@@ -1,47 +1,35 @@
 import base from 'client/browser/base';
 
-let addEvent,
-    removeEvent,
-    createEvent,
-    fireEvent;
-
-if ( window.attachEvent && !window.addEventListener ) {
-    addEvent = function ( obj, eventType, fn, capture ) {
+const addEvent = ( window.attachEvent && !window.addEventListener ) ?
+    function ( obj, eventType, fn, _capture ) {
         const result = obj.attachEvent( 'on' + eventType, fn );
         if ( !result ) {
             throw ( 'Event ' + eventType + ' could not be added!' );
         }
+    } : function ( obj, eventType, fn, capture = false ) {
+        obj.addEventListener( eventType, fn, capture );
     };
-} else if ( window.addEventListener ) {
-    addEvent = function ( obj, eventType, fn, capture ) {
-        const cap = ( capture ) ? capture : false;
-        obj.addEventListener( eventType, fn, cap );
-    };
-}
 
-if ( window.detachEvent && !window.removeEventListener ) {
-    removeEvent = function ( obj, eventType, fn, capture ) {
+const removeEvent = ( window.detachEvent && !window.removeEventListener ) ?
+    function ( obj, eventType, fn, _capture ) {
         const result = obj.detachEvent( 'on' + eventType, fn );
         if ( !result ) {
             throw ( 'Event ' + eventType + ' could not be removed!' );
         }
-    };
-} else if ( window.removeEventListener ) {
-    removeEvent = function ( obj, eventType, fn, capture ) {
+    } :
+    function ( obj, eventType, fn, capture = false ) {
         obj.removeEventListener( eventType, fn, capture );
     };
-}
 
-function isTouchEnabled() {
-    const doc = document;
-    return ( doc.documentElement && ( 'ontouchstart' in doc.documentElement || 'touchstart' in doc.documentElement ) );
-}
+const isTouchEnabled = () => {
+    return ( document.documentElement && ( 'ontouchstart' in document.documentElement || 'touchstart' in document.documentElement ) );
+};
 
-const getEvent = function ( evt ) {
+const getEvent = ( evt ) => {
     return ( window.event ? window.event : evt );
 };
 
-const getTarget = function ( evt ) {
+const getTarget = ( evt ) => {
     const eventObj = getEvent( evt );
     let result;
     if ( eventObj.srcElement ) {
@@ -52,7 +40,7 @@ const getTarget = function ( evt ) {
     return result;
 };
 
-const getEventPosX = function ( evt ) {
+const getEventPosX = ( evt ) => {
     const eventObj = getEvent( evt );
     let result = 0;
     if ( eventObj.pageX ) {
@@ -63,7 +51,7 @@ const getEventPosX = function ( evt ) {
     return result;
 };
 
-const getEventPosY = function ( evt ) {
+const getEventPosY = ( evt ) => {
     const eventObj = getEvent( evt );
     let result = 0;
     if ( eventObj.pageY ) {
@@ -74,8 +62,10 @@ const getEventPosY = function ( evt ) {
     return result;
 };
 
+let createEvent,
+    fireEvent;
 if ( document.createEvent ) {
-    createEvent = function ( name, obj, options ) {
+    createEvent = ( name, obj, options ) => {
         let evt = document.createEvent( 'Event' );
         if ( !evt ) {
             return undefined;

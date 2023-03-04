@@ -198,7 +198,7 @@ events.addOnLoad( () => {
 
                 var header = '<table width="100%"><tr><td align="left">';
 
-                //var url = getFirstNodeText( DOMDoc, "url" );
+                var _url = getFirstNodeText( DOMDoc, "url" );
 
                 header += '</td></tr></table>';
 

@@ -22,7 +22,7 @@ export default class Encoder extends Grid {
         this.build();
 
         selector( 'td', this.tableID ).each( cell => {
-            const cbox = dom.createElement( 'input', cell, {
+            const _cbox = dom.createElement( 'input', cell, {
                 id: `cbox_${cell.id}`,
                 type: 'checkbox',
                 value: `cbox_${cell.id}`
@@ -31,13 +31,13 @@ export default class Encoder extends Grid {
 
         selector( 'tr', this.tableID ).each( row => {
             let cell = dom.createElement( 'td', row, {} );
-            let inp = dom.createElement( 'input', cell, {
+            let _inp = dom.createElement( 'input', cell, {
                 id: `${row.id}_inp`,
                 type: 'text',
                 size: 8
             } );
             cell = dom.createElement( 'td', row, {} );
-            inp = dom.createElement( 'input', cell, {
+            _inp = dom.createElement( 'input', cell, {
                 id: `${row.id}_inp_bin`,
                 type: 'text',
                 size: 8
@@ -61,7 +61,7 @@ export default class Encoder extends Grid {
         } );
     }
 
-    getBinaryNumbers( tgt ) {
+    getBinaryNumbers( _tgt ) {
 
     }
 }

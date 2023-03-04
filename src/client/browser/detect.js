@@ -45,12 +45,10 @@ export default function detect() {
 
     // ie version
     var isInternetExplorer = false,
-        nav,
-        rawVersion, win = window,
+        nav, win = window,
         doc = win.document;
 
     nav = win.navigator;
-    rawVersion = nav.appVersion; // raw app version string
 
     // in theory this should work for all versions of IE3 on up
     // start with IE as it is the easiest to detect

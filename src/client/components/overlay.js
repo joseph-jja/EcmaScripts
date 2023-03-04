@@ -1,7 +1,4 @@
-import selector from 'client/dom/selector';
-import * as css from 'client/dom/CSS';
 import * as dom from 'client/dom/DOM';
-import * as events from 'client/dom/events';
 
 function createOverlay( options, content ) {
 

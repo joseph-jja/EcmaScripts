@@ -3,11 +3,25 @@
  * this is just the definition of the object itself
  */
 // ie version
-var nav,
-    rawVersion;
+const nav = window.navigator;
 
-nav = window.navigator;
-rawVersion = nav.appVersion; // raw app version string
+const userAgentString = nav.userAgent;
+
+const userAgentParts = userAgentString.replace( /\(|\)/g, '' ).split( ' ' );
+
+const filteredUserAgent = userAgentParts.filter( agent => {
+    const ua = agent.toLowerCase();
+    return ( ua.indexOf( '/' ) > -1 && !ua.startsWith( 'gecko' ) &&
+        !ua.startsWith( 'safari' ) &&
+        !ua.startsWith( 'applewebkit' ) && !ua.startsWith( 'mozilla' ) );
+} );
+
+const filteredVersion = filteredUserAgent[ filteredUserAgent.length - 1 ];
+
+const rawVersion = parseFloat( filteredVersion.split( '/' )[ 1 ] );
+
+const rawBaseName = filteredVersion.split( '/' )[ 0 ];
+const appName = rawBaseName.toLowerCase() === 'version' ? 'Safari' : rawBaseName;
 
 export default {
     // capabilities detected means we have detected the browser
@@ -28,10 +42,10 @@ export default {
     hasCookiesEnabled: nav.cookieEnabled,
 
     // default name 
-    name: nav.appName,
+    name: appName,
 
     // app name sent by browser - overridden by parsing user agent
-    uaName: nav.appName,
+    uaName: appName,
 
     // default OS
     OS: nav.platform,
@@ -43,13 +57,13 @@ export default {
     userAgent: nav.userAgent,
 
     // spoofable version string
-    appVersion: parseFloat( rawVersion, 10 ),
+    appVersion: rawVersion,
 
     // spoofable version string
-    uaAppVersion: parseFloat( rawVersion, 10 ),
+    uaAppVersion: rawVersion,
 
     // if capabilitiesDetected then we change this
-    version: parseFloat( rawVersion, 10 ),
+    version: rawVersion,
 
     uaOSVersion: '',
 

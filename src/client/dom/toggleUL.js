@@ -1,16 +1,23 @@
-import * as css from 'client/dom/CSS';
-import selector from 'client/dom/selector';
+import {
+    hasClass,
+    replaceClass,
+    addClass
+} from 'client/dom/CSS';
+import {
+    byId,
+    queryAll
+} from 'client/dom/shortcuts';
 
 export default function toggleUL( objName, hrefObj ) {
 
     const divs = document.getElementsByTagName( 'ul' );
     for ( let i = 0; i < divs.length; i++ ) {
-        if ( divs[ i ].className === 'tree_child_hidden' ) {
+        if ( hasClass( divs[ i ], 'tree_child_hidden' ) ) {
             divs[ i ].style.display = 'none';
         }
     }
 
-    const dObj = document.getElementById( objName );
+    const dObj = byId( objName );
     if ( dObj ) {
         if ( dObj.style.display === 'block' ) {
             dObj.style.display = 'none';
@@ -19,11 +26,11 @@ export default function toggleUL( objName, hrefObj ) {
         }
     }
 
-    const hrefs = selector( 'span.toplevel' );
+    const hrefs = Array.from( queryAll( 'span.toplevel' ) );
     for ( let i = 0; i < hrefs.length; i++ ) {
-        css.replaceClass( hrefs.get( i ), 'expanded', 'collapsed' );
+        replaceClass( hrefs[ i ], 'expanded', 'collapsed' );
     }
     if ( hrefObj ) {
-        css.addClass( hrefObj, 'expanded' );
+        addClass( hrefObj, 'expanded' );
     }
 }
