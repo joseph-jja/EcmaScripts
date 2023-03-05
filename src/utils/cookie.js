@@ -6,7 +6,7 @@ const COOKIE_MATCH = /([^=]+)=/i,
 
 const decodeKeyValue = ( cookie ) => {
     const ck = cookie.match( COOKIE_MATCH );
-    let result = {};
+    const result = {};
     if ( ck instanceof Array ) {
         try {
             result[ 'name' ] = decode( ck[ 1 ] );
@@ -26,10 +26,19 @@ function findCookieByName( cookieName, cookieData ) {
     const dc = ( cookieData || document.cookie || '' ),
         cookies = dc.split( SPLIT_COOKIES );
 
-    const result = cookies.filter( cookie => {
+    const result = cookies.map( cookie => {
+        const {
+            name,
+            value
+        } = decodeKeyValue( cookie );
+        return {
+            name,
+            value
+        };
+    } ).filter( cookie => {
         const {
             name
-        } = decodeKeyValue( cookie );
+        } = cookie;
         return ( name === cookieName );
     } ).map( cookie => {
         const {
