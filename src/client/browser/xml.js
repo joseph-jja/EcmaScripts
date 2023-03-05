@@ -1,5 +1,7 @@
 //functions for xml processing
-import isEmpty from 'utils/stringUtils';
+import {
+    isEmpty
+} from 'utils/stringUtils';
 
 let tAttributes = "attributes";
 
