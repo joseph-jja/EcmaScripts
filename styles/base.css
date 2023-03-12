@@ -7,29 +7,27 @@ header,
 footer {
     display: block;
     margin: 0;
-    padding: .3em 1em;
+    padding: 0.3em 0.5em;
     width: 100%;
     color: white;
     background-image: url("/images/WebWindowTitleInactive.gif");
     position: fixed;
-    border-bottom: 4px #9966ff ridge;
+    border-top: 4px #96f ridge;
+    border-bottom: 4px #96f ridge;
 }
 
 header {
     z-index: 5;
     top: 0px;
-    border-bottom: 4px #96f ridge;
 }
 
 footer {
     z-index: 5;
     bottom: 0px;
     font-size: 0.8em;
-    border-top: 4px #96f ridge;
 }
 
-header span,
-footer span {
+header span {
     color: white;
 }
 
@@ -46,25 +44,24 @@ header span:last-child {
 footer div#footer-container {
     display: flex;
     justify-content: space-between;
-    padding: 0.2em;
-    margin: 0;
+    padding: 0;
+    margin: 0 0.2em;
     border-top: 2px;
+}
+
+footer div.footer-column:first-child {
+    cursor: pointer;
+    font-weight: bold;
 }
 
 footer div.footer-column {
     box-sizing: border-box;
     width: 30%;
-    margin-left: 1em;
-    cursor: pointer;
-    font-weight: bold;
-    color: beige;
+    padding-right: 0.5em;
+    text-align: center;
 }
 
 @media only screen and (max-width: 600px) {
-    footer div.footer-column {
-        width: 20%;
-    }
-
     #welcome-content {
         margin-right: 0.5em;
     }
