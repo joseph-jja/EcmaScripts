@@ -1,25 +1,28 @@
 import base from 'client/browser/base';
 
-const addEvent = ( window.attachEvent && !window.addEventListener ) ?
-    function ( obj, eventType, fn, _capture ) {
+const addEvent = (obj = window, eventType, fn, capture = false) => {
+    if (window.attachEvent && !window.addEventListener ) {
         const result = obj.attachEvent( 'on' + eventType, fn );
         if ( !result ) {
             throw ( 'Event ' + eventType + ' could not be added!' );
         }
-    } : function ( obj, eventType, fn, capture = false ) {
-        obj.addEventListener( eventType, fn, capture );
-    };
+        return result;
+    } else {
+        return obj.addEventListener( eventType, fn, capture );
+    }
+};
 
-const removeEvent = ( window.detachEvent && !window.removeEventListener ) ?
-    function ( obj, eventType, fn, _capture ) {
+const removeEvent = (obj = window, eventType, fn, capture = false ) => {
+    if (window.detachEvent && !window.removeEventListener ) {
         const result = obj.detachEvent( 'on' + eventType, fn );
         if ( !result ) {
             throw ( 'Event ' + eventType + ' could not be removed!' );
         }
-    } :
-    function ( obj, eventType, fn, capture = false ) {
-        obj.removeEventListener( eventType, fn, capture );
-    };
+        return result;
+    } else {
+        return obj.removeEventListener( eventType, fn, capture );
+    }
+};
 
 const isTouchEnabled = () => {
     return ( document.documentElement && ( 'ontouchstart' in document.documentElement || 'touchstart' in document.documentElement ) );

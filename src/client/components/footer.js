@@ -39,17 +39,17 @@ function createFooter() {
 
     const daynow = formatDate( dt );
 
-    let buildFooter = `<li>Today is ${daynow}.</li>`;
+    let buildFooter = `<div class="footer-column">Today is ${daynow}.</div>`;
 
     const lastmoddate = getLastModifiedDate();
 
     if ( lastmoddate.length > 0 ) {
 
         // display the date
-        buildFooter = buildFooter + `<li>Last modified on ${lastmoddate}.</li>`;
+        buildFooter = buildFooter + `<div class="footer-column">Last modified on ${lastmoddate}.</div>`;
     }
 
-    buildFooter = buildFooter + `<li>Copyright ${dt.getFullYear()}.</li>`;
+    buildFooter = buildFooter + `<div class="footer-column">Copyright ${dt.getFullYear()}.</div>`;
 
     return buildFooter;
 }
@@ -57,7 +57,7 @@ function createFooter() {
 export default function setFooter( footerParent ) {
     let ft;
     if ( footerParent ) {
-        ft = dom.createElement( "ul", footerParent );
+        ft = dom.createElement( "div", footerParent, {'id': 'footer-container' } );
         if ( ft ) {
             ft.innerHTML = createFooter();
         }

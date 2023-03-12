@@ -43,30 +43,26 @@ header span:last-child {
     margin-right: 2em;
 }
 
-footer ul {
-    list-style: none;
+footer div#footer-container {
+    display: flex;
+    justify-content: space-between;
     padding: 0.2em;
     margin: 0;
     border-top: 2px;
 }
 
-footer ul li:first-child {
-    display: inline;
+footer div.footer-column {
+    box-sizing: border-box;
+    width: 30%;
     margin-left: 1em;
     cursor: pointer;
     font-weight: bold;
     color: beige;
 }
 
-footer ul li {
-    display: inline;
-    margin-left: 2.5em;
-}
-
 @media only screen and (max-width: 600px) {
-    footer ul li {
-        display: block;
-        margin-left: 1em;
+    footer div.footer-column {
+        width: 20%;
     }
 
     #welcome-content {
