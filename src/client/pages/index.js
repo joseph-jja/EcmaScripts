@@ -228,7 +228,7 @@ events.addOnLoad( async function () {
     //setupSoftware();
 
     // calendar setup
-    const calendarButton = selector( 'footer ul li:first-child' );
+    const calendarButton = selector( 'footer div div.footer-column:first-child' );
     events.addEvent( calendarButton.get( 0 ), 'click', renderCalendar );
 
     setupStarSystem();
