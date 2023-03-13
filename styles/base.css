@@ -55,10 +55,17 @@ header div.header-column {
     text-align: center;
 }
 
-@media only screen and (max-width: 600px) {
-    #welcome-content {
-        margin-right: 0.5em;
-    }
+#menu {
+    width: 8em;
+    z-index: 5;
+}
+
+#menu select {
+    font-size: 0.8em;
+    font-weight: bold;
+    width: 100%;
+    padding: 0.5em;
+    background-color: #ddeeff;
 }
 
 #page-name {
@@ -76,30 +83,29 @@ header div.header-column {
     grid-row: 1 / span 3;
 }
 
-#menu {
-    width: 8em;
-    z-index: 5;
-}
-
-#menu select {
-    font-size: 0.8em;
-    font-weight: bold;
-    width: 100%;
-    padding: 0.5em;
-    background-color: #ddeeff;
-}
-
 .container {
     display: grid;
     grid-template-columns: 25% 75%;
     grid-template-rows: 5% 35% 60%;
     grid-gap: 1em;
-    background-color: #ffffff;
-    padding: 5px;
+    background-color: #1b9e884f;
+    padding: 1em;
     margin-top: 2em;
     left: 0;
-    width: 95%;
+    width: 100%;
     height: 85%;
+}
+
+.container>div {
+    text-align: left;
+}
+
+#welcome-content {
+    margin: 1em 0 3em 2em;
+}
+
+#main-window {
+    margin: 1em 2em 3em 2em;
 }
 
 @media only screen and (max-width: 600px) {
@@ -115,21 +121,7 @@ header div.header-column {
         grid-row: 2 / span 1;
         min-height: 375px;
         overflow: auto;
-    }
-}
-
-.container>div {
-    background-color: #ffffff;
-    text-align: left;
-}
-
-.container>div {
-    margin: 1em 0em 3em 0em;
-}
-
-@media only screen and (max-width: 600px) {
-    .container>div {
-        margin: 1em 1em 3em 0.5em;
+        margin: 1em 2em 3em 2em;
     }
 
     #resume-html,
