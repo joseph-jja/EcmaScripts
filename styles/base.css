@@ -14,34 +14,24 @@ footer {
     position: fixed;
     border-top: 4px #96f ridge;
     border-bottom: 4px #96f ridge;
+    z-index: 5;
 }
 
 header {
-    z-index: 5;
     top: 0px;
 }
 
 footer {
-    z-index: 5;
     bottom: 0px;
     font-size: 0.8em;
 }
 
-header span {
-    color: white;
-}
-
-header span:first-child {
+#pageTitle {
     font-weight: bold;
-    float: left;
 }
 
-header span:last-child {
-    float: right;
-    margin-right: 2em;
-}
-
-footer div#footer-container {
+footer div#footer-container,
+header div#header-container {
     display: flex;
     justify-content: space-between;
     padding: 0;
@@ -54,7 +44,8 @@ footer div.footer-column:first-child {
     font-weight: bold;
 }
 
-footer div.footer-column {
+footer div.footer-column,
+header div.header-column {
     box-sizing: border-box;
     width: 30%;
     padding-right: 0.5em;
@@ -83,13 +74,8 @@ footer div.footer-column {
 }
 
 #menu {
-    grid-column: 1 / span 1;
-    grid-row: 1 / span 1;
-    margin: 0;
     width: 8em;
-    z-index: 6;
-    padding: 0.5em;
-    position: fixed;
+    z-index: 5;
 }
 
 #menu select {
@@ -114,10 +100,6 @@ footer div.footer-column {
 }
 
 @media only screen and (max-width: 600px) {
-    #menu {
-        grid-column: 1 / span 2;
-        grid-row: 1 / span 1;
-    }
 
     #main-window {
         grid-column: 1 / span 2;
@@ -133,7 +115,6 @@ footer div.footer-column {
     }
 }
 
-.container>nav,
 .container>div {
     background-color: #ffffff;
     text-align: left;
