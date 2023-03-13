@@ -1,7 +1,7 @@
 import base from 'client/browser/base';
 
-const addEvent = (obj = window, eventType, fn, capture = false) => {
-    if (window.attachEvent && !window.addEventListener ) {
+const addEvent = ( obj = window, eventType, fn, capture = false ) => {
+    if ( window.attachEvent && !window.addEventListener ) {
         const result = obj.attachEvent( 'on' + eventType, fn );
         if ( !result ) {
             throw ( 'Event ' + eventType + ' could not be added!' );
@@ -12,8 +12,8 @@ const addEvent = (obj = window, eventType, fn, capture = false) => {
     }
 };
 
-const removeEvent = (obj = window, eventType, fn, capture = false ) => {
-    if (window.detachEvent && !window.removeEventListener ) {
+const removeEvent = ( obj = window, eventType, fn, capture = false ) => {
+    if ( window.detachEvent && !window.removeEventListener ) {
         const result = obj.detachEvent( 'on' + eventType, fn );
         if ( !result ) {
             throw ( 'Event ' + eventType + ' could not be removed!' );

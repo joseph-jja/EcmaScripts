@@ -57,7 +57,9 @@ function createFooter() {
 export default function setFooter( footerParent ) {
     let ft;
     if ( footerParent ) {
-        ft = dom.createElement( "div", footerParent, {'id': 'footer-container' } );
+        ft = dom.createElement( "div", footerParent, {
+            'id': 'footer-container'
+        } );
         if ( ft ) {
             ft.innerHTML = createFooter();
         }

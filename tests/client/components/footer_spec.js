@@ -9,7 +9,7 @@ describe( 'footer tests', () => {
 
     it( 'setFooter  test', () => {
         setFooter( nav );
-        const footerLis = document.querySelectorAll( '#footer-space ul li' );
+        const footerLis = document.querySelectorAll( '#footer-space div div.footer-column' );
         expect( footerLis.length ).toEqual( 3 );
     } );
 } );
