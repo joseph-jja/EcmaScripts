@@ -1,6 +1,8 @@
 body {
     font-size: 1em;
     margin: 0;
+    min-width: 400px;
+    overflow-x: scroll;
 }
 
 header,
@@ -15,6 +17,7 @@ footer {
     border-top: 4px #96f ridge;
     border-bottom: 4px #96f ridge;
     z-index: 5;
+    min-width: 400px;
 }
 
 header {
