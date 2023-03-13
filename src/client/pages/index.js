@@ -152,7 +152,6 @@ function renderCalendar() {
     }
 }
 
-let softwareLoaded = false;
 async function loadSoftwareFrag() {
 
     const frag = await fetcher( '/frags/software.frag' );
@@ -190,10 +189,9 @@ async function loadSoftwareFrag() {
     if ( perf.hasPerformanceMetrics ) {
         performance.measure( 'software render' );
     }
-    softwareLoaded = true;
 }
 
-async function setupSoftware() {
+/*async function setupSoftware() {
 
     if ( !softwareLoaded ) {
         await loadSoftwareFrag();
@@ -203,7 +201,7 @@ async function setupSoftware() {
         //let i = 0,
         //    len = toplevel.length;
 
-        /*for ( i = 0; i < len; i++ ) {
+        for ( i = 0; i < len; i++ ) {
             // we know the DOM here
             let spanEle = toplevel.get( i );
             let liParent = spanEle.parentNode;
@@ -211,9 +209,9 @@ async function setupSoftware() {
             events.addEvent( spanEle, 'click', () => {
                 //toggleUL( ulEle.id, spanEle );
             }, false );
-        }*/
+        }
     }
-}
+}*/
 
 events.addOnLoad( async function () {
 
@@ -227,7 +225,7 @@ events.addOnLoad( async function () {
 
     // setup windows and positions
     setDefaultPosition();
-    setupSoftware();
+    //setupSoftware();
 
     // calendar setup
     const calendarButton = selector( 'footer ul li:first-child' );
