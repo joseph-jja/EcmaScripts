@@ -56,6 +56,18 @@ header div.header-column {
     text-align: center;
 }
 
+div.header-column:first-child,
+.footer-column:first-child {
+    text-align: left;
+    margin-left: 0.5em;
+}
+
+div.header-column:last-child,
+.footer-column:last-child {
+    text-align: right;
+    margin-right: 0.5em;
+}
+
 #menu {
     width: 8em;
     z-index: 5;
