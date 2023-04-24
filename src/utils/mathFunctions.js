@@ -28,9 +28,11 @@
  * add(x,y, ...)                Returns x + y [can handle more than 2 parameters ]
  */
 function add() {
-    return arguments.reduce((a, b) => {
-        return (+a + +b);
-    }, 0);
+    let result = 0;
+    for ( let x = 0; x < arguments.length; x += 1 ) {
+        result += ( +arguments[ x ] );
+    }
+    return result;
 };
 
 /**
@@ -44,9 +46,12 @@ function subtract( x, y ) {
  * multiply(x,y, ...)         Returns x * y   [can handle more than 2 parameters ]
  */
 function multiply() {
-    return arguments.reduce((a, b) => {
-        return (+a * +b);
-    }, 0);
+    let result = 1;
+    for ( let x = 0; x < arguments.length; x += 1 ) {
+        let y = result;
+        result = ( +y ) * ( +arguments[ x ] );
+    }
+    return result;
 };
 
 /**
