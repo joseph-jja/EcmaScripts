@@ -36,22 +36,17 @@ function add() {
 /**
  * subtract(x,y)        Returns x - y
  */
-function subtract() {
-    return arguments.reduce((a, b) => {
-        return (a - b);
-    }, 0);
+function subtract( x, y ) {
+    return ( ( +x ) - ( +y ) );
 };
 
 /**
  * multiply(x,y, ...)         Returns x * y   [can handle more than 2 parameters ]
  */
 function multiply() {
-    let result = 1;
-    for ( let x = 0; x < arguments.length; x += 1 ) {
-        let y = result;
-        result = ( +y ) * ( +arguments[ x ] );
-    }
-    return result;
+    return arguments.reduce((a, b) => {
+        return (+a * +b);
+    }, 0);
 };
 
 /**
