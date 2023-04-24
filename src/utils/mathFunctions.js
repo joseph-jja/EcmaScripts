@@ -28,18 +28,18 @@
  * add(x,y, ...)                Returns x + y [can handle more than 2 parameters ]
  */
 function add() {
-    let result = 0;
-    for ( let x = 0; x < arguments.length; x += 1 ) {
-        result += ( +arguments[ x ] );
-    }
-    return result;
+    return arguments.reduce((a, b) => {
+        return (+a + +b);
+    }, 0);
 };
 
 /**
  * subtract(x,y)        Returns x - y
  */
-function subtract( x, y ) {
-    return ( ( +x ) - ( +y ) );
+function subtract() {
+    return arguments.reduce((a, b) => {
+        return (a - b);
+    }, 0);
 };
 
 /**
