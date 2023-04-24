@@ -44,9 +44,12 @@ function subtract( x, y ) {
  * multiply(x,y, ...)         Returns x * y   [can handle more than 2 parameters ]
  */
 function multiply() {
-    return Array.from(arguments).reduce((a, b) => {
-        return (+a * +b);
-    }, 0);
+    let result = 1;
+    for ( let x = 0; x < arguments.length; x += 1 ) {
+        let y = result;
+        result = ( +y ) * ( +arguments[ x ] );
+    }
+    return result;
 };
 
 /**
