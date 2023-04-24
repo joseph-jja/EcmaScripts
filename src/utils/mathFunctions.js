@@ -45,7 +45,7 @@ function subtract( x, y ) {
  */
 function multiply() {
     return Array.from(arguments).reduce((a, b) => {
-        return (+a + +b);
+        return (+a * +b);
     }, 1);
 };
 
