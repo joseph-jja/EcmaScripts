@@ -7,38 +7,23 @@ import * as canvas from 'client/components/canvas';
 
 function polarScope( x, y, size, anchors = [ '24/12', '12/6', '6/3', '18/9' ] ) {
 
-
     window.canvasRef.circle( x, y, size );
-
-
     window.canvasRef.line( x, y - size, x, y + size );
-
-
     window.canvasRef.line( x - size, y, x + size, y );
-
-
 
     for ( i = 0; i < 360; i += 15 ) {
         window.canvasRef.line( x - size, y, x + size, y, {
-
             rotateAngle: i
-
         } );
     }
 
-
     window.canvasRef.circle( x, y, size - 20, {
-
         color: 'white',
         fillStrokeClear: 'fill'
     } );
 
-
     window.canvasRef.line( x, y - size, x, y + size );
-
-
     window.canvasRef.line( x - size, y, x + size, y );
-
 
     const tleft = 10 * anchors[ 0 ].length / 2;
     const bleft = 10 * anchors[ 1 ].length / 2;
@@ -47,11 +32,7 @@ function polarScope( x, y, size, anchors = [ '24/12', '12/6', '6/3', '18/9' ] ) 
     window.canvasRef.addtext( x - bleft, y + size + 20, anchors[ 1 ] );
     window.canvasRef.addtext( x - size - lleft, y, anchors[ 2 ] );
     window.canvasRef.addtext( x + size + 10, y, anchors[ 3 ] );
-
-
 }
-
-
 
 function generateFish() {
 
@@ -65,9 +46,10 @@ function generateFish() {
         styles.offsetHeight,
         'main-window' );
 
-    const res = canvas.create( "fish-analyzer", "canvas-container", 800, 500 );
+    const res = canvas.create( "polaris-hour", "canvas-container", 800, 500 );
 
-    setupEyes( res );
+    polarScope( 200, 180, 150 );
+    polarScope( 550, 180, 100, [ '6', '12', '9', '3' ] );
 
     window.canvasRef = res;
 }
