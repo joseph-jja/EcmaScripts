@@ -9,6 +9,8 @@ import {
 
 function setProperties( canvas ) {
 
+    const DEFAULT_COLOR = 'black';
+    
     // find a from pythagorean
     function reversePythaogrean( a, b ) {
         return Math.sqrt( square( a ) - square( b ) );
@@ -51,9 +53,9 @@ function setProperties( canvas ) {
         cx.moveTo( startX - offsetX, startY - offsetY );
         cx.lineTo( endX - offsetX, endY - offsetY );
 
-        cx.fillStyle = ( ( color ) ? color : "black" );
+        cx.fillStyle = ( ( color ) ? color : DEFAULT_COLOR );
         cx.fill();
-        cx.strokeStyle = ( ( color ) ? color : "black" );
+        cx.strokeStyle = ( ( color ) ? color : DEFAULT_COLOR );
         cx.stroke();
         cx.restore();
     };
@@ -76,7 +78,7 @@ function setProperties( canvas ) {
         cx.arc( x, y, radius, 0, Math.PI * 2, true );
 
         stroke = ( ( fillStrokeClear ) ? fillStrokeClear : "stroke" );
-        cx[ stroke + "Style" ] = ( ( color ) ? color : "black" );
+        cx[ stroke + "Style" ] = ( ( color ) ? color : DEFAULT_COLOR );
         cx[ stroke ]();
     };
 
@@ -116,7 +118,7 @@ function setProperties( canvas ) {
         cx.closePath();
 
         stroke = ( ( fillStrokeClear ) ? fillStrokeClear : "stroke" );
-        cx[ stroke + "Style" ] = ( ( color ) ? color : "black" );
+        cx[ stroke + "Style" ] = ( ( color ) ? color : DEFAULT_COLOR );
         cx[ stroke ]();
         cx.restore();
     };
@@ -169,7 +171,7 @@ function setProperties( canvas ) {
         cx.restore();
 
         stroke = ( ( fillStrokeClear ) ? fillStrokeClear : "stroke" );
-        cx[ stroke + "Style" ] = ( ( color ) ? color : "black" );
+        cx[ stroke + "Style" ] = ( ( color ) ? color : DEFAULT_COLOR );
         cx[ stroke ]();
 
     };
@@ -202,7 +204,7 @@ function setProperties( canvas ) {
         }
 
         stroke = ( ( fillStrokeClear ) ? fillStrokeClear : "stroke" );
-        cx[ stroke + "Style" ] = ( ( color ) ? color : "black" );
+        cx[ stroke + "Style" ] = ( ( color ) ? color : DEFAULT_COLOR );
         cx[ stroke + "Rect" ]( x - offsetX, y - offsetY, width, height );
         cx[ stroke ]();
         cx.restore();
@@ -250,7 +252,7 @@ function setProperties( canvas ) {
         ctx.lineTo( ax - offsetX, ay - offsetY );
         ctx.closePath();
 
-        ctx[ stroke + "Style" ] = ( ( color ) ? color : "black" );
+        ctx[ stroke + "Style" ] = ( ( color ) ? color : DEFAULT_COLOR );
         ctx[ stroke ]();
         ctx.restore();
     };
@@ -322,7 +324,7 @@ function setProperties( canvas ) {
         cx.lineTo( ax - size + psize - offsetX, ay - c - offsetY );
 
         cx.closePath();
-        cx[ stroke + "Style" ] = ( ( color ) ? color : "black" );
+        cx[ stroke + "Style" ] = ( ( color ) ? color : DEFAULT_COLOR );
         cx[ stroke ]();
         cx.restore();
     };
@@ -374,7 +376,7 @@ function setProperties( canvas ) {
         cx.lineTo( x - psize - offsetX, y - c - offsetY );
 
         cx.closePath();
-        cx[ stroke + "Style" ] = ( ( color ) ? color : "black" );
+        cx[ stroke + "Style" ] = ( ( color ) ? color : DEFAULT_COLOR );
         cx[ stroke ]();
         cx.restore();
     };
@@ -385,6 +387,12 @@ function setProperties( canvas ) {
             color: color || 'white',
             fillStrokeClear: 'fill'
         } );
+    };
+    
+    canvas.addtext = function (x, y, textMsg, options = {}) {
+        this.ctx.font = '40pt Calibri';
+        this.ctx.fillStyle = options.color || DEFAULT_COLOR;
+        this.ctx.fillText('Hello World!', 150, 100);
     };
 };
 
@@ -398,7 +406,7 @@ export function create( id, parent, width, height ) {
         height: 0
     };
     let result;
-
+    
     cvs.canvas = dom.createElement( "canvas", parent, {
         "id": id
     } );
