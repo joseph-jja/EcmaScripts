@@ -48,10 +48,9 @@ function generateFish() {
 
     const res = canvas.create( "polaris-hour", "canvas-container", 800, 500 );
 
+    window.canvasRef = res;
     polarScope( 200, 180, 150 );
     polarScope( 550, 180, 100, [ '6', '12', '9', '3' ] );
-
-    window.canvasRef = res;
 }
 
 addOnLoad( generateFish );
