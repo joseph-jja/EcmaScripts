@@ -390,9 +390,9 @@ function setProperties( canvas ) {
     };
     
     canvas.addtext = function (x, y, textMsg, options = {}) {
-        this.ctx.font = '40pt Calibri';
+        this.ctx.font = options.font || '16pt Calibri';
         this.ctx.fillStyle = options.color || DEFAULT_COLOR;
-        this.ctx.fillText('Hello World!', 150, 100);
+        this.ctx.fillText(textMsg, x, y);
     };
 };
 
