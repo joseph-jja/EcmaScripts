@@ -11,7 +11,7 @@ function polarScope( x, y, size, anchors = [ '24/12', '12/6', '6/3', '18/9' ] ) 
     window.canvasRef.line( x, y - size, x, y + size );
     window.canvasRef.line( x - size, y, x + size, y );
 
-    for ( i = 0; i < 360; i += 15 ) {
+    for ( let i = 0; i < 360; i += 15 ) {
         window.canvasRef.line( x - size, y, x + size, y, {
             rotateAngle: i
         } );

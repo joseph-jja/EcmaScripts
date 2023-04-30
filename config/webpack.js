@@ -23,6 +23,7 @@ module.exports = {
         "earthquakes": "./src/client/pages/earthquakes",
         "colorTable": "./src/client/pages/colorTable",
         "index": "./src/client/pages/index",
+        "polarisScope": "./src/client/pages/polarisScope",
         "simpleBARTAPI": "./src/client/pages/simpleBARTAPI",
         "starSystem": "./src/client/workers/starSystem",
         "triStarSystem": "./src/client/workers/triStarSystem",
