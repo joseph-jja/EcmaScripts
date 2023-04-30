@@ -5,7 +5,7 @@ import {
 import WebWindow from 'client/components/wbWindow';
 import * as canvas from 'client/components/canvas';
 
-function polarScope( x, y, size, anchors = [ '24/12', '12/6', '6/3', '18/9' ] ) {
+function polarScope( x, y, size, anchors = [ '12/6', '24/12', '18/9', '6/3' ] ) {
 
     window.canvasRef.circle( x, y, size );
     window.canvasRef.line( x, y - size, x, y + size );
