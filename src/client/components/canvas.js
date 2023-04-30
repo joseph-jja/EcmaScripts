@@ -10,7 +10,7 @@ import {
 function setProperties( canvas ) {
 
     const DEFAULT_COLOR = 'black';
-    
+
     // find a from pythagorean
     function reversePythaogrean( a, b ) {
         return Math.sqrt( square( a ) - square( b ) );
@@ -388,11 +388,11 @@ function setProperties( canvas ) {
             fillStrokeClear: 'fill'
         } );
     };
-    
-    canvas.addtext = function (x, y, textMsg, options = {}) {
+
+    canvas.addtext = function ( x, y, textMsg, options = {} ) {
         this.ctx.font = options.font || '16pt Calibri';
         this.ctx.fillStyle = options.color || DEFAULT_COLOR;
-        this.ctx.fillText(textMsg, x, y);
+        this.ctx.fillText( textMsg, x, y );
     };
 };
 
@@ -406,7 +406,7 @@ export function create( id, parent, width, height ) {
         height: 0
     };
     let result;
-    
+
     cvs.canvas = dom.createElement( "canvas", parent, {
         "id": id
     } );
