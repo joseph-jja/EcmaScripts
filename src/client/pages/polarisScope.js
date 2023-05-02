@@ -56,10 +56,11 @@ function polarScope( x, y, size, anchors = [ '12/6', '0/0', '18/9', '6/3' ] ) {
 function calculateLST( longitude, now ) {
 
     const julianDate = ( now.getTime() / 86400000 ) + 2440587.5;
-
-    const T = ( julianDate - 2451545.0 ) / 36525;
-    const LST = ( 100.46 + 0.985647 * julianDate + longitude + ( 15 * T ) ) % 360;
-    return Number( LST ).toFixed( 6 );
+    const D = julianDate - 2451545.0; // calculate number of days since January 1, 2000 at 12:00 UT
+    const UT = now.getUTCHours() + now.getUTCMinutes() / 60 + now.getUTCSeconds() / 3600; // calculate Universal Time
+    const GMST = 6.697374558 + 0.06570982441908 * D + 1.00273790935 * UT; // calculate Greenwich Mean Sidereal Time
+    const LST = GMST + longitude / 15; // calculate local sidereal time
+    return LST < 0 ? LST + 24 : LST; // adjust for negative values
 }
 
 function hourAngleToDegrees( hour, minute, seconds ) {
@@ -68,15 +69,7 @@ function hourAngleToDegrees( hour, minute, seconds ) {
 
 function getPolarisRightAssention( latitude, longitude, now, declination ) {
 
-    const julianDate = ( now.getTime() / 86400000 ) + 2440587.5;
-    const d = julianDate - 2451545;
-
-    const h = now.getUTCHours();
-    const m = now.getUTCMinutes();
-    const s = now.getUTCSeconds();
-
-    const GMST = 6.697375 + 0.0657098242 * d + h + ( m / 60 ) + ( s / 3600 );
-    const LST = GMST + ( longitude / 15 );
+    const LST = calculateLST( longitude, now );
 
     const polarisHourAngle = 2.53030128; // Hour Angle of Polaris at Greenwich on January 1, 2000, 12:00 UT
 
