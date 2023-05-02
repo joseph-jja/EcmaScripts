@@ -100,7 +100,8 @@ function setupPolarisHour() {
     const polarisHourAngle = getPolarisHourAngle( latitude, longitude );
     const clockTime = getHourAngleClockTime( polarisHourAngle );
 
-    window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude} hour angle: ${polarisHourAngle} and clock time: ${clockTime}` );
+    window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude}` );
+    window.canvasRef.addtext( 50, 430, `Polaris hour angle: ${polarisHourAngle} and clock time: ${clockTime}` );
 
 }
 
