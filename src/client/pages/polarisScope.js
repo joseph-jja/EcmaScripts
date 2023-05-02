@@ -47,8 +47,6 @@ function calculateLST( longitude, utcTime ) {
 
 function getPolarisHourAngle( latitude, longitude, polarisRightAssention ) {
 
-    window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude}` );
-
     // get utc time
     const now = new Date();
     const utcTime = Date.UTC( now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),
@@ -56,11 +54,13 @@ function getPolarisHourAngle( latitude, longitude, polarisRightAssention ) {
         now.getUTCMilliseconds() );
 
     const localSideRealTime = calculateLST( longitude, utcTime );
-
-    let hourAnglePolaris = ( localSideRealTime - polarisRightAssention + 360 ) % 360;
-    if ( hourAnglePolaris > 180 ) {
+    
+    let hourAnglePolaris = (localSideRealTime - polarisRightAssention + 360) % 360;
+    if (hourAnglePolaris > 180) {
         hourAnglePolaris = hourAnglePolaris - 360;
     }
+
+    window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude} hour angle: ${hourAnglePolaris}` );
 
     return hourAnglePolaris;
 }
