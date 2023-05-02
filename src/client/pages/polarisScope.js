@@ -34,57 +34,34 @@ function polarScope( x, y, size, anchors = [ '12/6', '24/12', '18/9', '6/3' ] ) 
     window.canvasRef.addtext( x + size + 10, y, anchors[ 3 ] );
 }
 
-const TERRESTRIAL_TIME_DELTA = 32.184;
-// TAI - International Atomic Time
-function getJ2k() {
-
-    //January 1, 2000, at 12:00 TT (Terrestrial Time)
-    // 32.184 s ahead of International Atomic Time (TAI)
-
-    const now = new Date();
-    now.setFullYear(2000);
-    now.setMonth(0);
-    now.setDate(1);
-    now.setHours(12);
-    now.setMinutes();
-    now.setSeconds(0);
-    now.setMilliseconds(0);
-    
-    now.getTimezoneOffset();
-    
-    const delta = now.getTime() - ( TERRESTRIAL_TIME_DELTA * 1000 );
-    
-    return delta;
+// get local sidereal time
+function calculateLST( longitude, utcTime ) {
+    const now = new Date( utcTime );
+    const timeInMilliseconds = now.getTime();
+    const timeInSeconds = timeInMilliseconds / 1000;
+    const julianDate = ( timeInSeconds / 86400 ) + 2440587.5;
+    const T = ( julianDate - 2451545.0 ) / 36525;
+    const LST = ( 100.46 + 0.985647 * julianDate + longitude + ( 15 * T ) ) % 360;
+    return LST;
 }
 
-/*
-//const DEGREES_PER_SOLAR_DAY = 360.985647332;
-//const SOLAR_DAYS = 365.2422;
-
-const RIGHT_ASSENTION_POLARIS = '2h 41m 39s';
-    //DECLINATION_POLARIS = '+89° 15′ 51';
-*/
-
-const GMST_ZERO_OFFSET_Y2K = 100.46;
-const DEGREES_PER_DAY = 0.985647;
-const EARTH_DEGREES_ROTATION = 15;
-
-function getPolarisHourAngle(latitude, longitude) {
+function getPolarisHourAngle( latitude, longitude, polarisRightAssention ) {
 
     window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude}` );
 
-    const julianDaysNDegrees = (DEGREES_PER_DAY * getJ2k());
-    
-    const universalTime = new Date().getTime();
-    
-    //const latitudeTime = latitude  + ( EARTH_DEGREES_ROTATION * universalTime );
+    // get utc time
+    const now = new Date();
+    const utcTime = Date.UTC( now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),
+        now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(),
+        now.getUTCMilliseconds() );
 
-    //const rightAssentionPolaris = RIGHT_ASSENTION_POLARIS;
+    const localSideRealTime = calculateLST( longitude, utcTime );
 
-    const localSideRealTime = GMST_ZERO_OFFSET_Y2K + julianDaysNDegrees + longitude;
+    let hourAnglePolaris = ( localSideRealTime - polarisRightAssention + 360 ) % 360;
+    if ( hourAnglePolaris > 180 ) {
+        hourAnglePolaris = hourAnglePolaris - 360;
+    }
 
-    const hourAnglePolaris = localSideRealTime;// - rightAssentionPolaris;
-    
     return hourAnglePolaris;
 }
 
@@ -105,12 +82,9 @@ function generateFish() {
     window.canvasRef = res;
     polarScope( 200, 180, 150 );
     polarScope( 550, 180, 100, [ '6', '12', '9', '3' ] );
-    
+
     // lat long in degrees
-    const j2k = new Date();
-    j2k.setTime(getJ2k());
-    console.log(j2k);
-    console.log(getPolarisHourAngle(37.6904826, -122.47267));
+    console.log( getPolarisHourAngle( 37.6904826, -122.47267 ) );
 }
 
 addOnLoad( generateFish );
