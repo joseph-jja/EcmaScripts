@@ -47,9 +47,8 @@ function calculateLST( longitude, utcTime ) {
 
 //RA in degrees = (RA in hours + RA in minutes/60 + RA in seconds/3600) * 15 
 // at latitude about 37.70 => RA of polaris is about 02h 59m08.4 = 44.785
-function getPolarisRightAssention( _latitude ) {
-
-    return 44.785;
+function getPolarisRightAssention( latitude ) {
+    return 2.0 * Math.PI - Math.atan2( Math.cos( latitude * Math.PI / 180 ), 0.0174555556 );
 }
 
 function getPolarisHourAngle( latitude, longitude ) {
@@ -69,11 +68,11 @@ function getPolarisHourAngle( latitude, longitude ) {
         hourAnglePolaris = hourAnglePolaris - 360;
     }
 
-    return Number(hourAnglePolaris).toFixed(6);
+    return Number( hourAnglePolaris ).toFixed( 6 );
 }
 
 function getHourAngleClockTime( hourAnglePolaris ) {
-    return Number(hourAnglePolaris / 15).toFixed(2);
+    return Number( hourAnglePolaris / 15 ).toFixed( 2 );
 }
 
 function setupPolarisHour() {
