@@ -82,9 +82,16 @@ function getPolarisHourAngle( latitude, longitude ) {
     const polarisEquatorial = polarisEcliptic.toEquatorial( epsi );
 
     // this is the polaris hour angle at GMT and need to convert to local 
-    const polarisRAHour = new sexagesimal.HourAngle( polarisEquatorial.ra ).toString();
+    const polarisRAHour = new sexagesimal.HourAngle( polarisEquatorial.ra );
+    let degreeDiff = lstHour.deg() - polarisRAHour.deg();
+    if (degreeDiff < 0) {
+        degreeDiff = +degreeDiff + 360;
+    }
+    const x = new sexagesimal.HourAngle(degreeDiff);
+    console.log(degreeDiff, x.toString(), lstHour.toString(), polarisRAHour.toString());
     //const polarisHA = new sexagesimal.HourAngle( lstHour.sub( polarisRAHour ).hourAngle );
-    return polarisRAHour;
+
+    return polarisRAHour.toString();
 }
 
 function setupPolarisHour() {
