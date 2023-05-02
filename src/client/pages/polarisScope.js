@@ -7,38 +7,58 @@ import * as canvas from 'client/components/canvas';
 
 import {
     julian,
-    sexa,
+    sexagesimal,
     sidereal,
+    nutation,
     coord
 } from 'astronomia';
 
 function polarScope( x, y, size, anchors = [ '12/6', '0/0', '18/9', '6/3' ] ) {
 
-    window.canvasRef.circle( x, y, size );
-    window.canvasRef.line( x, y - size, x, y + size );
-    window.canvasRef.line( x - size, y, x + size, y );
+    window.canvasRef.circle( x, y, size, {
+        color: 'red'
+    } );
+    window.canvasRef.line( x, y - size, x, y + size, {
+        color: 'red'
+    } );
+    window.canvasRef.line( x - size, y, x + size, y, {
+        color: 'red'
+    } );
 
     for ( let i = 0; i < 360; i += 15 ) {
         window.canvasRef.line( x - size, y, x + size, y, {
-            rotateAngle: i
+            rotateAngle: i,
+            color: 'red'
         } );
     }
 
     window.canvasRef.circle( x, y, size - 20, {
-        color: 'white',
+        color: 'black',
         fillStrokeClear: 'fill'
     } );
 
-    window.canvasRef.line( x, y - size, x, y + size );
-    window.canvasRef.line( x - size, y, x + size, y );
+    window.canvasRef.line( x, y - size, x, y + size, {
+        color: 'red'
+    } );
+    window.canvasRef.line( x - size, y, x + size, y, {
+        color: 'red'
+    } );
 
     const tleft = 10 * anchors[ 0 ].length / 2;
     const bleft = 10 * anchors[ 1 ].length / 2;
     const lleft = 10 * anchors[ 2 ].length + 5;
-    window.canvasRef.addtext( x - tleft, y - size - 10, anchors[ 0 ] );
-    window.canvasRef.addtext( x - bleft, y + size + 20, anchors[ 1 ] );
-    window.canvasRef.addtext( x - size - lleft, y, anchors[ 2 ] );
-    window.canvasRef.addtext( x + size + 10, y, anchors[ 3 ] );
+    window.canvasRef.addtext( x - tleft, y - size - 10, anchors[ 0 ], {
+        color: 'red'
+    } );
+    window.canvasRef.addtext( x - bleft, y + size + 20, anchors[ 1 ], {
+        color: 'red'
+    } );
+    window.canvasRef.addtext( x - size - lleft, y, anchors[ 2 ], {
+        color: 'red'
+    } );
+    window.canvasRef.addtext( x + size + 10, y, anchors[ 3 ], {
+        color: 'red'
+    } );
 }
 
 function getPolarisHourAngle( latitude, longitude ) {
@@ -50,17 +70,21 @@ function getPolarisHourAngle( latitude, longitude ) {
     const dayOfMonth = `${now.getDate() + 1}`.padStart( 2, '0' );
 
     const date = new Date( `${year}-${month}-${dayOfMonth}T00:00:00Z` );
-    const jd = new julian.CalendarGregorian().fromDate( date ).toJD();
+    const jd = julian.DateToJD( date );
 
-    const gst = sidereal.apparentGreenwich( jd );
+    const gst = sidereal.apparent0UT( jd );
+
     const lst = ( gst + longitude / 360 ) * 24;
-    const lstHour = new sexa.HourAngle( lst );
+    const lstHour = new sexagesimal.HourAngle( lst ); //eslint-disable-line
 
     const polarisEcliptic = new coord.Ecliptic( latitude, longitude );
-    const polarisEquatorial = coord.equatorial.fromEcliptic( jd, polarisEcliptic );
-    const polarisRAHour = new sexa.HourAngle( polarisEquatorial.ra ).toString();
-    const polarisHA = new sexa.HourAngle( lstHour.sub( polarisRAHour ).hourAngle );
-    return polarisHA;
+    const epsi = nutation.meanObliquity( jd );
+    const polarisEquatorial = polarisEcliptic.toEquatorial( epsi );
+
+    // this is the polaris hour angle at GMT and need to convert to local 
+    const polarisRAHour = new sexagesimal.HourAngle( polarisEquatorial.ra ).toString();
+    //const polarisHA = new sexagesimal.HourAngle( lstHour.sub( polarisRAHour ).hourAngle );
+    return polarisRAHour;
 }
 
 function setupPolarisHour() {
@@ -68,7 +92,7 @@ function setupPolarisHour() {
     const mw = document.getElementById( 'main-window' );
     const styles = window.getComputedStyle( mw );
 
-    const _webWin = new WebWindow( 'Canvas Test',
+    const _webWin = new WebWindow( 'Polaris Hour Angle',
         styles.offsetLeft,
         styles.offsetTop,
         styles.offsetWidth,
@@ -87,8 +111,12 @@ function setupPolarisHour() {
     const polarisHourAngle = getPolarisHourAngle( latitude, longitude );
     const clockTime = '12'; //getHourAngleClockTime( polarisHourAngle );
 
-    window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude}` );
-    window.canvasRef.addtext( 50, 430, `Polaris hour angle: ${polarisHourAngle} and clock time: ${clockTime}` );
+    window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude}`, {
+        color: 'red'
+    } );
+    window.canvasRef.addtext( 50, 430, `Polaris hour angle: ${polarisHourAngle} and clock time: ${clockTime}`, {
+        color: 'red'
+    } );
 
 }
 
