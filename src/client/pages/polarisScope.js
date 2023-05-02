@@ -33,7 +33,43 @@ function polarScope( x, y, size, anchors = [ '12/6', '24/12', '18/9', '6/3' ] ) 
     window.canvasRef.addtext( x - size - lleft, y, anchors[ 2 ] );
     window.canvasRef.addtext( x + size + 10, y, anchors[ 3 ] );
 }
+/*
+const GMST_ZERO_OFFSET_Y2K = 100.46;
+const DEGREES_PER_DAY = 0.985647;
+//const DEGREES_PER_SOLAR_DAY = 360.985647332;
+//const SOLAR_DAYS = 365.2422;
+const EARTH_DEGREES_ROTATION = 15;
 
+function getJ2k() {
+    //January 1, 2000, at 12:00 TT (Terrestrial Time)
+    // 32.184 s ahead of International Atomic Time (TAI)
+    const RIGHT_NOW = new Date();
+    RIGHT_NOW.setFullYear(2000);
+    RIGHT_NOW.setMonth(0);
+    RIGHT_NOW.setDate(1);
+    
+    return RIGHT_NOW;
+}
+
+const RIGHT_ASSENTION_POLARIS = '2h 41m 39s';
+    //DECLINATION_POLARIS = '+89° 15′ 51';
+
+function getPolarisHourAngle(_latitude, longitude) {
+    const now = new Date();
+    
+    const universalTime = getJ2k();
+
+    const julianDays = getJ2k();
+
+    const rightAssentionPolaris = RIGHT_ASSENTION_POLARIS;
+
+    const localSideRealTime = GMST_ZERO_OFFSET_Y2K + (DEGREES_PER_DAY * julianDays) + (longitude + EARTH_DEGREES_ROTATION * universalTime);
+
+    const hourAnglePolaris = localSideRealTime - rightAssentionPolaris;
+
+    return hourAnglePolaris;
+}
+*/
 function generateFish() {
 
     const mw = document.getElementById( 'main-window' );
