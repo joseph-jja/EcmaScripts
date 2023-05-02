@@ -5,14 +5,6 @@ import {
 import WebWindow from 'client/components/wbWindow';
 import * as canvas from 'client/components/canvas';
 
-import {
-    julian,
-    sexagesimal,
-    sidereal,
-    nutation,
-    coord
-} from 'astronomia';
-
 function polarScope( x, y, size, anchors = [ '12/6', '0/0', '18/9', '6/3' ] ) {
 
     window.canvasRef.circle( x, y, size, {
@@ -61,37 +53,54 @@ function polarScope( x, y, size, anchors = [ '12/6', '0/0', '18/9', '6/3' ] ) {
     } );
 }
 
-function getPolarisHourAngle( latitude, longitude ) {
+function calculateLST( longitude, now ) {
+
+    const julianDate = ( now.getTime() / 86400000 ) + 2440587.5;
+
+    const T = ( julianDate - 2451545.0 ) / 36525;
+    const LST = ( 100.46 + 0.985647 * julianDate + longitude + ( 15 * T ) ) % 360;
+    return Number( LST ).toFixed( 6 );
+}
+
+function hourAngleToDegrees( hour, minute, seconds ) {
+    return ( +hour + ( minute / 60 ) + ( seconds / 3600 ) );
+}
+
+function getPolarisRightAssention( latitude, longitude, now, declination ) {
+
+    const julianDate = ( now.getTime() / 86400000 ) + 2440587.5;
+    const d = julianDate - 2451545;
+
+    const h = now.getUTCHours();
+    const m = now.getUTCMinutes();
+    const s = now.getUTCSeconds();
+
+    const GMST = 6.697375 + 0.0657098242 * d + h + ( m / 60 ) + ( s / 3600 );
+    const LST = GMST + ( longitude / 15 );
+
+    const polarisHourAngle = 2.53030128; // Hour Angle of Polaris at Greenwich on January 1, 2000, 12:00 UT
+
+    const HA = 15 * ( LST - polarisHourAngle );
+    const RA = Math.atan2( Math.sin( HA ), ( Math.cos( HA ) * Math.sin( latitude ) ) - ( Math.tan( declination ) * Math.cos( latitude ) ) );
+
+    return Number( RA ).toFixed( 6 );
+}
+
+function getPolarisHourAngle( latitude, longitude, declination ) {
 
     // get utc time
     const now = new Date();
-    const year = now.getFullYear();
-    const month = `${now.getMonth() + 1}`.padStart( 2, '0' );
-    const dayOfMonth = `${now.getDate() + 1}`.padStart( 2, '0' );
 
-    const date = new Date( `${year}-${month}-${dayOfMonth}T00:00:00Z` );
-    const jd = julian.DateToJD( date );
+    const localSideRealTime = calculateLST( latitude, now );
 
-    const gst = sidereal.apparent0UT( jd );
+    const polarisRightAssention = getPolarisRightAssention( latitude, longitude, now, declination );
 
-    const lst = ( gst + longitude / 360 ) * 24;
-    const lstHour = new sexagesimal.HourAngle( lst ); //eslint-disable-line
-
-    const polarisEcliptic = new coord.Ecliptic( latitude, longitude );
-    const epsi = nutation.meanObliquity( jd );
-    const polarisEquatorial = polarisEcliptic.toEquatorial( epsi );
-
-    // this is the polaris hour angle at GMT and need to convert to local 
-    const polarisRAHour = new sexagesimal.HourAngle( polarisEquatorial.ra );
-    let degreeDiff = lstHour.deg() - polarisRAHour.deg();
-    if (degreeDiff < 0) {
-        degreeDiff = +degreeDiff + 360;
+    let hourAnglePolaris = ( localSideRealTime - polarisRightAssention + 360 ) % 360;
+    if ( hourAnglePolaris > 180 ) {
+        hourAnglePolaris = hourAnglePolaris - 360;
     }
-    const x = new sexagesimal.HourAngle(degreeDiff);
-    console.log(degreeDiff, x.toString(), lstHour.toString(), polarisRAHour.toString());
-    //const polarisHA = new sexagesimal.HourAngle( lstHour.sub( polarisRAHour ).hourAngle );
 
-    return polarisRAHour.toString();
+    return Number( hourAnglePolaris ).toFixed( 6 );
 }
 
 function setupPolarisHour() {
@@ -114,8 +123,10 @@ function setupPolarisHour() {
 
     const latitude = 37.6904826;
     const longitude = -122.47267;
+    const declination = hourAngleToDegrees( 89, 27, 48 );
+
     // lat long in degrees
-    const polarisHourAngle = getPolarisHourAngle( latitude, longitude );
+    const polarisHourAngle = getPolarisHourAngle( latitude, longitude, declination );
     const clockTime = '12'; //getHourAngleClockTime( polarisHourAngle );
 
     window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude}`, {
