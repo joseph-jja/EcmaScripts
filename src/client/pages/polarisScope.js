@@ -34,16 +34,14 @@ function polarScope( x, y, size, anchors = [ '12/6', '0/0', '18/9', '6/3' ] ) {
     window.canvasRef.addtext( x + size + 10, y, anchors[ 3 ] );
 }
 
-
 // get local sidereal time
-function calculateLST( longitude, utcTime ) {
-    const now = new Date( utcTime );
-    const timeInMilliseconds = now.getTime();
-    const timeInSeconds = timeInMilliseconds / 1000;
-    const julianDate = ( timeInSeconds / 86400 ) + 2440587.5;
+function calculateLST( longitude, now ) {
+
+    const julianDate = ( now.getTime() / 86400000 ) + 2440587.5;
+
     const T = ( julianDate - 2451545.0 ) / 36525;
     const LST = ( 100.46 + 0.985647 * julianDate + longitude + ( 15 * T ) ) % 360;
-    return LST;
+    return Number( LST ).toFixed( 6 );
 }
 
 /*function hourAngleToDegrees(hour, minute, seconds) {
@@ -53,15 +51,15 @@ function calculateLST( longitude, utcTime ) {
 // this function calculated the right assention of polaris
 // we return the value to 4 decimal places
 // this is generally good enough for polar alignent 
-function getPolarisRightAssention( latitude, longitude, date ) {
-    const declination = 89.2641;
+function getPolarisRightAssention( latitude, longitude, now ) {
+    const declination = 89.3619;
 
-    const julianDate = ( date.getTime() / 86400000 ) + 2440587.5;
+    const julianDate = ( now.getTime() / 86400000 ) + 2440587.5;
     const d = julianDate - 2451545;
 
-    const h = date.getUTCHours();
-    const m = date.getUTCMinutes();
-    const s = date.getUTCSeconds();
+    const h = now.getUTCHours();
+    const m = now.getUTCMinutes();
+    const s = now.getUTCSeconds();
 
     const GMST = 6.697375 + 0.0657098242 * d + h + ( m / 60 ) + ( s / 3600 );
     const LST = GMST + ( longitude / 15 );
@@ -71,18 +69,15 @@ function getPolarisRightAssention( latitude, longitude, date ) {
     const HA = 15 * ( LST - polarisHourAngle );
     const RA = Math.atan2( Math.sin( HA ), ( Math.cos( HA ) * Math.sin( latitude ) ) - ( Math.tan( declination ) * Math.cos( latitude ) ) );
 
-    return Number( RA ).toFixed( 4 );
+    return Number( RA ).toFixed( 6 );
 }
 
 function getPolarisHourAngle( latitude, longitude ) {
 
     // get utc time
     const now = new Date();
-    const utcTime = Date.UTC( now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),
-        now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(),
-        now.getUTCMilliseconds() );
 
-    const localSideRealTime = calculateLST( longitude, utcTime );
+    const localSideRealTime = calculateLST( longitude, now );
 
     const polarisRightAssention = getPolarisRightAssention( latitude, longitude, now );
 
@@ -95,7 +90,7 @@ function getPolarisHourAngle( latitude, longitude ) {
 }
 
 function getHourAngleClockTime( hourAnglePolaris ) {
-    return Number( hourAnglePolaris / 15 ).toFixed( 2 );
+    return 24 - Number( hourAnglePolaris / 15 ).toFixed( 4 );
 }
 
 function setupPolarisHour() {
@@ -114,7 +109,7 @@ function setupPolarisHour() {
 
     window.canvasRef = res;
     polarScope( 200, 180, 150 );
-    polarScope( 550, 180, 100, [ '6', '12', '9', '3' ] );
+    polarScope( 550, 180, 100, [ '6', '0', '9', '3' ] );
 
     const latitude = 37.6904826;
     const longitude = -122.47267;
