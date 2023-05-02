@@ -84,7 +84,9 @@ function generateFish() {
     polarScope( 550, 180, 100, [ '6', '12', '9', '3' ] );
 
     // lat long in degrees
-    console.log( getPolarisHourAngle( 37.6904826, -122.47267 ) );
+    //RA in degrees = (RA in hours + RA in minutes/60 + RA in seconds/3600) * 15 
+    // 02h 59m08.4 = 44.785
+    console.log( getPolarisHourAngle( 37.6904826, -122.47267, 44.785 ) );
 }
 
 addOnLoad( generateFish );
