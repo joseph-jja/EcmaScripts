@@ -45,7 +45,14 @@ function calculateLST( longitude, utcTime ) {
     return LST;
 }
 
-function getPolarisHourAngle( latitude, longitude, polarisRightAssention ) {
+//RA in degrees = (RA in hours + RA in minutes/60 + RA in seconds/3600) * 15 
+// at latitude about 37.70 => RA of polaris is about 02h 59m08.4 = 44.785
+function getPolarisRightAssention( _latitude ) {
+
+    return 44.785;
+}
+
+function getPolarisHourAngle( latitude, longitude ) {
 
     // get utc time
     const now = new Date();
@@ -54,18 +61,18 @@ function getPolarisHourAngle( latitude, longitude, polarisRightAssention ) {
         now.getUTCMilliseconds() );
 
     const localSideRealTime = calculateLST( longitude, utcTime );
-    
-    let hourAnglePolaris = (localSideRealTime - polarisRightAssention + 360) % 360;
-    if (hourAnglePolaris > 180) {
+
+    const polarisRightAssention = getPolarisRightAssention( latitude );
+
+    let hourAnglePolaris = ( localSideRealTime - polarisRightAssention + 360 ) % 360;
+    if ( hourAnglePolaris > 180 ) {
         hourAnglePolaris = hourAnglePolaris - 360;
     }
-
-    window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude} hour angle: ${hourAnglePolaris}` );
 
     return hourAnglePolaris;
 }
 
-function generateFish() {
+function setupPolarisHour() {
 
     const mw = document.getElementById( 'main-window' );
     const styles = window.getComputedStyle( mw );
@@ -83,10 +90,14 @@ function generateFish() {
     polarScope( 200, 180, 150 );
     polarScope( 550, 180, 100, [ '6', '12', '9', '3' ] );
 
+    const latitude = 37.6904826;
+    const longitude = -122.47267;
     // lat long in degrees
-    //RA in degrees = (RA in hours + RA in minutes/60 + RA in seconds/3600) * 15 
-    // 02h 59m08.4 = 44.785
-    console.log( getPolarisHourAngle( 37.6904826, -122.47267, 44.785 ) );
+    const polarisHourAngle = getPolarisHourAngle( latitude, longitude );
+    console.log( polarisHourAngle );
+
+    window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude} hour angle: ${polarisHourAngle}` );
+
 }
 
-addOnLoad( generateFish );
+addOnLoad( setupPolarisHour );
