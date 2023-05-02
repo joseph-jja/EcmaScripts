@@ -42,18 +42,18 @@ function getJ2k() {
     // 32.184 s ahead of International Atomic Time (TAI)
 
     const now = new Date();
-    now.setFullYear( 2000 );
-    now.setMonth( 0 );
-    now.setDate( 1 );
-    now.setHours( 12 );
+    now.setFullYear(2000);
+    now.setMonth(0);
+    now.setDate(1);
+    now.setHours(12);
     now.setMinutes();
-    now.setSeconds( 0 );
-    now.setMilliseconds( 0 );
-
+    now.setSeconds(0);
+    now.setMilliseconds(0);
+    
     now.getTimezoneOffset();
-
+    
     const delta = now.getTime() - ( TERRESTRIAL_TIME_DELTA * 1000 );
-
+    
     return delta;
 }
 
@@ -69,22 +69,22 @@ const GMST_ZERO_OFFSET_Y2K = 100.46;
 const DEGREES_PER_DAY = 0.985647;
 const EARTH_DEGREES_ROTATION = 15;
 
-function getPolarisHourAngle( latitude, longitude ) {
+function getPolarisHourAngle(latitude, longitude) {
 
     window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude}` );
 
-    const julianDaysNDegrees = ( DEGREES_PER_DAY * getJ2k() );
-
+    const julianDaysNDegrees = (DEGREES_PER_DAY * getJ2k());
+    
     const universalTime = new Date().getTime();
-
-    const latitudeTime = latitude + ( EARTH_DEGREES_ROTATION * universalTime );
+    
+    //const latitudeTime = latitude  + ( EARTH_DEGREES_ROTATION * universalTime );
 
     //const rightAssentionPolaris = RIGHT_ASSENTION_POLARIS;
 
     const localSideRealTime = GMST_ZERO_OFFSET_Y2K + julianDaysNDegrees + longitude;
 
-    const hourAnglePolaris = localSideRealTime; // - rightAssentionPolaris;
-
+    const hourAnglePolaris = localSideRealTime;// - rightAssentionPolaris;
+    
     return hourAnglePolaris;
 }
 
@@ -105,12 +105,12 @@ function generateFish() {
     window.canvasRef = res;
     polarScope( 200, 180, 150 );
     polarScope( 550, 180, 100, [ '6', '12', '9', '3' ] );
-
+    
     // lat long in degrees
     const j2k = new Date();
-    j2k.setTime( getJ2k() );
-    console.log( j2k );
-    console.log( getPolarisHourAngle( 37.6904826, -122.47267 ) );
+    j2k.setTime(getJ2k());
+    console.log(j2k);
+    console.log(getPolarisHourAngle(37.6904826, -122.47267));
 }
 
 addOnLoad( generateFish );
