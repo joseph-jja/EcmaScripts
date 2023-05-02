@@ -69,7 +69,11 @@ function getPolarisHourAngle( latitude, longitude ) {
         hourAnglePolaris = hourAnglePolaris - 360;
     }
 
-    return hourAnglePolaris;
+    return Number(hourAnglePolaris).toFixed(6);
+}
+
+function getHourAngleClockTime( hourAnglePolaris ) {
+    return Number(hourAnglePolaris / 15).toFixed(2);
 }
 
 function setupPolarisHour() {
@@ -94,9 +98,9 @@ function setupPolarisHour() {
     const longitude = -122.47267;
     // lat long in degrees
     const polarisHourAngle = getPolarisHourAngle( latitude, longitude );
-    console.log( polarisHourAngle );
+    const clockTime = getHourAngleClockTime( polarisHourAngle );
 
-    window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude} hour angle: ${polarisHourAngle}` );
+    window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude} hour angle: ${polarisHourAngle} and clock time: ${clockTime}` );
 
 }
 
