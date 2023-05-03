@@ -67,28 +67,14 @@ function hourAngleToDegrees( hour, minute, seconds ) {
     return ( +hour + ( minute / 60 ) + ( seconds / 3600 ) );
 }
 
-function getPolarisRightAssention( latitude, longitude, now, declination ) {
-
-    const LST = calculateLST( longitude, now );
-
-    const polarisHourAngle = 2.53030128; // Hour Angle of Polaris at Greenwich on January 1, 2000, 12:00 UT
-
-    const HA = 15 * ( LST - polarisHourAngle );
-    const RA = Math.atan2( Math.sin( HA ), ( Math.cos( HA ) * Math.sin( latitude ) ) - ( Math.tan( declination ) * Math.cos( latitude ) ) );
-
-    return Number( RA ).toFixed( 6 );
-}
-
-function getPolarisHourAngle( latitude, longitude, declination ) {
+function getPolarisHourAngle( latitude, longitude, rightAssention, _declination ) {
 
     // get utc time
     const now = new Date();
 
     const localSideRealTime = calculateLST( latitude, now );
 
-    const polarisRightAssention = getPolarisRightAssention( latitude, longitude, now, declination );
-
-    let hourAnglePolaris = ( localSideRealTime - polarisRightAssention + 360 ) % 360;
+    let hourAnglePolaris = (localSideRealTime - rightAssention + 360) % 360;
     if ( hourAnglePolaris > 180 ) {
         hourAnglePolaris = hourAnglePolaris - 360;
     }
@@ -117,9 +103,10 @@ function setupPolarisHour() {
     const latitude = 37.6904826;
     const longitude = -122.47267;
     const declination = hourAngleToDegrees( 89, 27, 48 );
+    const rightAssention = hourAngleToDegrees( 2, 30, 15 );
 
     // lat long in degrees
-    const polarisHourAngle = getPolarisHourAngle( latitude, longitude, declination );
+    const polarisHourAngle = getPolarisHourAngle( latitude, longitude, rightAssention, declination );
     const clockTime = '12'; //getHourAngleClockTime( polarisHourAngle );
 
     window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude}`, {
