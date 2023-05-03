@@ -66,7 +66,7 @@ class DateConversion {
         const t = d.date;
         let n = d.month + 1,
             r = d.year,
-            i = +d.hours + +d.minutes / 60 + +d.seconds / 3600;
+            i = +d.hours + +d.minutes / 60 + +d.seconds / 3600; // universal time
         if (n <= 2 ) {
             n += 12;
             r -= 1;
