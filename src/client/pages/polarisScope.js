@@ -115,7 +115,7 @@ function updateHourAngle() {
     //const deg = PolarisCalculator.haToDegrees(ha);
 
 
-    window.canvasRef.rectangle( 50, 410, 800, 500, {
+    window.canvasRef.rectangle( 50, 390, 800, 500, {
         color: 'black',
         fillStrokeClear: 'fill'
     } );
