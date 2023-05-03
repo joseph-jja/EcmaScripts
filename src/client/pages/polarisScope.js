@@ -64,7 +64,7 @@ function calculateLST( longitude, now ) {
 }
 
 function hourAngleToDegrees( hour, minute, seconds ) {
-    return ( +hour + ( minute / 60 ) + ( seconds / 3600 ) );
+    return 15 * ( +hour + ( minute / 60 ) + ( seconds / 3600 ) );
 }
 
 function getPolarisHourAngle( latitude, longitude, rightAssention, _declination ) {
@@ -79,7 +79,7 @@ function getPolarisHourAngle( latitude, longitude, rightAssention, _declination 
         hourAnglePolaris = hourAnglePolaris - 360;
     }
 
-    return Number( hourAnglePolaris ).toFixed( 6 );
+    return Number( hourAnglePolaris ).toFixed( 6 ) * 2;
 }
 
 function setupPolarisHour() {
@@ -100,14 +100,16 @@ function setupPolarisHour() {
     polarScope( 200, 180, 150 );
     polarScope( 550, 180, 100, [ '6', '0', '9', '3' ] );
 
-    const latitude = 37.6904826;
-    const longitude = -122.47267;
-    const declination = hourAngleToDegrees( 89, 27, 48 );
-    const rightAssention = hourAngleToDegrees( 2, 30, 15 );
+    const latitude = document.getElementById('latitude').value || 37.6904826;
+    const longitude = document.getElementById('longitude').value || -122.47267;
+    const raObj = document.getElementById('polarisRA').value.split(' ');
+    const decObj = document.getElementById('polarisDec').value.split(' ');
+    const declination = hourAngleToDegrees( decObj[0], 27, 48 );
+    const rightAssention = hourAngleToDegrees( raObj[0], 30, 15 );
 
     // lat long in degrees
     const polarisHourAngle = getPolarisHourAngle( latitude, longitude, rightAssention, declination );
-    const clockTime = '12'; //getHourAngleClockTime( polarisHourAngle );
+    const clockTime = polarisHourAngle / 15;
 
     window.canvasRef.addtext( 50, 410, `Using latitude: ${latitude} and longitude: ${longitude}`, {
         color: 'red'
