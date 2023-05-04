@@ -198,7 +198,8 @@ class PolarisMath {
 
         // get utc time
         const now = new Date();
-        const isDST = dateUtils.isDST( now );
+        const dstDate = new Date( now );
+        const isDST = dateUtils.isDST( dstDate );
 
         const localSideRealTime = dateUtils.calculateLST( now, latitude );
 
