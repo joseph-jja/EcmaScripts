@@ -101,7 +101,7 @@ function updateHourAngle() {
     // lat long in degrees
     const polarisHourAngle = getPolarisHourAngle( latitude, longitude, rightAssention, declination );
     const clockTime = utils.hoursMinutesSeconds( polarisHourAngle );
-    const pa2x = Number( rightAssention * 2 + polarisHourAngle ).toFixed( 6 );
+    const pa2x = Number( ( rightAssention * 2 + polarisHourAngle ) % 360 ).toFixed( 6 );
 
     const now = new Date();
     const utcNow = dateUtils.toUTC(now);
@@ -110,6 +110,7 @@ function updateHourAngle() {
     const ha = PolarisCalculator.getPolarisHA(lst, latitude);
     const deg = PolarisCalculator.haToDegrees(ha);
     const clockTimeHA = utils.hoursMinutesSeconds( ha );
+    const pa3x = Number( ( lst + PolarisCalculator.correctedRA ) % 360 ).toFixed( 6 );
 
     window.canvasRef.rectangle( 50, 390, 800, 500, {
         color: 'black',
@@ -130,7 +131,7 @@ function updateHourAngle() {
     window.canvasRef.addtext( 50, 430, `Polaris hour angle: ${polarisHourAngle} | ${ha} deg: ${deg}`, {
         color: 'red'
     } );
-    window.canvasRef.addtext( 50, 450, `Clock time: ${clockTime} | ${clockTimeHA} ha: ${lst + PolarisCalculator.correctedRA} | ${pa2x} `, {
+    window.canvasRef.addtext( 50, 450, `Clock time: ${clockTime} | ${clockTimeHA} ha: ${pa3x} | ${pa2x} `, {
         color: 'red'
     } );
 }
