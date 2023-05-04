@@ -96,6 +96,13 @@ class DateConversion {
         return 24 * utils.getFraction( ( d + longitude / 15 ) / 24 );
     }
 
+    isDST( now ) {
+        const jan = new Date( now.getFullYear(), 0, 1 ).getTimezoneOffset();
+        const jul = new Date( now.getFullYear(), 6, 1 ).getTimezoneOffset();
+        return Math.max( jan, jul ) !== now.getTimezoneOffset();
+    }
+
+    // calcualte LST
     utcToLST( d, longitude ) {
         const n = this.toJulien( d ),
             r = this.toGMST( n );
@@ -112,6 +119,7 @@ class DateConversion {
         const LST = utils.getFraction( ( GMST + latitude / 15 ) / 24 ); // calculate local sidereal time
         return ( 24 * LST ); // adjust for negative values
     }
+
 }
 
 const dateUtils = new DateConversion();
@@ -160,6 +168,7 @@ class PolarisMath {
     }
 
     getPolarisHA( now, latitude ) {
+        const isDST = dateUtils.isDST( now );
         const utcNow = dateUtils.toUTC( now );
         this.precessionCorrection( utcNow, latitude );
         const lst = dateUtils.utcToLST( utcNow, latitude );
@@ -177,8 +186,10 @@ class PolarisMath {
                 p = -p;
             }
         }
+        const haDST = ( isDST ? +t + 1 : t );
         return {
             ha: t,
+            haDST: haDST,
             pha: p
         };
     }
