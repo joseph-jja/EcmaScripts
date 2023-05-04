@@ -6,7 +6,6 @@ import WebWindow from 'client/components/wbWindow';
 import * as canvas from 'client/components/canvas';
 import {
     utils,
-    dateUtils,
     PolarisCalculator
 } from 'client/components/polaris';
 
@@ -58,29 +57,10 @@ function polarScope( x, y, size, anchors = [ '12/6', '0/0', '18/9', '6/3' ] ) {
     } );
 }
 
-function getPolarisHourAngle( latitude, rightAssention ) {
-
-    // get utc time
-    const now = new Date();
-    const isDST = dateUtils.isDST( now );
-
-    const localSideRealTime = dateUtils.calculateLST( now, latitude );
-
-    const hourAnglePolaris = Number( localSideRealTime - rightAssention ).toFixed( 6 );
-    const hourAnglePolarisDST = Number( localSideRealTime - rightAssention ).toFixed( 6 ) + ( isDST ? 1 : 0 );
-    const plusHourAnglePolaris = Number( localSideRealTime + rightAssention ).toFixed( 6 );
-
-    return {
-        hourAnglePolaris,
-        hourAnglePolarisDST,
-        plusHourAnglePolaris
-    };
-}
-
 function updateHourAngle() {
 
     const latitude = document.getElementById( 'latitude' ).value || 37.6904826;
-    const longitude = document.getElementById( 'longitude' ).value || -122.47267;
+    const _longitude = document.getElementById( 'longitude' ).value || -122.47267;
     const raObj = document.getElementById( 'polarisRA' ).value.split( ' ' );
     const decObj = document.getElementById( 'polarisDec' ).value.split( ' ' );
     const declination = utils.hourAngleToDegrees( decObj[ 0 ] || 89, decObj[ 1 ] || 27, 0 );
@@ -89,19 +69,23 @@ function updateHourAngle() {
     // lat long in degrees
     const {
         hourAnglePolaris,
+        hourAnglePolarisDST,
         plusHourAnglePolaris
-    } = getPolarisHourAngle( latitude, rightAssention );
+    } = PolarisCalculator.getPolarisHourAngle( latitude, rightAssention );
     const clockTime = utils.hoursMinutesSeconds( hourAnglePolaris );
     const plusClockTime = utils.hoursMinutesSeconds( plusHourAnglePolaris );
+    const dstClockTime = utils.hoursMinutesSeconds( hourAnglePolarisDST );
 
     const now = new Date();
 
     const {
         ha,
+        haDST,
         pha
     } = PolarisCalculator.getPolarisHA( now, latitude );
     const clockTimeHA = utils.hoursMinutesSeconds( ha );
     const clockTimePHA = utils.hoursMinutesSeconds( pha );
+    const clockTimeDSTHA = utils.hoursMinutesSeconds( haDST );
 
     window.canvasRef.rectangle( 50, 390, 800, 500, {
         color: 'black',
@@ -124,16 +108,16 @@ function updateHourAngle() {
         return Number( inVal ).toFixed( 6 );
     };
 
-    window.canvasRef.addtext( 50, 410, `Using latitude, longitude: ${latitude}, ${longitude}`, {
+    window.canvasRef.addtext( 50, 410, `Using RA, Dec: ${displaySix(rightAssention)} / ${displaySix(declination)} or: ${displaySix(PolarisCalculator.correctedRA)} / ${displaySix(PolarisCalculator.correctedDEC)}`, {
         color: 'red'
     } );
-    window.canvasRef.addtext( 50, 430, `Using RA, Dec: ${rightAssention} / ${declination} or: ${displaySix(PolarisCalculator.correctedRA)} / ${displaySix(PolarisCalculator.correctedDEC)}`, {
+    window.canvasRef.addtext( 50, 430, `Polaris hour angle: ${displaySix(hourAnglePolaris)} | ${displaySix(plusHourAnglePolaris)} or ${displaySix(ha)} | ${displaySix(pha)}`, {
         color: 'red'
     } );
-    window.canvasRef.addtext( 50, 450, `Polaris hour angle: ${displaySix(hourAnglePolaris)} | ${displaySix(plusHourAnglePolaris)} or ${displaySix(ha)} | ${displaySix(pha)}`, {
+    window.canvasRef.addtext( 50, 450, `Polaris hour angle + DST: ${displaySix(hourAnglePolarisDST)} or ${displaySix(haDST)} `, {
         color: 'red'
     } );
-    window.canvasRef.addtext( 50, 470, `Clock time: ${clockTime} | ${plusClockTime} or ${clockTimeHA} | ${clockTimePHA} `, {
+    window.canvasRef.addtext( 50, 470, `Clock time: ${clockTime} | ${plusClockTime} | ${dstClockTime} or ${clockTimeHA} | ${clockTimePHA} | ${clockTimeDSTHA}`, {
         color: 'red'
     } );
 }
