@@ -109,14 +109,14 @@ class DateConversion {
         return this.gmstToLST( r, longitude );
     }
 
-    // alternate method to calculate LST
-    calculateLST( now, latitude ) {
+    // alternate method to calculate LST, which seems to do it right
+    calculateLST( now, longitude ) {
 
         const julianDate = ( now.getTime() / 86400000 ) + 2440587.5;
         const D = julianDate - 2451545.0; // calculate number of days since January 1, 2000 at 12:00 UT
         const UT = now.getUTCHours() + now.getUTCMinutes() / 60 + now.getUTCSeconds() / 3600; // calculate Universal Time
         const GMST = 6.697374558 + 0.06570982441908 * D + 1.00273790935 * UT; // calculate Greenwich Mean Sidereal Time
-        const LST = utils.getFraction( ( GMST + latitude / 15 ) / 24 ); // calculate local sidereal time
+        const LST = utils.getFraction( ( GMST + longitude / 15 ) / 24 ); // calculate local sidereal time
         return ( 24 * LST ); // adjust for negative values
     }
 
@@ -194,18 +194,27 @@ class PolarisMath {
         };
     }
 
-    getPolarisHourAngle( latitude, rightAssention ) {
+    getPolarisHourAngle( longitude, rightAssention ) {
 
         // get utc time
         const now = new Date();
         const dstDate = new Date( now );
+
         const isDST = dateUtils.isDST( dstDate );
 
-        const localSideRealTime = dateUtils.calculateLST( now, latitude );
+        const localSideRealTime = dateUtils.calculateLST( now, longitude );
 
         const hourAnglePolaris = Number( localSideRealTime - rightAssention ).toFixed( 6 );
         const hourAnglePolarisDST = +hourAnglePolaris + ( isDST ? 1 : 0 );
         const plusHourAnglePolaris = Number( localSideRealTime + rightAssention ).toFixed( 6 );
+
+        /*if (hourAnglePolaris < 0) {
+            return {
+                hourAnglePolaris: (24 + hourAnglePolaris),
+                hourAnglePolarisDST,
+                plusHourAnglePolaris
+            };
+        }*/
 
         return {
             hourAnglePolaris,
