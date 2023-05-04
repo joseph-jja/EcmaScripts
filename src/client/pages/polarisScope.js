@@ -68,8 +68,8 @@ function calculateLST( latitude, now ) {
     const D = julianDate - 2451545.0; // calculate number of days since January 1, 2000 at 12:00 UT
     const UT = now.getUTCHours() + now.getUTCMinutes() / 60 + now.getUTCSeconds() / 3600; // calculate Universal Time
     const GMST = 6.697374558 + 0.06570982441908 * D + 1.00273790935 * UT; // calculate Greenwich Mean Sidereal Time
-    const LST = getFraction(GMST + latitude / 15); // calculate local sidereal time
-    return (24 * (LST / 24 )); // adjust for negative values
+    const LST = getFraction((GMST + latitude / 15) / 24); // calculate local sidereal time
+    return (24 * LST); // adjust for negative values
 }
 
 function hourAngleToDegrees( hour, minute, seconds ) {
