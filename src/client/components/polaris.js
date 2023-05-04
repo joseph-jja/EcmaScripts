@@ -194,6 +194,25 @@ class PolarisMath {
         };
     }
 
+    getPolarisHourAngle( latitude, rightAssention ) {
+
+        // get utc time
+        const now = new Date();
+        const isDST = dateUtils.isDST( now );
+
+        const localSideRealTime = dateUtils.calculateLST( now, latitude );
+
+        const hourAnglePolaris = Number( localSideRealTime - rightAssention ).toFixed( 6 );
+        const hourAnglePolarisDST = Number( localSideRealTime - rightAssention ).toFixed( 6 ) + ( isDST ? 1 : 0 );
+        const plusHourAnglePolaris = Number( localSideRealTime + rightAssention ).toFixed( 6 );
+
+        return {
+            hourAnglePolaris,
+            hourAnglePolarisDST,
+            plusHourAnglePolaris
+        };
+    }
+
     haToDegrees( ha ) {
         return 360 * ha / 24;
     }
