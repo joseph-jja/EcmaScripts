@@ -62,7 +62,7 @@ class PolarScopeUtilities {
 
 const PolarScopeUtilitiesInstance = new PolarScopeUtilities();
 
-class DateConversion {
+class PolarScopeDateUtilities {
 
     // takes new Date() object
     toUTC( d ) {
@@ -130,14 +130,14 @@ class DateConversion {
     }
 }
 
-const dateUtils = new DateConversion();
+const PolarScopeDateUtilitiesInstance = new PolarScopeDateUtilities();
 
 class PolarisMath {
 
     // calculate offset of Polaris 
     // OMG crazy maths
     precessionCorrection( e, latitude ) {
-        let t = dateUtils.toJulien( e ),
+        let t = PolarScopeDateUtilitiesInstance.toJulien( e ),
             n = Polaris.RightAscension,
             r = Polaris.Declination;
         if ( latitude < 0 ) {
@@ -180,9 +180,9 @@ class PolarisMath {
 
     // from the dot com
     getPolarisHA( now, latitude, longitude ) {
-        const utcNow = dateUtils.toUTC( now );
+        const utcNow = PolarScopeDateUtilitiesInstance.toUTC( now );
         this.precessionCorrection( utcNow, latitude );
-        const lst = dateUtils.utcToLST( utcNow, longitude );
+        const lst = PolarScopeDateUtilitiesInstance.utcToLST( utcNow, longitude );
         let t = lst - this.correctedRA;
         if ( latitude < 0 ) {
             if ( t < 0 ) {
@@ -200,10 +200,10 @@ class PolarisMath {
     getPolarisHourAngle( now, latitude, longitude, rightAssention ) {
 
         // get utc time
-        const utcNow = dateUtils.toUTC( now );
+        const utcNow = PolarScopeDateUtilitiesInstance.toUTC( now );
         this.precessionCorrection( utcNow, latitude );
 
-        const localSideRealTime = dateUtils.calculateLST( now, longitude );
+        const localSideRealTime = PolarScopeDateUtilitiesInstance.calculateLST( now, longitude );
 
         let hourAnglePolaris = Number( subtract( localSideRealTime, rightAssention ) ).toFixed( 6 );
         let plusHourAnglePolaris = Number( subtract( localSideRealTime, this.correctedRA ) ).toFixed( 6 );
@@ -264,7 +264,7 @@ class PolarScope extends Star {
 
 export {
     PolarScopeUtilitiesInstance,
-    dateUtils,
+    PolarScopeDateUtilitiesInstance,
     PolarisCalculator,
     PolarScope
 };
