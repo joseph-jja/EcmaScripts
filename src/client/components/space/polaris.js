@@ -151,8 +151,8 @@ class PolarisMath {
         let i = divide( multiply( n, Math.PI ), 12 ),
             o = divide( multiply( r, Math.PI ), 180 );
         if ( latitude < 0 ) {
-            this.correctedRA = n + ( 3.075 + 1.336 * Math.sin( 15 * n ) * 57.08839 ) * ( e.year - 2e3 ) / 3600;
-            this.correctedDEC = r + 20.04 * Math.cos( 15 * r ) * ( e.year - 2e3 ) / 3600;
+            this.correctedRA = add( n, divide( multiply( add( 3.075, multiply( 1.336, Math.sin( multiply( 15, n ) ), 57.08839 ) ), subtract( e.year, 2e3 ) ), 3600 ) );
+            this.correctedDEC = add( r, divide( multiply( 20.04, Math.cos( multiply( 15, r ) ), subtract( e.year, 2e3 ) ), 3600 ) );
         } else {
             var s = divide( subtract( t, 2451545 ), 36525 ),
                 f = 2306.2181 * s + .30188 * s * s + .017998 * s * s * s,
