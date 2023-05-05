@@ -9,14 +9,27 @@ export class CelestialBody {
 
     constructor( options = {} ) {
 
+        // color of the object
         this.color = options.color || 'red';
+
+        // radius of the object
         this.radius = options.radius || 5;
+
+        // hiddent radius, which is usually black 
         this.hiddenRadius = add( this.radius, 1 );
+
+        // direction of movement
         this.direction = options.direction && options.direction === 'clockwise' ? add : subtract;
+
+        // start angle of object
         this.angle = options.startAngle || 0;
+
+        // how fast is this object moving
+        // useful for stars and planet to have them move at different speeds
         this.speed = options.speed || 1;
     }
 
+    // gets a list of 360 degree points as to where the object is
     setupPoints( xRadius = 30, yRadius ) {
 
         if ( xRadius !== yRadius && yRadius ) {
