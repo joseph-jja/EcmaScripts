@@ -1,3 +1,7 @@
+// some of this code was taken from takahashi-europe.com minified code
+// unminfied and redone to make some sense 
+// then compared to some code output by chatGPT
+// then this code was converted into ES classes
 const Polaris = {
     RightAscension: 2.496532,
     Declination: 89.2641667
@@ -28,16 +32,15 @@ class Utilities {
         return ( +hour + ( minute / 60 ) + ( seconds / 3600 ) );
     }
 
-    // not sure this works right
-    mapTo24Hour( e ) {
-        return e < 0 ? e - 24 * (e / 24 - 1) : e >= 24 ? e - e / 24 * 24 : e;
-        /*let result = hour;
+    // 24 hour clock :?
+    mapTo24Hour( hour ) {
+        let result = hour;
         if ( result < 0 ) {
-            result = ( result - 24 ) * ( result / 24 - 1 );
+            result = result - 24  * ( result / 24 - 1 );
         } else if ( result >= 24 ) {
             result = result - result / 24 * 24;
         }
-        return result;*/
+        return result;
     }
 
     pad( x ) {
@@ -120,12 +123,14 @@ class DateConversion {
         const LST = utils.getFraction( ( GMST + longitude / 15 ) / 24 ); // calculate local sidereal time
         return ( 24 * LST ); // adjust for negative values
     }
-
 }
 
 const dateUtils = new DateConversion();
 
 class PolarisMath {
+
+    // calculate offset of Polaris 
+    // OMG crazy maths
     precessionCorrection( e, latitude ) {
         let t = dateUtils.toJulien( e ),
             n = Polaris.RightAscension,
@@ -168,33 +173,25 @@ class PolarisMath {
         }
     }
 
-    getPolarisHA( now, latitude ) {
-        const isDST = dateUtils.isDST( now );
+    // from the dot com
+    getPolarisHA( now, latitude, longitude ) {
         const utcNow = dateUtils.toUTC( now );
         this.precessionCorrection( utcNow, latitude );
-        const lst = dateUtils.utcToLST( utcNow, latitude );
+        const lst = dateUtils.utcToLST( utcNow, longitude );
         let t = lst - this.correctedRA;
-        let p = lst + this.correctedRA;
         if ( latitude < 0 ) {
             if ( t < 0 ) {
                 t = Math.abs( t );
             } else {
                 t = -t;
             }
-            if ( p < 0 ) {
-                p = Math.abs( p );
-            } else {
-                p = -p;
-            }
         }
-        const haDST = ( isDST ? +t + 1 : t );
         return {
-            ha: t,
-            haDST: haDST,
-            pha: p
+            ha: t
         };
     }
 
+    // tweaked from chatGPT and other sources
     getPolarisHourAngle( now, latitude, longitude, rightAssention ) {
 
         // get utc time
@@ -203,20 +200,20 @@ class PolarisMath {
 
         const localSideRealTime = dateUtils.calculateLST( now, longitude );
 
-        const hourAnglePolaris = Number( localSideRealTime - rightAssention ).toFixed( 6 );
-        const plusHourAnglePolaris = Number( localSideRealTime - this.correctedRA ).toFixed( 6 );
+        let hourAnglePolaris = Number( localSideRealTime - rightAssention ).toFixed( 6 );
+        let plusHourAnglePolaris = Number( localSideRealTime - this.correctedRA ).toFixed( 6 );
 
-        /*if (hourAnglePolaris < 0) {
-            return {
-                hourAnglePolaris: (24 + hourAnglePolaris),
-                hourAnglePolarisDST,
-                plusHourAnglePolaris
-            };
-        }*/
+        if (hourAnglePolaris < 0) {
+            hourAnglePolaris = 24 + hourAnglePolaris; 
+        }
+
+        if (plusHourAnglePolaris < 0) {
+            plusHourAnglePolaris = 24 + plusHourAnglePolaris; 
+        }
 
         return {
             hourAnglePolaris,
-            plusHourAnglePolaris
+            plusHourAnglePolaris // I think this is the correct one
         };
     }
 
