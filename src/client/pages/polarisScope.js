@@ -6,7 +6,7 @@ import WebWindow from 'client/components/wbWindow';
 import * as canvas from 'client/components/canvas';
 import {
     PolarScopeUtilitiesInstance,
-    PolarisCalculator
+    PolarisCalculatorInstance
 } from 'client/components/space/polaris';
 
 function polarScope( x, y, size, anchors = [ '12/6', '0/0', '18/9', '6/3' ] ) {
@@ -72,13 +72,13 @@ function updateHourAngle() {
     const {
         hourAnglePolaris,
         plusHourAnglePolaris
-    } = PolarisCalculator.getPolarisHourAngle( now, latitude, longitude, rightAssention );
+    } = PolarisCalculatorInstance.getPolarisHourAngle( now, latitude, longitude, rightAssention );
     const clockTime = PolarScopeUtilitiesInstance.hoursMinutesSeconds( hourAnglePolaris );
     const clockTimePlus = PolarScopeUtilitiesInstance.hoursMinutesSeconds( plusHourAnglePolaris );
 
     const {
         ha
-    } = PolarisCalculator.getPolarisHA( now, latitude, longitude, longitude );
+    } = PolarisCalculatorInstance.getPolarisHA( now, latitude, longitude, longitude );
     const clockTimeHA = PolarScopeUtilitiesInstance.hoursMinutesSeconds( ha );
 
     window.canvasRef.rectangle( 50, 390, 800, 500, {
@@ -102,7 +102,7 @@ function updateHourAngle() {
         return Number( inVal ).toFixed( 6 );
     };
 
-    window.canvasRef.addtext( 50, 410, `Using RA, Dec: ${displaySix(rightAssention)} / ${displaySix(declination)} corrected: ${displaySix(PolarisCalculator.correctedRA)} / ${displaySix(PolarisCalculator.correctedDEC)}`, {
+    window.canvasRef.addtext( 50, 410, `Using RA, Dec: ${displaySix(rightAssention)} / ${displaySix(declination)} corrected: ${displaySix(PolarisCalculatorInstance.correctedRA)} / ${displaySix(PolarisCalculatorInstance.correctedDEC)}`, {
         color: 'red'
     } );
     window.canvasRef.addtext( 50, 430, `Polaris hour angle: ${displaySix(hourAnglePolaris)} | ${displaySix(plusHourAnglePolaris)} or ${displaySix(ha)} `, {

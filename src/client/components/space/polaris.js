@@ -136,7 +136,7 @@ class PolarScopeDateUtilities {
 
 const PolarScopeDateUtilitiesInstance = new PolarScopeDateUtilities();
 
-class PolarisMath {
+class PolarScopeCalculator {
 
     // calculate offset of Polaris 
     // OMG crazy maths
@@ -166,16 +166,17 @@ class PolarisMath {
             d = divide( multiply( d, Math.PI ), 648e3 );
             p = divide( multiply( p, Math.PI ), 648e3 );
 
-            const h = Math.sin( i + f ) * Math.cos( o ),
-                g = Math.cos( i + f ) * Math.cos( p ) * Math.cos( o ) - Math.sin( p ) * Math.sin( o ),
-                v = Math.cos( i + f ) * Math.sin( p ) * Math.cos( o ) + Math.cos( p ) * Math.sin( o );
+            const h = multiply( Math.sin( add( i, f ) ), Math.cos( o ) ),
+                g = subtract( multiply( Math.cos( add( i, f ) ), Math.cos( p ), Math.cos( o ) ), multiply( Math.sin( p ), Math.sin( o ) ) ),
+                v = add( multiply( Math.cos( add( i, f ) ), Math.sin( p ), Math.cos( o ) ), multiply( Math.cos( p ), Math.sin( o ) ) );
 
+            const z = add( Math.sqrt( multiply( h, h ), multiply( g, g ) ) );
             this.correctedDEC = v > .9 ?
-                Math.acos( Math.sqrt( h * h + g * g ) ) :
-                v < -.9 ? -Math.acos( Math.sqrt( h * h + g * g ) ) : Math.asin( v );
-            this.correctedRA = Math.atan2( h, g ) + d;
-            this.correctedRA = 12 * this.correctedRA / Math.PI;
-            this.correctedDEC = 180 * this.correctedDEC / Math.PI;
+                Math.acos( z ) :
+                v < -.9 ? -Math.acos( z ) : Math.asin( v );
+            this.correctedRA = add( Math.atan2( h, g ), d );
+            this.correctedRA = divide( multiply( 12, this.correctedRA ), Math.PI );
+            this.correctedDEC = divide( multiply( 180, this.correctedDEC ), Math.PI );
 
             if ( this.correctedDEC > 90 ) {
                 this.correctedDEC = subtract( 180, this.correctedDEC );
@@ -238,7 +239,7 @@ class PolarisMath {
     }
 }
 
-const PolarisCalculator = new PolarisMath();
+const PolarisCalculatorInstance = new PolarScopeCalculator();
 
 import {
     getCirclePoints
@@ -276,6 +277,6 @@ class PolarScope extends Star {
 export {
     PolarScopeUtilitiesInstance,
     PolarScopeDateUtilitiesInstance,
-    PolarisCalculator,
+    PolarisCalculatorInstance,
     PolarScope
 };
