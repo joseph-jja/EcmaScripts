@@ -7,7 +7,7 @@ import * as canvas from 'client/components/canvas';
 import {
     PolarScopeUtilitiesInstance,
     PolarisCalculatorInstance
-} from 'client/components/space/polaris';
+} from 'client/components/space/PolarScopeCalculator';
 
 function polarScope( x, y, size, anchors = [ '12/6', '0/0', '18/9', '6/3' ] ) {
 
