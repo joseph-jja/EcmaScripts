@@ -1,3 +1,10 @@
+import {
+    add,
+    subtract,
+    multiply,
+    divide
+} from 'utils/mathFunctions';
+
 // some of this code was taken from takahashi-europe.com minified code
 // unminfied and redone to make some sense 
 // then compared to some code output by chatGPT
@@ -17,41 +24,39 @@ class Utilities {
     // degrees to hour angle
     hoursMinutesSeconds( degrees ) {
         let hours = Math.floor( degrees );
-        hours = ( hours < 0 ? 24 + +hours : hours );
+        hours = ( hours < 0 ? add( 24, hours ) : hours );
 
-        let minutes = Math.floor( 60 * this.getFraction( degrees ) );
-        let seconds = Math.round( 60 * ( 60 * this.getFraction( degrees ) - minutes ) );
+        const minutes = this.pad( Math.floor( multiply( 60, this.getFraction( degrees ) ) ) );
+        const seconds = this.pad( Math.round( multiply( 60, subtract( multiply( 60, this.getFraction( degrees ) ), minutes ) ) ) );
 
-        let result = ( minutes >= 10 ? hours + ":" + minutes : hours + ":0" + minutes );
-
-        return ( seconds < 10 ? result + ":0" + seconds : result + ":" + seconds );
+        return `${ hours }:${ minutes }:${ seconds }`;
     }
 
     // takes hour angle and converts to degrees
     hourAngleToDegrees( hour, minute, seconds ) {
-        return ( +hour + ( minute / 60 ) + ( seconds / 3600 ) );
+        return add( hour, divide( minute, 60 ), divide( seconds, 3600 ) );
     }
 
     // 24 hour clock :?
     mapTo24Hour( hour ) {
         let result = hour;
         if ( result < 0 ) {
-            result = result - 24  * ( result / 24 - 1 );
+            result = subtract( result, multiply( 24, subtract( divide( result, 24 ) - 1 ) ) );
         } else if ( result >= 24 ) {
-            result = result - result / 24 * 24;
+            result = subtract( result, multiply( divide( result, 24 ), 24 ) );
         }
         return result;
     }
 
     pad( x ) {
-        return ( x < 10 ? `0${x}` : `${x}` );
+        return `${x}`.padStart( 2, '0' );
     }
 
     getFraction( num ) {
         // get decimal places
-        const decimals = num - Math.floor( num );
+        const decimals = subtract( num, Math.floor( num ) );
         // we want positive number
-        return ( decimals < 0 ? decimals + 1 : decimals );
+        return ( decimals < 0 ? add( decimals, 1 ) : decimals );
     }
 }
 
@@ -203,12 +208,12 @@ class PolarisMath {
         let hourAnglePolaris = Number( localSideRealTime - rightAssention ).toFixed( 6 );
         let plusHourAnglePolaris = Number( localSideRealTime - this.correctedRA ).toFixed( 6 );
 
-        if (hourAnglePolaris < 0) {
-            hourAnglePolaris = 24 + hourAnglePolaris; 
+        if ( hourAnglePolaris < 0 ) {
+            hourAnglePolaris = 24 + hourAnglePolaris;
         }
 
-        if (plusHourAnglePolaris < 0) {
-            plusHourAnglePolaris = 24 + plusHourAnglePolaris; 
+        if ( plusHourAnglePolaris < 0 ) {
+            plusHourAnglePolaris = 24 + plusHourAnglePolaris;
         }
 
         return {
@@ -233,10 +238,10 @@ import {
 } from 'client/components/space/celestialBody';
 
 class PolarScope extends Star {
-    
+
     constructor( options = {} ) {
         super( options );
-        
+
         this.latitude = options.latitude;
         this.longitude = options.longitude;
         this.rightAssention = options.rightAssention;
@@ -245,9 +250,9 @@ class PolarScope extends Star {
     setupPoints( xRadius = 30 ) {
         this.points = getCirclePoints( xRadius );
     }
-    
+
     increment() {
-        
+
         this.angle = this.direction( this.angle, this.speed );
         if ( this.angle < 0 ) {
             this.angle = 360;
