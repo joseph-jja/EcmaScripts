@@ -1,5 +1,5 @@
 const Polaris = {
-    RightAscension: 2.5301944,
+    RightAscension: 2.496532,
     Declination: 89.2641667
 };
 
@@ -29,14 +29,15 @@ class Utilities {
     }
 
     // not sure this works right
-    mapTo24Hour( hour ) {
-        let result = hour;
+    mapTo24Hour( e ) {
+        return e < 0 ? e - 24 * (e / 24 - 1) : e >= 24 ? e - e / 24 * 24 : e;
+        /*let result = hour;
         if ( result < 0 ) {
             result = ( result - 24 ) * ( result / 24 - 1 );
         } else if ( result >= 24 ) {
             result = result - result / 24 * 24;
         }
-        return result;
+        return result;*/
     }
 
     pad( x ) {
@@ -194,19 +195,16 @@ class PolarisMath {
         };
     }
 
-    getPolarisHourAngle( longitude, rightAssention ) {
+    getPolarisHourAngle( now, latitude, longitude, rightAssention ) {
 
         // get utc time
-        const now = new Date();
-        const dstDate = new Date( now );
-
-        const isDST = dateUtils.isDST( dstDate );
+        const utcNow = dateUtils.toUTC( now );
+        this.precessionCorrection( utcNow, latitude );
 
         const localSideRealTime = dateUtils.calculateLST( now, longitude );
 
         const hourAnglePolaris = Number( localSideRealTime - rightAssention ).toFixed( 6 );
-        const hourAnglePolarisDST = +hourAnglePolaris + ( isDST ? 1 : 0 );
-        const plusHourAnglePolaris = Number( localSideRealTime + rightAssention ).toFixed( 6 );
+        const plusHourAnglePolaris = Number( localSideRealTime - this.correctedRA ).toFixed( 6 );
 
         /*if (hourAnglePolaris < 0) {
             return {
@@ -218,7 +216,6 @@ class PolarisMath {
 
         return {
             hourAnglePolaris,
-            hourAnglePolarisDST,
             plusHourAnglePolaris
         };
     }
