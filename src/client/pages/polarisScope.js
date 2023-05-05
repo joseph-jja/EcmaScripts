@@ -5,7 +5,7 @@ import {
 import WebWindow from 'client/components/wbWindow';
 import * as canvas from 'client/components/canvas';
 import {
-    utils,
+    PolarScopeUtilitiesInstance,
     PolarisCalculator
 } from 'client/components/space/polaris';
 
@@ -63,8 +63,8 @@ function updateHourAngle() {
     const longitude = document.getElementById( 'longitude' ).value || -122.47267;
     const raObj = document.getElementById( 'polarisRA' ).value.split( ' ' );
     const decObj = document.getElementById( 'polarisDec' ).value.split( ' ' );
-    const declination = utils.hourAngleToDegrees( decObj[ 0 ] || 89, decObj[ 1 ] || 27, 0 );
-    const rightAssention = utils.hourAngleToDegrees( raObj[ 0 ] || 2, raObj[ 1 ] || 31, 0 );
+    const declination = PolarScopeUtilitiesInstance.hourAngleToDegrees( decObj[ 0 ] || 89, decObj[ 1 ] || 27, 0 );
+    const rightAssention = PolarScopeUtilitiesInstance.hourAngleToDegrees( raObj[ 0 ] || 2, raObj[ 1 ] || 31, 0 );
 
     const now = new Date();
 
@@ -73,13 +73,13 @@ function updateHourAngle() {
         hourAnglePolaris,
         plusHourAnglePolaris
     } = PolarisCalculator.getPolarisHourAngle( now, latitude, longitude, rightAssention );
-    const clockTime = utils.hoursMinutesSeconds( hourAnglePolaris );
-    const clockTimePlus = utils.hoursMinutesSeconds( plusHourAnglePolaris );
+    const clockTime = PolarScopeUtilitiesInstance.hoursMinutesSeconds( hourAnglePolaris );
+    const clockTimePlus = PolarScopeUtilitiesInstance.hoursMinutesSeconds( plusHourAnglePolaris );
 
     const {
         ha
     } = PolarisCalculator.getPolarisHA( now, latitude, longitude, longitude );
-    const clockTimeHA = utils.hoursMinutesSeconds( ha );
+    const clockTimeHA = PolarScopeUtilitiesInstance.hoursMinutesSeconds( ha );
 
     window.canvasRef.rectangle( 50, 390, 800, 500, {
         color: 'black',

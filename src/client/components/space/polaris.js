@@ -60,7 +60,7 @@ class PolarScopeUtilities {
     }
 }
 
-const utils = new PolarScopeUtilities();
+const PolarScopeUtilitiesInstance = new PolarScopeUtilities();
 
 class DateConversion {
 
@@ -102,7 +102,7 @@ class DateConversion {
 
     // takes output of toGMST and longitude called internal
     gmstToLST( d, longitude ) {
-        return 24 * utils.getFraction( ( d + longitude / 15 ) / 24 );
+        return 24 * PolarScopeUtilitiesInstance.getFraction( ( d + longitude / 15 ) / 24 );
     }
 
     isDST( now ) {
@@ -125,7 +125,7 @@ class DateConversion {
         const D = julianDate - 2451545.0; // calculate number of days since January 1, 2000 at 12:00 UT
         const UT = now.getUTCHours() + now.getUTCMinutes() / 60 + now.getUTCSeconds() / 3600; // calculate Universal Time
         const GMST = 6.697374558 + 0.06570982441908 * D + 1.00273790935 * UT; // calculate Greenwich Mean Sidereal Time
-        const LST = utils.getFraction( ( GMST + longitude / 15 ) / 24 ); // calculate local sidereal time
+        const LST = PolarScopeUtilitiesInstance.getFraction( ( GMST + longitude / 15 ) / 24 ); // calculate local sidereal time
         return ( 24 * LST ); // adjust for negative values
     }
 }
@@ -174,7 +174,7 @@ class PolarisMath {
                 this.correctedDEC = -180 - this.correctedDEC;
                 this.correctedRA = this.correctedRA + 12;
             }
-            this.correctedRA = utils.mapTo24Hour( this.correctedRA );
+            this.correctedRA = PolarScopeUtilitiesInstance.mapTo24Hour( this.correctedRA );
         }
     }
 
@@ -263,7 +263,7 @@ class PolarScope extends Star {
 }
 
 export {
-    utils,
+    PolarScopeUtilitiesInstance,
     dateUtils,
     PolarisCalculator,
     PolarScope
