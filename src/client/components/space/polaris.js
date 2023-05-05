@@ -19,7 +19,7 @@ const SigmaOctantis = {
     Declination: -77.4311111
 };
 
-class Utilities {
+class PolarScopeUtilities {
 
     // degrees to hour angle
     hoursMinutesSeconds( degrees ) {
@@ -41,8 +41,8 @@ class Utilities {
     mapTo24Hour( hour ) {
         let result = hour;
         if ( result < 0 ) {
-            result = subtract( result, multiply( 24, subtract( divide( result, 24 ) - 1 ) ) );
-        } else if ( result >= 24 ) {
+            result = subtract( result, multiply( 24, subtract( divide( result, 24 ), 1 ) ) );
+        } else if ( hour >= 24 ) {
             result = subtract( result, multiply( divide( result, 24 ), 24 ) );
         }
         return result;
@@ -60,7 +60,7 @@ class Utilities {
     }
 }
 
-const utils = new Utilities();
+const utils = new PolarScopeUtilities();
 
 class DateConversion {
 
@@ -205,15 +205,15 @@ class PolarisMath {
 
         const localSideRealTime = dateUtils.calculateLST( now, longitude );
 
-        let hourAnglePolaris = Number( localSideRealTime - rightAssention ).toFixed( 6 );
-        let plusHourAnglePolaris = Number( localSideRealTime - this.correctedRA ).toFixed( 6 );
+        let hourAnglePolaris = Number( subtract( localSideRealTime, rightAssention ) ).toFixed( 6 );
+        let plusHourAnglePolaris = Number( subtract( localSideRealTime, this.correctedRA ) ).toFixed( 6 );
 
         if ( hourAnglePolaris < 0 ) {
-            hourAnglePolaris = 24 + hourAnglePolaris;
+            hourAnglePolaris = add( 24, hourAnglePolaris );
         }
 
         if ( plusHourAnglePolaris < 0 ) {
-            plusHourAnglePolaris = 24 + plusHourAnglePolaris;
+            plusHourAnglePolaris = add( 24, plusHourAnglePolaris );
         }
 
         return {
