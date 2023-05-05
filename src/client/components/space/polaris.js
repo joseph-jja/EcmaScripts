@@ -80,15 +80,17 @@ class PolarScopeDateUtilities {
     toJulien( d ) {
         //    const julianDate = ( now.getTime() / 86400000 ) + 2440587.5;
         const t = d.date;
-        let n = d.month + 1,
+        let n = add( d.month, 1 ),
             r = d.year,
-            i = +d.hours + +d.minutes / 60 + +d.seconds / 3600; // universal time
+            i = add( d.hours, divide( d.minutes, 60 ), divide( d.seconds, 3600 ) ); // universal time
         if ( n <= 2 ) {
-            n += 12;
-            r -= 1;
+            n = add( n, 12 );
+            r = subtract( r, 1 );
         }
-        const p = Math.floor( r / 100 );
-        const s = ( Math.floor( 365.25 * ( r + 4716 ) ) + Math.floor( 30.6001 * ( n + 1 ) ) + t - 13 - 1524.5 + i / 24 );
+        const p = Math.floor( divide( r, 100 ) );
+        const q = Math.floor( multiply( 365.25, add( r, 4716 ) ) );
+        const u = Math.floor( multiply( 30.6001, add( n, 1 ) ) );
+        const s = add( subtract( subtract( add( q, u, t ), 13 ), 1524.5 ), divide( i, 24 ) );
         return ( n <= 2 && ( n, r ), p, s );
     }
 
