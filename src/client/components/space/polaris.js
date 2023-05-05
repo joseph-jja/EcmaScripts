@@ -144,39 +144,46 @@ class PolarisMath {
         let t = PolarScopeDateUtilitiesInstance.toJulien( e ),
             n = Polaris.RightAscension,
             r = Polaris.Declination;
+
         if ( latitude < 0 ) {
             n = SigmaOctantis.RightAscension;
             r = SigmaOctantis.Declination;
         }
+
         let i = divide( multiply( n, Math.PI ), 12 ),
             o = divide( multiply( r, Math.PI ), 180 );
+
         if ( latitude < 0 ) {
             this.correctedRA = add( n, divide( multiply( add( 3.075, multiply( 1.336, Math.sin( multiply( 15, n ) ), 57.08839 ) ), subtract( e.year, 2e3 ) ), 3600 ) );
             this.correctedDEC = add( r, divide( multiply( 20.04, Math.cos( multiply( 15, r ) ), subtract( e.year, 2e3 ) ), 3600 ) );
         } else {
-            var s = divide( subtract( t, 2451545 ), 36525 ),
-                f = 2306.2181 * s + .30188 * s * s + .017998 * s * s * s,
-                d = 2306.2181 * s + 1.09468 * s * s + .018203 * s * s * s,
-                p = 2004.3109 * s + -.42665 * s * s + -.041833 * s * s * s;
-            f = f * Math.PI / 648e3;
-            d = d * Math.PI / 648e3;
-            p = p * Math.PI / 648e3;
-            var h = Math.sin( i + f ) * Math.cos( o ),
+            const s = divide( subtract( t, 2451545 ), 36525 );
+            let f = add( multiply( 2306.2181, s ), multiply( .30188, s, s ), multiply( .017998, s, s, s ) ),
+                d = add( multiply( 2306.2181, s ), multiply( 1.09468, s, s ), multiply( .018203, s, s, s ) ),
+                p = add( multiply( 2004.3109, s ), multiply( -.42665, s, s ), multiply( -.041833, s, s, s ) );
+
+            f = divide( multiply( f, Math.PI ), 648e3 );
+            d = divide( multiply( d, Math.PI ), 648e3 );
+            p = divide( multiply( p, Math.PI ), 648e3 );
+
+            const h = Math.sin( i + f ) * Math.cos( o ),
                 g = Math.cos( i + f ) * Math.cos( p ) * Math.cos( o ) - Math.sin( p ) * Math.sin( o ),
                 v = Math.cos( i + f ) * Math.sin( p ) * Math.cos( o ) + Math.cos( p ) * Math.sin( o );
+
             this.correctedDEC = v > .9 ?
                 Math.acos( Math.sqrt( h * h + g * g ) ) :
                 v < -.9 ? -Math.acos( Math.sqrt( h * h + g * g ) ) : Math.asin( v );
             this.correctedRA = Math.atan2( h, g ) + d;
             this.correctedRA = 12 * this.correctedRA / Math.PI;
             this.correctedDEC = 180 * this.correctedDEC / Math.PI;
+
             if ( this.correctedDEC > 90 ) {
-                this.correctedDEC = 180 - this.correctedDEC;
-                this.correctedRA = this.correctedRA + 12;
+                this.correctedDEC = subtract( 180, this.correctedDEC );
+                this.correctedRA = add( this.correctedRA, 12 );
             }
             if ( this.correctedDEC < -90 ) {
-                this.correctedDEC = -180 - this.correctedDEC;
-                this.correctedRA = this.correctedRA + 12;
+                this.correctedDEC = subtract( -180, this.correctedDEC );
+                this.correctedRA = add( this.correctedRA, 12 );
             }
             this.correctedRA = PolarScopeUtilitiesInstance.mapTo24Hour( this.correctedRA );
         }
