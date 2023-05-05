@@ -96,15 +96,17 @@ class PolarScopeDateUtilities {
 
     // takes output of toJulien called internal
     toGMST( d ) {
-        const r = d - 2400000.5;
+        const r = subtract( d, 2400000.5 );
         const n = Math.floor( r );
-        const t = ( n - 51544.5 ) / 36525;
-        return 6.697374558 + 24 * ( r - n ) * 1.0027379093 + ( 8640184.812866 + ( .093104 - 62e-7 * t ) * t ) * t / 3600;
+        const t = divide( subtract( n, 51544.5 ), 36525 );
+        const u = multiply( subtract( .093104, multiply( 62e-7, t ) ), t );
+        const v = multiply( add( 8640184.812866, u ), divide( t, 3600 ) );
+        return add( 6.697374558, multiply( 24, subtract( r, n ), 1.0027379093 ), v );
     }
 
     // takes output of toGMST and longitude called internal
     gmstToLST( d, longitude ) {
-        return 24 * PolarScopeUtilitiesInstance.getFraction( ( d + longitude / 15 ) / 24 );
+        return multiply( 24, PolarScopeUtilitiesInstance.getFraction( divide( add( d, divide( longitude, 15 ) ), 24 ) ) );
     }
 
     isDST( now ) {
