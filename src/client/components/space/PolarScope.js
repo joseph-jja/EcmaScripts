@@ -83,9 +83,13 @@ export default class PolarScope extends Star {
         
         if ( this.clockType === 12 ) {
             if ( this.realAngle <= 180 ) {
-                // need to force the angle to shift in the array
+                // when 12 hour clock the formula is 180 - angle to give coorect index in circle array
                 this.angle = subtract( 180, this.readAngle );
-            } //else if ( this.realAngle > 
+            } else {
+                // when 12 hour clock is greater than 180, then the formula is 
+                // 360 - angle - 180
+                this.angle = subtract( 360, subtract( this.realAngle, 180 ) );   
+            }
         }
     }
 }
