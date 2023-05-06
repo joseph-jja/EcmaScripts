@@ -80,35 +80,25 @@ function updateHourAngle() {
     const rightAssentionDefault = DEFAULT_RA.split( ':' );
     const declinationDefault = DEFAULT_DEC.split( ':' );
 
-    const raHours = ( raHoursObj && !isNaN( raHoursObj ) ? raHoursObj : rightAssentionDefault[ 0 ] );
-    const raMinutes = ( raMinutesObj && !isNaN( raMinutesObj ) ? raMinutesObj : rightAssentionDefault[ 1 ] );
-    const raSeconds = ( raSecondsObj && !isNaN( raSecondsObj ) ? raSecondsObj : rightAssentionDefault[ 2 ] );
-    const decHours = ( decHoursObj && !isNaN( decHoursObj ) ? decHoursObj : declinationDefault[ 0 ] );
-    const decMinutes = ( decMinutesObj && !isNaN( decMinutesObj ) ? decMinutesObj : declinationDefault[ 1 ] );
-    const decSeconds = ( decSecondsObj && !isNaN( decSecondsObj ) ? decSecondsObj : declinationDefault[ 2 ] );
+    const raHours = ( raHoursObj && !isNaN( parseInt( raHoursObj ) ) ? raHoursObj : rightAssentionDefault[ 0 ] );
+    const raMinutes = ( raMinutesObj && !isNaN( parseInt( raMinutesObj ) ) ? raMinutesObj : rightAssentionDefault[ 1 ] );
+    const raSeconds = ( raSecondsObj && !isNaN( parseInt( raSecondsObj ) ) ? raSecondsObj : rightAssentionDefault[ 2 ] );
+    const decHours = ( decHoursObj && !isNaN( parseInt( decHoursObj ) ) ? decHoursObj : declinationDefault[ 0 ] );
+    const decMinutes = ( decMinutesObj && !isNaN( parseInt( decMinutesObj ) ) ? decMinutesObj : declinationDefault[ 1 ] );
+    const decSeconds = ( decSecondsObj && !isNaN( parseInt( decSecondsObj ) ) ? decSecondsObj : declinationDefault[ 2 ] );
 
     const declination = PolarScopeUtilitiesInstance.hourAngleToDegrees( decHours, decMinutes, decSeconds );
     const rightAssention = PolarScopeUtilitiesInstance.hourAngleToDegrees( raHours, raMinutes, raSeconds );
 
-    const now = new Date();
-
-    // lat long in degrees
-    const {
-        hourAnglePolaris,
-        plusHourAnglePolaris
-    } = PolarisCalculatorInstance.getPolarisHourAngle( now, latitude, longitude, rightAssention );
-    const clockTime = PolarScopeUtilitiesInstance.hoursMinutesSeconds( hourAnglePolaris );
-    const clockTimePlus = PolarScopeUtilitiesInstance.hoursMinutesSeconds( plusHourAnglePolaris );
-
-    const {
-        ha
-    } = PolarisCalculatorInstance.getPolarisHA( now, latitude, longitude, longitude );
-    const clockTimeHA = PolarScopeUtilitiesInstance.hoursMinutesSeconds( ha );
+    const isDefaultRA = (+raHours === +rightAssentionDefault[ 0 ] && +raMinutes === +rightAssentionDefault[ 1 ] && +raSeconds === +rightAssentionDefault[ 2 ]);
 
     window.canvasRef.rectangle( 40, 20, 700, 300, {
         color: 'black',
         fillStrokeClear: 'fill'
     } );
+
+    // future we can have user change this default date is now
+    const now = new Date();
 
     polarScope( 200, 180, 150 );
     polarScope( 550, 180, 100, [ '0', '6', '9', '3' ] );
@@ -178,6 +168,20 @@ function updateHourAngle() {
         } );
     }
 
+    // first is user defined or default
+    // second is internally calculated
+    const hourAnglePolaris = (polarSP24H ? polarSP24H.userDefinedHourAngle : 0);
+    const plusHourAnglePolaris = (polarSP24H ? polarSP24H.hourAngle : 0);
+    const clockTime = PolarScopeUtilitiesInstance.hoursMinutesSeconds( hourAnglePolaris );
+    const clockTimePlus = PolarScopeUtilitiesInstance.hoursMinutesSeconds( plusHourAnglePolaris );
+
+    // this is using alt method to do calculations for LST 
+    const {
+        ha
+    } = PolarisCalculatorInstance.getPolarisHA( now, latitude, longitude, longitude );
+    const clockTimeHA = PolarScopeUtilitiesInstance.hoursMinutesSeconds( ha );
+
+
     window.polarSPref = polarSP;;
     window.canvasRef.rectangle( 50, 390, 800, 500, {
         color: 'black',
@@ -200,9 +204,15 @@ function updateHourAngle() {
         return Number( inVal ).toFixed( 6 );
     };
 
-    window.canvasRef.addtext( 50, 410, `Using RA, Dec: ${displaySix(rightAssention)} / ${displaySix(declination)} corrected: ${displaySix(PolarisCalculatorInstance.correctedRA)} / ${displaySix(PolarisCalculatorInstance.correctedDEC)}`, {
-        color: 'red'
-    } );
+    if (isDefaultRA) {
+        window.canvasRef.addtext( 50, 410, `Using corrected RA, Dec values: ${displaySix(PolarisCalculatorInstance.correctedRA)} / ${displaySix(PolarisCalculatorInstance.correctedDEC)}`, {
+            color: 'red'        } );
+    
+    } else {
+        window.canvasRef.addtext( 50, 410, `Using User Defined RA, Dec: ${displaySix(rightAssention)} / ${displaySix(declination)}`, {
+            color: 'red'
+        } );
+    }
     window.canvasRef.addtext( 50, 430, `Polaris hour angle: ${displaySix(hourAnglePolaris)} | ${displaySix(plusHourAnglePolaris)} or ${displaySix(ha)} `, {
         color: 'red'
     } );
