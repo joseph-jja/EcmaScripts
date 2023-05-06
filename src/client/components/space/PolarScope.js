@@ -47,10 +47,11 @@ export default class PolarScope extends Star {
 
         this.hourAngle = plusHourAnglePolaris;
         this.userDefinedHourAngle = hourAnglePolaris;
-        this.angle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
+        this.realAngle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
+        this.angle = this.realAngle;
 
         this.clockType = ( options.clockType === 12 ? 12 : 24 );
-        this.direction = ( this.clockType === 24 ? add : subtract );
+        this.direction = add;
     }
 
     setupPoints( xRadius = 30 ) {
@@ -71,12 +72,20 @@ export default class PolarScope extends Star {
         // so to convert to degrees we multiply by 15
         this.hourAngle = plusHourAnglePolaris;
         this.userDefinedHourAngle = hourAnglePolaris;
-        this.angle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
-
+        this.realAngle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
+        this.angle = this.realAngle;
+        
         if ( this.angle < 0 ) {
             this.angle = 360;
         } else if ( this.angle > 360 ) {
             this.angle = 0;
+        }
+        
+        if ( this.clockType === 12 ) {
+            if ( this.realAngle <= 180 ) {
+                // need to force the angle to shift in the array
+                this.angle = subtract( 180, this.readAngle );
+            } //else if ( this.realAngle > 
         }
     }
 }
