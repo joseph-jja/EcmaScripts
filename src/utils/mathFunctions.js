@@ -252,8 +252,8 @@ function convertFromBaseXToBaseTen( xbase, inval ) {
 // given an x and y radius and angle get the x, y point on the ellipse
 function getEllipsePoint( xr, yr, angle ) {
     const rAngle = degreesToRadians( angle ),
-        x = multiply( xr, Math.cos( rAngle ) ),
-        y = multiply( yr, Math.sin( rAngle ) );
+        x = multiply( xr, Math.sin( rAngle ) ),
+        y = multiply( yr, Math.cos( rAngle ) );
 
     return {
         x: Math.round( x ),
@@ -274,8 +274,8 @@ function getEllipsePoints( xr, yr ) {
 // given a radius and angle get the x, y point on the circle
 function getCirclePoint( r, angle ) {
     const rAngle = degreesToRadians( angle ),
-        x = multiply( r, Math.cos( rAngle ) ),
-        y = multiply( r, Math.sin( rAngle ) );
+        x = multiply( r, Math.sin( rAngle ) ),
+        y = multiply( r, Math.cos( rAngle ) );
 
     return {
         x: Math.round( x ),

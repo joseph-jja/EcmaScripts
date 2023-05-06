@@ -121,22 +121,22 @@ describe( "math functions tests", function () {
 
     it( 'getCirclePoint test', function () {
         var p = MF.getCirclePoint( 10, 170 );
-        expect( p.x ).toEqual( -10 );
+        expect( p.x ).toEqual( 2 );
     } );
 
     it( 'getCirclePoints test', function () {
         var p = MF.getCirclePoints( 10 );
-        expect( p[ 100 ].x ).toEqual( -2 );
+        expect( p[ 100 ].x ).toEqual( 10 );
     } );
 
     it( 'getEllipsePoint test', function () {
         var p = MF.getEllipsePoint( 10, 15, 170 );
-        expect( p.x ).toEqual( -10 );
+        expect( p.x ).toEqual( 2 );
     } );
 
     it( 'getEllipsePoints test', function () {
         var p = MF.getEllipsePoints( 10, 15 );
-        expect( p[ 100 ].x ).toEqual( -2 );
+        expect( p[ 100 ].x ).toEqual( 10 );
     } );
 
     it( 'distanceBetweenCirclesCenters test', function () {
