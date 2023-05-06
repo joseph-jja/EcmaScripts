@@ -49,7 +49,8 @@ export default class PolarScope extends Star {
         this.points = getCirclePoints( xRadius );
     }
 
-    doPolarMath() {
+    increment() {
+
         const {
             hourAnglePolaris,
             plusHourAnglePolaris
@@ -59,11 +60,6 @@ export default class PolarScope extends Star {
         this.hourAngle = radiansToDegrees( plusHourAnglePolaris );
         this.altHourAngle = radiansToDegrees( hourAnglePolaris );
         this.angle = Math.floor( this.hourAngle );
-    }
-
-    increment() {
-
-        this.doPolarMath();
 
         //this.angle = this.direction( this.angle, this.speed );
         if ( this.angle < 0 ) {
