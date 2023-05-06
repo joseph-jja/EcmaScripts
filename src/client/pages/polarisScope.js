@@ -11,7 +11,8 @@ import {
 
 import PolarScope from 'client/components/space/PolarScope';
 
-let polarSP;
+let polarSP,
+    polarSP24H;
 
 function polarScope( x, y, size, anchors = [ '12/6', '0/0', '18/9', '6/3' ] ) {
 
@@ -93,11 +94,16 @@ function updateHourAngle() {
     polarScope( 200, 180, 150 );
     polarScope( 550, 180, 100, [ '0', '6', '9', '3' ] );
 
-    let pos = 0;
+    let pos = 0,
+        pos24H;
     const centerPoints = {
-        x: 550,
-        y: 180
-    };
+            x: 550,
+            y: 180
+        },
+        centerPoints24H = {
+            x: 200,
+            y: 180
+        };
     if ( !polarSP ) {
         polarSP = new PolarScope( {
             color: '#fff',
@@ -105,12 +111,25 @@ function updateHourAngle() {
             direction: 'clockwise',
             isFixedCenter: true,
             clockTime: now,
-            centerPoints: {
-                x: 550,
-                y: 180
-            },
-            xRadius: 80,
-            yRadius: 80,
+            centerPoints: centerPoints,
+            xRadius: 75,
+            yRadius: 75,
+            startAngle: 0,
+            latitude,
+            longitude,
+            rightAssention
+        } );
+    }
+    if ( !polarSP24H ) {
+        polarSP24H = new PolarScope( {
+            color: '#fff',
+            radius: 6,
+            direction: 'clockwise',
+            isFixedCenter: true,
+            clockTime: now,
+            centerPoints: centerPoints24H,
+            xRadius: 120,
+            yRadius: 120,
             startAngle: 0,
             latitude,
             longitude,
@@ -122,6 +141,14 @@ function updateHourAngle() {
         pos = polarSP.getNextPosition( centerPoints ).visable;
         window.canvasRef.circle( pos.x, pos.y, pos.radius, {
             color: pos.color,
+            fillStrokeClear: 'fill'
+        } );
+    }
+
+    if ( polarSP24H ) {
+        pos24H = polarSP24H.getNextPosition( centerPoints24H ).visable;
+        window.canvasRef.circle( pos24H.x, pos24H.y, pos24H.radius, {
+            color: pos24H.color,
             fillStrokeClear: 'fill'
         } );
     }
@@ -157,7 +184,7 @@ function updateHourAngle() {
     window.canvasRef.addtext( 50, 450, `Clock time: ${clockTime} | ${clockTimePlus} or ${clockTimeHA} `, {
         color: 'red'
     } );
-    window.canvasRef.addtext( 50, 470, `Polaris position time: ${ polarSP.angle}  ${polarSP.key}`, {
+    window.canvasRef.addtext( 50, 470, `Polaris position time: ${polarSP.angle}  ${polarSP24H.angle}`, {
         color: 'red'
     } );
 }

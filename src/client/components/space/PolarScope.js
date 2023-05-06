@@ -1,8 +1,6 @@
 import {
     getCirclePoints,
-    multiply,
-    add,
-    subtract
+    multiply
 } from 'utils/mathFunctions';
 
 import {
@@ -58,7 +56,7 @@ export default class PolarScope extends Star {
     increment() {
 
         this.clockTime = new Date();
- 
+
         const {
             hourAnglePolaris,
             plusHourAnglePolaris
@@ -69,44 +67,12 @@ export default class PolarScope extends Star {
         // so to convert to degrees we multiply by 15
         this.hourAngle = plusHourAnglePolaris;
         this.altHourAngle = hourAnglePolaris;
-        this.angle = Math.floor( this.hourAngle ) * 2;
+        this.angle = Math.floor( this.hourAngle );
 
         if ( this.angle < 0 ) {
             this.angle = 360;
         } else if ( this.angle > 360 ) {
             this.angle = 0;
         }
-    }
-
-    getNextPosition( centerPoints ) {
-
-        this.increment();
-
-        this.key = this.angle;
-        // 0-90 is from 0 to 3
-        // 90 to 180 is fro 3 to 6
-        // 180 to 270 is from 6 to 9
-        // 270 to 360 to 9 to 12
-        if ( this.clockwise ) {
-            if ( this.angle < 90 ) {
-                this.key = add( this.angle, 90 );
-            } else if ( this.angle >= 90 && this.angle < 180 ) {
-                this.key = subtract( this.angle, 90 );
-            } else if ( this.angle >= 180 && this.angle < 270 ) {
-                this.key = subtract( this.angle, 90 );
-            }
-        }
-        
-        const point = {
-            x: ( this.direction( centerPoints.x, this.points[ this.key ].x ) ),
-            y: ( this.direction( centerPoints.y, this.points[ this.key ].y ) ),
-            radius: this.radius,
-            color: this.color
-        };
-
-        return {
-            hidden: point,
-            visable: point
-        };
     }
 }
