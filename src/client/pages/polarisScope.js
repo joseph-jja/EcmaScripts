@@ -85,6 +85,11 @@ function updateHourAngle() {
     } = PolarisCalculatorInstance.getPolarisHA( now, latitude, longitude, longitude );
     const clockTimeHA = PolarScopeUtilitiesInstance.hoursMinutesSeconds( ha );
 
+    window.canvasRef.rectangle( 40, 20, 700, 300, {
+        color: 'black',
+        fillStrokeClear: 'fill'
+    } );
+
     polarScope( 200, 180, 150 );
     polarScope( 550, 180, 100, [ '0', '6', '9', '3' ] );
 
@@ -113,8 +118,7 @@ function updateHourAngle() {
         } );
     }
 
-    if (polarSP) {
-        polarSP.increment();
+    if ( polarSP ) {
         pos = polarSP.getNextPosition( centerPoints ).visable;
         window.canvasRef.circle( pos.x, pos.y, pos.radius, {
             color: pos.color,
@@ -172,7 +176,7 @@ function setupPolarisHour() {
     const res = canvas.create( "polaris-hour", "canvas-container", 800, 500 );
 
     window.canvasRef = res;
-    
+
     updateHourAngle();
     window.setInterval( updateHourAngle, 5000 );
 }
