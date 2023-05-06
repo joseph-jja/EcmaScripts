@@ -117,7 +117,7 @@ function updateHourAngle() {
         polarSP = new PolarScope( {
             color: '#fff',
             radius: 6,
-            direction: 'clockwise',
+            direction: 'counterClockwise',
             isFixedCenter: true,
             clockTime: now,
             centerPoints: centerPoints,
