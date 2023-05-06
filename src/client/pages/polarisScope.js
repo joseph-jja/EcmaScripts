@@ -11,6 +11,9 @@ import {
 
 import PolarScope from 'client/components/space/PolarScope';
 
+const DEFAULT_RA = '2:29:48';
+const DEFAULT_DEC = '89:27:48';
+
 let polarSP,
     polarSP24H;
 
@@ -66,10 +69,26 @@ function updateHourAngle() {
 
     const latitude = document.getElementById( 'latitude' ).value || 37.6904826;
     const longitude = document.getElementById( 'longitude' ).value || -122.47267;
-    const raObj = document.getElementById( 'polarisRA' ).value.split( ' ' );
-    const decObj = document.getElementById( 'polarisDec' ).value.split( ' ' );
-    const declination = PolarScopeUtilitiesInstance.hourAngleToDegrees( decObj[ 0 ] || 89, decObj[ 1 ] || 27, 0 );
-    const rightAssention = PolarScopeUtilitiesInstance.hourAngleToDegrees( raObj[ 0 ] || 2, raObj[ 1 ] || 31, 0 );
+
+    // user input RA and dec or we use default values?
+    const raHoursObj = document.getElementById( 'polarisRAHour' ).value;
+    const raMinutesObj = document.getElementById( 'polarisRAMinute' ).value;
+    const raSecondsObj = document.getElementById( 'polarisRASecond' ).value;
+    const decHoursObj = document.getElementById( 'polarisDecHour' ).value;
+    const decMinutesObj = document.getElementById( 'polarisDecMinute' ).value;
+    const decSecondsObj = document.getElementById( 'polarisDecSecond' ).value;
+    const rightAssentionDefault = DEFAULT_RA.split( ':' );
+    const declinationDefault = DEFAULT_DEC.split( ':' );
+
+    const raHours = ( raHoursObj && !isNaN( raHoursObj ) ? raHoursObj : rightAssentionDefault[ 0 ] );
+    const raMinutes = ( raMinutesObj && !isNaN( raMinutesObj ) ? raMinutesObj : rightAssentionDefault[ 1 ] );
+    const raSeconds = ( raSecondsObj && !isNaN( raSecondsObj ) ? raSecondsObj : rightAssentionDefault[ 2 ] );
+    const decHours = ( decHoursObj && !isNaN( decHoursObj ) ? decHoursObj : declinationDefault[ 0 ] );
+    const decMinutes = ( decMinutesObj && !isNaN( decMinutesObj ) ? decMinutesObj : declinationDefault[ 1 ] );
+    const decSeconds = ( decSecondsObj && !isNaN( decSecondsObj ) ? decSecondsObj : declinationDefault[ 2 ] );
+
+    const declination = PolarScopeUtilitiesInstance.hourAngleToDegrees( decHours, decMinutes, decSeconds );
+    const rightAssention = PolarScopeUtilitiesInstance.hourAngleToDegrees( raHours, raMinutes, raSeconds );
 
     const now = new Date();
 
@@ -138,6 +157,9 @@ function updateHourAngle() {
     }
 
     if ( polarSP ) {
+        polarSP.latitude = latitude;
+        polarSP.longitude = longitude;
+        polarSP.rightAssention = rightAssention;
         pos = polarSP.getNextPosition( centerPoints ).visable;
         window.canvasRef.circle( pos.x, pos.y, pos.radius, {
             color: pos.color,
@@ -146,6 +168,9 @@ function updateHourAngle() {
     }
 
     if ( polarSP24H ) {
+        polarSP24H.latitude = latitude;
+        polarSP24H.longitude = longitude;
+        polarSP24H.rightAssention = rightAssention;
         pos24H = polarSP24H.getNextPosition( centerPoints24H ).visable;
         window.canvasRef.circle( pos24H.x, pos24H.y, pos24H.radius, {
             color: pos24H.color,
