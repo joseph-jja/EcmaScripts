@@ -25,6 +25,7 @@ class PolarScopeUtilities {
     hoursMinutesSeconds( degrees ) {
         let hours = Math.floor( degrees );
         hours = ( hours < 0 ? add( 24, hours ) : hours );
+        hours = ( hours > 24 ? hours % 24 : hours );
 
         const minutes = this.pad( Math.floor( multiply( 60, this.getFraction( degrees ) ) ) );
         const seconds = this.pad( Math.round( multiply( 60, subtract( multiply( 60, this.getFraction( degrees ) ), minutes ) ) ) );
