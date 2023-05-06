@@ -209,6 +209,9 @@ class PolarScopeCalculator {
     }
 
     // tweaked from chatGPT and other sources
+    // this returns 2 values
+    // one value 'hourAnglePolaris' is the hour angle commputed with the input RA
+    // one value 'plusHourAnglePolaris' is the hour angle commputed with the constant RA and correction processing
     getPolarisHourAngle( now, latitude, longitude, rightAssention ) {
 
         // get utc time
@@ -229,8 +232,8 @@ class PolarScopeCalculator {
         }
 
         return {
-            hourAnglePolaris,
-            plusHourAnglePolaris // I think this is the correct one
+            hourAnglePolaris, // used input ra
+            plusHourAnglePolaris // corrected angle
         };
     }
 
@@ -240,7 +243,6 @@ class PolarScopeCalculator {
 }
 
 const PolarisCalculatorInstance = new PolarScopeCalculator();
-
 
 export {
     PolarScopeUtilitiesInstance,

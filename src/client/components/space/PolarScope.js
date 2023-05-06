@@ -19,8 +19,8 @@ const doPolarMath = ( now, latitude, longitude, rightAssention ) => {
         latitude, longitude, rightAssention );
 
     return {
-        hourAnglePolaris: Number( multiply( hourAnglePolaris, 15 ) ).toFixed( 2 ),
-        plusHourAnglePolaris: Number( multiply( plusHourAnglePolaris, 15 ) ).toFixed( 2 )
+        hourAnglePolaris: Math.floor( multiply( hourAnglePolaris, 15 ) ),
+        plusHourAnglePolaris: Math.floor( multiply( plusHourAnglePolaris, 15 ) )
     };
 };
 
@@ -34,6 +34,7 @@ export default class PolarScope extends Star {
         this.latitude = options.latitude;
         this.longitude = options.longitude;
         this.rightAssention = options.rightAssention;
+        this.useInputRA = options.useInputRA;
         this.clockTime = options.clockTime || new Date();
 
         const {
@@ -43,8 +44,8 @@ export default class PolarScope extends Star {
             this.latitude, this.longitude, this.rightAssention );
 
         this.hourAngle = plusHourAnglePolaris;
-        this.altHourAngle = hourAnglePolaris;
-        this.angle = Math.floor( this.hourAngle );
+        this.userDefinedHourAngle = hourAnglePolaris;
+        this.angle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
 
         this.clockwise = ( options.direction && options.direction === 'clockwise' );
     }
@@ -66,8 +67,8 @@ export default class PolarScope extends Star {
         // polaris hour angle ends up being fro 0-23
         // so to convert to degrees we multiply by 15
         this.hourAngle = plusHourAnglePolaris;
-        this.altHourAngle = hourAnglePolaris;
-        this.angle = Math.floor( this.hourAngle );
+        this.userDefinedHourAngle = hourAnglePolaris;
+        this.angle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
 
         if ( this.angle < 0 ) {
             this.angle = 360;
