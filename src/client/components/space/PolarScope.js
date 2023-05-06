@@ -1,6 +1,8 @@
 import {
     getCirclePoints,
-    multiply
+    multiply,
+    add,
+    subtract
 } from 'utils/mathFunctions';
 
 import {
@@ -47,7 +49,8 @@ export default class PolarScope extends Star {
         this.userDefinedHourAngle = hourAnglePolaris;
         this.angle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
 
-        this.clockwise = ( options.direction && options.direction === 'clockwise' );
+        this.clockType = ( options.clockType === 12 ? 12 : 24 );
+        this.direction = ( this.clockType === 24 ? add : subtract );
     }
 
     setupPoints( xRadius = 30 ) {
