@@ -90,7 +90,7 @@ function updateHourAngle() {
     const declination = PolarScopeUtilitiesInstance.hourAngleToDegrees( decHours, decMinutes, decSeconds );
     const rightAssention = PolarScopeUtilitiesInstance.hourAngleToDegrees( raHours, raMinutes, raSeconds );
 
-    const isDefaultRA = (+raHours === +rightAssentionDefault[ 0 ] && +raMinutes === +rightAssentionDefault[ 1 ] && +raSeconds === +rightAssentionDefault[ 2 ]);
+    const isDefaultRA = ( +raHours === +rightAssentionDefault[ 0 ] && +raMinutes === +rightAssentionDefault[ 1 ] && +raSeconds === +rightAssentionDefault[ 2 ] );
 
     window.canvasRef.rectangle( 40, 20, 700, 300, {
         color: 'black',
@@ -170,8 +170,8 @@ function updateHourAngle() {
 
     // first is user defined or default
     // second is internally calculated
-    const hourAnglePolaris = (polarSP24H ? polarSP24H.userDefinedHourAngle : 0);
-    const plusHourAnglePolaris = (polarSP24H ? polarSP24H.hourAngle : 0);
+    const hourAnglePolaris = ( polarSP24H ? polarSP24H.userDefinedHourAngle : 0 );
+    const plusHourAnglePolaris = ( polarSP24H ? polarSP24H.hourAngle : 0 );
     const clockTime = PolarScopeUtilitiesInstance.hoursMinutesSeconds( hourAnglePolaris );
     const clockTimePlus = PolarScopeUtilitiesInstance.hoursMinutesSeconds( plusHourAnglePolaris );
 
@@ -204,21 +204,27 @@ function updateHourAngle() {
         return Number( inVal ).toFixed( 6 );
     };
 
-    if (isDefaultRA) {
-        window.canvasRef.addtext( 50, 410, `Using corrected RA, Dec values: ${displaySix(PolarisCalculatorInstance.correctedRA)} / ${displaySix(PolarisCalculatorInstance.correctedDEC)}`, {
-            color: 'red'        } );
-    
+    if ( isDefaultRA ) {
+        window.canvasRef.addtext( 50, 410, `Using corrected RA, Dec values: ${PolarScopeUtilitiesInstance.hoursMinutesSeconds(PolarisCalculatorInstance.correctedRA)} / ${PolarScopeUtilitiesInstance.hoursMinutesSeconds(PolarisCalculatorInstance.correctedDEC)}`, {
+            color: 'red'
+        } );
+        window.canvasRef.addtext( 50, 430, `Polaris hour angle: ${displaySix(plusHourAnglePolaris)} alt calculation: ${displaySix(ha)} `, {
+            color: 'red'
+        } );
+        window.canvasRef.addtext( 50, 450, `Clock time: ${clockTimePlus} or ${clockTimeHA} `, {
+            color: 'red'
+        } );
     } else {
-        window.canvasRef.addtext( 50, 410, `Using User Defined RA, Dec: ${displaySix(rightAssention)} / ${displaySix(declination)}`, {
+        window.canvasRef.addtext( 50, 410, `Using User Defined RA, Dec: ${PolarScopeUtilitiesInstance.hoursMinutesSeconds(rightAssention)} / ${PolarScopeUtilitiesInstance.hoursMinutesSeconds(declination)}`, {
+            color: 'red'
+        } );
+        window.canvasRef.addtext( 50, 430, `Polaris hour angle: ${displaySix(plusHourAnglePolaris)} alt calculation: ${displaySix(ha)} `, {
+            color: 'red'
+        } );
+        window.canvasRef.addtext( 50, 450, `Clock time: ${clockTime} ${clockTimeHA} `, {
             color: 'red'
         } );
     }
-    window.canvasRef.addtext( 50, 430, `Polaris hour angle: ${displaySix(hourAnglePolaris)} | ${displaySix(plusHourAnglePolaris)} or ${displaySix(ha)} `, {
-        color: 'red'
-    } );
-    window.canvasRef.addtext( 50, 450, `Clock time: ${clockTime} | ${clockTimePlus} or ${clockTimeHA} `, {
-        color: 'red'
-    } );
     window.canvasRef.addtext( 50, 470, `Polaris position time: ${polarSP.angle}  ${polarSP24H.angle}`, {
         color: 'red'
     } );
