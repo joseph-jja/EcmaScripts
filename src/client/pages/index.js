@@ -285,6 +285,9 @@ events.addOnLoad( async function () {
             swtitle.innerHTML = 'Local Pages';
             loadSoftwareFrag();
             break;
+        case 'other pages':
+            window.location.href = '/pages.html'; 
+            break;
         case 'home':
         default:
             Array.from( sideWin.windowArea.childNodes ).forEach( item => {

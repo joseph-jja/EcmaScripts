@@ -3,7 +3,7 @@ body {
     margin: 0;
     min-width: 400px;
     overflow-x: scroll;
-    background-color: #299adc;
+    background-color: black;
 }
 
 header,
@@ -101,7 +101,6 @@ div.header-column:last-child,
     grid-template-columns: 25% 75%;
     grid-template-rows: 5% 35% 60%;
     grid-gap: 1em;
-    background-color: #299adc;
     padding: 1em;
     margin-top: 2em;
     left: 0;
