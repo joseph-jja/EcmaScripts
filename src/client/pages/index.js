@@ -286,7 +286,7 @@ events.addOnLoad( async function () {
             loadSoftwareFrag();
             break;
         case 'other pages':
-            window.location.href = '/pages.html'; 
+            window.location.href = '/pages.html';
             break;
         case 'home':
         default:
