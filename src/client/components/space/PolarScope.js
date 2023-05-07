@@ -1,8 +1,7 @@
 import {
     getCirclePoints,
     multiply,
-    add,
-    subtract
+    add
 } from 'utils/mathFunctions';
 
 import {
@@ -47,10 +46,8 @@ export default class PolarScope extends Star {
 
         this.hourAngle = plusHourAnglePolaris;
         this.userDefinedHourAngle = hourAnglePolaris;
-        this.realAngle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
-        this.angle = this.realAngle;
+        this.angle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
 
-        this.clockType = ( options.clockType === 12 ? 12 : 24 );
         this.direction = add;
     }
 
@@ -72,19 +69,7 @@ export default class PolarScope extends Star {
         // so to convert to degrees we multiply by 15
         this.hourAngle = plusHourAnglePolaris;
         this.userDefinedHourAngle = hourAnglePolaris;
-        this.realAngle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
-        this.angle = this.realAngle;
-        
-        if ( this.clockType === 12 ) {
-            if ( this.realAngle <= 180 ) {
-                // when 12 hour clock the formula is 180 - angle to give coorect index in circle array
-                this.angle = subtract( 180, this.realAngle );
-            } else {
-                // when 12 hour clock is greater than 180, then the formula is 
-                // 360 - angle - 180
-                this.angle = subtract( 360, subtract( this.realAngle, 180 ) );   
-            }
-        }
+        this.angle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
 
         if ( this.angle < 0 ) {
             this.angle = 360;
