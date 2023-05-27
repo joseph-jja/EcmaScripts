@@ -6,7 +6,7 @@ import * as canvas from 'client/components/canvas';
 
 function histogramCanvas() {
 
-    window.histogramCanvasRef = canvas.create( "center-aligner", "histogram-display", 520, 450 );
+    window.histogramCanvasRef = canvas.create( "histogram-display", "center-aligner", 520, 450 );
 
 }
 
