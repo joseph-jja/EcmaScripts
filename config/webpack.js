@@ -20,6 +20,7 @@ module.exports = {
         "calendarExamples": "./src/client/pages/calendarExamples",
         "canvasTest": "./src/client/pages/canvasTest",
         "fishAnalyzer": "./src/client/pages/fishAnalyzer",
+        "histogramCanvas": "./src/client/pages/histogramCanvas",
         "earthquakes": "./src/client/pages/earthquakes",
         "colorTable": "./src/client/pages/colorTable",
         "index": "./src/client/pages/index",
