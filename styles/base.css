@@ -89,6 +89,8 @@ div.header-column:last-child,
     grid-column: 1 / span 1;
     grid-row: 1 / span 3;
     margin-left: 0.5em;
+    margin: 1em 0 3em 2em;
+    width: 250px;
 }
 
 #main-window {
@@ -110,10 +112,6 @@ div.header-column:last-child,
 
 .container>div {
     text-align: left;
-}
-
-#welcome-content {
-    margin: 1em 0 3em 2em;
 }
 
 #main-window {
