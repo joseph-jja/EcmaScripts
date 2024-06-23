@@ -10,8 +10,8 @@ const sessionEnabled = ( function () {
             window.sessionStorage.setItem( "testData", "dunny" );
             window.sessionStorage.removeItem( "testData" );
             sEnabled = true;
-        } catch ( e ) {
-
+        } catch ( _e ) {
+            // ignore
         }
     }
     return sEnabled;
@@ -27,8 +27,8 @@ const localEnabled = ( function () {
             window.localStorage.removeItem( "testData" );
             lEnabled = true;
         }
-    } catch ( e ) {
-
+    } catch ( _e ) {
+        // ignore
     }
     return lEnabled;
 } )();
