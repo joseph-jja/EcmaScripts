@@ -161,7 +161,9 @@ function parseJobs( XMLDOMDocument ) {
             jobDates += " - ";
             try {
                 jobDates += jobMonth[ 1 ].childNodes[ 0 ].nodeValue + " ";
-            } catch ( E ) {}
+            } catch ( _E ) {
+                // ignore
+            }
             jobDates += jobYear[ 1 ].childNodes[ 0 ].nodeValue;
         }
 
