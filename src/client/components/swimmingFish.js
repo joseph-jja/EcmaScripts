@@ -3,7 +3,9 @@
 // also this object REQUIRES the UserAgent.js object
 // as it creates and uses an instance of the object
 // name space
-import * as dom from 'client/dom/DOM';
+import {
+    screen
+} from 'client/dom/DOM';
 import selector from 'client/dom/selector';
 
 const SWIMMING_FISH_IMAGE = '<img src="fish_swim_template.gif">';
@@ -19,8 +21,6 @@ const SWIMMING_FISH_TIMEOUT = 100;
 // here we are creating our browser fish object
 //
 function BrowserFish( name ) {
-
-    const screen = dom.screen;
 
     this.get = selector;
 
@@ -45,10 +45,10 @@ function BrowserFish( name ) {
     this.runtimerid = '';
 
     // direction is true for forward false for reverse
-    this.lr_direction = true;
+    this.lrDirection = true;
 
     // movement from top to bottom
-    this.tb_direction = true;
+    this.tbDirection = true;
 
     // internal reference to the fish
     this.fishObj = "";
@@ -78,10 +78,10 @@ BrowserFish.prototype.getFish = function () {
     }
 
     this.fishObj = this.get( "#" + this.getId() ).get( 0 );
-    if ( this.lr_direction ) {
+    if ( this.lrDirection ) {
         this.fishObj.innerHTML = SWIMMING_FISH_IMAGE;
         return true;
-    } else if ( !this.lr_direction ) {
+    } else if ( !this.lrDirection ) {
         this.fishObj.innerHTML = REV_SWIMMING_FISH_IMAGE;
         return true;
     }
@@ -94,15 +94,15 @@ BrowserFish.prototype.getXPos = function () {
     if ( this.xpos > this.maxx - this.iw ) {
         this.xcount = -2;
         this.hideFish();
-        this.lr_direction = false;
+        this.lrDirection = false;
         this.ypos += this.getYPos();
     } else if ( this.xpos < 0 ) {
         this.xcount = 2;
         this.hideFish();
-        this.lr_direction = true;
+        this.lrDirection = true;
         this.ypos += this.getYPos();
     } else if ( this.xpos <= this.maxx - this.iw ) {
-        if ( this.lr_direction ) {
+        if ( this.lrDirection ) {
             this.xcount = 2;
         } else {
             this.xcount = -2;
@@ -115,12 +115,12 @@ BrowserFish.prototype.getXPos = function () {
 BrowserFish.prototype.getYPos = function () {
     if ( this.ypos > this.maxy - this.ih ) {
         this.ycount = -30;
-        this.tb_direction = false;
+        this.tbDirection = false;
     } else if ( this.ypos < 0 ) {
         this.ycount = 30;
-        this.tb_direction = true;
+        this.tbDirection = true;
     } else if ( this.ypos <= this.maxy - this.ih ) {
-        if ( this.tb_direction ) {
+        if ( this.tbDirection ) {
             this.ycount = 30;
         } else {
             this.ycount = -30;
@@ -212,7 +212,7 @@ BrowserFish.prototype.runfish = function () {
         fishLeft.innerHTML = SWIMMING_FISH_IMAGE;
 
         // save the old direction
-        var initdirection = this.lr_direction;
+        var initdirection = this.lrDirection;
 
         // no fish return
         if ( !this.getFish() ) {
@@ -222,7 +222,7 @@ BrowserFish.prototype.runfish = function () {
         this.setPosition();
         this.runningfish = true;
 
-        if ( initdirection === this.lr_direction ) {
+        if ( initdirection === this.lrDirection ) {
             this.showFish();
         }
         return true;
