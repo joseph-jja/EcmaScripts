@@ -29,7 +29,7 @@ function parseSkills( XMLDOMDocument ) {
         // then need skills
         for ( let s = 0; s < skills.length; s++ ) {
             const skill = skills[ s ].childNodes[ 0 ].nodeValue;
-            const skillLevel = skills[ s ].getAttribute( "level" );
+            const _skillLevel = skills[ s ].getAttribute( "level" );
             result += skill;
             if ( s < skills.length - 1 ) {
                 result += ", ";
@@ -169,7 +169,9 @@ function parseJobs( XMLDOMDocument, options = {} ) {
             jobDates += " - ";
             try {
                 jobDates += jobMonth[ 1 ].childNodes[ 0 ].nodeValue + " ";
-            } catch ( E ) {}
+            } catch ( _E ) {
+                // ignore 
+            }
             jobDates += jobYear[ 1 ].childNodes[ 0 ].nodeValue;
         }
 

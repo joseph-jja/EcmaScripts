@@ -96,7 +96,7 @@ function drawScopes() {
     polarScope( POLAR_SCOPE_12_HOUR_CENTER.x, POLAR_SCOPE_12_HOUR_CENTER.y, 100, [ '0/12', '6', '9', '3' ] );
 }
 
-function updateHourAngle() {
+function getFields() {
 
     const latitude = document.getElementById( 'latitude' ).value || 37.6904826;
     const longitude = document.getElementById( 'longitude' ).value || -122.47267;
@@ -120,6 +120,34 @@ function updateHourAngle() {
 
     const declination = PolarScopeUtilitiesInstance.hourAngleToDegrees( decHours, decMinutes, decSeconds );
     const rightAssention = PolarScopeUtilitiesInstance.hourAngleToDegrees( raHours, raMinutes, raSeconds );
+
+    return {
+        latitude,
+        longitude,
+        rightAssentionDefault,
+        raHours,
+        raMinutes,
+        raSeconds,
+        decHours,
+        decMinutes,
+        decSeconds,
+        declination,
+        rightAssention
+    };
+}
+
+function updateHourAngle() {
+
+    const {
+        latitude,
+        longitude,
+        rightAssentionDefault,
+        raHours,
+        raMinutes,
+        raSeconds,
+        declination,
+        rightAssention
+    } = getFields();
 
     const isDefaultRA = ( +raHours === +rightAssentionDefault[ 0 ] && +raMinutes === +rightAssentionDefault[ 1 ] && +raSeconds === +rightAssentionDefault[ 2 ] );
 
