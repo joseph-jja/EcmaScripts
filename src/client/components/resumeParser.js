@@ -3,17 +3,17 @@ import * as typeCheck from 'utils/typeCheck';
 
 function getFirstNodeText( XMLDOMDocument, nodeName ) {
 
-    var node = XMLDOMDocument.getElementsByTagName( nodeName );
+    const node = XMLDOMDocument.getElementsByTagName( nodeName );
     return node[ 0 ].childNodes[ 0 ].nodeValue;
 }
 
 function parseSkills( XMLDOMDocument ) {
 
-    var skillarea = XMLDOMDocument.getElementsByTagName( "skillarea" )[ 0 ];
+    const skillarea = XMLDOMDocument.getElementsByTagName( "skillarea" )[ 0 ];
 
-    var title = skillarea.getElementsByTagName( "title" )[ 0 ];
+    const title = skillarea.getElementsByTagName( "title" )[ 0 ];
 
-    var result = '<hr/>';
+    let result = '<hr/>';
     result += '<span class="skill_prof section-heading">';
     result += title.childNodes[ 0 ].nodeValue;
     result += '</span>';
@@ -22,14 +22,14 @@ function parseSkills( XMLDOMDocument ) {
     var skillset = skillarea.getElementsByTagName( "skillset" );
     for ( let i = 0; i < skillset.length; i++ ) {
         // need titles
-        var title = skillset[ i ].getElementsByTagName( "title" )[ 0 ];
+        const title = skillset[ i ].getElementsByTagName( "title" )[ 0 ];
         result += '<li>';
         result += title.childNodes[ 0 ].nodeValue + ": ";
-        var skills = skillset[ i ].getElementsByTagName( "skill" );
+        const skills = skillset[ i ].getElementsByTagName( "skill" );
         // then need skills
         for ( let s = 0; s < skills.length; s++ ) {
-            var skill = skills[ s ].childNodes[ 0 ].nodeValue;
-            var _skill_level = skills[ s ].getAttribute( "level" );
+            const skill = skills[ s ].childNodes[ 0 ].nodeValue;
+            const skillLevel = skills[ s ].getAttribute( "level" );
             result += skill;
             if ( s < skills.length - 1 ) {
                 result += ", ";
