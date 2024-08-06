@@ -1,5 +1,5 @@
-const decode = ( typeof decodeURIComponent !== "undefined" ) ? decodeURIComponent : unescape;
-const encode = ( typeof encodeURIComponent !== "undefined" ) ? encodeURIComponent : escape;
+const decode = decodeURIComponent;
+const encode = encodeURIComponent;
 
 const COOKIE_MATCH = /([^=]+)=/i,
     SPLIT_COOKIES = /; /g;
