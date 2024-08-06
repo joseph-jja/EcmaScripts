@@ -5,7 +5,10 @@ const SPLIT_COOKIES = /; /g;
 
 const decodeKeyValue = (cookieData) => {
     const idx = cookieData.indexOf('=');
-    const result = {};
+    const result = {
+        'name': undefined,
+        'value': undefined
+    };
     if (idx > -1) {
         result['name'] = decode(cookieData.substring(0, idx));
         result['value'] = decode(cookieData.substring(idx + 1));
@@ -18,7 +21,9 @@ const findCookieByName = (cookieName, cookieData) => {
     const dc = (cookieData || (typeof document !== 'undefined' && document.cookie) || ''),
         cookies = dc.split(SPLIT_COOKIES);
 
-    const result = cookies.map(cookie => {
+    const result = cookies.filter(cookieStr => {
+        return cookieStr.startsWith(cookieName);
+    }).map(cookie => {
         const {
             name,
             value
@@ -27,18 +32,8 @@ const findCookieByName = (cookieName, cookieData) => {
             name,
             value
         };
-    }).filter(cookie => {
-        const {
-            name
-        } = cookie;
-        return (name === cookieName);
-    }).map(cookie => {
-        const {
-            value
-        } = cookie;
-        return value;
     });
-    return result[0];
+    return result[0]?.value
 };
 
 // can be used both server side or client side
