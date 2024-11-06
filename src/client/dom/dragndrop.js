@@ -2,7 +2,7 @@ import * as dom from '/js/client/dom/DOM';
 import * as events from '/js/client/dom/events';
 import {
     byId
-} from 'client/dom/shortcuts';
+} from '/js/client/dom/shortcuts';
 
 //drag and drop events
 export default function dragndrop() {

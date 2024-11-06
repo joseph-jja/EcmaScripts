@@ -2,11 +2,11 @@ import {
     hasClass,
     replaceClass,
     addClass
-} from 'client/dom/CSS';
+} from '/js/client/dom/CSS';
 import {
     byId,
     queryAll
-} from 'client/dom/shortcuts';
+} from '/js/client/dom/shortcuts';
 
 export default function toggleUL( objName, hrefObj ) {
 
