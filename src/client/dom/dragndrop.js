@@ -1,5 +1,5 @@
-import * as dom from 'client/dom/DOM';
-import * as events from 'client/dom/events';
+import * as dom from '/js/client/dom/DOM';
+import * as events from '/js/client/dom/events';
 import {
     byId
 } from 'client/dom/shortcuts';

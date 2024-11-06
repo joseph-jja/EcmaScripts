@@ -1,9 +1,9 @@
 //css methods
 import {
     byId
-} from 'client/dom/shortcuts';
-import selector from 'client/dom/selector';
-import * as typeCheck from 'utils/typeCheck';
+} from '/js/client/dom/shortcuts';
+import selector from '/js/client/dom/selector';
+import * as typeCheck from '/js/utils/typeCheck';
 
 const addClass = function ( obj, cls ) {
     if ( obj?.className?.indexOf( cls ) === -1 ) {

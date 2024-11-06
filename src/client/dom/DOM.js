@@ -1,9 +1,9 @@
 //
 //
 //DOM methods
-import selector from 'client/dom/selector';
-import * as typeCheck from 'utils/typeCheck';
-import * as CSS from 'client/dom/CSS';
+import selector from '/js/client/dom/selector';
+import * as typeCheck from '/js/utils/typeCheck';
+import * as CSS from '/js/client/dom/CSS';
 
 const createElement = function ( type, parent, options ) {
     let obj;
