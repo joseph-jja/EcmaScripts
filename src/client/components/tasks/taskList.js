@@ -11,14 +11,14 @@ import addEditTask from '/js/client/components/tasks/addEditTask';
 import {
     getTable,
     getTableRow
-} from 'client/components/tasks/tableFunctions';
+} from '/js/client/components/tasks/tableFunctions';
 
 import {
     mapFromDom,
     tableSort,
     cancelButtonClick,
     setEndDate
-} from 'client/components/tasks/taskUtils';
+} from '/js/client/components/tasks/taskUtils';
 
 const ONE_DAY = 24 * 60 * 60 * 1000,
     SEVEN_DAYS = 7 * ONE_DAY,
