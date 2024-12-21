@@ -1,4 +1,4 @@
-import * as API from 'client/components/bart/api';
+import * as API from '/js/client/components/bart/api';
 
 export default async function alerts( _station ) {
 

@@ -1,11 +1,11 @@
-import * as dom from 'client/dom/DOM';
+import * as dom from '/js/client/dom/DOM';
 import {
     exists
-} from 'utils/typeCheck';
+} from '/js/utils/typeCheck';
 import {
     square,
     degreesToRadians
-} from "utils/mathFunctions";
+} from '/js/utils/mathFunctions';
 
 function setProperties( canvas ) {
 

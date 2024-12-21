@@ -2,15 +2,15 @@ import {
     getCirclePoints,
     multiply,
     add
-} from 'utils/mathFunctions';
+} from '/js/utils/mathFunctions';
 
 import {
     Star
-} from 'client/components/space/celestialBody';
+} from '/js/client/components/space/celestialBody';
 
 import {
     PolarisCalculatorInstance
-} from 'client/components/space/PolarScopeCalculator';
+} from '/js/client/components/space/PolarScopeCalculator';
 
 const doPolarMath = ( now, latitude, longitude, rightAssention ) => {
     const {

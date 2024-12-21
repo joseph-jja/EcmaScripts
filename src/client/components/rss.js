@@ -1,8 +1,8 @@
-import * as xml from 'client/browser/xml';
-import * as stringUtils from 'utils/stringUtils';
-import * as dom from 'client/dom/DOM';
+import * as xml from '/js/client/browser/xml';
+import * as stringUtils from '/js/utils/stringUtils';
+import * as dom from '/js/client/dom/DOM';
 
-import MathFunctions from "utils/mathFunctions";
+import MathFunctions from '/js/utils/mathFunctions';
 
 let jsonDATA = {},
     lastUpdated = -1,

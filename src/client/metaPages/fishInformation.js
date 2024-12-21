@@ -1,17 +1,17 @@
-import * as dom from 'client/dom/DOM';
-import selector from 'client/dom/selector';
-import fetcher from 'client/net/fetcher';
+import * as dom from '/js/client/dom/DOM';
+import selector from '/js/client/dom/selector';
+import fetcher from '/js/client/net/fetcher';
 import {
     addClass
-} from 'client/dom/CSS';
-import * as events from 'client/dom/events';
-import * as ajax from 'client/net/ajax';
-import * as xml from 'client/browser/xml';
-import * as perf from 'client/browser/performance';
+} from '/js/client/dom/CSS';
+import * as events from '/js/client/dom/events';
+import * as ajax from '/js/client/net/ajax';
+import * as xml from '/js/client/browser/xml';
+import * as perf from '/js/client/browser/performance';
 
 import {
     exists
-} from 'utils/typeCheck';
+} from '/js/utils/typeCheck';
 
 let fishInfoWorker;
 

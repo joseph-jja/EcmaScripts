@@ -3,7 +3,7 @@ import {
     subtract,
     getEllipsePoints,
     getCirclePoints
-} from 'utils/mathFunctions';
+} from '/js/utils/mathFunctions';
 
 export class CelestialBody {
 

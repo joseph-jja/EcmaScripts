@@ -1,5 +1,5 @@
-import * as dom from 'client/dom/DOM';
-import selector from 'client/dom/selector';
+import * as dom from '/js/client/dom/DOM';
+import selector from '/js/client/dom/selector';
 
 //this is the parent grid object
 //this builds the table that has the cells for the individual pixels

@@ -1,6 +1,6 @@
 import {
     getFares
-} from 'client/components/bart/api';
+} from '/js/client/components/bart/api';
 
 export default async function fetchFareData( sourceID, destID, resultID ) {
 

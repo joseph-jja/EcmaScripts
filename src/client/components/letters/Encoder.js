@@ -1,10 +1,10 @@
-import * as dom from 'client/dom/DOM';
-import * as events from 'client/dom/events';
-import selector from 'client/dom/selector';
-import Grid from 'client/components/letters/Grid';
+import * as dom from '/js/client/dom/DOM';
+import * as events from '/js/client/dom/events';
+import selector from '/js/client/dom/selector';
+import Grid from '/js/client/components/letters/Grid';
 import {
     convertFromBaseXToBaseTen
-} from 'utils/mathFunctions';
+} from '/js/utils/mathFunctions';
 
 //the character render engine
 //this can be used to create a character on the grid

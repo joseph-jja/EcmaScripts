@@ -6,7 +6,7 @@
 import {
     screen
 } from 'client/dom/DOM';
-import selector from 'client/dom/selector';
+import selector from '/js/client/dom/selector';
 
 const SWIMMING_FISH_IMAGE = '<img src="fish_swim_template.gif">';
 const REV_SWIMMING_FISH_IMAGE = '<img src="fish_swim_template_rev.gif">';

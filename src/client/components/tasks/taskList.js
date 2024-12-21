@@ -1,12 +1,12 @@
-import * as events from 'client/dom/events';
-import selector from 'client/dom/selector';
-import * as dom from 'client/dom/DOM';
-import * as css from 'client/dom/CSS';
+import * as events from '/js/client/dom/events';
+import selector from '/js/client/dom/selector';
+import * as dom from '/js/client/dom/DOM';
+import * as css from '/js/client/dom/CSS';
 
-import fetcher from 'client/net/fetcher';
+import fetcher from '/js/client/net/fetcher';
 
-import Task from 'client/components/tasks/task';
-import addEditTask from 'client/components/tasks/addEditTask';
+import Task from '/js/client/components/tasks/task';
+import addEditTask from '/js/client/components/tasks/addEditTask';
 
 import {
     getTable,

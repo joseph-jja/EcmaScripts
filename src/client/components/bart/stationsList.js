@@ -1,5 +1,5 @@
-import * as API from 'client/components/bart/api';
-import * as webStorage from 'client/browser/webStorage';
+import * as API from '/js/client/components/bart/api';
+import * as webStorage from '/js/client/browser/webStorage';
 
 const ONE_WEEK = 604800000; // 1000*60*60*24*7
 

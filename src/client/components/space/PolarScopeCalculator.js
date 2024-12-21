@@ -3,7 +3,7 @@ import {
     subtract,
     multiply,
     divide
-} from 'utils/mathFunctions';
+} from '/js/utils/mathFunctions';
 
 // some of this code was taken from takahashi-europe.com minified code
 // unminfied and redone to make some sense 

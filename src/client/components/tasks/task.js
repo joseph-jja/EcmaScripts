@@ -1,4 +1,4 @@
-import SQLQuery from 'client/db/IndexedDB';
+import SQLQuery from '/js/client/db/IndexedDB';
 
 const DBName = 'tasksDB',
     StoreName = 'tasks',

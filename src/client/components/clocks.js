@@ -1,4 +1,4 @@
-import MF from 'utils/mathFunctions';
+import MF from '/js/utils/mathFunctions';
 
 //parent object for all clock types
 //sort of abstract class

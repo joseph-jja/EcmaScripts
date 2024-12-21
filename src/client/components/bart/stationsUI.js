@@ -1,4 +1,4 @@
-import stationsList from 'client/components/bart/stationsList';
+import stationsList from '/js/client/components/bart/stationsList';
 
 export default async function stations() {
 

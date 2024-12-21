@@ -1,5 +1,5 @@
-import fetcher from 'client/net/fetcher';
-import * as Constants from 'client/components/bart/constants';
+import fetcher from '/js/client/net/fetcher';
+import * as Constants from '/js/client/components/bart/constants';
 
 async function getJSON( url ) {
     const result = await fetcher( url );

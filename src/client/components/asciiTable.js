@@ -1,6 +1,6 @@
 import {
     convertFromBaseTenToBaseX
-} from 'utils/mathFunctions';
+} from '/js/utils/mathFunctions';
 
 const NONE_PRINT_CHARACTERS = [ "NUL (null)", "SOH (start of heading)", "STX (start of text)",
     "ETX (end of text)", "EOT (end of transmission)",

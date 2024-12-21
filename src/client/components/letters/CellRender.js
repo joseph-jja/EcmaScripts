@@ -1,4 +1,4 @@
-import selector from 'client/dom/selector';
+import selector from '/js/client/dom/selector';
 
 // a table cell render engine
 export default function CellRender( baseRowID, binNum, columnID ) {

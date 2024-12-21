@@ -1,4 +1,4 @@
-import * as dom from 'client/dom/DOM';
+import * as dom from '/js/client/dom/DOM';
 
 function createOverlay( options, content ) {
 

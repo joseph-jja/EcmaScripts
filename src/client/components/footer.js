@@ -1,8 +1,8 @@
-import * as dom from "client/dom/DOM";
-import df from "utils/dateFunctions";
+import * as dom from '/js/client/dom/DOM';
+import df from '/js/utils/dateFunctions';
 import {
     exists
-} from "utils/typeCheck";
+} from '/js/utils/typeCheck';
 
 // destructing
 const {

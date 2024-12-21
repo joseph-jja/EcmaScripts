@@ -1,6 +1,6 @@
-import selector from 'client/dom/selector';
+import selector from '/js/client/dom/selector';
 
-import * as xml from 'client/browser/xml';
+import * as xml from '/js/client/browser/xml';
 
 function pager( cnode ) {
 

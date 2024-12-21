@@ -1,9 +1,9 @@
-import mathFunctions from 'utils/mathFunctions';
-import selector from 'client/dom/selector';
-import * as dom from 'client/dom/DOM';
-import * as events from 'client/dom/events';
+import mathFunctions from '/js/utils/mathFunctions';
+import selector from '/js/client/dom/selector';
+import * as dom from '/js/client/dom/DOM';
+import * as events from '/js/client/dom/events';
 
-import TotalsManager from 'client/components/calculator/TotalsManager';
+import TotalsManager from '/js/client/components/calculator/TotalsManager';
 
 //the GUI Calculator
 function Calculator( parentID, options ) {

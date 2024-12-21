@@ -1,11 +1,11 @@
-import * as perf from 'client/browser/performance';
+import * as perf from '/js/client/browser/performance';
 
 import {
     exists
 } from 'utils/typeCheck';
 
 // canvas
-import * as canvas from 'client/components/canvas';
+import * as canvas from '/js/client/components/canvas';
 
 //const screenWidth = dom.screen.maxx();
 

@@ -10,13 +10,13 @@
 //WebWindowTitleText - the text in the title bar
 //WebWindowButtonBox - the box for the buttons
 //WebWindowButton - each button
-import * as dom from 'client/dom/DOM';
-import * as events from 'client/dom/events';
-import Dragndrop from 'client/dom/dragndrop';
+import * as dom from '/js/client/dom/DOM';
+import * as events from '/js/client/dom/events';
+import Dragndrop from '/js/client/dom/dragndrop';
 import {
     byId,
     queryAll
-} from 'client/dom/shortcuts';
+} from '/js/client/dom/shortcuts';
 
 export default function wbWindow( title, x, y, width, height, winID ) {
 

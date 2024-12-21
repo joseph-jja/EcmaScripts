@@ -1,9 +1,9 @@
 //below is the calendar object
-import WBDate from 'utils/dateFunctions';
-import selector from 'client/dom/selector';
-import * as css from 'client/dom/CSS';
-import * as dom from 'client/dom/DOM';
-import * as events from 'client/dom/events';
+import WBDate from '/js/utils/dateFunctions';
+import selector from '/js/client/dom/selector';
+import * as css from '/js/client/dom/CSS';
+import * as dom from '/js/client/dom/DOM';
+import * as events from '/js/client/dom/events';
 
 export default function Calendar( parentID, options ) {
 

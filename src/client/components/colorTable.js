@@ -5,7 +5,7 @@ import {
     divide,
     convertFromBaseXToBaseTen,
     convertFromBaseTenToBaseX
-} from 'utils/mathFunctions';
+} from '/js/utils/mathFunctions';
 
 function alpha( r, g, b ) {
     return multiply( 0.5, subtract( multiply( 2, r ), g, b ) );
