@@ -5,7 +5,7 @@
 // name space
 import {
     screen
-} from 'client/dom/DOM';
+} from '/js/client/dom/DOM';
 import selector from '/js/client/dom/selector';
 
 const SWIMMING_FISH_IMAGE = '<img src="fish_swim_template.gif">';

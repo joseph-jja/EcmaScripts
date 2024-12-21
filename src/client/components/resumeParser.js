@@ -1,5 +1,5 @@
-import * as xml from 'client/browser/xml';
-import * as typeCheck from 'utils/typeCheck';
+import * as xml from '/js/client/browser/xml';
+import * as typeCheck from '/js/utils/typeCheck';
 
 function getFirstNodeText( XMLDOMDocument, nodeName ) {
 
