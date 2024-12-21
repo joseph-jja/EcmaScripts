@@ -1,4 +1,4 @@
-import MF from 'utils/mathFunctions';
+import MF from '/js/utils/mathFunctions';
 
 let y = 5,
     direction = 1,

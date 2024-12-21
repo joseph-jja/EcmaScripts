@@ -1,7 +1,7 @@
 //functions for xml processing
 import {
     isEmpty
-} from 'utils/stringUtils';
+} from '/js/utils/stringUtils';
 
 let tAttributes = "attributes";
 

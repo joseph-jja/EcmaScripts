@@ -1,6 +1,6 @@
 import {
     exists
-} from 'utils/typeCheck';
+} from '/js/utils/typeCheck';
 
 let copy, timings, startTime,
     getMetrics, metrics = {};

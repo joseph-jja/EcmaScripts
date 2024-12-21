@@ -1,5 +1,5 @@
-import browserList from 'client/browser/browserList';
-import osList from 'client/browser/osList';
+import browserList from '/js/client/browser/browserList';
+import osList from '/js/client/browser/osList';
 
 const detect = {};
 

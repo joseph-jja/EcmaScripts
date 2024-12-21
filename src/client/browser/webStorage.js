@@ -1,7 +1,7 @@
 // this allows us to check to see if session storage is actually enabled by the browser
 // sometimes this will fail like when a browser does not have cookies enabled for a site
 
-import * as Store from "utils/store";
+import * as Store from "/js/utils/store";
 
 const sessionEnabled = ( function () {
     let sEnabled = false;

@@ -5,16 +5,16 @@ import {
     getRectangleCorner,
     distanceBetweenCirclesCenters,
     square
-} from 'utils/mathFunctions';
+} from '/js/utils/mathFunctions';
 
 import {
     Star,
     Planet
-} from 'client/components/space/celestialBody';
+} from '/js/client/components/space/celestialBody';
 
 import {
     StarPair
-} from 'client/components/space/starPairs';
+} from '/js/client/components/space/starPairs';
 
 const timeout = 100;
 

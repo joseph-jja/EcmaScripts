@@ -1,5 +1,5 @@
-import xmlHttp from "client/net/xmlhttp";
-import * as Stack from "utils/stack";
+import xmlHttp from "/js/client/net/xmlhttp";
+import * as Stack from "/js/utils/stack";
 
 let stack = new Stack.Stack();
 
