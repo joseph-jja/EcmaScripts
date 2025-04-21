@@ -30,21 +30,11 @@ const MUSICAL_NOTES = {
 };
 
 const EQUIVALENTS = {
-    {
-        'Db': 'C#'
-    },
-    {
-        'Eb': 'D#'
-    },
-    {
-        'Gb': 'F#'
-    },
-    {
-        'Ab': 'G#'
-    },
-    {
-        'Bb': 'A#'
-    },
+    'Db': 'C#',
+    'Eb': 'D#',
+    'Gb': 'F#',
+    'Ab': 'G#',
+    'Bb': 'A#'
 };
 
 export function getFrequenceOfNote( note = 'A', octave = 4 ) {
