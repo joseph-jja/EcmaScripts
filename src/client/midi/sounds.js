@@ -11,7 +11,7 @@ export class MakeSound {
     }
 
     // Set the type of wave (sine, triangle, square, sawtooth)
-    getOscillator( waveform ) {
+    #getOscillator( waveform ) {
         const oscillator = this.audioContext.createOscillator();
         oscillator.type = WAVEFORM_TYPES.includes( waveform ) ? waveform : 'sawtooth';
         return oscillator;
@@ -30,12 +30,17 @@ export class MakeSound {
         return noteFrequencies[ octave ];
     }
 
-    setNote( oscillator, note, octave ) {
+    setNote( waveform, note, octave ) {
+    	
+    	const oscillator = getOscillator(waveform);
+    	
         // Set the frequency of the oscillator (in Hz)
         oscillator.frequency.value = this.getFrequenceOfNote( note, octave );
 
         // Connect the oscillator to the audio context destination (speakers)
         oscillator.connect( audioContext.destination );
+        
+        return oscillator;
     }
 
     playNote( oscillator, duration ) {
