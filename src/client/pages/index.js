@@ -41,8 +41,7 @@ import WebWindow from 'client/components/wbWindow';
 
 let defaultPosition = {},
     isCalendarDisplayed = false,
-    mainWin,
-    sideWin;
+    mainWin;
 
 let capabilities = '<br><div class="home-content">';
 capabilities += 'Info pulled from your browsers user agent.';
@@ -85,9 +84,6 @@ async function loadResume() {
     const mwtitle = selector( '.WebWindowTitleText', mainWin.titleBar ).get( 0 );
     mwtitle.innerHTML = 'Resume';
 
-    const swtitle = selector( '.WebWindowTitleText', sideWin.titleBar ).get( 0 );
-    swtitle.innerHTML = 'Welcome';
-
     if ( perf.hasPerformanceMetrics ) {
         performance.measure( 'resume render' );
     }
@@ -104,16 +100,6 @@ function setDefaultPosition() {
         defaultPosition.offsetWidth,
         defaultPosition.offsetHeight,
         'main-window' );
-
-    const sw = document.getElementById( 'welcome-content' );
-    const swStyles = window.getComputedStyle( sw );
-
-    sideWin = new WebWindow( 'Welcome',
-        swStyles.offsetLeft,
-        swStyles.offsetTop,
-        swStyles.offsetWidth,
-        swStyles.offsetHeight,
-        'welcome-content' );
 }
 
 function renderCalendar() {
@@ -166,9 +152,7 @@ async function loadSoftwareFrag() {
     const mwtitle = selector( '.WebWindowTitleText', mainWin.titleBar ).get( 0 );
     mwtitle.innerHTML = 'Programs';
 
-    const linksObj = dom.createElement( 'div', sideWin.windowArea, {
-        id: 'software-links'
-    } );
+    const linksObj = selector( 'div#welcome-content').get(0);
 
     linksObj.style.display = 'block';
     linksObj.innerHTML = `In my spare time I work on the projects on this page. Some of them,
@@ -236,7 +220,8 @@ events.addOnLoad( async function () {
 
     await buildNav();
     const indexData = await getIndex();
-    sideWin.windowArea.innerHTML = indexData + capabilities;
+    const container = selector( 'div#welcome-content').get(0);
+    container.innerHTML = indexData + capabilities;
 
     const dropdown = selector( '.url-wrapper select' ).get( 0 );
     events.addEvent( dropdown, 'change', ( e ) => {
@@ -248,17 +233,8 @@ events.addOnLoad( async function () {
         const mwtitle = selector( '.WebWindowTitleText', mainWin.titleBar ).get( 0 );
         mwtitle.innerHTML = 'Home - Not Mine Though';
 
-        const swtitle = selector( '.WebWindowTitleText', sideWin.titleBar ).get( 0 );
-        swtitle.innerHTML = 'Welcome';
-
         // hide divs
         Array.from( mainWin.windowArea.childNodes ).forEach( item => {
-            if ( item.nodeName.toLowerCase() === 'div' ) {
-                item.style.display = 'none';
-            }
-        } );
-
-        Array.from( sideWin.windowArea.childNodes ).forEach( item => {
             if ( item.nodeName.toLowerCase() === 'div' ) {
                 item.style.display = 'none';
             }
@@ -269,20 +245,12 @@ events.addOnLoad( async function () {
         switch ( item ) {
         case 'resume':
             loadResume();
-            Array.from( sideWin.windowArea.childNodes ).forEach( item => {
-                if ( item.nodeName.toLowerCase() === 'div' && css.hasClass( item, 'home-content' ) ) {
-                    item.style.display = 'block';
-                }
-            } );
-            break;
         case 'fish':
             mwtitle.innerHTML = 'Fish Information';
-            swtitle.innerHTML = 'Animated Fish';
             startFishInfo();
             break;
         case 'software':
             mwtitle.innerHTML = 'Software';
-            swtitle.innerHTML = 'Local Pages';
             loadSoftwareFrag();
             break;
         case 'other pages':
@@ -290,11 +258,11 @@ events.addOnLoad( async function () {
             break;
         case 'home':
         default:
-            Array.from( sideWin.windowArea.childNodes ).forEach( item => {
-                if ( item.nodeName.toLowerCase() === 'div' && css.hasClass( item, 'home-content' ) ) {
-                    item.style.display = 'block';
-                }
-            } );
+            //Array.from( sideWin.windowArea.childNodes ).forEach( item => {
+            //    if ( item.nodeName.toLowerCase() === 'div' && css.hasClass( item, 'home-content' ) ) {
+            //        item.style.display = 'block';
+            //   }
+            //} );
             const canvasContainer = selector( '#canvas-container' ).get( 0 );
             canvasContainer.style.display = 'block';
             startStarSystem();

@@ -90,7 +90,6 @@ div.header-column:last-child,
     grid-row: 1 / span 3;
     margin-left: 0.5em;
     margin: 1em 0 3em 2em;
-    width: 275px;
 }
 
 #main-window {
@@ -130,7 +129,6 @@ div.header-column:last-child,
     #welcome-content {
         grid-column: 1 / span 2;
         grid-row: 2 / span 1;
-        min-height: 375px;
         overflow: auto;
         margin: 1em 2em 1em 2em;
     }

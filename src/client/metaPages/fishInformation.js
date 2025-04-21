@@ -88,8 +88,8 @@ function startFishInfo() {
     }
 
     if ( fishInfoWorker ) {
-        const homeContent = selector( '#welcome-content' ).get( 0 );
-        const displayWindow = selector( '.WebWindowArea', homeContent ).get( 0 );
+        //const homeContent = selector( '#welcome-content' ).get( 0 );
+        const displayWindow = selector( '.WebWindowArea' ).get( 0 );
 
         Array.from( displayWindow.childNodes ).forEach( item => {
             if ( item.nodeName.toLowerCase() === 'div' ) {
