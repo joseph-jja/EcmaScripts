@@ -1,4 +1,4 @@
-import base from '/js/client/browser/base';
+import base from '/js/client/browser/base.js';
 
 const addEvent = ( obj = window, eventType, fn, capture = false ) => {
     if ( window.attachEvent && !window.addEventListener ) {

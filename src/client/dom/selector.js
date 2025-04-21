@@ -5,7 +5,7 @@
 import {
     isString,
     isObject
-} from '/js/utils/typeCheck';
+} from '/js/utils/typeCheck.js';
 
 const rquickExpr = /^#(?:([\w-]+)|(\w+)|\.([\w-]+))$/;
 
