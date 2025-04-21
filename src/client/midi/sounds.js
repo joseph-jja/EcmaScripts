@@ -2,7 +2,7 @@ import {
     MUSICAL_NOTES,
     EQUIVALENT_MUSICAL_NOTES,
     WAVEFORM_TYPES
-} from 'client/midi/Constants.js';
+} from '/js/client/midi/Constants.js';
 
 export class MakeSound {
 
