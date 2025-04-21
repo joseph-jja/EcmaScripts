@@ -32,7 +32,7 @@ export class MakeSound {
 
     setNote( waveform, note, octave ) {
     	
-    	const oscillator = getOscillator(waveform);
+    	const oscillator = this.getOscillator(waveform);
     	
         // Set the frequency of the oscillator (in Hz)
         oscillator.frequency.value = this.getFrequenceOfNote( note, octave );
