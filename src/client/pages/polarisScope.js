@@ -90,7 +90,7 @@ function drawScopes() {
     } );
     polarScope( POLAR_SCOPE_24_HOUR_CENTER.x, POLAR_SCOPE_24_HOUR_CENTER.y, 150, [ '12', '0/24', '18', '6' ] );
 
-    window.canvasRef.addtext(0, POLAR_SCOPE_12_HOUR_CENTER.y - 90, 'KStars 12h Polaris Clock', {
+    window.canvasRef.addtext( 0, POLAR_SCOPE_12_HOUR_CENTER.y - 90, 'KStars 12h Polaris Clock', {
         color: 'red'
     } );
     polarScope( POLAR_SCOPE_12_HOUR_CENTER.x, POLAR_SCOPE_12_HOUR_CENTER.y, 100, [ '0/12', '6', '9', '3' ] );
@@ -176,7 +176,7 @@ function updateHourAngle() {
             x: POLAR_HOUR_ANGLE_CENTER.x,
             y: POLAR_HOUR_ANGLE_CENTER.y
         };
-    if (!polarisClock) {
+    if ( !polarisClock ) {
         polarisClock = new PolarScope( {
             color: '#fff',
             radius: 6,

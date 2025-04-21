@@ -12,26 +12,26 @@ class MakeSound {
     }
 
     // Set the type of wave (sine, triangle, square, sawtooth)
-    getOscillator(waveform) {
+    getOscillator( waveform ) {
         const oscillator = this.audioContext.createOscillator();
-        oscillator.type = WAVEFORM_TYPES.includes(waveform) ? waveform : 'sawtooth';
+        oscillator.type = WAVEFORM_TYPES.includes( waveform ) ? waveform : 'sawtooth';
         return oscillator;
     }
 
-    setNote(oscillator, note) {
+    setNote( oscillator, note ) {
         // Set the frequency of the oscillator (in Hz)
         oscillator.frequency.value = 60; // A3 note
-        
+
         // Connect the oscillator to the audio context destination (speakers)
-        oscillator.connect(audioContext.destination);
+        oscillator.connect( audioContext.destination );
     }
 
-    playNote(oscillator, duration) {
+    playNote( oscillator, duration ) {
         // Start the oscillator
         oscillator.start();
-        setTimeout(() => {
+        setTimeout( () => {
             oscillator.stop();
-        }, duration);
+        }, duration );
     }
 }
 
