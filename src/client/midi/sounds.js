@@ -1,11 +1,10 @@
-const WAVEFORM_TYPES = [
-    'sine',
-    'triangle',
-    'square',
-    'sawtooth'
-];
+import {
+    MUSICAL_NOTES,
+    EQUIVALENT_MUSICAL_NOTES,
+    WAVEFORM_TYPES
+} from 'client/midi/Constants.js';
 
-class MakeSound {
+export class MakeSound {
 
     constructor() {
         this.audioContext = new AudioContext();
@@ -18,9 +17,22 @@ class MakeSound {
         return oscillator;
     }
 
-    setNote( oscillator, note ) {
+    #getFrequenceOfNote( note = 'A', octave = 4 ) {
+
+        const noteValue = note.toUpperCase();
+        const realNote = EQUIVALENT_MUSICAL_NOTES[ noteValue ] || noteValue;
+
+        const noteFrequencies = MUSICAL_NOTES[ realNote ];
+        if ( !noteFrequencies ) {
+            throw Error( 'Invalid note!' );
+            return;
+        }
+        return noteFrequencies[ octave ];
+    }
+
+    setNote( oscillator, note, octave ) {
         // Set the frequency of the oscillator (in Hz)
-        oscillator.frequency.value = 60; // A3 note
+        oscillator.frequency.value = this.getFrequenceOfNote( note, octave );
 
         // Connect the oscillator to the audio context destination (speakers)
         oscillator.connect( audioContext.destination );
@@ -34,8 +46,3 @@ class MakeSound {
         }, duration );
     }
 }
-
-export {
-    WAVEFORM_TYPES,
-    MakeSound
-};

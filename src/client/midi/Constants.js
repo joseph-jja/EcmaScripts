@@ -14,7 +14,7 @@ A#/Bb	29.14 Hz	58.27 Hz	116.54 Hz	233.08 Hz	466.16 Hz	932.33 Hz	1864.66 Hz	3729.
 B	30.87 Hz	61.74 Hz	123.47 Hz	246.94 Hz	493.88 Hz	987.77 Hz	1975.53 Hz	3951.07 Hz	7902.13 Hz
 */
 
-const MUSICAL_NOTES = {
+export const MUSICAL_NOTES = {
     'C': [ 16.35, 32.70, 65.41, 130.81, 261.63, 523.25, 1046.50, 2093.00, 4186.01 ],
     'C#': [ 17.32, 34.65, 69.30, 138.59, 277.18, 554.37, 1108.73, 2217.46, 4434.92 ],
     'D': [ 18.35, 36.71, 73.42, 146.83, 293.66, 587.33, 1174.66, 2349.32, 4698.63 ],
@@ -29,7 +29,7 @@ const MUSICAL_NOTES = {
     'B': [ 30.87, 61.74, 123.47, 246.94, 493.88, 987.77, 1975.53, 3951.07, 7902.13 ]
 };
 
-const EQUIVALENTS = {
+export const EQUIVALENT_MUSICAL_NOTES = {
     'Db': 'C#',
     'Eb': 'D#',
     'Gb': 'F#',
@@ -37,15 +37,9 @@ const EQUIVALENTS = {
     'Bb': 'A#'
 };
 
-export function getFrequenceOfNote( note = 'A', octave = 4 ) {
-
-    const noteValue = note.toUpperCase();
-    const realNote = EQUIVALENTS[ noteValue ] || noteValue;
-
-    const noteFrequencies = MUSICAL_NOTES[ realNote ];
-    if ( !noteFrequencies ) {
-        throw Error( 'Invalid note!' );
-        return;
-    }
-    return noteFrequencies[ octave ];
-}
+export const WAVEFORM_TYPES = [
+    'sine',
+    'triangle',
+    'square',
+    'sawtooth'
+];
