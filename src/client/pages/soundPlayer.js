@@ -15,7 +15,7 @@ function getMainWindow() {
     const mw = document.getElementById( 'main-window' );
     const styles = window.getComputedStyle( mw );
 
-    return new WebWindow( 'BART Info',
+    return new WebWindow( 'Sound Maker',
         styles.offsetLeft,
         styles.offsetTop,
         styles.offsetWidth,
@@ -27,7 +27,7 @@ async function doOnLoadStuff() {
 
     getMainWindow();
  
-    window.MakeSound = MakeSound;
+    window.soundPlayer = new MakeSound();
 
 
 }
