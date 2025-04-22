@@ -1,11 +1,11 @@
 import "@babel/runtime/regenerator";
 
-import selector from '/js/client/dom/selector';
+//import selector from '/js/client/dom/selector';
 import * as events from '/js/client/dom/events';
-import * as dom from '/jsclient/dom/DOM';
+//import * as dom from '/jsclient/dom/DOM';
 
 import {
-	MakeSound
+    MakeSound
 } from '/js/client/midi/sounds.js';
 
 // window
@@ -25,6 +25,9 @@ function getMainWindow() {
 
 async function doOnLoadStuff() {
 
+    getMainWindow();
+ 
+    window.MakeSound = MakeSound;
 
 
 }

@@ -32,6 +32,7 @@ module.exports = {
         "textEditor": "./src/client/pages/textEditor",
         "rssEditor": "./src/client/pages/rssEditor",
         "webEditor": "./src/client/pages/webEditor",
+        "soundPlayer": "./src/client/pages/soundPlayer",
         // deprecated?
         "emailForm": "./src/client/pages/emailForm",
         "emailThankYou": "./src/client/pages/emailThankYou",

@@ -41,7 +41,8 @@
         "beforeAll": true,
         "afterEach": true,
         "beforeEach": true,
-        "requestAnimationFrame": true
+        "requestAnimationFrame": true,
+        "AudioContext": true
     },
 
     "rules": {
