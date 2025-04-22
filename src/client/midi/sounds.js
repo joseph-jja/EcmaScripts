@@ -32,22 +32,27 @@ export class MakeSound {
 
     setNote( waveform, note, octave ) {
     	
-    	const oscillator = this.getOscillator(waveform);
+    	  const oscillator = this.getOscillator(waveform);
+    	  const gainNode = this.audioContext.createGain();
     	
         // Set the frequency of the oscillator (in Hz)
         oscillator.frequency.value = this.getFrequenceOfNote( note, octave );
 
         // Connect the oscillator to the audio context destination (speakers)
         oscillator.connect( this.audioContext.destination );
+        gainNode.connect(this.audioContext.destination);
         
-        return oscillator;
+        return { oscillator, gainNode };
     }
 
-    playNote( oscillator, duration ) {
-        // Start the oscillator
-        oscillator.start();
-        setTimeout( () => {
-            oscillator.stop();
-        }, duration );
+    playNotes( notes = [], duration ) {
+    	
+    	  notes.forEach( note => {
+    	  	   const { oscillator, gainNode } = note;
+            oscillator.start();
+  		      gainNode.gain.setValueAtTime(duration, this.audioContext.currentTime);
+  		      gainNode.gain.exponentialRampToValueAtTime(0.0001, this.audioContext.currentTime + duration);
+            oscillator.stop(this.audioContext.currentTime + duration);
+    	  });
     }
 }
