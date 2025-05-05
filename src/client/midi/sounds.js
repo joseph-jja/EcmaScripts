@@ -19,7 +19,7 @@ export class MakeSound {
 
     getFrequenceOfNote( note = 'A', octave = 4 ) {
 
-        const noteValue = note.toUpperCase();
+        const noteValue = note[0].toUpperCase() + (note[1] ? note[1].toLowerCase() : '');
         const realNote = EQUIVALENT_MUSICAL_NOTES[ noteValue ] || noteValue;
 
         const noteFrequencies = MUSICAL_NOTES[ realNote ];
