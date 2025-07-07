@@ -245,6 +245,7 @@ events.addOnLoad( async function () {
         switch ( item ) {
         case 'resume':
             loadResume();
+            break;
         case 'fish':
             mwtitle.innerHTML = 'Fish Information';
             startFishInfo();
