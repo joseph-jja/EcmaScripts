@@ -5,7 +5,7 @@ import {
     divide
 } from '/js/utils/mathFunctions';
 
-import AstronomyMathUtilitiesInstance from '/js//client/components/space/AstronomyMathUtilitiess';
+import AstronomyMathUtilitiesInstance from '/js//client/components/space/AstronomyMathUtilities';
 
 class AstronomyDateUtilities {
 
