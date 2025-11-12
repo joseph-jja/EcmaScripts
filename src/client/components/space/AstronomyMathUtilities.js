@@ -67,6 +67,21 @@ class AstronomyMathUtilities {
         const LST = add(GMST, lon); // LST in degrees
         const LSTRad = divide(multiply(LST, Math.PI), 180);
 
+        // Calculate Declination (Dec)
+        const sinDec = add(multiply(Math.sin(altRad), Math.sin(latRad)), multiply(Math.cos(altRad), Math.cos(latRad), Math.cos(azRad)));
+        const decRad = Math.asin(sinDec);
+        const dec = divide(multiply(decRad, 180), Math.PI); // Convert back to degrees
+
+        // Calculate Hour Angle (HA)
+        const cosHA = divide(subtract(Math.sin(altRad), multiply( Math.sin(latRad), Math.sin(decRad))), multiply(Math.cos(latRad), Math.cos(decRad)));
+        let HRad = Math.acos(cosHA);
+
+        // Determine the sign of HA based on Azimuth
+        if (Math.sin(azRad) > 0) {
+            HRad = -HRad;
+        }
+        const H =divide(multiply(HRad, 180), Math.PI); // Convert back to degrees
+
     }
 }
 
