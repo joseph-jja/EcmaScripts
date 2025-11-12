@@ -5,7 +5,9 @@ import {
     divide
 } from '/js/utils/mathFunctions';
 
-class DateUtilities {
+import AstronomyMathUtilitiesInstance from '/js//client/components/space/AstronomyMathUtilitiess';
+
+class AstronomyDateUtilities {
 
     // takes new Date() object
     toUTC( d ) {
@@ -49,7 +51,7 @@ class DateUtilities {
 
     // takes output of toGMST and longitude called internal
     gmstToLST( d, longitude ) {
-        return multiply( 24, DateUtilities.getFraction( divide( add( d, divide( longitude, 15 ) ), 24 ) ) );
+        return multiply( 24, AstronomyMathUtilitiesInstance.getFraction( divide( add( d, divide( longitude, 15 ) ), 24 ) ) );
     }
 
     isDST( now ) {
@@ -72,10 +74,10 @@ class DateUtilities {
         const D = subtract( julianDate, 2451545.0 ); // calculate number of days since January 1, 2000 at 12:00 UT
         const UT = add( now.getUTCHours(), divide( now.getUTCMinutes(), 60 ), divide( now.getUTCSeconds(), 3600 ) ); // calculate Universal Time
         const GMST = add( 6.697374558, multiply( 0.06570982441908, D ), multiply( 1.00273790935, UT ) ); // calculate Greenwich Mean Sidereal Time
-        const LST = DateUtilities.getFraction( divide( add( GMST, divide( longitude, 15 ) ), 24 ) ); // calculate local sidereal time
+        const LST = AstronomyMathUtilitiesInstance.getFraction( divide( add( GMST, divide( longitude, 15 ) ), 24 ) ); // calculate local sidereal time
         return multiply( 24, LST ); // adjust for negative values
     }
 }
 
-const DateUtilitiesInstance = new DateUtilities();
-export default DateUtilitiesInstance;
+const AstronomyDateUtilitiesInstance = new AstronomyDateUtilities();
+export default AstronomyDateUtilitiesInstance;
