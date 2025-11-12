@@ -4,7 +4,7 @@ import {
     multiply,
     divide
 } from '/js/utils/mathFunctions';
-import AstronomyMathUtilitiesInstance from '/js//client/components/space/AstronomyMathUtilitiess';
+import AstronomyMathUtilitiesInstance from '/js//client/components/space/AstronomyMathUtilities';
 import AstronomyDateUtilitiesInstance from '/js//client/components/space/AstronomyDateUtilities';
 
 // some of this code was taken from takahashi-europe.com minified code
