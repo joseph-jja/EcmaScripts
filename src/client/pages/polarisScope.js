@@ -4,10 +4,8 @@ import {
 
 import WebWindow from 'client/components/wbWindow';
 import * as canvas from 'client/components/canvas';
-import {
-    PolarScopeUtilitiesInstance,
-    PolarisCalculatorInstance
-} from 'client/components/space/PolarScopeCalculator';
+import AstronomyMathUtilitiesInstance from 'client/components/space/AstronomyMathUtilities';
+import PolarisCalculatorInstance from 'client/components/space/PolarScopeCalculator';
 
 import PolarScope from 'client/components/space/PolarScope';
 
@@ -118,8 +116,8 @@ function getFields() {
     const decMinutes = ( decMinutesObj && !isNaN( parseInt( decMinutesObj ) ) ? decMinutesObj : declinationDefault[ 1 ] );
     const decSeconds = ( decSecondsObj && !isNaN( parseInt( decSecondsObj ) ) ? decSecondsObj : declinationDefault[ 2 ] );
 
-    const declination = PolarScopeUtilitiesInstance.hourAngleToDegrees( decHours, decMinutes, decSeconds );
-    const rightAssention = PolarScopeUtilitiesInstance.hourAngleToDegrees( raHours, raMinutes, raSeconds );
+    const declination = AstronomyMathUtilitiesInstance.hourAngleToDegrees( decHours, decMinutes, decSeconds );
+    const rightAssention = AstronomyMathUtilitiesInstance.hourAngleToDegrees( raHours, raMinutes, raSeconds );
 
     return {
         latitude,
@@ -262,21 +260,21 @@ function updateHourAngle() {
     // second is internally calculated
     const hourAnglePolaris = ( polarSP24H ? polarSP24H.userDefinedHourAngle : 0 );
     const plusHourAnglePolaris = ( polarSP24H ? polarSP24H.hourAngle : 0 );
-    const clockTime = PolarScopeUtilitiesInstance.hoursMinutesSeconds( hourAnglePolaris );
-    const clockTimePlus = PolarScopeUtilitiesInstance.hoursMinutesSeconds( plusHourAnglePolaris );
+    const clockTime = AstronomyMathUtilitiesInstance.hoursMinutesSeconds( hourAnglePolaris );
+    const clockTimePlus = AstronomyMathUtilitiesInstance.hoursMinutesSeconds( plusHourAnglePolaris );
 
     // this is using alt method to do calculations for LST 
     const {
         ha
     } = PolarisCalculatorInstance.getPolarisHA( now, latitude, longitude, longitude );
-    const clockTimeHA = PolarScopeUtilitiesInstance.hoursMinutesSeconds( ha );
+    const clockTimeHA = AstronomyMathUtilitiesInstance.hoursMinutesSeconds( ha );
 
     const displaySix = ( inVal ) => {
         return Number( inVal ).toFixed( 6 );
     };
 
     if ( isDefaultRA ) {
-        window.canvasRef.addtext( 50, 20, `Using corrected RA, Dec values: ${PolarScopeUtilitiesInstance.hoursMinutesSeconds(PolarisCalculatorInstance.correctedRA)} / ${PolarScopeUtilitiesInstance.hoursMinutesSeconds(PolarisCalculatorInstance.correctedDEC)}`, {
+        window.canvasRef.addtext( 50, 20, `Using corrected RA, Dec values: ${AstronomyMathUtilitiesInstance.hoursMinutesSeconds(PolarisCalculatorInstance.correctedRA)} / ${AstronomyMathUtilitiesInstance.hoursMinutesSeconds(PolarisCalculatorInstance.correctedDEC)}`, {
             color: 'red'
         } );
         window.canvasRef.addtext( 50, 40, `Polaris hour angle: ${displaySix(plusHourAnglePolaris)} alt calculation: ${displaySix(ha)} `, {
@@ -286,7 +284,7 @@ function updateHourAngle() {
             color: 'red'
         } );
     } else {
-        window.canvasRef.addtext( 50, 20, `Using User Defined RA, Dec: ${PolarScopeUtilitiesInstance.hoursMinutesSeconds(rightAssention)} / ${PolarScopeUtilitiesInstance.hoursMinutesSeconds(declination)}`, {
+        window.canvasRef.addtext( 50, 20, `Using User Defined RA, Dec: ${AstronomyMathUtilitiesInstance.hoursMinutesSeconds(rightAssention)} / ${AstronomyMathUtilitiesInstance.hoursMinutesSeconds(declination)}`, {
             color: 'red'
         } );
         window.canvasRef.addtext( 50, 40, `Polaris hour angle: ${displaySix(plusHourAnglePolaris)} alt calculation: ${displaySix(ha)} `, {
