@@ -67,7 +67,7 @@ class AstronomyMathUtilities {
 
         // Calculate Local Sidereal Time (LST)
         const LST = add(GMST, lon); // LST in degrees
-        const LSTRad = divide(multiply(LST, Math.PI), 180);
+        //const LSTRad = divide(multiply(LST, Math.PI), 180);
 
         // Calculate Declination (Dec)
         const sinDec = add(multiply(Math.sin(altRad), Math.sin(latRad)), multiply(Math.cos(altRad), Math.cos(latRad), Math.cos(azRad)));
