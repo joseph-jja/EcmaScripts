@@ -6,6 +6,8 @@ import {
     degreesToRadians
 } from '/js/utils/mathFunctions';
 
+const JD_J2000  = 2451545.0;
+
 class AstronomyMathUtilities {
 
     // degrees to hour angle
