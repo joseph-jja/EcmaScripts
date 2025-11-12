@@ -2,7 +2,8 @@ import {
     add,
     subtract,
     multiply,
-    divide
+    divide,
+    degreesToRadians
 } from '/js/utils/mathFunctions';
 
 class AstronomyMathUtilities {
@@ -44,6 +45,28 @@ class AstronomyMathUtilities {
         const decimals = subtract( num, Math.floor( num ) );
         // we want positive number
         return ( decimals < 0 ? add( decimals, 1 ) : decimals );
+    }
+
+    altAzToRaDec(alt, az, lat, lon, jd) {
+        // Convert degrees to radians
+        const altRad = degreesToRadians(alt);
+        const azRad = degreesToRadians(az);
+        const latRad = degreesToRadians(lat);
+
+        // Calculate Greenwich Sidereal Time (GST)
+        // This is a simplified calculation; for higher precision, a more detailed algorithm is needed.
+        // jd: Julian Date
+        const T = divide(subtract(jd, JD_J2000), 36525); // Centuries from J2000.0
+        let GMST = subtract(add(280.46061837, multiply(360.98564736629, subtract(jd, JD_J2000)),  multiply(0.000387933, T, T)), divide(multiply(T, T, T), 38710000));
+        GMST = GMST % 360; // Ensure it's within 0-360 degrees
+        if (GMST < 0) {
+            GMST = add(GMST, 360);
+        }
+
+        // Calculate Local Sidereal Time (LST)
+        const LST = add(GMST, lon); // LST in degrees
+        const LSTRad = divide(multiply(LST, Math.PI), 180);
+
     }
 }
 
