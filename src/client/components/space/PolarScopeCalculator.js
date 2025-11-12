@@ -4,6 +4,7 @@ import {
     multiply,
     divide
 } from '/js/utils/mathFunctions';
+import DateUtilities from '/js//client/components/space/DateUtilities';
 
 // some of this code was taken from takahashi-europe.com minified code
 // unminfied and redone to make some sense 
@@ -61,8 +62,6 @@ class PolarScopeUtilities {
     }
 }
 
-const PolarScopeUtilitiesInstance = new PolarScopeUtilities();
-
 class PolarScopeDateUtilities {
 
     // takes new Date() object
@@ -107,7 +106,7 @@ class PolarScopeDateUtilities {
 
     // takes output of toGMST and longitude called internal
     gmstToLST( d, longitude ) {
-        return multiply( 24, PolarScopeUtilitiesInstance.getFraction( divide( add( d, divide( longitude, 15 ) ), 24 ) ) );
+        return multiply( 24, DateUtilities.getFraction( divide( add( d, divide( longitude, 15 ) ), 24 ) ) );
     }
 
     isDST( now ) {
@@ -130,7 +129,7 @@ class PolarScopeDateUtilities {
         const D = subtract( julianDate, 2451545.0 ); // calculate number of days since January 1, 2000 at 12:00 UT
         const UT = add( now.getUTCHours(), divide( now.getUTCMinutes(), 60 ), divide( now.getUTCSeconds(), 3600 ) ); // calculate Universal Time
         const GMST = add( 6.697374558, multiply( 0.06570982441908, D ), multiply( 1.00273790935, UT ) ); // calculate Greenwich Mean Sidereal Time
-        const LST = PolarScopeUtilitiesInstance.getFraction( divide( add( GMST, divide( longitude, 15 ) ), 24 ) ); // calculate local sidereal time
+        const LST = DateUtilities.getFraction( divide( add( GMST, divide( longitude, 15 ) ), 24 ) ); // calculate local sidereal time
         return multiply( 24, LST ); // adjust for negative values
     }
 }
@@ -187,7 +186,7 @@ class PolarScopeCalculator {
                 this.correctedDEC = subtract( -180, this.correctedDEC );
                 this.correctedRA = add( this.correctedRA, 12 );
             }
-            this.correctedRA = PolarScopeUtilitiesInstance.mapTo24Hour( this.correctedRA );
+            this.correctedRA = DateUtilities.mapTo24Hour( this.correctedRA );
         }
     }
 
@@ -246,7 +245,7 @@ class PolarScopeCalculator {
 const PolarisCalculatorInstance = new PolarScopeCalculator();
 
 export {
-    PolarScopeUtilitiesInstance,
+    DateUtilities,
     PolarScopeDateUtilitiesInstance,
     PolarisCalculatorInstance
 };
