@@ -8,9 +8,7 @@ import {
     Star
 } from '/js/client/components/space/celestialBody';
 
-import {
-    PolarisCalculatorInstance
-} from '/js/client/components/space/PolarScopeCalculator';
+import PolarisCalculatorInstance from '/js/client/components/space/PolarScopeCalculator';
 
 const doPolarMath = ( now, latitude, longitude, rightAssention ) => {
     const {
