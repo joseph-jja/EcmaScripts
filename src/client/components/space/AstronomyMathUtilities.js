@@ -82,6 +82,16 @@ class AstronomyMathUtilities {
         }
         const H =divide(multiply(HRad, 180), Math.PI); // Convert back to degrees
 
+        // Calculate Right Ascension (RA)
+        let RA = subtract(LST, H);
+        if (RA < 0) {
+            RA = add(RA, 360);
+        }
+        if (RA >= 360) {
+            RA = subtract(RA, 360);
+        }
+    
+        return { ra: RA, dec: dec };
     }
 }
 
