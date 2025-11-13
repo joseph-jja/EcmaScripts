@@ -26,7 +26,7 @@ class AstronomyMathUtilities {
             minutes = 0;
             hours++;
         }
-        if (hours >= 24) {
+        if (modHours && hours >= 24) {
             hours = hours % 24;
         }
         return `${ hours }:${ this.pad( minutes ) }:${ this.pad( seconds ) }`;
