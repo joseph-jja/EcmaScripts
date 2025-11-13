@@ -20,7 +20,8 @@ class AstronomyDateUtilities {
             date: localTime.getUTCDate(),
             hours: localTime.getUTCHours(),
             minutes: localTime.getUTCMinutes(),
-            seconds: localTime.getUTCSeconds()
+            seconds: localTime.getUTCSeconds(),
+            milliseconds: localTime.getUTCMilliseconds()
         };
     }
 
@@ -32,8 +33,7 @@ class AstronomyDateUtilities {
             date,
             hours,
             minutes,
-            seconds,
-            milliseconds
+            seconds
         } = utcDate;
         let n = add( month, 1 ),
             r = year,
