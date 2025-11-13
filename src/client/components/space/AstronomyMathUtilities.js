@@ -14,8 +14,12 @@ class AstronomyMathUtilities {
         hours = ( hours < 0 ? add( 24, hours ) : hours );
         hours = ( hours > 24 ? hours % 24 : hours );
 
-        const minutes = this.pad( Math.floor( multiply( 60, this.getFraction( degrees ) ) ) );
-        const seconds = this.pad( Math.round( multiply( 60, subtract( multiply( 60, this.getFraction( degrees ) ), minutes ) ) ) );
+        const degreesFraction = this.getFraction( degrees );
+        const fractionTimesSixty = multiply( 60, degreesFraction );
+        
+
+        const minutes = this.pad( Math.floor( fractionTimesSixty ) );
+        const seconds = this.pad( Math.round( multiply( 60, subtract( fractionTimesSixty, minutes ) ) ) );
 
         return `${ hours }:${ minutes }:${ seconds }`;
     }
