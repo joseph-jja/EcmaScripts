@@ -32,7 +32,7 @@ export default function altAzToRaDec(alt, az, lat, lon, localTime) {
     const hourAngleR = divide(subtract(sinAlt, multiply(sinLat, sinDec)), multiply(cosLat, cosDecR));
     const hourAngle = Math.asin(hourAngleR);
 
-    const dec = add(radiansToDegrees(decR), 0);//0.6666666666666666);
+    const dec = radiansToDegrees(decR)
     const ra = add(subtract(lst, hourAngle), 0);
   
     return {
