@@ -27,7 +27,7 @@ class PolarScopeCalculator {
     // calculate offset of Polaris 
     // OMG crazy maths
     precessionCorrection( e, latitude ) {
-        let t = AstronomyDateUtilitiesInstance.toJulien( e ),
+        let t = AstronomyDateUtilitiesInstance.toJulian( e ),
             n = Polaris.RightAscension,
             r = Polaris.Declination;
 
