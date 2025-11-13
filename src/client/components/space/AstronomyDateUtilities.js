@@ -12,15 +12,6 @@ const MS_PER_DAY = 86400000;
 
 class AstronomyDateUtilities {
 
-    // another method of calculating julian date
-    // takes new Date() object
-    toJulian2( localTime ) {
-        const timeSinceJ2000Inms = subtract(localTime.getTime(), J2000_EPOCH_MS);
-        const daysSinceJ2000 = divide(timeSinceJ2000Inms, MS_PER_DAY);
-        const julianDate = add(JULIAN_DATE_J2000, daysSinceJ2000);
-        return julianDate;
-    }
-    
     // takes new Date() object
     toUTC( localTime ) {
         return {
@@ -50,6 +41,15 @@ class AstronomyDateUtilities {
         return ( n <= 2 && ( n, r ), p, s );
     }
 
+    // another method of calculating julian date
+    // takes new Date() object
+    toJulian2( localTime ) {
+        const timeSinceJ2000Inms = subtract(localTime.getTime(), J2000_EPOCH_MS);
+        const daysSinceJ2000 = divide(timeSinceJ2000Inms, MS_PER_DAY);
+        const julianDate = add(JULIAN_DATE_J2000, daysSinceJ2000);
+        return julianDate;
+    }
+    
     // takes output of toJulian called internal
     toGMST( d ) {
         const r = subtract( d, 2400000.5 );
