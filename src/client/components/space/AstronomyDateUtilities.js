@@ -4,11 +4,22 @@ import {
     multiply,
     divide
 } from '/js/utils/mathFunctions';
-
 import AstronomyMathUtilitiesInstance from '/js//client/components/space/AstronomyMathUtilities';
+
+const J2000_EPOCH_MS = Date.UTC(2000, 0, 1, 12, 0, 0, 0); // Month is 0-indexed (0=Jan)
+const JULIAN_DATE_J2000 = 2451545.0;
+const MS_PER_DAY = 86400000;
 
 class AstronomyDateUtilities {
 
+    // another method of calculating julien date
+    localTimeToJulienDate( local ) {
+        const timeSinceJ2000Inms = local.getTime() - J2000_EPOCH_MS;
+        const daysSinceJ2000 = timeSinceJ2000Inms / MS_PER_DAY;
+        const julianDate = JULIAN_DATE_J2000 + daysSinceJ2000;
+        return julianDate;
+    }
+    
     // takes new Date() object
     toUTC( d ) {
         return {
@@ -23,7 +34,6 @@ class AstronomyDateUtilities {
 
     // takes output of toUTC called internal
     toJulien( d ) {
-        //    const julianDate = ( now.getTime() / 86400000 ) + 2440587.5;
         const t = d.date;
         let n = add( d.month, 1 ),
             r = d.year,
