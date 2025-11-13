@@ -25,11 +25,19 @@ class AstronomyDateUtilities {
     }
 
     // takes output of toUTC called internal
-    toJulian( d ) {
-        const t = d.date;
-        let n = add( d.month, 1 ),
-            r = d.year,
-            i = add( d.hours, divide( d.minutes, 60 ), divide( d.seconds, 3600 ) ); // universal time
+    toJulian( utcDate ) {
+        const {
+            year,
+            month,
+            date,
+            hours,
+            minutes,
+            seconds,
+            milliseconds
+        } = utcDate;
+        let n = add( month, 1 ),
+            r = year,
+            i = add( hours, divide( minutes, 60 ), divide( seconds, 3600 ) ); // universal time
         if ( n <= 2 ) {
             n = add( n, 12 );
             r = subtract( r, 1 );
@@ -37,7 +45,7 @@ class AstronomyDateUtilities {
         const p = Math.floor( divide( r, 100 ) );
         const q = Math.floor( multiply( 365.25, add( r, 4716 ) ) );
         const u = Math.floor( multiply( 30.6001, add( n, 1 ) ) );
-        const s = add( subtract( subtract( add( q, u, t ), 13 ), 1524.5 ), divide( i, 24 ) );
+        const s = add( subtract( subtract( add( q, u, date ), 13 ), 1524.5 ), divide( i, 24 ) );
         return ( n <= 2 && ( n, r ), p, s );
     }
 
