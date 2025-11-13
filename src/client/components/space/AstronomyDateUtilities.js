@@ -51,7 +51,8 @@ class AstronomyDateUtilities {
 
     // another method of calculating julian date
     // takes new Date() object
-    toJulian2( localTime ) {
+    // takes local time
+    toJulianLT( localTime ) {
         const timeSinceJ2000Inms = subtract(localTime.getTime(), J2000_EPOCH_MS);
         const daysSinceJ2000 = divide(timeSinceJ2000Inms, MS_PER_DAY);
         const julianDate = add(JULIAN_DATE_J2000, daysSinceJ2000);
