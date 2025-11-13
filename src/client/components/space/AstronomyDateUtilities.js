@@ -69,6 +69,19 @@ class AstronomyDateUtilities {
         return add( 6.697374558, multiply( 24, subtract( r, n ), 1.0027379093 ), v );
     }
 
+    // takes output of toJulien called internal
+    // TODO fix me
+    toGMST2( d ) {
+        const jdutc = subtract( d, JULIAN_DATE_J2000 ); // Julian date since j2000 
+        const t = divide( jdutc, 36525 );  // Julian Centuries since J2000
+        const tSquare = multiply(Math.pow(t, 2), 0.000387933);
+        const tCube = divide(Math.pow(t, 3), 38710000);
+        const jdate360 = multiply(jdutc, 360.98564736629)
+        const theta = subtract(add(280.46061837, jdate360, tSquare), tCube);
+        const gmstDegrees = theta % 360;
+        return gmstDegrees;
+    }
+
     // takes output of toGMST and longitude called internal
     // Greenwich Mean Sidereal Time
     gmstToLST( d, longitude ) {
