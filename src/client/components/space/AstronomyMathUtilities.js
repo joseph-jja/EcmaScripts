@@ -2,8 +2,7 @@ import {
     add,
     subtract,
     multiply,
-    divide,
-    degreesToRadians
+    divide
 } from '/js/utils/mathFunctions';
 
 class AstronomyMathUtilities {
@@ -17,7 +16,6 @@ class AstronomyMathUtilities {
         const degreesFraction = this.getFraction( degrees );
         const fractionTimesSixty = multiply( 60, degreesFraction );
         
-
         const minutes = this.pad( Math.floor( fractionTimesSixty ) );
         const seconds = this.pad( Math.round( multiply( 60, subtract( fractionTimesSixty, minutes ) ) ) );
 
