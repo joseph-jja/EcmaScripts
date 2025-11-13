@@ -12,23 +12,23 @@ const MS_PER_DAY = 86400000;
 
 class AstronomyDateUtilities {
 
-    // another method of calculating julien date
-    localTimeToJulianDate( local ) {
-        const timeSinceJ2000Inms = subtract(local.getTime(), J2000_EPOCH_MS);
+    // another method of calculating julian date
+    toJulian2( localTime ) {
+        const timeSinceJ2000Inms = subtract(localTime.getTime(), J2000_EPOCH_MS);
         const daysSinceJ2000 = divide(timeSinceJ2000Inms, MS_PER_DAY);
         const julianDate = add(JULIAN_DATE_J2000, daysSinceJ2000);
         return julianDate;
     }
     
     // takes new Date() object
-    toUTC( d ) {
+    toUTC( localTime ) {
         return {
-            year: d.getUTCFullYear(),
-            month: d.getUTCMonth(),
-            date: d.getUTCDate(),
-            hours: d.getUTCHours(),
-            minutes: d.getUTCMinutes(),
-            seconds: d.getUTCSeconds()
+            year: localTime.getUTCFullYear(),
+            month: localTime.getUTCMonth(),
+            date: localTime.getUTCDate(),
+            hours: localTime.getUTCHours(),
+            minutes: localTime.getUTCMinutes(),
+            seconds: localTime.getUTCSeconds()
         };
     }
 
