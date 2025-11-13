@@ -5,6 +5,7 @@ import {
     divide
 } from '/js/utils/mathFunctions';
 import AstronomyDateUtilitiesInstance from '/js//client/components/space/AstronomyDateUtilities';
+import AstronomyMathUtilitiesInstance from '/js//client/components/space/AstronomyMathUtilities';
 
 // some of this code was taken from takahashi-europe.com minified code
 // unminfied and redone to make some sense 
@@ -71,7 +72,7 @@ class PolarScopeCalculator {
                 this.correctedDEC = subtract( -180, this.correctedDEC );
                 this.correctedRA = add( this.correctedRA, 12 );
             }
-            this.correctedRA = AstronomyDateUtilitiesInstance.mapTo24Hour( this.correctedRA );
+            this.correctedRA = AstronomyMathUtilitiesInstance.mapTo24Hour( this.correctedRA );
         }
     }
 
