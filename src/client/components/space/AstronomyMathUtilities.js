@@ -8,18 +8,28 @@ import {
 class AstronomyMathUtilities {
 
     // degrees to hour angle
-    hoursMinutesSeconds( degrees ) {
+    hoursMinutesSeconds( degrees, modHours = true ) {
         let hours = Math.floor( degrees );
         hours = ( hours < 0 ? add( 24, hours ) : hours );
-        hours = ( hours > 24 ? hours % 24 : hours );
+        hours = ( modHours && hours > 24 ? hours % 24 : hours );
 
         const degreesFraction = this.getFraction( degrees );
         const fractionTimesSixty = multiply( 60, degreesFraction );
         
-        const minutes = this.pad( Math.floor( fractionTimesSixty ) );
-        const seconds = this.pad( Math.round( multiply( 60, subtract( fractionTimesSixty, minutes ) ) ) );
-
-        return `${ hours }:${ minutes }:${ seconds }`;
+        let minutes = Math.floor( fractionTimesSixty );
+        let seconds = Math.round( multiply( 60, subtract( fractionTimesSixty, minutes ) ) );
+        if (seconds >= 60) {
+            seconds = 0;
+            minutes++;
+        }
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+        if (hours >= 24) {
+            hours = hours % 24;
+        }
+        return `${ hours }:${ this.pad( minutes ) }:${ this.pad( seconds ) }`;
     }
 
     // takes hour angle and converts to degrees
