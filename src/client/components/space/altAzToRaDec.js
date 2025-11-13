@@ -10,16 +10,30 @@ import AstronomyDateUtilitiesInstance from '/js//client/components/space/Astrono
 // alt, az, lat, long are in degrees
 export default function altAzToRaDec(alt, az, lat, lon, localTime) {
 
-    const lst = AstronomyDateUtilitiesInstance.calculateLST(localTime, lon);
-    const lstt = AstronomyDateUtilitiesInstance.utcToLST(AstronomyDateUtilitiesInstance.toUTC(localTime), lon);
+    // more accurate method
+    const utcTime = AstronomyDateUtilitiesInstance.toUTC(localTime);
+    const lst = AstronomyDateUtilitiesInstance.utcToLST(utcTime, lon);
 
-    const sinDec = add(multiply(Math.sin(alt), Math.sin(lat)), multiply(Math.cos(alt), Math.cos(lat), Math.cos(az)));
-    const hourAngleRad = divide(subtract(Math.sin(alt), multiply(Math.sin(lat), sinDec)), multiply(Math.cos(lat), Math.cos(az)));
+    // need radians
+    const latR = degreesToRadians(lat);
+    const longR = degreesToRadians(lon);
+    const azR = degreesToRadians(az);
+    const altR = degreesToRadians(alt);
+    
+    const sinLat = Math.sin(latR);
+    const cosLat = Math.cos(latR);
+    const sinAlt = Math.sin(altR);
+    const cosAlt = Math.cos(altR);
+    const cosAz = Math.cos(azR);
 
-    const dec = Math.asin(sinDec);
-    const hourAngle = Math.asin(hourAngleRad);
+    const sinDec = add(multiply(sinAlt, sinLat), multiply(cosAlt, cosLat, cosAz));
+    const decR = Math.asin(sinDec);
+    const cosDecR = Math.cos(decR);
+    const hourAngleR = divide(subtract(sinAlt, multiply(sinLat, sinDec)), multiply(cosLat, cosDecR));
+    const hourAngle = Math.asin(hourAngleR);
 
-    const ra = subtract(lst, hourAngle);
+    const dec = add(radiansToDegrees(decR), 0);//0.6666666666666666);
+    const ra = add(subtract(lst, hourAngle), 0);
   
     return {
         dec,
