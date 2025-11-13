@@ -105,7 +105,7 @@ class AstronomyDateUtilities {
     calculateLST( now, longitude ) {
 
         const julianDate = add( divide( now.getTime(), 86400000 ), 2440587.5 );
-        const D = subtract( julianDate, 2451545.0 ); // calculate number of days since January 1, 2000 at 12:00 UT
+        const D = subtract( julianDate, JULIAN_DATE_J2000 ); // calculate number of days since January 1, 2000 at 12:00 UT
         const UT = add( now.getUTCHours(), divide( now.getUTCMinutes(), 60 ), divide( now.getUTCSeconds(), 3600 ) ); // calculate Universal Time
         const GMST = add( 6.697374558, multiply( 0.06570982441908, D ), multiply( 1.00273790935, UT ) ); // calculate Greenwich Mean Sidereal Time
         const LST = AstronomyMathUtilitiesInstance.getFraction( divide( add( GMST, divide( longitude, 15 ) ), 24 ) ); // calculate local sidereal time
