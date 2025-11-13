@@ -49,7 +49,7 @@ class AstronomyDateUtilities {
         return ( n <= 2 && ( n, r ), p, s );
     }
 
-    // takes output of toJulien called internal
+    // takes output of toJulian called internal
     toGMST( d ) {
         const r = subtract( d, 2400000.5 );
         const n = Math.floor( r );
@@ -73,7 +73,7 @@ class AstronomyDateUtilities {
 
     // calcualte LST
     utcToLST( d, longitude ) {
-        const n = this.toJulien( d ),
+        const n = this.toJulian( d ),
             r = this.toGMST( n );
         return this.gmstToLST( r, longitude );
     }
