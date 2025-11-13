@@ -13,7 +13,7 @@ const MS_PER_DAY = 86400000;
 class AstronomyDateUtilities {
 
     // another method of calculating julien date
-    localTimeToJulienDate( local ) {
+    localTimeToJulianDate( local ) {
         const timeSinceJ2000Inms = subtract(local.getTime(), J2000_EPOCH_MS);
         const daysSinceJ2000 = divide(timeSinceJ2000Inms, MS_PER_DAY);
         const julianDate = add(JULIAN_DATE_J2000, daysSinceJ2000);
@@ -33,7 +33,7 @@ class AstronomyDateUtilities {
     }
 
     // takes output of toUTC called internal
-    toJulien( d ) {
+    toJulian( d ) {
         const t = d.date;
         let n = add( d.month, 1 ),
             r = d.year,
