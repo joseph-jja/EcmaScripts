@@ -8,10 +8,10 @@ import {
 class AstronomyMathUtilities {
 
     // degrees to hour angle
-    hoursMinutesSeconds( degrees, modHours = true ) {
+    hoursMinutesSeconds( degrees ) {
         let hours = Math.floor( degrees );
         hours = ( hours < 0 ? add( 24, hours ) : hours );
-        hours = ( modHours && hours > 24 ? hours % 24 : hours );
+        hours = ( hours > 24 ? hours % 24 : hours );
 
         const degreesFraction = this.getFraction( degrees );
         const fractionTimesSixty = multiply( 60, degreesFraction );
@@ -26,7 +26,7 @@ class AstronomyMathUtilities {
             minutes = 0;
             hours++;
         }
-        if (modHours && hours >= 24) {
+        if (hours >= 24) {
             hours = hours % 24;
         }
         return `${ hours }:${ this.pad( minutes ) }:${ this.pad( seconds ) }`;
