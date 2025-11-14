@@ -2,10 +2,10 @@
     "presets": [
         [ "@babel/preset-env", {
             "targets": {
-                "edge": "100",
-                "chrome": "100",
-                "firefox": "100",
-                "safari": "15"
+                "edge": "130",
+                "chrome": "130",
+                "firefox": "130",
+                "safari": "16"
             }
         } ]
     ],
