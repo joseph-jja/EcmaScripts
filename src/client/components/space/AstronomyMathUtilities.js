@@ -71,6 +71,8 @@ class AstronomyMathUtilities {
     }
 
     // takes hour angle and converts to degrees
+    // converts 280 degrees 11 minutes and 10 seconds 
+    // into decimal format
     degreeHHMMSSToDegrees( hour, minute, seconds ) {
         return add( hour, divide( minute, 60 ), divide( seconds, 3600 ) );
     }
