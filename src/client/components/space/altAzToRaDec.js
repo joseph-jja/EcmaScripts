@@ -15,7 +15,7 @@ export default function altAzToRaDec(alt, az, lat, lon, localTime) {
     const utcTime = AstronomyDateUtilitiesInstance.toUTC(localTime);
     const julianDate = AstronomyDateUtilitiesInstance.toJulian(utcTime);
     const gmst = AstronomyDateUtilitiesInstance.toGMST2(julianDate);
-    const lst = AstronomyDateUtilitiesInstance.gmstToLST2(gmst, lon);
+    const lst = AstronomyDateUtilitiesInstance.gmstToLST2(gmst, lon); 
 
     // need radians
     const latR = degreesToRadians(lat);
@@ -28,15 +28,20 @@ export default function altAzToRaDec(alt, az, lat, lon, localTime) {
     const cosAlt = Math.cos(altR);
     const cosAz = Math.cos(azR);
 
+    // now calculate the declination 
     const sinDec = add(multiply(sinAlt, sinLat), multiply(cosAlt, cosLat, cosAz));
     const decR = Math.asin(sinDec);
     const cosDecR = Math.cos(decR);
-    const hourAngleR = divide(subtract(sinAlt, multiply(sinLat, sinDec)), multiply(cosLat, cosDecR));
-    const hourAngle = radiansToDegrees(Math.asin(hourAngleR));
+    const dec = radiansToDegrees(decR); // this is the dec in degrees xxx.yyyyy
     
-    const dec = radiansToDegrees(decR);
+    const hourAngleR = divide(subtract(sinAlt, multiply(sinLat, sinDec)), multiply(cosLat, cosDecR));
+    let hourAngle = radiansToDegrees(Math.acos(hourAngleR));
+    if (hourAngle < 180) {
+        hourAngle = multiply( -1, hourAngle);
+    }
+
     const ra = subtract(lst, hourAngle);
-  
+    
     return {
         dec,
         ra
