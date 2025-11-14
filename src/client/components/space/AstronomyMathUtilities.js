@@ -7,7 +7,7 @@ import {
 
 class AstronomyMathUtilities {
 
-        raDegreesToHourMinutesSeconds( degrees ) {
+    raDegreesToHourMinutesSeconds( degrees ) {
         // hour angle is 0 to 24 
         const realDegrees = ( degrees < 0 ? add(degrees, 360) : degrees );
         
