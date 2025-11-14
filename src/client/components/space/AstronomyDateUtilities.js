@@ -91,6 +91,13 @@ class AstronomyDateUtilities {
         return multiply( 24, AstronomyMathUtilitiesInstance.getFraction( divide( add( d, divide( longitude, 15 ) ), 24 ) ) );
     }
 
+    // returns lst in decimal hours xxx.yyyyy
+    gmstToLST2( gmst, longitude) {
+        const long = ( longitude < 0 ? add(360, longitude) : longitude );
+        const lst = add(gmst, long); 
+        return divide( lst, 15 );
+    }
+
     isDST( now ) {
         const jan = new Date( now.getFullYear(), 0, 1 ).getTimezoneOffset();
         const jul = new Date( now.getFullYear(), 6, 1 ).getTimezoneOffset();
