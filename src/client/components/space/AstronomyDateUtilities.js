@@ -70,7 +70,9 @@ class AstronomyDateUtilities {
     }
 
     // takes output of toJulien called internal
-    // TODO fix me
+    // this calclates correct GSMT in decimal degree format
+    // calling AstronomyMathUtilitiesInstance
+    // decDegreesToHourMinutesSeconds converts it to hours ptoperly
     toGMST2( d ) {
         const jdutc = subtract( d, JULIAN_DATE_J2000 ); // Julian date since j2000 
         const t = divide( jdutc, 36525 );  // Julian Centuries since J2000
