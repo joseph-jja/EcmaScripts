@@ -98,6 +98,10 @@ class AstronomyDateUtilities {
         return lst;
     }
 
+    lstDecimalToLstDecimalHours( lst ) { 
+        return divide( lst / 15 );
+    }
+
     isDST( now ) {
         const jan = new Date( now.getFullYear(), 0, 1 ).getTimezoneOffset();
         const jul = new Date( now.getFullYear(), 6, 1 ).getTimezoneOffset();
