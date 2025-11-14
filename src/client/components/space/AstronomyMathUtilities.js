@@ -71,7 +71,7 @@ class AstronomyMathUtilities {
     }
 
     // takes hour angle and converts to degrees
-    hourAngleToDegrees( hour, minute, seconds ) {
+    degreeHHMMSSToDegrees( hour, minute, seconds ) {
         return add( hour, divide( minute, 60 ), divide( seconds, 3600 ) );
     }
 

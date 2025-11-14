@@ -116,8 +116,8 @@ function getFields() {
     const decMinutes = ( decMinutesObj && !isNaN( parseInt( decMinutesObj ) ) ? decMinutesObj : declinationDefault[ 1 ] );
     const decSeconds = ( decSecondsObj && !isNaN( parseInt( decSecondsObj ) ) ? decSecondsObj : declinationDefault[ 2 ] );
 
-    const declination = AstronomyMathUtilitiesInstance.hourAngleToDegrees( decHours, decMinutes, decSeconds );
-    const rightAssention = AstronomyMathUtilitiesInstance.hourAngleToDegrees( raHours, raMinutes, raSeconds );
+    const declination = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees( decHours, decMinutes, decSeconds );
+    const rightAssention = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees( raHours, raMinutes, raSeconds );
 
     return {
         latitude,
