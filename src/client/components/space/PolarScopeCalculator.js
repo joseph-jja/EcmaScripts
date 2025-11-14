@@ -4,15 +4,18 @@ import {
     multiply,
     divide
 } from '/js/utils/mathFunctions';
-import {
+import AstronomyDateUtilities from '/js/client/components/space/AstronomyDateUtilities';
+import AstronomyMathUtilities from '/js/client/components/space/AstronomyMathUtilities';
+
+const {
     toUTC,
     utcToLST,
     calculateLST,
     toJulian
-} from '/js/client/components/space/AstronomyDateUtilities';
-import {
+} = AstronomyDateUtilities;
+const {
     mapTo24Hour
-} from '/js/client/components/space/AstronomyMathUtilities';
+} = AstronomyMathUtilities;
 
 // some of this code was taken from takahashi-europe.com minified code
 // unminfied and redone to make some sense 
