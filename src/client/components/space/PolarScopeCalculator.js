@@ -4,8 +4,15 @@ import {
     multiply,
     divide
 } from '/js/utils/mathFunctions';
-import AstronomyDateUtilitiesInstance from '/js//client/components/space/AstronomyDateUtilities';
-import AstronomyMathUtilitiesInstance from '/js//client/components/space/AstronomyMathUtilities';
+import {
+    toUTC,
+    utcToLST,
+    calculateLST,
+    toJulian
+} from '/js/client/components/space/AstronomyDateUtilities';
+import {
+    mapTo24Hour
+} from '/js/client/components/space/AstronomyMathUtilities';
 
 // some of this code was taken from takahashi-europe.com minified code
 // unminfied and redone to make some sense 
@@ -27,7 +34,7 @@ class PolarScopeCalculator {
     // calculate offset of Polaris 
     // OMG crazy maths
     precessionCorrection( e, latitude ) {
-        let t = AstronomyDateUtilitiesInstance.toJulian( e ),
+        let t = toJulian( e ),
             n = Polaris.RightAscension,
             r = Polaris.Declination;
 
@@ -72,15 +79,15 @@ class PolarScopeCalculator {
                 this.correctedDEC = subtract( -180, this.correctedDEC );
                 this.correctedRA = add( this.correctedRA, 12 );
             }
-            this.correctedRA = AstronomyMathUtilitiesInstance.mapTo24Hour( this.correctedRA );
+            this.correctedRA = mapTo24Hour( this.correctedRA );
         }
     }
 
     // from the dot com
     getPolarisHA( now, latitude, longitude ) {
-        const utcNow = AstronomyDateUtilitiesInstance.toUTC( now );
+        const utcNow = toUTC( now );
         this.precessionCorrection( utcNow, latitude );
-        const lst = AstronomyDateUtilitiesInstance.utcToLST( utcNow, longitude );
+        const lst = utcToLST( utcNow, longitude );
         let t = subtract( lst, this.correctedRA );
         if ( latitude < 0 ) {
             if ( t < 0 ) {
@@ -101,10 +108,10 @@ class PolarScopeCalculator {
     getPolarisHourAngle( now, latitude, longitude, rightAssention ) {
 
         // get utc time
-        const utcNow = AstronomyDateUtilitiesInstance.toUTC( now );
+        const utcNow = toUTC( now );
         this.precessionCorrection( utcNow, latitude );
 
-        const localSideRealTime = AstronomyDateUtilitiesInstance.calculateLST( now, longitude );
+        const localSideRealTime = calculateLST( now, longitude );
 
         let hourAnglePolaris = Number( subtract( localSideRealTime, rightAssention ) ).toFixed( 6 );
         let plusHourAnglePolaris = Number( subtract( localSideRealTime, this.correctedRA ) ).toFixed( 6 );
