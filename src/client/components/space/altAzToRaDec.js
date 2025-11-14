@@ -19,7 +19,6 @@ export default function altAzToRaDec(alt, az, lat, lon, localTime) {
 
     // need radians
     const latR = degreesToRadians(lat);
-    const _longR = degreesToRadians(lon);
     const azR = degreesToRadians(az);
     const altR = degreesToRadians(alt);
     
