@@ -7,6 +7,34 @@ import {
 
 class AstronomyMathUtilities {
 
+        raDegreesToHourMinutesSeconds( degrees ) {
+        // hour angle is 0 to 24 
+        const realDegrees = ( degrees < 0 ? add(degrees, 360) : degrees );
+        
+        const hoursFloat = divide( realDegrees, 15 );
+        const hours = Math.floor( hoursFloat );
+        
+        const minutesFloat = multiply( this.getFraction( hoursFloat ), 60 );
+        const minutes = Math.floor( minutesFloat );
+
+        const seconds = +Number( multiply( this.getFraction( minutesFloat ), 60 )).toFixed(2);
+        
+        return { hours, minutes, seconds };
+    }
+
+    decDegreesToHourMinutesSeconds( degrees ) {
+        const realDegrees = degrees;
+    
+        const hours = Math.floor( realDegrees );
+        
+        const minutesFloat = multiply( this.getFraction( realDegrees ), 60 );
+        const minutes = Math.floor( minutesFloat );
+
+        const seconds = +Number( multiply( this.getFraction( minutesFloat ), 60 )).toFixed(2);
+        
+        return { hours, minutes, seconds };
+    }
+
     // degrees to hour angle
     hoursMinutesSeconds( degrees ) {
         let hours = Math.floor( degrees );
