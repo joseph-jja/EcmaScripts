@@ -1,4 +1,4 @@
-import {
+    import {
     add,
     subtract,
     multiply,
@@ -7,8 +7,15 @@ import {
 
 class AstronomyMathUtilities {
 
+    // make this private after upgrading eslint
+    pad( x ) {
+        return `${x}`.padStart( 2, '0' );
+    }
+
+    // ra is special, so this function needs to be used to convert
+    // degrees to hours, minutes, seconds
     raDegreesToHourMinutesSeconds( degrees ) {
-        // hour angle is 0 to 24 
+        // hour angle is 0 to 24? 
         const realDegrees = ( degrees < 0 ? add(degrees, 360) : degrees );
         
         const hoursFloat = divide( realDegrees, 15 );
@@ -22,6 +29,9 @@ class AstronomyMathUtilities {
         return { hours, minutes, seconds };
     }
 
+    // dec, and alt / az are not the same as ra
+    // so this function needs to be used to convert
+    // degrees to hours, minutes, seconds
     decDegreesToHourMinutesSeconds( degrees ) {
         const realDegrees = degrees;
     
@@ -74,10 +84,6 @@ class AstronomyMathUtilities {
             result = subtract( result, multiply( divide( result, 24 ), 24 ) );
         }
         return result;
-    }
-
-    pad( x ) {
-        return `${x}`.padStart( 2, '0' );
     }
 
     getFraction( num ) {
