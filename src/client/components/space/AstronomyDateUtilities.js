@@ -86,6 +86,7 @@ class AstronomyDateUtilities {
 
     // takes output of toGMST and longitude called internal
     // Greenwich Mean Sidereal Time
+    // LST = GMST + (Longitude / 15). 
     gmstToLST( d, longitude ) {
         return multiply( 24, AstronomyMathUtilitiesInstance.getFraction( divide( add( d, divide( longitude, 15 ) ), 24 ) ) );
     }
