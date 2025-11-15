@@ -46,7 +46,8 @@ class AstronomyDateUtilities {
         const q = Math.floor( multiply( 365.25, add( r, 4716 ) ) );
         const u = Math.floor( multiply( 30.6001, add( n, 1 ) ) );
         const s = add( subtract( subtract( add( q, u, date ), 13 ), 1524.5 ), divide( i, 24 ) );
-        return Number( n <= 2 && ( n, r ), p, s ).toFixed(6);
+        const j = (n <= 2 && ( n, r ), p, s)
+        return Number( j ).toFixed(6);
     }
 
     // another method of calculating julian date
