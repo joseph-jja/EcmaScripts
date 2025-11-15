@@ -9,15 +9,6 @@ import PolarisCalculatorInstance from 'client/components/space/PolarScopeCalcula
 
 import PolarScope from 'client/components/space/PolarScope';
 
-// these are to export to play with 
-import altAzToRaDec from '/js/client/components/space/altAzToRaDec';
-import AstronomyMathUtilities from '/js/client/components/space/AstronomyMathUtilities';
-import AstronomyDateUtilities from '/js/client/components/space/AstronomyDateUtilities';
-
-window.AMU = AstronomyMathUtilities;
-window.ADU = AstronomyDateUtilities;
-window.altAzToRaDec = altAzToRaDec;
-
 const DEFAULT_RA = '2:29:48';
 const DEFAULT_DEC = '89:27:48';
 
