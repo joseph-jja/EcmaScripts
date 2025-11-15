@@ -10,6 +10,10 @@ import AstronomyDateUtilitiesInstance from '/js/client/components/space/Astronom
 import AstronomyMathUtilitiesInstance from '/js/client/components/space/AstronomyMathUtilities';
 
 // alt, az, lat, long are in degrees
+// internally this will convert all to radians for the dec/ra calculations
+// it will compute the local sidereal time as well
+// use AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees from AstronomyMathUtilities to convert 
+// HH degree MM minutes SS.S seconds to degrees to pass into this function
 export default function altAzToRaDec(alt, az, lat, lon, localTime) {
 
     // more accurate method
