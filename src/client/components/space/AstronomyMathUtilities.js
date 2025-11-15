@@ -35,7 +35,8 @@ class AstronomyMathUtilities {
     decDegreesToHourMinutesSeconds( degrees ) {
         const realDegrees = degrees;
     
-        const hours = Math.floor( realDegrees );
+        const degreesString = `${realDegrees}`.split('.')[0];
+        const hours = +degreesString;
         
         const minutesFloat = multiply( this.getFraction( realDegrees ), 60 );
         const minutes = Math.floor( minutesFloat );
