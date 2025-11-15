@@ -39,14 +39,14 @@ export default function altAzToRaDec(alt, az, lat, lon, localTime) {
     const hourAngleX = divide( multiply( multiply(-1, sinAz), cosAlt ), cosDecR);
     const hourAngleY = divide( subtract( sinAlt, multiply( sinDec, sinLat ) ),  multiply( cosDecR, cosLat ) );
     let altHourAngle = radiansToDegrees(Math.atan2(hourAngleX, hourAngleY)) % 360;
-    if (altHourAngle < 180) {
+    if (altHourAngle < 0) {
         altHourAngle = multiply( -1, altHourAngle);
     }
-    const raAlt = subtract(lst, altHourAngle);
+    const raAlt = subtract(lst, altHourAngle) * 15;
     
     // calculate hour angle
     const hourAngleR = divide(subtract(sinAlt, multiply(sinLat, sinDec)), multiply(cosLat, cosDecR));
-    let hourAngle = radiansToDegrees(Math.acos(hourAngleR));
+    let hourAngle = radiansToDegrees(Math.acos(hourAngleR)) % 360;
     if (hourAngle < 180) {
         hourAngle = multiply( -1, hourAngle);
     }
