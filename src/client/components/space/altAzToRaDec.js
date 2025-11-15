@@ -27,13 +27,24 @@ export default function altAzToRaDec(alt, az, lat, lon, localTime) {
     const sinAlt = Math.sin(altR);
     const cosAlt = Math.cos(altR);
     const cosAz = Math.cos(azR);
+    const sinAz = Math.sin(azR);
 
     // now calculate the declination 
     const sinDec = add(multiply(sinAlt, sinLat), multiply(cosAlt, cosLat, cosAz));
     const decR = Math.asin(sinDec);
     const cosDecR = Math.cos(decR);
-    const dec = radiansToDegrees(decR); // this is the dec in degrees xxx.yyyyy
+    // this is the dec in degrees xxx.yyyyy
+    const dec = radiansToDegrees(decR); 
+
+    const hourAngleX = divide( multiply( multiply(-1, sinAz), cosAlt ), cosDecR);
+    const hourAngleY = divide( subtract( sinAlt, multiply( sinDec, sinLat ) ),  multiply( cosDecR, cosLat ) );
+    let altHourAngle = radiansToDegrees(Math.atan2(hourAngleX, hourAngleY)) % 360;
+    if (altHourAngle < 180) {
+        altHourAngle = multiply( -1, altHourAngle);
+    }
+    const raAlt = subtract(lst, altHourAngle);
     
+    // calculate hour angle
     const hourAngleR = divide(subtract(sinAlt, multiply(sinLat, sinDec)), multiply(cosLat, cosDecR));
     let hourAngle = radiansToDegrees(Math.acos(hourAngleR));
     if (hourAngle < 180) {
@@ -44,6 +55,7 @@ export default function altAzToRaDec(alt, az, lat, lon, localTime) {
     
     return {
         dec,
-        ra
+        ra,
+        raAlt
     };
 };

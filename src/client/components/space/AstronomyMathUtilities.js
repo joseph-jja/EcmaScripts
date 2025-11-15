@@ -19,7 +19,7 @@ class AstronomyMathUtilities {
         const realDegrees = ( degrees < 0 ? add(degrees, 360) : degrees );
         
         const hoursFloat = divide( realDegrees, 15 );
-        const hours = Math.floor( hoursFloat );
+        const hours = Math.floor( hoursFloat ) % 24;
         
         const minutesFloat = multiply( this.getFraction( hoursFloat ), 60 );
         const minutes = Math.floor( minutesFloat );
