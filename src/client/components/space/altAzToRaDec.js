@@ -6,7 +6,8 @@ import {
     degreesToRadians,
     radiansToDegrees
 } from '/js/utils/mathFunctions';
-import AstronomyDateUtilitiesInstance from '/js//client/components/space/AstronomyDateUtilities';
+import AstronomyDateUtilitiesInstance from '/js/client/components/space/AstronomyDateUtilities';
+import AstronomyMathUtilitiesInstance from '/js/client/components/space/AstronomyMathUtilities';
 
 // alt, az, lat, long are in degrees
 export default function altAzToRaDec(alt, az, lat, lon, localTime) {
@@ -39,27 +40,20 @@ export default function altAzToRaDec(alt, az, lat, lon, localTime) {
     // both these methods of computing hour angle come up with same value
     const hourAngleX = divide( multiply( multiply(-1, sinAz), cosAlt ), cosDecR);
     const hourAngleY = divide( subtract( sinAlt, multiply( sinDec, sinLat ) ),  multiply( cosDecR, cosLat ) );
-    let altHourAngle = radiansToDegrees(Math.atan2(hourAngleX, hourAngleY));
-    
-    const hourAngleR = divide(subtract(sinAlt, multiply(sinLat, sinDec)), multiply(cosLat, cosDecR));
-    let hourAngle = radiansToDegrees(Math.acos(hourAngleR));
+    const hourAngle = radiansToDegrees(Math.atan2(hourAngleX, hourAngleY));
+    // this method is occassionally off 
+    // const hourAngle = radiansToDegrees(divide(subtract(sinAlt, multiply(sinLat, sinDec)), multiply(cosLat, cosDecR)));
 
-    // do we need to have or condition here?
-    if (az > 180) {
-        altHourAngle = multiply( -1, altHourAngle);
-    }
-    if (az > 180 || alt < lat) {
-        hourAngle = multiply( -1, hourAngle);
-    }
-
+    // now compute ra
     const ra = subtract(lst, hourAngle);
-    const raAlt = subtract(lst, altHourAngle);
+
+    const decInHMS = AstronomyMathUtilitiesInstance.decDegreesToHourMinutesSeconds( dec );
+    const raInHMS = AstronomyMathUtilitiesInstance.raDegreesToHourMinutesSeconds( ra );
     
     return {
         dec,
+        decInHMS,
         ra,
-        raAlt,
-        hourAngle,
-        altHourAngle
+        hourAngle
     };
 };
