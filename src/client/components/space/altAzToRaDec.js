@@ -54,6 +54,7 @@ export default function altAzToRaDec(alt, az, lat, lon, localTime) {
         dec,
         decInHMS,
         ra,
+        raInHMS,
         hourAngle
     };
 };
