@@ -4,9 +4,11 @@ import AstronomyMathUtilitiesInstance from '/js/client/components/space/Astronom
 import AstronomyDateUtilitiesInstance from '/js/client/components/space/AstronomyDateUtilities';
 import altAzToRaDec from '/js/client/components/space/altAzToRaDec';
 
-export {
+const AstronomyMath = {
     AMU: AstronomyMathUtilitiesInstance,
     ADU: AstronomyDateUtilitiesInstance,
     altAzToRaDec: altAzToRaDec,
     mathFunctions: mathFunctions
 };
+
+export default AstronomyMath;
