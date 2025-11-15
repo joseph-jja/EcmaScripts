@@ -9,22 +9,13 @@ import {
 import AstronomyDateUtilitiesInstance from '/js//client/components/space/AstronomyDateUtilities';
 
 // alt, az, lat, long are in degrees
-export default function altAzToRaDec(alt, az, lat, lon, localTime) {
+export default  function altAzToRaDec(alt, az, lat, lon, localTime) {
 
     // more accurate method
     const utcTime = AstronomyDateUtilitiesInstance.toUTC(localTime);
     const julianDate = AstronomyDateUtilitiesInstance.toJulian(utcTime);
     const gmst = AstronomyDateUtilitiesInstance.toGMST2(julianDate);
     let lst = AstronomyDateUtilitiesInstance.gmstToLST2(gmst, lon); 
-    if (lst > 360) {
-        while (lst > 360) {
-            lst -= 360;
-        }
-    } else if (lst < 0){
-        while (lst < 0){
-            lst += 360;
-        }
-    }
 
     // need radians
     const latR = degreesToRadians(lat);
@@ -45,26 +36,30 @@ export default function altAzToRaDec(alt, az, lat, lon, localTime) {
     // this is the dec in degrees xxx.yyyyy
     const dec = radiansToDegrees(decR); 
 
+     // both these methods of computing hour angle come up with same value
     const hourAngleX = divide( multiply( multiply(-1, sinAz), cosAlt ), cosDecR);
     const hourAngleY = divide( subtract( sinAlt, multiply( sinDec, sinLat ) ),  multiply( cosDecR, cosLat ) );
-    let altHourAngle = radiansToDegrees(Math.atan2(hourAngleX, hourAngleY)) % 360;
-    if (altHourAngle < 0) {
+    let altHourAngle = radiansToDegrees(Math.atan2(hourAngleX, hourAngleY));
+    
+    const hourAngleR = divide(subtract(sinAlt, multiply(sinLat, sinDec)), multiply(cosLat, cosDecR));
+    let hourAngle = radiansToDegrees(Math.acos(hourAngleR));
+
+    // do we need to have or condition here?
+    if (az > 180) {
         altHourAngle = multiply( -1, altHourAngle);
     }
-    const raAlt = subtract(lst, altHourAngle) * 15;
-    
-    // calculate hour angle
-    const hourAngleR = divide(subtract(sinAlt, multiply(sinLat, sinDec)), multiply(cosLat, cosDecR));
-    let hourAngle = radiansToDegrees(Math.acos(hourAngleR)) % 360;
-    if (hourAngle < 180) {
+    if (az > 180 || alt < lat) {
         hourAngle = multiply( -1, hourAngle);
     }
 
     const ra = subtract(lst, hourAngle);
+    const raAlt = subtract(lst, altHourAngle);
     
     return {
         dec,
         ra,
-        raAlt
+        raAlt,
+        hourAngle,
+        altHourAngle
     };
 };
