@@ -9,7 +9,7 @@ import {
 import AstronomyDateUtilitiesInstance from '/js//client/components/space/AstronomyDateUtilities';
 
 // alt, az, lat, long are in degrees
-export default  function altAzToRaDec(alt, az, lat, lon, localTime) {
+export default function altAzToRaDec(alt, az, lat, lon, localTime) {
 
     // more accurate method
     const utcTime = AstronomyDateUtilitiesInstance.toUTC(localTime);
@@ -36,7 +36,7 @@ export default  function altAzToRaDec(alt, az, lat, lon, localTime) {
     // this is the dec in degrees xxx.yyyyy
     const dec = radiansToDegrees(decR); 
 
-     // both these methods of computing hour angle come up with same value
+    // both these methods of computing hour angle come up with same value
     const hourAngleX = divide( multiply( multiply(-1, sinAz), cosAlt ), cosDecR);
     const hourAngleY = divide( subtract( sinAlt, multiply( sinDec, sinLat ) ),  multiply( cosDecR, cosLat ) );
     let altHourAngle = radiansToDegrees(Math.atan2(hourAngleX, hourAngleY));
