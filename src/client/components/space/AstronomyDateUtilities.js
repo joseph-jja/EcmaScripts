@@ -56,7 +56,7 @@ class AstronomyDateUtilities {
         const timeSinceJ2000Inms = subtract(localTime.getTime(), J2000_EPOCH_MS);
         const daysSinceJ2000 = divide(timeSinceJ2000Inms, MS_PER_DAY);
         const julianDate = add(JULIAN_DATE_J2000, daysSinceJ2000);
-        return julianDate;
+        return Number( julianDate ).toFixed(6);
     }
     
     // takes output of toJulian called internal
@@ -66,7 +66,7 @@ class AstronomyDateUtilities {
         const t = divide( subtract( n, 51544.5 ), 36525 );
         const u = multiply( subtract( .093104, multiply( 62e-7, t ) ), t );
         const v = multiply( add( 8640184.812866, u ), divide( t, 3600 ) );
-        return add( 6.697374558, multiply( 24, subtract( r, n ), 1.0027379093 ), v );
+        return Number( add( 6.697374558, multiply( 24, subtract( r, n ), 1.0027379093 ), v ) ).toFixed(6);
     }
 
     // takes output of toJulien called internal
@@ -81,21 +81,21 @@ class AstronomyDateUtilities {
         const jdate360 = multiply(jdutc, 360.98564736629);
         const theta = subtract(add(280.46061837, jdate360, tSquare), tCube);
         const gmstDegrees = theta % 360;
-        return gmstDegrees;
+        return Number( gmstDegrees ).toFixed(6);
     }
 
     // takes output of toGMST and longitude called internal
     // Greenwich Mean Sidereal Time
     // LST = GMST + (Longitude / 15). 
     gmstToLST( d, longitude ) {
-        return multiply( 24, AstronomyMathUtilitiesInstance.getFraction( divide( add( d, divide( longitude, 15 ) ), 24 ) ) );
+        return Number( multiply( 24, AstronomyMathUtilitiesInstance.getFraction( divide( add( d, divide( longitude, 15 ) ), 24 ) ) ) ).toFixed(6);
     }
 
     // returns lst in decimal format xxx.yyyyyyy
     gmstToLST2( gmst, longitude) {
         const long = ( longitude < 0 ? add(360, longitude) : longitude );
         const lst = add(gmst, long); 
-        return lst;
+        return Number( lst ).toFixed(6);
     }
 
     lstDecimalToLstDecimalHours( lst ) { 
