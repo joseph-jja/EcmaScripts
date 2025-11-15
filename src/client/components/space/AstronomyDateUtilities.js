@@ -88,14 +88,14 @@ class AstronomyDateUtilities {
     // takes output of toGMST and longitude called internal
     // Greenwich Mean Sidereal Time
     // LST = GMST + (Longitude / 15). 
-    gmstToLST( d, longitude ) {
-        return Number( multiply( 24, AstronomyMathUtilitiesInstance.getFraction( divide( add( d, divide( longitude, 15 ) ), 24 ) ) ) ).toFixed(6);
+    gmstToLST( gmst, longitude ) {
+        return Number( multiply( 24, AstronomyMathUtilitiesInstance.getFraction( divide( add( gmst, divide( longitude, 15 ) ), 24 ) ) ) ).toFixed(6);
     }
 
     // returns lst in decimal format xxx.yyyyyyy
     gmstToLST2( gmst, longitude) {
         const long = ( longitude < 0 ? add(360, longitude) : longitude );
-        const lst = add(gmst, long); 
+        const lst = add(gmst, long) % 360; 
         return Number( lst ).toFixed(6);
     }
 
