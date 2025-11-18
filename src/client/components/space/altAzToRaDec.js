@@ -19,8 +19,8 @@ export default function altAzToRaDec(alt, az, lat, lon, localTime) {
     // more accurate method
     const utcTime = AstronomyDateUtilitiesInstance.toUTC(localTime);
     const julianDate = AstronomyDateUtilitiesInstance.toJulian(utcTime);
-    const gmst = AstronomyDateUtilitiesInstance.toGMST2(julianDate);
-    let lst = AstronomyDateUtilitiesInstance.gmstToLST2(gmst, lon); 
+    const gmst = AstronomyDateUtilitiesInstance.toGMST(julianDate);
+    let lst = AstronomyDateUtilitiesInstance.gmstToLST(gmst, lon); 
 
     // need radians
     const latR = degreesToRadians(lat);

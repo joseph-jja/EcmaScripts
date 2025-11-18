@@ -60,21 +60,11 @@ class AstronomyDateUtilities {
         return Number( julianDate ).toFixed(6);
     }
     
-    // takes output of toJulian called internal
-    toGMST( d ) {
-        const r = subtract( d, 2400000.5 );
-        const n = Math.floor( r );
-        const t = divide( subtract( n, 51544.5 ), 36525 );
-        const u = multiply( subtract( .093104, multiply( 62e-7, t ) ), t );
-        const v = multiply( add( 8640184.812866, u ), divide( t, 3600 ) );
-        return Number( add( 6.697374558, multiply( 24, subtract( r, n ), 1.0027379093 ), v ) ).toFixed(6);
-    }
-
-    // takes output of toJulien called internal
+    // takes output of toJulien 
     // this calclates correct GSMT in decimal degree format
     // calling AstronomyMathUtilitiesInstance
     // decDegreesToHourMinutesSeconds converts it to hours ptoperly
-    toGMST2( d ) {
+    toGMST( d ) {
         const jdutc = subtract( d, JULIAN_DATE_J2000 ); // Julian date since j2000 
         const t = divide( jdutc, 36525 );  // Julian Centuries since J2000
         const tSquare = multiply(Math.pow(t, 2), 0.000387933);
@@ -88,12 +78,7 @@ class AstronomyDateUtilities {
     // takes output of toGMST and longitude called internal
     // Greenwich Mean Sidereal Time
     // LST = GMST + (Longitude / 15). 
-    gmstToLST( gmst, longitude ) {
-        return Number( multiply( 24, AstronomyMathUtilitiesInstance.getFraction( divide( add( gmst, divide( longitude, 15 ) ), 24 ) ) ) ).toFixed(6);
-    }
-
-    // returns lst in decimal format xxx.yyyyyyy
-    gmstToLST2( gmst, longitude) {
+    gmstToLST( gmst, longitude) {
         const long = ( longitude < 0 ? add(360, longitude) : longitude );
         const lst = add(gmst, long) % 360; 
         return Number( lst ).toFixed(6);
@@ -111,20 +96,17 @@ class AstronomyDateUtilities {
 
     // calcualte LST
     utcToLST( d, longitude ) {
-        const n = this.toJulian( d ),
-            r = this.toGMST( n );
+        const n = this.toJulian( d );
+        const r = this.toGMST( n );
         return this.gmstToLST( r, longitude );
     }
 
     // alternate method to calculate LST, which seems to do it right
     calculateLST( now, longitude ) {
 
-        const julianDate = add( divide( now.getTime(), 86400000 ), 2440587.5 );
-        const D = subtract( julianDate, JULIAN_DATE_J2000 ); // calculate number of days since January 1, 2000 at 12:00 UT
-        const UT = add( now.getUTCHours(), divide( now.getUTCMinutes(), 60 ), divide( now.getUTCSeconds(), 3600 ) ); // calculate Universal Time
-        const GMST = add( 6.697374558, multiply( 0.06570982441908, D ), multiply( 1.00273790935, UT ) ); // calculate Greenwich Mean Sidereal Time
-        const LST = AstronomyMathUtilitiesInstance.getFraction( divide( add( GMST, divide( longitude, 15 ) ), 24 ) ); // calculate local sidereal time
-        return multiply( 24, LST ); // adjust for negative values
+        const utc = this.toUTC( now );
+        const LST = this.utcToLST( utc, longitude );
+        return multiply(AstronomyMathUtilitiesInstance.getFraction( divide( LST, 24 ) ), 24); // adjust for negative values
     }
 }
 
