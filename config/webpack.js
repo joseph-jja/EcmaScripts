@@ -59,7 +59,12 @@ module.exports = {
     optimization: {
 
         minimize: true,
-        minimizer: [ new TerserPlugin() ]
+        minimizer: [ new TerserPlugin({
+                terserOptions: {
+                    ecma: 2024,
+                    keep_classnames: true
+                }
+            }) ]
     },
     resolve: {
         modules: [
