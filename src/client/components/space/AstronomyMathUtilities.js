@@ -80,11 +80,11 @@ class AstronomyMathUtilities {
 
     // 24 hour clock :?
     mapTo24Hour( hour ) {
-        let result = hour;
+        const result = hour;
         if ( result < 0 ) {
-            result = subtract( result, multiply( 24, subtract( divide( result, 24 ), 1 ) ) );
-        } else if ( hour >= 24 ) {
-            result = subtract( result, multiply( divide( result, 24 ), 24 ) );
+            result = subtract( 24, Math.abs( result ) ) % 24;
+        } else if ( result >= 24 ) {
+            result = result % 24;
         }
         return result;
     }
