@@ -102,6 +102,7 @@ class AstronomyDateUtilities {
     }
 
     // alternate method to calculate LST, which seems to do it right
+    // in 24 hours degrees
     calculateLST( now, longitude ) {
 
         const utc = this.toUTC( now );
