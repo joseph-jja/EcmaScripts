@@ -9,11 +9,17 @@ describe( 'testing AstronomyMathUtilitiesInstance', () => {
     } );
 
     //decDegreesToHourMinutesSeconds
-    /*it ( 'decDegreesToHourMinutesSeconds: should convert declination in degrees to hours, minutes, and seconds', () => {
+    it ( 'decDegreesToHourMinutesSeconds: should convert declination in degrees to hours, minutes, and seconds', () => {
         const result = AstronomyMathUtilitiesInstance.decDegreesToHourMinutesSeconds( -45.7625 );
         expect( result ).toEqual( { hours: -45, minutes: 45, seconds: 45.0 } );
     } );
-    */
+    
+    //decDegreesToHourMinutesSeconds
+    it ( 'decDegreesToHourMinutesSeconds: should convert declination in degrees to hours, minutes, and seconds 2', () => {
+        const result = AstronomyMathUtilitiesInstance.decDegreesToHourMinutesSeconds( -129.8754343 );
+        expect( result ).toEqual( { hours: -39, minutes: 52, seconds: 31.56 } );
+    } );
+
     //hoursMinutesSeconds
     it ( 'hoursMinutesSeconds: should convert degrees to hours, minutes, and seconds', () => {
         const result = AstronomyMathUtilitiesInstance.hoursMinutesSeconds( 8.03567 );
