@@ -13,7 +13,7 @@ describe( 'testing AstronomyDateUtilitiesInstance', () => {
 
     const utc = AstronomyDateUtilitiesInstance.toUTC( now );
 
-    const longitude = 37.75060;
+    const longitude = -122.41210;
 
     // toJulian
     it( 'toJulian: convert utc to julian', () => {
@@ -36,18 +36,18 @@ describe( 'testing AstronomyDateUtilitiesInstance', () => {
     // gmstToLST
     it( 'gmstToLST: convert GMST to LST', () => {
         const result = AstronomyDateUtilitiesInstance.gmstToLST( '301.099915', longitude );
-        expect( result ).toEqual( '338.850515' );
+        expect( result ).toEqual( '178.687815' );
     } );
 
     // utcToLST
     it( 'toGMST: convert utc to LST', () => {
         const result = AstronomyDateUtilitiesInstance.utcToLST( utc, longitude );
-        expect( result ).toEqual( '338.850515' );
+        expect( result ).toEqual( '178.687815' );
     } );
 
     // calculateLST
     it( 'calculateLST: convert now to LST', () => {
         const result = AstronomyDateUtilitiesInstance.calculateLST( now, longitude );
-        expect( result ).toEqual( '2.850515' );
+        expect( result ).toEqual( '10.687815' );
     } );
 } );
