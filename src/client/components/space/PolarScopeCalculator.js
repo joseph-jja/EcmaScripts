@@ -36,12 +36,12 @@ class PolarScopeCalculator {
             dec = SigmaOctantis.Declination;
         }
 
-        let i = divide( multiply( n, Math.PI ), 12 ),
-            o = divide( multiply( r, Math.PI ), 180 );
+        let i = divide( multiply( ra, Math.PI ), 12 ),
+            o = divide( multiply( dec, Math.PI ), 180 );
 
         if ( latitude < 0 ) {
-            this.correctedRA = add( n, divide( multiply( add( 3.075, multiply( 1.336, Math.sin( multiply( 15, ra ) ), 57.08839 ) ), subtract( e.year, 2e3 ) ), 3600 ) );
-            this.correctedDEC = add( r, divide( multiply( 20.04, Math.cos( multiply( 15, dec ) ), subtract( e.year, 2e3 ) ), 3600 ) );
+            this.correctedRA = add( ra, divide( multiply( add( 3.075, multiply( 1.336, Math.sin( multiply( 15, ra ) ), 57.08839 ) ), subtract( e.year, 2e3 ) ), 3600 ) );
+            this.correctedDEC = add( dec, divide( multiply( 20.04, Math.cos( multiply( 15, dec ) ), subtract( e.year, 2e3 ) ), 3600 ) );
         } else {
             const s = divide( subtract( julianDate, 2451545 ), 36525 );
             let f = add( multiply( 2306.2181, s ), multiply( .30188, s, s ), multiply( .017998, s, s, s ) ),
