@@ -4,7 +4,6 @@ import {
     multiply,
     divide
 } from '/js/utils/mathFunctions';
-import AstronomyMathUtilitiesInstance from '/js//client/components/space/AstronomyMathUtilities';
 
 const J2000_EPOCH_MS = Date.UTC( 2000, 0, 1, 12, 0, 0, 0 ); // Month is 0-indexed (0=Jan)
 const JULIAN_DATE_J2000 = 2451545.0;
