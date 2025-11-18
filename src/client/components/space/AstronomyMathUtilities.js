@@ -91,7 +91,7 @@ class AstronomyMathUtilities {
 
     getFraction( num ) {
         // get decimal places
-        const decimals = subtract( num, Math.floor( num ) );
+        const decimals = subtract( Math.abs( num ), Math.abs( Math.floor( num ) ) );
         // we want positive number
         return ( decimals < 0 ? add( decimals, 1 ) : decimals );
     }
