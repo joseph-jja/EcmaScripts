@@ -54,8 +54,27 @@ class AstronomyMathUtilities {
         };
     }
 
-    // degrees to hour angle
     hoursMinutesSeconds( degrees ) {
+        const hours = Math.floor( degrees )  % 360;
+
+        const degreesFraction = this.getFraction( degrees );
+        const fractionTimesSixty = multiply( 60, degreesFraction );
+
+        let minutes = Math.floor( fractionTimesSixty );
+        let seconds = Math.round( multiply( 60, subtract( fractionTimesSixty, minutes ) ) );
+        if ( seconds >= 60 ) {
+            seconds = 0;
+            minutes++;
+        }
+        if ( minutes >= 60 ) {
+            minutes = 0;
+            hours++;
+        }
+        return `${ hours }:${ this.pad( minutes ) }:${ this.pad( seconds ) }`;
+    }
+    
+    // degrees to hour angle
+    hoursMinutesSecondsTo24( degrees ) {
         let hours = Math.floor( degrees );
         hours = ( hours < 0 ? add( 24, hours ) : hours );
         hours = ( hours > 24 ? hours % 24 : hours );

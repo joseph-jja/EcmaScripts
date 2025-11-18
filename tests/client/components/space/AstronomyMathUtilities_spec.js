@@ -34,8 +34,13 @@ describe( 'testing AstronomyMathUtilitiesInstance', () => {
 
     //hoursMinutesSeconds
     it( 'hoursMinutesSeconds: should convert degrees to hours, minutes, and seconds', () => {
-        const result = AstronomyMathUtilitiesInstance.hoursMinutesSeconds( 8.03567 );
+        const result = AstronomyMathUtilitiesInstance.hoursMinutesSecondsTo24( 8.03567 );
         expect( result ).toEqual( '8:02:08' );
+    } );
+    
+    it( 'hoursMinutesSeconds: should convert degrees to hours, minutes, and seconds', () => {
+        const result = AstronomyMathUtilitiesInstance.hoursMinutesSeconds( 178.6876 );
+        expect( result ).toEqual( '178:41:15' );
     } );
 
     //degreeHHMMSSToDegrees
