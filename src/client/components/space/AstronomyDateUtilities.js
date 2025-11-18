@@ -106,7 +106,8 @@ class AstronomyDateUtilities {
 
         const utc = this.toUTC( now );
         const LST = this.utcToLST( utc, longitude );
-        return multiply( AstronomyMathUtilitiesInstance.getFraction( divide( LST, 24 ) ), 24 ); // adjust for negative values
+        const twentyFourHour = LST % 24;
+        return Number( twentyFourHour ).toFixed( 6 );
     }
 }
 

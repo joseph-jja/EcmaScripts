@@ -45,4 +45,9 @@ describe( 'testing AstronomyDateUtilitiesInstance', () => {
         expect( result ).toEqual( '338.850515' );
     } );
 
+    // calculateLST
+    it( 'calculateLST: convert now to LST', () => {
+        const result = AstronomyDateUtilitiesInstance.calculateLST( now, longitude );
+        expect( result ).toEqual( '2.850515' );
+    } );
 } );
