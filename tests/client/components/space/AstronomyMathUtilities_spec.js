@@ -13,13 +13,13 @@ describe( 'testing AstronomyMathUtilitiesInstance', () => {
         const result = AstronomyMathUtilitiesInstance.decDegreesToHourMinutesSeconds( -45.7625 );
         expect( result ).toEqual( { hours: -45, minutes: 45, seconds: 45.0 } );
     } );
-
+    */
     //hoursMinutesSeconds
-    it ( 'hoursMinutesSecondsToDegrees: should convert hours, minutes, and seconds to degrees', () => {
-        const result = AstronomyMathUtilitiesInstance.hoursMinutesSecondsToDegrees( 8, 2, 8.544 );
-        expect( result ).toBeCloseTo( 120.5356, 4 );
+    it ( 'hoursMinutesSeconds: should convert degrees to hours, minutes, and seconds', () => {
+        const result = AstronomyMathUtilitiesInstance.hoursMinutesSeconds( 8.03567 );
+        expect( result ).toEqual( '8:02:08' );
     } );
-*/
+
     //degreeHHMMSSToDegrees
     it ( 'degreeHHMMSSToDegrees: should convert degree in HH:MM:SS format to degrees', () => {
         const result = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees( 8, 2, 8.544 );
