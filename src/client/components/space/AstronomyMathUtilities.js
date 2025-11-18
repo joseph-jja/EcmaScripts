@@ -75,7 +75,7 @@ class AstronomyMathUtilities {
     // converts 280 degrees 11 minutes and 10 seconds 
     // into decimal format
     degreeHHMMSSToDegrees( hour, minute, seconds ) {
-        return add( hour, divide( minute, 60 ), divide( seconds, 3600 ) );
+        return Number(add( hour, divide( minute, 60 ), divide( seconds, 3600 ) )).toFixed(6);
     }
 
     // 24 hour clock :?
