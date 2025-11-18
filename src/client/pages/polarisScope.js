@@ -9,8 +9,8 @@ import PolarisCalculatorInstance from 'client/components/space/PolarScopeCalcula
 
 import PolarScope from 'client/components/space/PolarScope';
 
-const DEFAULT_RA = '2:29:48';
-const DEFAULT_DEC = '89:27:48';
+const DEFAULT_RA = '3:07:14.9';
+const DEFAULT_DEC = '89:22:27.3';
 
 let polarSP,
     polarSP24H,
