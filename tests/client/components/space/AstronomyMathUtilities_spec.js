@@ -25,7 +25,7 @@ describe( 'testing AstronomyMathUtilitiesInstance', () => {
         const result = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees( '08:02:08.544' );
         expect( result ).toBeCloseTo( 120.5356, 4 );
     } );
-
+    */
     //mapTo24Hour
     it ( 'mapTo24Hour: should map hours to 24-hour format test 1', () => {
         const result = AstronomyMathUtilitiesInstance.mapTo24Hour( 15 );
@@ -40,7 +40,7 @@ describe( 'testing AstronomyMathUtilitiesInstance', () => {
     it ( 'mapTo24Hour: should map hours to 24-hour format test 3', () => {
         const result3 = AstronomyMathUtilitiesInstance.mapTo24Hour( -5 );
         expect( result3 ).toBe( 19 );
-    });*/
+    });
 
     //getFraction
     it ( 'getFraction: should return the fractional part of a number', () => {
