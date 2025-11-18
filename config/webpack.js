@@ -1,13 +1,13 @@
-var path = require("path"),
-    fs = require('fs'),
+var path = require( "path" ),
+    fs = require( 'fs' ),
     baseDir = process.cwd(),
-    TerserPlugin = require('terser-webpack-plugin'),
-    babelConfig = JSON.parse(fs.readFileSync(`${baseDir}/config/babel-config.json`));
+    TerserPlugin = require( 'terser-webpack-plugin' ),
+    babelConfig = JSON.parse( fs.readFileSync( `${baseDir}/config/babel-config.json` ) );
 
-const eslintConfig = fs.readFileSync(path.resolve("./config/eslint.json")).toString();
+const eslintConfig = fs.readFileSync( path.resolve( "./config/eslint.json" ) ).toString();
 
-const esJSON = JSON.parse(eslintConfig),
-    esJSONWP = Object.keys(esJSON.globals);
+const esJSON = JSON.parse( eslintConfig ),
+    esJSONWP = Object.keys( esJSON.globals );
 
 esJSON.globals = esJSONWP;
 
@@ -48,7 +48,7 @@ module.exports = {
         "resume": "./src/client/pages/resume",
         "tropicalFish": "./src/client/pages/tropicalFish"
     },
-    context: path.resolve("."),
+    context: path.resolve( "." ),
     devtool: "cheap-source-map",
     output: {
         "path": `${baseDir}/js`,
@@ -59,28 +59,28 @@ module.exports = {
     optimization: {
 
         minimize: true,
-        minimizer: [new TerserPlugin({
+        minimizer: [ new TerserPlugin( {
             terserOptions: {
                 ecma: 2024,
                 keep_classnames: true
             }
-        })]
+        } ) ]
     },
     resolve: {
         modules: [
             "node_modules",
-            path.join(__dirname, "src")
+            path.join( __dirname, "src" )
         ],
         alias: {
-            "/js/utils": path.resolve("src/utils"),
-            "/js/client": path.resolve("src/client"),
-            "utils": path.resolve("src/utils"),
-            "client": path.resolve("src/client"),
-            "@babel": path.resolve("node_modules/@babel")
+            "/js/utils": path.resolve( "src/utils" ),
+            "/js/client": path.resolve( "src/client" ),
+            "utils": path.resolve( "src/utils" ),
+            "client": path.resolve( "src/client" ),
+            "@babel": path.resolve( "node_modules/@babel" )
         }
     },
     module: {
-        rules: [{
+        rules: [ {
             test: /\.js$/,
             exclude: /node_modules/,
             use: {
@@ -91,7 +91,7 @@ module.exports = {
             loader: "eslint-loader",
             exclude: /node_modules/,
             options: esJSON
-        }]
+        } ]
     },
     plugins: []
 };

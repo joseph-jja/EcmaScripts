@@ -14,46 +14,46 @@ import AstronomyMathUtilitiesInstance from '/js/client/components/space/Astronom
 // it will compute the local sidereal time as well
 // use AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees from AstronomyMathUtilities to convert 
 // HH degree MM minutes SS.S seconds to degrees to pass into this function
-export default function altAzToRaDec(alt, az, lat, lon, localTime) {
+export default function altAzToRaDec( alt, az, lat, lon, localTime ) {
 
     // more accurate method
-    const utcTime = AstronomyDateUtilitiesInstance.toUTC(localTime);
-    const julianDate = AstronomyDateUtilitiesInstance.toJulian(utcTime);
-    const gmst = AstronomyDateUtilitiesInstance.toGMST(julianDate);
-    let lst = AstronomyDateUtilitiesInstance.gmstToLST(gmst, lon); 
+    const utcTime = AstronomyDateUtilitiesInstance.toUTC( localTime );
+    const julianDate = AstronomyDateUtilitiesInstance.toJulian( utcTime );
+    const gmst = AstronomyDateUtilitiesInstance.toGMST( julianDate );
+    let lst = AstronomyDateUtilitiesInstance.gmstToLST( gmst, lon );
 
     // need radians
-    const latR = degreesToRadians(lat);
-    const azR = degreesToRadians(az);
-    const altR = degreesToRadians(alt);
-    
-    const sinLat = Math.sin(latR);
-    const cosLat = Math.cos(latR);
-    const sinAlt = Math.sin(altR);
-    const cosAlt = Math.cos(altR);
-    const cosAz = Math.cos(azR);
-    const sinAz = Math.sin(azR);
+    const latR = degreesToRadians( lat );
+    const azR = degreesToRadians( az );
+    const altR = degreesToRadians( alt );
+
+    const sinLat = Math.sin( latR );
+    const cosLat = Math.cos( latR );
+    const sinAlt = Math.sin( altR );
+    const cosAlt = Math.cos( altR );
+    const cosAz = Math.cos( azR );
+    const sinAz = Math.sin( azR );
 
     // now calculate the declination 
-    const sinDec = add(multiply(sinAlt, sinLat), multiply(cosAlt, cosLat, cosAz));
-    const decR = Math.asin(sinDec);
-    const cosDecR = Math.cos(decR);
+    const sinDec = add( multiply( sinAlt, sinLat ), multiply( cosAlt, cosLat, cosAz ) );
+    const decR = Math.asin( sinDec );
+    const cosDecR = Math.cos( decR );
     // this is the dec in degrees xxx.yyyyy
-    const dec = radiansToDegrees(decR); 
+    const dec = radiansToDegrees( decR );
 
     // both these methods of computing hour angle come up with same value
-    const hourAngleX = divide( multiply( multiply(-1, sinAz), cosAlt ), cosDecR);
-    const hourAngleY = divide( subtract( sinAlt, multiply( sinDec, sinLat ) ),  multiply( cosDecR, cosLat ) );
-    const hourAngle = radiansToDegrees(Math.atan2(hourAngleX, hourAngleY));
+    const hourAngleX = divide( multiply( multiply( -1, sinAz ), cosAlt ), cosDecR );
+    const hourAngleY = divide( subtract( sinAlt, multiply( sinDec, sinLat ) ), multiply( cosDecR, cosLat ) );
+    const hourAngle = radiansToDegrees( Math.atan2( hourAngleX, hourAngleY ) );
     // this method is occassionally off 
     // const hourAngle = radiansToDegrees(divide(subtract(sinAlt, multiply(sinLat, sinDec)), multiply(cosLat, cosDecR)));
 
     // now compute ra
-    const ra = subtract(lst, hourAngle);
+    const ra = subtract( lst, hourAngle );
 
     const decInHMS = AstronomyMathUtilitiesInstance.decDegreesToHourMinutesSeconds( dec );
     const raInHMS = AstronomyMathUtilitiesInstance.raDegreesToHourMinutesSeconds( ra );
-    
+
     return {
         dec,
         decInHMS,

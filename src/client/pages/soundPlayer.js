@@ -26,11 +26,10 @@ function getMainWindow() {
 async function doOnLoadStuff() {
 
     getMainWindow();
- 
+
     window.soundPlayer = new MakeSound();
 
 
 }
 
 events.addOnLoad( doOnLoadStuff );
-

@@ -152,7 +152,7 @@ async function loadSoftwareFrag() {
     const mwtitle = selector( '.WebWindowTitleText', mainWin.titleBar ).get( 0 );
     mwtitle.innerHTML = 'Programs';
 
-    const linksObj = selector( 'div#welcome-content').get(0);
+    const linksObj = selector( 'div#welcome-content' ).get( 0 );
 
     linksObj.style.display = 'block';
     linksObj.innerHTML = `In my spare time I work on the projects on this page. Some of them,
@@ -220,7 +220,7 @@ events.addOnLoad( async function () {
 
     await buildNav();
     const indexData = await getIndex();
-    const container = selector( 'div#welcome-content').get(0);
+    const container = selector( 'div#welcome-content' ).get( 0 );
     container.innerHTML = indexData + capabilities;
 
     const dropdown = selector( '.url-wrapper select' ).get( 0 );
