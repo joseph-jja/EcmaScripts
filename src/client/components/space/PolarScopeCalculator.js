@@ -27,23 +27,23 @@ class PolarScopeCalculator {
     // calculate offset of Polaris 
     // OMG crazy maths
     precessionCorrection( e, latitude ) {
-        let t = AstronomyDateUtilitiesInstance.toJulian( e ),
-            n = Polaris.RightAscension,
-            r = Polaris.Declination;
+        let julianDate = AstronomyDateUtilitiesInstance.toJulian( e ),
+            ra = Polaris.RightAscension,
+            dec = Polaris.Declination;
 
         if ( latitude < 0 ) {
-            n = SigmaOctantis.RightAscension;
-            r = SigmaOctantis.Declination;
+            ra = SigmaOctantis.RightAscension;
+            dec = SigmaOctantis.Declination;
         }
 
         let i = divide( multiply( n, Math.PI ), 12 ),
             o = divide( multiply( r, Math.PI ), 180 );
 
         if ( latitude < 0 ) {
-            this.correctedRA = add( n, divide( multiply( add( 3.075, multiply( 1.336, Math.sin( multiply( 15, n ) ), 57.08839 ) ), subtract( e.year, 2e3 ) ), 3600 ) );
-            this.correctedDEC = add( r, divide( multiply( 20.04, Math.cos( multiply( 15, r ) ), subtract( e.year, 2e3 ) ), 3600 ) );
+            this.correctedRA = add( n, divide( multiply( add( 3.075, multiply( 1.336, Math.sin( multiply( 15, ra ) ), 57.08839 ) ), subtract( e.year, 2e3 ) ), 3600 ) );
+            this.correctedDEC = add( r, divide( multiply( 20.04, Math.cos( multiply( 15, dec ) ), subtract( e.year, 2e3 ) ), 3600 ) );
         } else {
-            const s = divide( subtract( t, 2451545 ), 36525 );
+            const s = divide( subtract( julianDate, 2451545 ), 36525 );
             let f = add( multiply( 2306.2181, s ), multiply( .30188, s, s ), multiply( .017998, s, s, s ) ),
                 d = add( multiply( 2306.2181, s ), multiply( 1.09468, s, s ), multiply( .018203, s, s, s ) ),
                 p = add( multiply( 2004.3109, s ), multiply( -.42665, s, s ), multiply( -.041833, s, s, s ) );
