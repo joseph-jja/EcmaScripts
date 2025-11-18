@@ -33,7 +33,7 @@ class AstronomyMathUtilities {
     // so this function needs to be used to convert
     // degrees to hours, minutes, seconds
     decDegreesToHourMinutesSeconds( degrees ) {
-        const realDegrees = degrees;
+        const realDegrees = ( degrees < 0 ? add(degrees, 360) : degrees );
     
         const degreesString = `${realDegrees}`.split('.')[0];
         const hours = +degreesString;
