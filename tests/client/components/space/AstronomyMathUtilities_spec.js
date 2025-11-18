@@ -19,13 +19,13 @@ describe( 'testing AstronomyMathUtilitiesInstance', () => {
         const result = AstronomyMathUtilitiesInstance.hoursMinutesSecondsToDegrees( 8, 2, 8.544 );
         expect( result ).toBeCloseTo( 120.5356, 4 );
     } );
-
+*/
     //degreeHHMMSSToDegrees
     it ( 'degreeHHMMSSToDegrees: should convert degree in HH:MM:SS format to degrees', () => {
-        const result = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees( '08:02:08.544' );
-        expect( result ).toBeCloseTo( 120.5356, 4 );
+        const result = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees( 8, 2, 8.544 );
+        expect( result ).toBeCloseTo( 8.03567, 4 );
     } );
-    */
+    
     //mapTo24Hour
     it ( 'mapTo24Hour: should map hours to 24-hour format test 1', () => {
         const result = AstronomyMathUtilitiesInstance.mapTo24Hour( 15 );
