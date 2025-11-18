@@ -12,8 +12,8 @@ import AstronomyMathUtilitiesInstance from '/js//client/components/space/Astrono
 // then compared to some code output by chatGPT
 // then this code was converted into ES classes
 const Polaris = {
-    RightAscension: 2.496532,
-    Declination: 89.2641667
+    RightAscension: 3.1208056,
+    Declination: 89.3742500
 };
 
 const SigmaOctantis = {
