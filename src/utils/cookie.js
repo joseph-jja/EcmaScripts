@@ -33,7 +33,7 @@ const findCookieByName = ( cookieName, cookieData ) => {
             value
         };
     } );
-    return result[ 0 ]?.value
+    return result[ 0 ]?.value;
 };
 
 // can be used both server side or client side
