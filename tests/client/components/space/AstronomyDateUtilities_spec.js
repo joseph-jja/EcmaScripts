@@ -37,12 +37,12 @@ describe( 'testing AstronomyDateUtilitiesInstance', () => {
     // utcToLST
     it( 'toGMST: convert utc to LST', () => {
         const result = AstronomyDateUtilitiesInstance.utcToLST( utc, longitude );
-        expect( Number( result % 24 ).toFixed( 0 ) ).toEqual( '10' );
+        expect( Number( result % 24 ).toFixed( 6 ) ).toEqual( '10.687815' );
     } );
 
     // calculateLST
     it( 'calculateLST: convert now to LST', () => {
         const result = AstronomyDateUtilitiesInstance.calculateLST( now, longitude );
-        expect( Number( result ).toFixed( 0 ) ).toEqual( '10' );
+        expect( Number( result ).toFixed( 6 ) ).toEqual( '10.687815' );
     } );
 } );
