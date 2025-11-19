@@ -17,7 +17,7 @@ describe( 'testing altAzToRaDec', () => {
         const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(301, 46, 26.2);
         const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(23, 37, 15.7); 
         const result = altAzToRaDec( alt, az, latitude, longitude, now );
-        const results = altAzToRaDec(alt, az, lat, long, now);
+        const results = altAzToRaDec(alt, az, latitude, longitude, now);
         const decHours = result.decInHMS.hours;
         const raHours = result.raInHMS.hours;
         expect( decHours ).toEqual( 38 );
