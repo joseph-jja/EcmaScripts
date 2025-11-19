@@ -5,8 +5,8 @@ describe( 'testing altAzToRaDec', () => {
 
     const now = new Date(2025, 11 -1 , 18, 20, 47, 48);
 
-    const lat = 38.38620;
-    const long = -121.99100;
+    const latitude = 38.38620;
+    const longitude = -121.99100;
 
     // 057°05'45.6"   +38°28'05.7" => 05h 18m38.3s   +46°01'23.6"
     // 094°22'01.4"   +46°34'35.3" => 03h 48m34.2s   +24°11'55.2"

@@ -33,10 +33,10 @@ describe( 'testing AstronomyDateUtilitiesInstance', () => {
     } );
 
     // utcToLST
-    //it( 'toGMST: convert utc to LST', () => {
-    //    const result = AstronomyDateUtilitiesInstance.utcToLST( utc, longitude );
-    //    expect( result ).toEqual( '178.687815' );
-    //} );
+    it( 'toGMST: convert utc to LST', () => {
+        const result = AstronomyDateUtilitiesInstance.utcToLST( utc, longitude );
+        expect( Number( result % 24 ).toFixed( 0 ) ).toEqual( '10' );
+    } );
 
     // calculateLST
     it( 'calculateLST: convert now to LST', () => {
