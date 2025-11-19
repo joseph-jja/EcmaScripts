@@ -40,7 +40,7 @@ describe( 'testing altAzToRaDec', () => {
         expect( raHours ).toEqual( 5 );        
     } );
 
-     it( 'dec ra calculation Pleiades', () => {
+    it( 'dec ra calculation Pleiades', () => {
         // Pleiades: 094°21'58.4"   +46°34'31.8" => 03h 48m34.1s   +24°11'55.2"
         const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(94, 21, 58.4);
         const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(46, 34, 31.8); 
