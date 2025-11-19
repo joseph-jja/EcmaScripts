@@ -40,4 +40,28 @@ describe( 'testing altAzToRaDec', () => {
         expect( decHours ).toEqual( 46 );
         expect( raHours ).toEqual( 5 );        
     } );
+
+     it( 'dec ra calculation 3', () => {
+        // Pleiades 094°21'58.4"   +46°34'31.8" => 03h 48m34.1s   +24°11'55.2"
+        const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(94, 21, 58.4);
+        const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(46, 34, 31.8); 
+        const result = altAzToRaDec( alt, az, latitude, longitude, now );
+        const results = altAzToRaDec(alt, az, latitude, longitude, now);
+        const decHours = result.decInHMS.hours;
+        const raHours = result.raInHMS.hours;
+        expect( decHours ).toEqual( 24 );
+        expect( raHours ).toEqual( 3 );        
+    } );
+
+    it( 'dec ra calculation 3', () => {
+        // 000°29'57.6"   +38°53'21.3" => 03h 07m16.3s   +89°22'27.0"
+        const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(0, 29, 57.6);
+        const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(38, 53, 21.3); 
+        const result = altAzToRaDec( alt, az, latitude, longitude, now );
+        const results = altAzToRaDec(alt, az, latitude, longitude, now);
+        const decHours = result.decInHMS.hours;
+        const raHours = result.raInHMS.hours;
+        expect( decHours ).toEqual( 89 );
+        expect( raHours ).toEqual( 3 );        
+    } );
 } );
