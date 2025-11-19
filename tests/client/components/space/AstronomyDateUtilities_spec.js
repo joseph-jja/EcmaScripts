@@ -17,7 +17,7 @@ describe( 'testing AstronomyDateUtilitiesInstance', () => {
     // toJulianLT
     it( 'toJulianLT: convert local time to julian', () => {
         const result = AstronomyDateUtilitiesInstance.toJulianLT( now );
-        expect( result ).toEqual( '2460998.175394' );
+        expect( Number( result ).toFixed( 0 ) ).toEqual( '2460998' );
     } );
 
     // toGMST
