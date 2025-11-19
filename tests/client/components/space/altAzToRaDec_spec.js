@@ -14,7 +14,6 @@ describe( 'testing altAzToRaDec', () => {
     const latitude = 38.38620;
     const longitude = -121.99100;
 
-    // 057°05'45.6"   +38°28'05.7" => 05h 18m38.3s   +46°01'23.6"
     // 094°22'01.4"   +46°34'35.3" => 03h 48m34.2s   +24°11'55.2"
     // 000°29'57.6"   +38°53'21.1" => 03h 07m17.4s   +89°22'27.1"
     
@@ -30,4 +29,15 @@ describe( 'testing altAzToRaDec', () => {
         expect( raHours ).toEqual( 18 );        
     } );
 
+    it( 'dec ra calculation 2', () => {
+        // Capella: 057°05'44.3"   +38°28'02.8" => 05h 18m38.3s   +46°01'23.6"
+        const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(57, 5, 44.3);
+        const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(38, 28, 2.8); 
+        const result = altAzToRaDec( alt, az, latitude, longitude, now );
+        const results = altAzToRaDec(alt, az, latitude, longitude, now);
+        const decHours = result.decInHMS.hours;
+        const raHours = result.raInHMS.hours;
+        expect( decHours ).toEqual( 46 );
+        expect( raHours ).toEqual( 5 );        
+    } );
 } );
