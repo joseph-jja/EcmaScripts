@@ -2,14 +2,7 @@ import AstronomyDateUtilitiesInstance from 'client/components/space/AstronomyDat
 
 describe( 'testing AstronomyDateUtilitiesInstance', () => {
 
-    const now = new Date();
-    now.setFullYear( 2025 );
-    now.setMonth( 10 );
-    now.setDate( 18 );
-    now.setHours( 8 );
-    now.setMinutes( 12 );
-    now.setSeconds( 34 );
-    now.setMilliseconds( 0 );
+    const now = new Date( 2025, 10, 18, 8, 12, 34 );
 
     const utc = AstronomyDateUtilitiesInstance.toUTC( now );
 
