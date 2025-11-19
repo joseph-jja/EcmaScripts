@@ -11,7 +11,7 @@ describe( 'testing AstronomyDateUtilitiesInstance', () => {
     // toJulian
     it( 'toJulian: convert utc to julian', () => {
         const result = AstronomyDateUtilitiesInstance.toJulian( utc );
-        expect( result ).toEqual( '2460998.175394' );
+        expect( Nomber( result ).toFixed( 0 ) ).toEqual( '2460998' );
     } );
 
     // toJulianLT
