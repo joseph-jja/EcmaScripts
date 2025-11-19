@@ -2,8 +2,9 @@ import AstronomyDateUtilitiesInstance from 'client/components/space/AstronomyDat
 
 describe( 'testing AstronomyDateUtilitiesInstance', () => {
 
-    // 1763482354000
-    const now = new Date( 2025, 10, 18, 8, 12, 34 );
+    // try setting date
+    //const now = new Date( 2025, 10, 18, 8, 12, 34 );
+    const now = new Date( 1763482354000 );
 
     const utc = AstronomyDateUtilitiesInstance.toUTC( now );
 
@@ -12,13 +13,13 @@ describe( 'testing AstronomyDateUtilitiesInstance', () => {
     // toJulian
     it( 'toJulian: convert utc to julian', () => {
         const result = AstronomyDateUtilitiesInstance.toJulian( utc );
-        expect( Number( result ).toFixed( 0 ) ).toEqual( '2460998' );
+        expect( result ).toEqual( '2460998.175394' );
     } );
 
     // toJulianLT
     it( 'toJulianLT: convert local time to julian', () => {
         const result = AstronomyDateUtilitiesInstance.toJulianLT( now );
-        expect( Number( result ).toFixed( 0 ) ).toEqual( '2460998' );
+        expect( result ).toEqual( '2460998.175394' );
     } );
 
     // toGMST
