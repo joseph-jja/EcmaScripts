@@ -1,41 +1,27 @@
-//import altAzToRaDec from 'client/components/space/altAzToRaDec';
-//import AstronomyMathUtilitiesInstance from '/js/client/components/space/AstronomyMathUtilities';
+import altAzToRaDec from 'client/components/space/altAzToRaDec';
+import AstronomyMathUtilitiesInstance from '/js/client/components/space/AstronomyMathUtilities';
 
-/*describe( 'testing altAzToRaDec', () => {
+describe( 'testing altAzToRaDec', () => {
 
-    const now = new Date();
-    now.setFullYear( 2025 );
-    now.setMonth( 10 );
-    now.setDate( 18 );
-    now.setHours( 8 );
-    now.setMinutes( 19 );
-    now.setSeconds( 4 );
-    now.setMilliseconds( 0 );
+    const now = new Date(2025, 11 -1 , 18, 20, 47, 48);
 
-    const latitude = 37.75060;
-    const longitude = -122.41210;
+    const lat = 38.38620;
+    const long = -121.99100;
+
+    // 057°05'45.6"   +38°28'05.7" => 05h 18m38.3s   +46°01'23.6"
+    // 094°22'01.4"   +46°34'35.3" => 03h 48m34.2s   +24°11'55.2"
+    // 000°29'57.6"   +38°53'21.1" => 03h 07m17.4s   +89°22'27.1"
     
-    // LST 180° 19' 1'' = 180.3170°
-
-    it( 'vega: ra and dec', () => {
-        // 291°45'2.9" +41°51'54.5"
-        const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(291, 42, 2.9);
-        const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(41, 51, 54.5); 
-        console.log(az, alt);
+    fit( 'dec ra calculation 1', () => {
+        // 301°46'26.2"   +23°37'15.7" => 18h 37m47.6s   +38°48'36.1"
+        const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(301, 46, 26.2);
+        const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(23, 37, 15.7); 
         const result = altAzToRaDec( alt, az, latitude, longitude, now );
+        const results = altAzToRaDec(alt, az, lat, long, now);
         const decHours = result.decInHMS.hours;
         const raHours = result.raInHMS.hours;
         expect( decHours ).toEqual( 38 );
-        expect(raHours ).toEqual( 18 );
-        
-        // hour angle coming as 62.57175631777128, hourAngle2: 26.39257737195739
-        console.log(result);
+        expect(raHours ).toEqual( 18 );        
     } );
 
-    //it( 'vega: ra and dec', () => {
-    // 291°42'2.9" +41°51'54.5"
-    // const result = altAzToRaDec( utc );
-    //expect( result ).toEqual( '2460998.175394' );
-    //} );
-
-} );*/
+} );
