@@ -2,8 +2,12 @@ import AstronomyDateUtilitiesInstance from 'client/components/space/AstronomyDat
 
 describe( 'testing AstronomyDateUtilitiesInstance', () => {
 
-    // try setting date
-    //const now = new Date( 2025, 10, 18, 8, 12, 34 );
+    // setting date needs to be done using timestamp
+    // as using new date does not get the right offset
+    // which causes small changes in julian date
+    // which causes small changes in all calculations
+    // so this wont work const now = new Date( 2025, 10, 18, 8, 12, 34 );
+    // but this does
     const now = new Date( 1763482354000 );
 
     const utc = AstronomyDateUtilitiesInstance.toUTC( now );
