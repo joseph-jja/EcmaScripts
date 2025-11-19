@@ -1,9 +1,15 @@
-/*import altAzToRaDec from 'client/components/space/altAzToRaDec';
+import altAzToRaDec from 'client/components/space/altAzToRaDec';
 import AstronomyMathUtilitiesInstance from '/js/client/components/space/AstronomyMathUtilities';
 
 describe( 'testing altAzToRaDec', () => {
 
-    const now = new Date(2025, 11 -1 , 18, 20, 47, 48);
+    // setting date needs to be done using timestamp
+    // as using new date does not get the right offset
+    // which causes small changes in julian date
+    // which causes small changes in all calculations
+    // so this wont work const now = new Date( 2025, 10, 18, 20, 47, 48 );
+    // and this does
+    const now = new Date( 1763527668000 );
 
     const latitude = 38.38620;
     const longitude = -121.99100;
@@ -13,9 +19,9 @@ describe( 'testing altAzToRaDec', () => {
     // 000°29'57.6"   +38°53'21.1" => 03h 07m17.4s   +89°22'27.1"
     
     it( 'dec ra calculation 1', () => {
-        // 301°46'26.2"   +23°37'15.7" => 18h 37m47.6s   +38°48'36.1"
-        const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(301, 46, 26.2);
-        const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(23, 37, 15.7); 
+        // Vega: 301°46'24.7"   +23°37'17.6" => 18h 37m47.6s   +38°48'36.0"
+        const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(301, 46, 24.7);
+        const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(23, 37, 17.6); 
         const result = altAzToRaDec( alt, az, latitude, longitude, now );
         const results = altAzToRaDec(alt, az, latitude, longitude, now);
         const decHours = result.decInHMS.hours;
@@ -25,4 +31,3 @@ describe( 'testing altAzToRaDec', () => {
     } );
 
 } );
-*/
