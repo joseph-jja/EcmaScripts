@@ -55,7 +55,7 @@ class AstronomyMathUtilities {
     }
 
     hoursMinutesSeconds( degrees ) {
-        const hours = Math.floor( degrees )  % 360;
+        const hours = Math.floor( degrees ) % 360;
 
         const degreesFraction = this.getFraction( degrees );
         const fractionTimesSixty = multiply( 60, degreesFraction );
@@ -72,7 +72,7 @@ class AstronomyMathUtilities {
         }
         return `${ hours }:${ this.pad( minutes ) }:${ this.pad( seconds ) }`;
     }
-    
+
     // degrees to hour angle
     hoursMinutesSecondsTo24( degrees ) {
         let hours = Math.floor( degrees );
