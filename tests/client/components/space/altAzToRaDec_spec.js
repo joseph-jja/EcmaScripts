@@ -1,4 +1,4 @@
-/*import altAzToRaDec from 'client/components/space/altAzToRaDec';
+import altAzToRaDec from 'client/components/space/altAzToRaDec';
 import AstronomyMathUtilitiesInstance from '/js/client/components/space/AstronomyMathUtilities';
 
 describe( 'testing altAzToRaDec', () => {
@@ -24,4 +24,4 @@ describe( 'testing altAzToRaDec', () => {
         expect( raHours ).toEqual( 18 );        
     } );
 
-} );*/
+} );
