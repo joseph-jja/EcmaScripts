@@ -23,7 +23,6 @@ describe( 'testing altAzToRaDec', () => {
         const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(301, 46, 24.7);
         const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(23, 37, 17.6); 
         const result = altAzToRaDec( alt, az, latitude, longitude, now );
-        const results = altAzToRaDec(alt, az, latitude, longitude, now);
         const decHours = result.decInHMS.hours;
         const raHours = result.raInHMS.hours;
         expect( decHours ).toEqual( 38 );
@@ -35,7 +34,6 @@ describe( 'testing altAzToRaDec', () => {
         const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(57, 5, 44.3);
         const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(38, 28, 2.8); 
         const result = altAzToRaDec( alt, az, latitude, longitude, now );
-        const results = altAzToRaDec(alt, az, latitude, longitude, now);
         const decHours = result.decInHMS.hours;
         const raHours = result.raInHMS.hours;
         expect( decHours ).toEqual( 46 );
@@ -47,7 +45,6 @@ describe( 'testing altAzToRaDec', () => {
         const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(94, 21, 58.4);
         const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(46, 34, 31.8); 
         const result = altAzToRaDec( alt, az, latitude, longitude, now );
-        const results = altAzToRaDec(alt, az, latitude, longitude, now);
         const decHours = result.decInHMS.hours;
         const raHours = result.raInHMS.hours;
         expect( decHours ).toEqual( 24 );
@@ -59,7 +56,6 @@ describe( 'testing altAzToRaDec', () => {
         const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(0, 29, 57.6);
         const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(38, 53, 21.3); 
         const result = altAzToRaDec( alt, az, latitude, longitude, now );
-        const results = altAzToRaDec(alt, az, latitude, longitude, now);
         const decHours = result.decInHMS.hours;
         const raHours = result.raInHMS.hours;
         expect( decHours ).toEqual( 89 );
@@ -71,7 +67,6 @@ describe( 'testing altAzToRaDec', () => {
         const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(100, 14, 26.6);
         const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(24, 22, 38.2); 
         const result = altAzToRaDec( alt, az, latitude, longitude, later );
-        const results = altAzToRaDec(alt, az, latitude, longitude, later);
         const decHours = result.decInHMS.hours;
         const raHours = result.raInHMS.hours;
         expect( decHours ).toEqual( 7 );
@@ -83,7 +78,6 @@ describe( 'testing altAzToRaDec', () => {
         const az = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(333, 27, 34.2);
         const alt = AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(64, 53, 41.9); 
         const result = altAzToRaDec( alt, az, latitude, longitude, later );
-        const results = altAzToRaDec(alt, az, latitude, longitude, later);
         const decHours = result.decInHMS.hours;
         const raHours = result.raInHMS.hours;
         expect( decHours ).toEqual( 59 );
