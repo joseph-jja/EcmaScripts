@@ -24,6 +24,21 @@ const SigmaOctantis = {
 
 class PolarScopeCalculator {
 
+    calculateHourAngle(_datetime, _ra, _long) {
+        /*'3.121556'
+        2.559361
+        datetime = new Date(now.getTime() + now.getTimezoneOffset());
+        long = -121.99100;
+        polarisRa = 3.121556;
+        now = new Date().toString();
+        datetime = new Date('11/19/2025, 09:06:54 PM');
+        utc = window.ADU.toUTC(datetime);
+        lst = window.ADU.utcToLST(utc, long );
+        polarisHa = lst - polarisRa;
+
+        11.086179*/
+    }
+    
     // calculate offset of Polaris 
     // OMG crazy maths
     precessionCorrection( e, latitude ) {
