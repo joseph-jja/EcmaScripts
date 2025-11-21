@@ -55,8 +55,8 @@ class PolarScopeCalculator {
     
     // calculate offset of Polaris 
     // OMG crazy maths
-    precessionCorrection( e, latitude ) {
-        let julianDate = AstronomyDateUtilitiesInstance.toJulian( e ),
+    precessionCorrection( utc, latitude ) {
+        let julianDate = AstronomyDateUtilitiesInstance.toJulian( utc ),
             ra = Polaris.RightAscension,
             dec = Polaris.Declination;
 
@@ -69,8 +69,8 @@ class PolarScopeCalculator {
             o = divide( multiply( dec, Math.PI ), 180 );
 
         if ( latitude < 0 ) {
-            this.correctedRA = add( ra, divide( multiply( add( 3.075, multiply( 1.336, Math.sin( multiply( 15, ra ) ), 57.08839 ) ), subtract( e.year, 2e3 ) ), 3600 ) );
-            this.correctedDEC = add( dec, divide( multiply( 20.04, Math.cos( multiply( 15, dec ) ), subtract( e.year, 2e3 ) ), 3600 ) );
+            this.correctedRA = add( ra, divide( multiply( add( 3.075, multiply( 1.336, Math.sin( multiply( 15, ra ) ), 57.08839 ) ), subtract( utc.year, 2e3 ) ), 3600 ) );
+            this.correctedDEC = add( dec, divide( multiply( 20.04, Math.cos( multiply( 15, dec ) ), subtract( utc.year, 2e3 ) ), 3600 ) );
         } else {
             const s = divide( subtract( julianDate, 2451545 ), 36525 );
             let f = add( multiply( 2306.2181, s ), multiply( .30188, s, s ), multiply( .017998, s, s, s ) ),
