@@ -13,6 +13,9 @@ describe( 'testing polaris hour angle calculations', () => {
         const longitude = -121.991;
 
         const now = new Date();
+        now.setFullYear(2025);
+        now.setMonth(10);
+        now.setDate(20);
         now.setHours(21);
         now.setMinutes(30);
         now.setSeconds(43);
