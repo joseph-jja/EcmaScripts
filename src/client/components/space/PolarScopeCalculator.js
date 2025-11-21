@@ -24,19 +24,28 @@ const SigmaOctantis = {
 
 class PolarScopeCalculator {
 
-    calculateHourAngle(_datetime, _ra, _long) {
-        /*'3.121556'
-        2.559361
-        datetime = new Date(now.getTime() + now.getTimezoneOffset());
-        long = -121.99100;
-        polarisRa = 3.121556;
-        now = new Date().toString();
-        datetime = new Date('11/19/2025, 09:06:54 PM');
-        utc = window.ADU.toUTC(datetime);
-        lst = window.ADU.utcToLST(utc, long );
-        polarisHa = lst - polarisRa;
+    calculateHourAngle(datetime, _ra, longitude) {
 
-        11.086179*/
+        const now = new Date();
+        now.setFullYear(datetime.getFullYear());
+        now.setMonth(datetime.getMonth());
+        now.setDate(datetime.getDate());
+        now.setHours(datetime.getHours());
+        now.setMinutes(datetime.getMinutes());
+        now.setSeconds(datetime.getSeconds());
+        now.setMilliseconds(0);
+        const localTime = new Date(now.getTime());
+        const timezoneOffset = now.getTimezoneOffset() / 60;
+
+        const utcTime = AstronomyDateUtilitiesInstance.toUTC( localTime );
+        const julianDate = AstronomyDateUtilitiesInstance.toJulian( utcTime );
+        const gmst = AstronomyDateUtilitiesInstance.toGMST( julianDate );
+        const lst = AstronomyDateUtilitiesInstance.gmstToLST( gmst, longitude );
+        const lstHours = lst / 15; // lst is in hours now
+
+        // computer hour angle = LST - RA
+
+        return lstHours;
     }
     
     // calculate offset of Polaris 
