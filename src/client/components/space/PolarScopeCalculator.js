@@ -145,9 +145,16 @@ class PolarScopeCalculator {
             plusHourAnglePolaris = add( 24, plusHourAnglePolaris );
         }
 
+        const {
+            correctHourAngle,
+            hourAngle
+        } = this.calculateHourAngle(now, rightAssention, longitude)
+
         return {
             hourAnglePolaris, // used input ra
-            plusHourAnglePolaris // corrected angle
+            plusHourAnglePolaris, // corrected angle
+            correctHourAngle,
+            hourAngle
         };
     }
 
