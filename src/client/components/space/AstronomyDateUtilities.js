@@ -72,6 +72,9 @@ class AstronomyDateUtilities {
         const jdate360 = multiply( jdutc, 360.98564736629 );
         const theta = subtract( add( 280.46061837, jdate360, tSquare ), tCube );
         const gmstDegrees = theta % 360;
+        if ( gmstDegrees < 0 ) {
+            return Number( add( gmstDegrees, 360 ) ).toFixed( 6 );
+        }
         return Number( gmstDegrees ).toFixed( 6 );
     }
 
