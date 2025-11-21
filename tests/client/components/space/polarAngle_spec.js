@@ -22,9 +22,9 @@ describe( 'testing polaris hour angle calculations', () => {
         //const polarisRA = 2 + (31/60) + (49.09/3600); // 2.5303027777777777
         const polarisRA2 = 3.1208056;
 
-        const hourAngle = PolarisCalculatorInstance.calculateHourAngle(now, polarisRA2, longitude);
+        const { correctHourAngle } = PolarisCalculatorInstance.calculateHourAngle(now, polarisRA2, longitude);
 
-        expect( +Number(hourAngle).toFixed(0) ).toEqual(4);
+        expect( +Number(correctHourAngle).toFixed(0) ).toEqual(4);
         //expect(AMU.hoursMinutesSecondsTo24(hourAngle)).toEqual('3:42:12');
 
     });
