@@ -48,7 +48,10 @@ class PolarScopeCalculator {
         const delta = subtract(timezoneOffset, hourAngle);
         if (delta < 0) {
             const positive = add(delta, 24); 
-            return subtract(24, positive);
+            return {
+                correctHourAngle: subtract(24, positive),
+                hourAngle
+            };
         }
         return {
             correctHourAngle: delta,
