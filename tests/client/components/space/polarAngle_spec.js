@@ -3,7 +3,7 @@ import AstronomyMathUtilitiesInstance from '/js/client/components/space/Astronom
 
 const AMU = AstronomyMathUtilitiesInstance;
 
-fdescribe( 'testing polaris hour angle calculations', () => {
+describe( 'testing polaris hour angle calculations', () => {
 
     it('polar hour angle test 1', () => {
 
@@ -19,13 +19,13 @@ fdescribe( 'testing polaris hour angle calculations', () => {
         now.setSeconds(19);
         now.setMilliseconds(0);
 
-        const polarisRA = 2 + (31/60) + (49.09/3600); // 2.5303027777777777
+        //const polarisRA = 2 + (31/60) + (49.09/3600); // 2.5303027777777777
         const polarisRA2 = 3.1208056;
 
-        const hourAngle = PolarisCalculatorInstance.calculateHourAngle(now, polarisRA, longitude);
+        const hourAngle = PolarisCalculatorInstance.calculateHourAngle(now, polarisRA2, longitude);
 
         expect( +Number(hourAngle).toFixed(0) ).toEqual(4);
-        expect(AMU.hoursMinutesSecondsTo24(hourAngle)).toEqual('4:17:38');
+        expect(AMU.hoursMinutesSecondsTo24(hourAngle)).toEqual('3:42:12');
 
     });
 
