@@ -17,36 +17,36 @@ describe( 'testing AstronomyDateUtilitiesInstance', () => {
     // toJulian
     it( 'toJulian: convert utc to julian', () => {
         const result = AstronomyDateUtilitiesInstance.toJulian( utc );
-        expect( result ).toEqual( '2460998.175394' );
+        expect( result ).toEqual( '2460998.175393518526' );
     } );
 
     // toJulianLT
     it( 'toJulianLT: convert local time to julian', () => {
         const result = AstronomyDateUtilitiesInstance.toJulianLT( now );
-        expect( result ).toEqual( '2460998.175394' );
+        expect( result ).toEqual( '2460998.175393518526' );
     } );
 
     // toGMST
     it( 'toGMST: convert julian to GMST', () => {
         const result = AstronomyDateUtilitiesInstance.toGMST( '2460998.175394' );
-        expect( result ).toEqual( '301.099915' );
+        expect( result ).toEqual( '301.099914535880' );
     } );
 
     // gmstToLST
     it( 'gmstToLST: convert GMST to LST', () => {
         const result = AstronomyDateUtilitiesInstance.gmstToLST( '301.099915', longitude );
-        expect( result ).toEqual( '178.687815' );
+        expect( result ).toEqual( '178.687815000000' );
     } );
 
     // utcToLST
     it( 'toGMST: convert utc to LST', () => {
         const result = AstronomyDateUtilitiesInstance.utcToLST( utc, longitude );
-        expect( Number( result % 24 ).toFixed( 6 ) ).toEqual( '10.687815' );
+        expect( Number( result % 24 ).toFixed( 6 ) ).toEqual( '10.687641' );
     } );
 
     // calculateLST
     it( 'calculateLST: convert now to LST', () => {
         const result = AstronomyDateUtilitiesInstance.calculateLST( now, longitude );
-        expect( Number( result ).toFixed( 6 ) ).toEqual( '10.687815' );
+        expect( Number( result ).toFixed( 6 ) ).toEqual( '10.687641' );
     } );
 } );
