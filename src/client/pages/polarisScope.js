@@ -258,8 +258,8 @@ function updateHourAngle() {
 
     // first is user defined or default
     // second is internally calculated
-    const hourAnglePolaris = ( polarSP24H ? polarSP24H.userDefinedHourAngle : 0 );
-    const plusHourAnglePolaris = ( polarSP24H ? polarSP24H.hourAngle : 0 );
+    const hourAnglePolaris = ( polarSP24H ? polarSP24H.correctHourAngle : 0 );
+    const plusHourAnglePolaris = ( polarSP24H ? polarSP24H.correctHourAngle : 0 );
     const clockTime = AstronomyMathUtilitiesInstance.hoursMinutesSeconds( hourAnglePolaris );
     const clockTimePlus = AstronomyMathUtilitiesInstance.hoursMinutesSeconds( plusHourAnglePolaris );
 
