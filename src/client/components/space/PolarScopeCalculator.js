@@ -50,7 +50,10 @@ class PolarScopeCalculator {
             const positive = add(delta, 24); 
             return subtract(24, positive);
         }
-        return delta;
+        return {
+            correctHourAngle: delta,
+            hourAngle
+        };
     }
     
     // calculate offset of Polaris 
