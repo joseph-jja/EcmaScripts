@@ -47,7 +47,7 @@ class AstronomyDateUtilities {
         const u = Math.floor( multiply( 30.6001, add( n, 1 ) ) );
         const s = add( subtract( subtract( add( q, u, date ), 13 ), 1524.5 ), divide( i, 24 ) );
         const j = ( n <= 2 && ( n, r ), p, s );
-        return Number( j ).toFixed( 6 );
+        return Number( j ).toFixed( 12 );
     }
 
     // another method of calculating julian date
@@ -57,7 +57,7 @@ class AstronomyDateUtilities {
         const timeSinceJ2000Inms = subtract( localTime.getTime(), J2000_EPOCH_MS );
         const daysSinceJ2000 = divide( timeSinceJ2000Inms, MS_PER_DAY );
         const julianDate = add( JULIAN_DATE_J2000, daysSinceJ2000 );
-        return Number( julianDate ).toFixed( 6 );
+        return Number( julianDate ).toFixed( 12 );
     }
 
     // takes output of toJulien 
@@ -73,9 +73,9 @@ class AstronomyDateUtilities {
         const theta = subtract( add( 280.46061837, jdate360, tSquare ), tCube );
         const gmstDegrees = theta % 360;
         if ( gmstDegrees < 0 ) {
-            return Number( add( gmstDegrees, 360 ) ).toFixed( 6 );
+            return Number( add( gmstDegrees, 360 ) ).toFixed( 12 );
         }
-        return Number( gmstDegrees ).toFixed( 6 );
+        return Number( gmstDegrees ).toFixed( 12 );
     }
 
     // takes output of toGMST and longitude called internal
@@ -84,7 +84,7 @@ class AstronomyDateUtilities {
     gmstToLST( gmst, longitude ) {
         const long = ( longitude < 0 ? add( 360, longitude ) : longitude );
         const lst = add( gmst, long ) % 360;
-        return Number( lst ).toFixed( 6 );
+        return Number( lst ).toFixed( 12 );
     }
 
     lstDecimalToLstDecimalHours( lst ) {
@@ -111,7 +111,7 @@ class AstronomyDateUtilities {
         const utc = this.toUTC( now );
         const LST = this.utcToLST( utc, longitude );
         const twentyFourHour = LST % 24;
-        return Number( twentyFourHour ).toFixed( 6 );
+        return Number( twentyFourHour ).toFixed( 12 );
     }
 }
 
