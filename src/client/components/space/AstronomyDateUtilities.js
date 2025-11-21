@@ -8,6 +8,7 @@ import {
 const J2000_EPOCH_MS = Date.UTC( 2000, 0, 1, 12, 0, 0, 0 ); // Month is 0-indexed (0=Jan)
 const JULIAN_DATE_J2000 = 2451545.0;
 const MS_PER_DAY = 86400000;
+const REAL_YEAR_DAYS = 365.25;
 
 class AstronomyDateUtilities {
 
@@ -42,7 +43,7 @@ class AstronomyDateUtilities {
             r = subtract( r, 1 );
         }
         const p = Math.floor( divide( r, 100 ) );
-        const q = Math.floor( multiply( 365.25, add( r, 4716 ) ) );
+        const q = Math.floor( multiply( REAL_YEAR_DAYS, add( r, 4716 ) ) );
         const u = Math.floor( multiply( 30.6001, add( n, 1 ) ) );
         const s = add( subtract( subtract( add( q, u, date ), 13 ), 1524.5 ), divide( i, 24 ) );
         const j = ( n <= 2 && ( n, r ), p, s );
@@ -65,7 +66,7 @@ class AstronomyDateUtilities {
     // decDegreesToHourMinutesSeconds converts it to hours properly
     toGMST( d ) {
         const jdutc = subtract( d, JULIAN_DATE_J2000 ); // Julian date since j2000 
-        const t = divide( jdutc, 36525 ); // Julian Centuries since J2000
+        const t = divide( jdutc, multiply( REAL_YEAR_DAYS, 100 ) ); // Julian Centuries since J2000
         const tSquare = multiply( Math.pow( t, 2 ), 0.000387933 );
         const tCube = divide( Math.pow( t, 3 ), 38710000 );
         const jdate360 = multiply( jdutc, 360.98564736629 );
