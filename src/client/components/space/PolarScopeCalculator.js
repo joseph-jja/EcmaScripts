@@ -35,7 +35,7 @@ class PolarScopeCalculator {
         now.setSeconds(datetime.getSeconds());
         now.setMilliseconds(0);
         const localTime = new Date(now.getTime());
-        const timezoneOffset = now.getTimezoneOffset() / 60;
+        //const timezoneOffset = now.getTimezoneOffset() / 60;
 
         const utcTime = AstronomyDateUtilitiesInstance.toUTC( localTime );
         const julianDate = AstronomyDateUtilitiesInstance.toJulian( utcTime );
