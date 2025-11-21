@@ -13,13 +13,17 @@ import PolarisCalculatorInstance from '/js/client/components/space/PolarScopeCal
 const doPolarMath = ( now, latitude, longitude, rightAssention ) => {
     const {
         hourAnglePolaris,
-        plusHourAnglePolaris
+        plusHourAnglePolaris,
+        correctHourAngle,
+        hourAngle
     } = PolarisCalculatorInstance.getPolarisHourAngle( now,
         latitude, longitude, rightAssention );
 
     return {
         hourAnglePolaris: Math.floor( multiply( hourAnglePolaris, 15 ) ),
-        plusHourAnglePolaris: Math.floor( multiply( plusHourAnglePolaris, 15 ) )
+        plusHourAnglePolaris: Math.floor( multiply( plusHourAnglePolaris, 15 ) ),
+        correctHourAngle,
+        hourAngle
     };
 };
 
@@ -38,12 +42,16 @@ export default class PolarScope extends Star {
 
         const {
             hourAnglePolaris,
-            plusHourAnglePolaris
+            plusHourAnglePolaris,
+            correctHourAngle,
+            hourAngle
         } = doPolarMath( this.clockTime,
             this.latitude, this.longitude, this.rightAssention );
 
         this.hourAngle = plusHourAnglePolaris;
         this.userDefinedHourAngle = hourAnglePolaris;
+        this.correctHourAngle = correctHourAngle;
+        this.hourAngleAlt = hourAngle;
         this.angle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
 
         this.direction = add;
@@ -59,7 +67,9 @@ export default class PolarScope extends Star {
 
         const {
             hourAnglePolaris,
-            plusHourAnglePolaris
+            plusHourAnglePolaris,
+            correctHourAngle,
+            hourAngle
         } = doPolarMath( this.clockTime,
             this.latitude, this.longitude, this.rightAssention );
 
@@ -67,6 +77,8 @@ export default class PolarScope extends Star {
         // so to convert to degrees we multiply by 15
         this.hourAngle = plusHourAnglePolaris;
         this.userDefinedHourAngle = hourAnglePolaris;
+        this.correctHourAngle = correctHourAngle;
+        this.hourAngleAlt = hourAngle;
         this.angle = ( this.useInputRA ? this.userDefinedHourAngle : this.hourAngle );
 
         if ( this.angle < 0 ) {
