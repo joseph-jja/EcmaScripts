@@ -10,14 +10,14 @@ import {
 
 import PolarisCalculatorInstance from '/js/client/components/space/PolarScopeCalculator';
 
-const doPolarMath = ( now, latitude, longitude, rightAssention ) => {
+const doPolarMath = ( now, latitude, longitude, rightAssention, declination ) => {
     const {
         hourAnglePolaris,
         plusHourAnglePolaris,
         correctHourAngle,
         hourAngle
     } = PolarisCalculatorInstance.getPolarisHourAngle( now,
-        latitude, longitude, rightAssention );
+        latitude, longitude, rightAssention, declination );
 
     return {
         hourAnglePolaris: Math.floor( multiply( hourAnglePolaris, 15 ) ),
@@ -37,6 +37,7 @@ export default class PolarScope extends Star {
         this.latitude = options.latitude;
         this.longitude = options.longitude;
         this.rightAssention = options.rightAssention;
+        this.declination = options.declination;
         this.useInputRA = options.useInputRA;
         this.clockTime = options.clockTime || new Date();
 
@@ -46,7 +47,7 @@ export default class PolarScope extends Star {
             correctHourAngle,
             hourAngle
         } = doPolarMath( this.clockTime,
-            this.latitude, this.longitude, this.rightAssention );
+            this.latitude, this.longitude, this.rightAssention, this.declination );
 
         this.hourAngle = plusHourAnglePolaris;
         this.userDefinedHourAngle = hourAnglePolaris;
@@ -71,7 +72,7 @@ export default class PolarScope extends Star {
             correctHourAngle,
             hourAngle
         } = doPolarMath( this.clockTime,
-            this.latitude, this.longitude, this.rightAssention );
+            this.latitude, this.longitude, this.rightAssention, this.declination );
 
         // polaris hour angle ends up being fro 0-23
         // so to convert to degrees we multiply by 15
