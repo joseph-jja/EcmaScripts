@@ -108,9 +108,9 @@ class PolarScopeCalculator {
     }
 
     // from the dot com
-    getPolarisHA( now, latitude, longitude ) {
+    getPolarisHA( now, latitude, longitude, polarisRA, polarisDec ) {
         const utcNow = AstronomyDateUtilitiesInstance.toUTC( now );
-        this.precessionCorrection( utcNow, latitude );
+        this.precessionCorrection( utcNow, latitude, polarisRA, polarisDec );
         const lst = AstronomyDateUtilitiesInstance.utcToLST( utcNow, longitude );
         let t = subtract( lst, this.correctedRA );
         if ( latitude < 0 ) {
@@ -129,15 +129,15 @@ class PolarScopeCalculator {
     // this returns 2 values
     // one value 'hourAnglePolaris' is the hour angle commputed with the input RA
     // one value 'plusHourAnglePolaris' is the hour angle commputed with the constant RA and correction processing
-    getPolarisHourAngle( now, latitude, longitude, rightAssention ) {
+    getPolarisHourAngle( now, latitude, longitude, polarisRA, polarisDec ) {
 
         // get utc time
         const utcNow = AstronomyDateUtilitiesInstance.toUTC( now );
-        this.precessionCorrection( utcNow, latitude );
+        this.precessionCorrection( utcNow, latitude, polarisRA, polarisDec );
 
         const localSideRealTime = AstronomyDateUtilitiesInstance.calculateLST( now, longitude );
 
-        let hourAnglePolaris = Number( subtract( localSideRealTime, rightAssention ) ).toFixed( 6 );
+        let hourAnglePolaris = Number( subtract( localSideRealTime, polarisRA ) ).toFixed( 6 );
         let plusHourAnglePolaris = Number( subtract( localSideRealTime, this.correctedRA ) ).toFixed( 6 );
 
         if ( hourAnglePolaris < 0 ) {
@@ -151,7 +151,7 @@ class PolarScopeCalculator {
         const {
             correctHourAngle,
             hourAngle
-        } = this.calculateHourAngle(now, rightAssention, longitude);
+        } = this.calculateHourAngle(now, polarisRA, longitude);
 
         return {
             hourAnglePolaris, // used input ra
