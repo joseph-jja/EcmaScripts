@@ -32,7 +32,6 @@ const SigmaOctantis = {
     Declination: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(SIGMA_OCTANTIS_DEC[0], SIGMA_OCTANTIS_DEC[1], SIGMA_OCTANTIS_DEC[2])
 };
 
-
 class PolarScopeCalculator {
 
     calculateHourAngle(datetime, polarisRA, longitude) {
