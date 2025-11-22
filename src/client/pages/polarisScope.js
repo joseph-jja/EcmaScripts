@@ -186,7 +186,8 @@ function updateHourAngle() {
             startAngle: 0,
             latitude,
             longitude,
-            rightAssention
+            rightAssention,
+            declination
         } );
     }
     if ( !polarSP ) {
@@ -201,7 +202,8 @@ function updateHourAngle() {
             startAngle: 0,
             latitude,
             longitude,
-            rightAssention
+            rightAssention,
+            declination
         } );
     }
     if ( !polarSP24H ) {
@@ -216,7 +218,8 @@ function updateHourAngle() {
             startAngle: 0,
             latitude,
             longitude,
-            rightAssention
+            rightAssention,
+            declination
         } );
     }
 
