@@ -5,20 +5,31 @@ import {
     divide
 } from '/js/utils/mathFunctions';
 import AstronomyDateUtilitiesInstance from '/js/client/components/space/AstronomyDateUtilities';
-import AstronomyMathUtilitiesInstance from '/js//client/components/space/AstronomyMathUtilities';
+import AstronomyMathUtilitiesInstance from '/js/client/components/space/AstronomyMathUtilities';
+import {
+    POLARIS_DEFAULT_RA,
+    POLARIS_DEFAULT_DEC,
+    SIGMA_OCTANTIS_DEFAULT_RA,
+    SIGMA_OCTANTIS_DEFAULT_DEC
+} from '/js//client/components/space/Constants';
 
+const POLARIS_RA = POLARIS_DEFAULT_RA.split(':');
+const POLARIS_DEC = POLARIS_DEFAULT_DEC.split(':');
+const SIGMA_OCTANTIS_RA = SIGMA_OCTANTIS_DEFAULT_RA.split(':');
+const SIGMA_OCTANTIS_DEC = SIGMA_OCTANTIS_DEFAULT_DEC.split(':');
+    
 // some of this code was taken from takahashi-europe.com minified code
 // unminfied and redone to make some sense 
 // then compared to some code output by chatGPT
 // then this code was converted into ES classes
 const Polaris = {
-    RightAscension: 3.1208056,
-    Declination: 89.3742500
+    RightAscension: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(POLARIS_RA[0], POLARIS_RA[1], POLARIS_RA[2]),
+    Declination: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(POLARIS_DEC[0], POLARIS_DEC[1], POLARIS_DEC[2])
 };
 
 const SigmaOctantis = {
-    RightAscension: 21.0786056,
-    Declination: -77.4311111
+    RightAscension: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(SIGMA_OCTANTIS_RA[0], SIGMA_OCTANTIS_RA[1], SIGMA_OCTANTIS_RA[2]),
+    Declination: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(SIGMA_OCTANTIS_DEC[0], SIGMA_OCTANTIS_DEC[1], SIGMA_OCTANTIS_DEC[2])
 };
 
 
