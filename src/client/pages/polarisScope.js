@@ -8,9 +8,13 @@ import AstronomyMathUtilitiesInstance from 'client/components/space/AstronomyMat
 import PolarisCalculatorInstance from 'client/components/space/PolarScopeCalculator';
 
 import PolarScope from 'client/components/space/PolarScope';
+import {
+    POLARIS_DEFAULT_RA,
+    POLARIS_DEFAULT_DEC
+} from '/js//client/components/space/Constants';
 
-const DEFAULT_RA = '3:07:14.9';
-const DEFAULT_DEC = '89:22:27.3';
+const DEFAULT_RA = POLARIS_DEFAULT_RA;
+const DEFAULT_DEC = POLARIS_DEFAULT_DEC;
 
 let polarSP,
     polarSP24H,
