@@ -61,12 +61,12 @@ class PolarScopeCalculator {
     
     // calculate offset of Polaris 
     // OMG crazy maths
-    precessionCorrection( utc, latitude ) {
+    precessionCorrection( utc, latitude, polarisRA, polarisDec ) {
         const julianDate = AstronomyDateUtilitiesInstance.toJulian( utc );
         
-        const ra = ( latitude < 0  ? SigmaOctantis.RightAscension: Polaris.RightAscension);
-        const dec = ( latitude < 0  ? SigmaOctantis.Declination: Polaris.Declination);
-
+        const ra = polarisRA || ( latitude < 0  ? SigmaOctantis.RightAscension: Polaris.RightAscension);
+        const dec = polarisDec || ( latitude < 0  ? SigmaOctantis.Declination: Polaris.Declination);
+        
         let i = divide( multiply( ra, Math.PI ), 12 ),
             o = divide( multiply( dec, Math.PI ), 180 );
 
