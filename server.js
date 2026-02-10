@@ -22,7 +22,7 @@ let hostIP,
     port = 20000;
 
 const RUN_DIR = '--rundir=',
-    PORT = '--PORT=';
+    PORT = '--port=';
 for (let i = 2, end = process.argv.length; i < end; i++) {
     if (process.argv[i].indexOf(RUN_DIR) > -1) {
         const idx = process.argv[i].indexOf(RUN_DIR) + RUN_DIR.length;
