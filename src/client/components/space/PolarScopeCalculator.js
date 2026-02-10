@@ -13,53 +13,53 @@ import {
     SIGMA_OCTANTIS_DEFAULT_DEC
 } from '/js//client/components/space/Constants';
 
-const POLARIS_RA = POLARIS_DEFAULT_RA.split(':');
-const POLARIS_DEC = POLARIS_DEFAULT_DEC.split(':');
-const SIGMA_OCTANTIS_RA = SIGMA_OCTANTIS_DEFAULT_RA.split(':');
-const SIGMA_OCTANTIS_DEC = SIGMA_OCTANTIS_DEFAULT_DEC.split(':');
-    
+const POLARIS_RA = POLARIS_DEFAULT_RA.split( ':' );
+const POLARIS_DEC = POLARIS_DEFAULT_DEC.split( ':' );
+const SIGMA_OCTANTIS_RA = SIGMA_OCTANTIS_DEFAULT_RA.split( ':' );
+const SIGMA_OCTANTIS_DEC = SIGMA_OCTANTIS_DEFAULT_DEC.split( ':' );
+
 // some of this code was taken from takahashi-europe.com minified code
 // unminfied and redone to make some sense 
 // then compared to some code output by chatGPT
 // then this code was converted into ES classes
 const Polaris = {
-    RightAscension: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(POLARIS_RA[0], POLARIS_RA[1], POLARIS_RA[2]),
-    Declination: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(POLARIS_DEC[0], POLARIS_DEC[1], POLARIS_DEC[2])
+    RightAscension: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees( POLARIS_RA[ 0 ], POLARIS_RA[ 1 ], POLARIS_RA[ 2 ] ),
+    Declination: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees( POLARIS_DEC[ 0 ], POLARIS_DEC[ 1 ], POLARIS_DEC[ 2 ] )
 };
 
 const SigmaOctantis = {
-    RightAscension: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(SIGMA_OCTANTIS_RA[0], SIGMA_OCTANTIS_RA[1], SIGMA_OCTANTIS_RA[2]),
-    Declination: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees(SIGMA_OCTANTIS_DEC[0], SIGMA_OCTANTIS_DEC[1], SIGMA_OCTANTIS_DEC[2])
+    RightAscension: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees( SIGMA_OCTANTIS_RA[ 0 ], SIGMA_OCTANTIS_RA[ 1 ], SIGMA_OCTANTIS_RA[ 2 ] ),
+    Declination: AstronomyMathUtilitiesInstance.degreeHHMMSSToDegrees( SIGMA_OCTANTIS_DEC[ 0 ], SIGMA_OCTANTIS_DEC[ 1 ], SIGMA_OCTANTIS_DEC[ 2 ] )
 };
 
 class PolarScopeCalculator {
 
-    calculateHourAngle(datetime, polarisRA, longitude) {
+    calculateHourAngle( datetime, polarisRA, longitude ) {
 
         const now = new Date();
-        now.setFullYear(datetime.getFullYear());
-        now.setMonth(datetime.getMonth());
-        now.setDate(datetime.getDate());
-        now.setHours(datetime.getHours());
-        now.setMinutes(datetime.getMinutes());
-        now.setSeconds(datetime.getSeconds());
-        now.setMilliseconds(0);
-        const localTime = new Date(now.getTime());
+        now.setFullYear( datetime.getFullYear() );
+        now.setMonth( datetime.getMonth() );
+        now.setDate( datetime.getDate() );
+        now.setHours( datetime.getHours() );
+        now.setMinutes( datetime.getMinutes() );
+        now.setSeconds( datetime.getSeconds() );
+        now.setMilliseconds( 0 );
+        const localTime = new Date( now.getTime() );
         const timezoneOffset = now.getTimezoneOffset() / 60;
 
         const utcTime = AstronomyDateUtilitiesInstance.toUTC( localTime );
         const julianDate = AstronomyDateUtilitiesInstance.toJulian( utcTime );
         const gmst = AstronomyDateUtilitiesInstance.toGMST( julianDate );
         const lst = AstronomyDateUtilitiesInstance.gmstToLST( gmst, longitude );
-        const lstHours = divide(lst, 15); // lst is in hours now
+        const lstHours = divide( lst, 15 ); // lst is in hours now
 
         // computer hour angle = LST - RA
-        const hourAngle = subtract(lstHours, polarisRA);
-        const delta = subtract(timezoneOffset, hourAngle);
-        if (delta < 0) {
-            const positive = add(delta, 24); 
+        const hourAngle = subtract( lstHours, polarisRA );
+        const delta = subtract( timezoneOffset, hourAngle );
+        if ( delta < 0 ) {
+            const positive = add( delta, 24 );
             return {
-                correctHourAngle: subtract(24, positive),
+                correctHourAngle: subtract( 24, positive ),
                 hourAngle
             };
         }
@@ -68,15 +68,15 @@ class PolarScopeCalculator {
             hourAngle
         };
     }
-    
+
     // calculate offset of Polaris 
     // OMG crazy maths
     precessionCorrection( utc, latitude, polarisRA, polarisDec ) {
         const julianDate = AstronomyDateUtilitiesInstance.toJulian( utc );
-        
-        const ra = polarisRA || ( latitude < 0  ? SigmaOctantis.RightAscension: Polaris.RightAscension);
-        const dec = polarisDec || ( latitude < 0  ? SigmaOctantis.Declination: Polaris.Declination);
-        
+
+        const ra = polarisRA || ( latitude < 0 ? SigmaOctantis.RightAscension : Polaris.RightAscension );
+        const dec = polarisDec || ( latitude < 0 ? SigmaOctantis.Declination : Polaris.Declination );
+
         let i = divide( multiply( ra, Math.PI ), 12 ),
             o = divide( multiply( dec, Math.PI ), 180 );
 
@@ -161,7 +161,7 @@ class PolarScopeCalculator {
         const {
             correctHourAngle,
             hourAngle
-        } = this.calculateHourAngle(now, polarisRA, longitude);
+        } = this.calculateHourAngle( now, polarisRA, longitude );
 
         return {
             hourAnglePolaris, // used input ra

@@ -82,7 +82,7 @@ export default class PolarScope extends Star {
         this.hourAngleAlt = hourAngle;
         this.angle = ( this.useInputRA ? this.userDefinedHourAngle : this.correctHourAngle );
         //this.angle = ( this.useInputRA ? this.correctHourAngle : this.correctHourAngle );
-        
+
         if ( this.angle < 0 ) {
             this.angle = 360;
         } else if ( this.angle > 360 ) {

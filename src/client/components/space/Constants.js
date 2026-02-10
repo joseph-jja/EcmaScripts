@@ -1,4 +1,3 @@
-
 const POLARIS_DEFAULT_RA = '3:07:14.9';
 const POLARIS_DEFAULT_DEC = '89:22:27.3';
 
