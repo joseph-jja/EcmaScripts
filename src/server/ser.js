@@ -15,10 +15,13 @@ const run = async () => {
     const header = Buffer.alloc( 178 );
     await serfile.read( header, 0, header.length, 0 );
 
+    const results = [];
     for ( let i = 0, len = header.length; i < len; i++ ) {
-        result += String.fromCharCode( header[ i ] );
+        if ( header[ i ]) {
+            results.push( String.fromCharCode( header[ i ] ) );
+        }
     }
-    //console.log(header.toString('utf-8').trim());
+    console.log(results.join('').trim());
 
     await serfile.close();
 };
