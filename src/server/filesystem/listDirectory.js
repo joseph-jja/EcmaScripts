@@ -10,7 +10,7 @@ async function listDirectory( dir, limit ) {
 
     const realDir = ( dir.indexOf( baseDir ) < 0 ? path.resolve( baseDir, dir ) : dir );
 
-    if ( limit && realDir.indexOf( baseDir ) < 0 ) {
+    if ( limit && !realDir.startsWith( baseDir ) ) {
         return [];
     }
 
@@ -19,7 +19,7 @@ async function listDirectory( dir, limit ) {
     let results = [];
     if ( stats.isDirectory() ) {
         // list files in the directory
-        const files = await readdir( dir );
+        const files = await readdir( realDir );
         for ( let i = 0, end = files.length; i < end; i++ ) {
             const filename = path.resolve( realDir, files[ i ] );
             const type = await statfile( filename );
