@@ -244,6 +244,11 @@ events.addOnLoad( async function () {
         stopFishInfo();
         switch ( item ) {
         case 'resume':
+            mwtitle.innerHTML = 'Resume';
+            const fish1 = selector( '#animate-fish' ).get( 0 );
+            const fish2 = selector( '#fins-info-section' ).get( 0 );
+	    fish1.style.display = 'none';
+	    fish2.style.display = 'none';
             loadResume();
             break;
         case 'fish':
