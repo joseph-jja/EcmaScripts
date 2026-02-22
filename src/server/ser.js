@@ -17,11 +17,11 @@ const run = async () => {
 
     const results = [];
     for ( let i = 0, len = header.length; i < len; i++ ) {
-        if ( header[ i ]) {
+        if ( header[ i ] ) {
             results.push( String.fromCharCode( header[ i ] ) );
         }
     }
-    console.log(results.join('').trim());
+    console.log( results.join( '' ).trim() );
 
     await serfile.close();
 };
