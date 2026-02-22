@@ -247,12 +247,12 @@ events.addOnLoad( async function () {
             mwtitle.innerHTML = 'Resume';
             const fish1 = selector( '#animate-fish' ).get( 0 );
             const fish2 = selector( '#fins-info-section' ).get( 0 );
-			if (fish1) {
-	    		fish1.style.display = 'none';
-			}
-			if (fish2) {
-	    		fish2.style.display = 'none';
-			}
+            if ( fish1 ) {
+                fish1.style.display = 'none';
+            }
+            if ( fish2 ) {
+                fish2.style.display = 'none';
+            }
             loadResume();
             break;
         case 'fish':
