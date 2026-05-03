@@ -1,27 +1,11 @@
 import base from '/js/client/browser/base.js';
 
 const addEvent = ( obj = window, eventType, fn, capture = false ) => {
-    if ( window.attachEvent && !window.addEventListener ) {
-        const result = obj.attachEvent( 'on' + eventType, fn );
-        if ( !result ) {
-            throw ( 'Event ' + eventType + ' could not be added!' );
-        }
-        return result;
-    } else {
-        return obj.addEventListener( eventType, fn, capture );
-    }
+    return obj.addEventListener( eventType, fn, capture );
 };
 
 const removeEvent = ( obj = window, eventType, fn, capture = false ) => {
-    if ( window.detachEvent && !window.removeEventListener ) {
-        const result = obj.detachEvent( 'on' + eventType, fn );
-        if ( !result ) {
-            throw ( 'Event ' + eventType + ' could not be removed!' );
-        }
-        return result;
-    } else {
-        return obj.removeEventListener( eventType, fn, capture );
-    }
+    return obj.removeEventListener( eventType, fn, capture );
 };
 
 const isTouchEnabled = () => {
@@ -34,52 +18,31 @@ const getEvent = ( evt ) => {
 
 const getTarget = ( evt ) => {
     const eventObj = getEvent( evt );
-    let result;
-    if ( eventObj.srcElement ) {
-        result = eventObj.srcElement;
-    } else if ( eventObj.target ) {
-        result = eventObj.target;
-    }
-    return result;
+    return (eventObj?.srcElement ?? eventObj?.target);
 };
 
 const getEventPosX = ( evt ) => {
     const eventObj = getEvent( evt );
-    let result = 0;
-    if ( eventObj.pageX ) {
-        result = eventObj.pageX;
-    } else if ( eventObj.clientX ) {
-        result = eventObj.clientX;
-    }
-    return result;
+    return (eventObj?.pageX ?? eventObj?.clientX );
 };
 
 const getEventPosY = ( evt ) => {
     const eventObj = getEvent( evt );
-    let result = 0;
-    if ( eventObj.pageY ) {
-        result = eventObj.pageY;
-    } else if ( eventObj.clientY ) {
-        result = eventObj.clientY;
-    }
-    return result;
+    return ( eventObj?.pageY ?? eventObj?.clientY );
 };
 
 let createEvent,
     fireEvent;
 if ( document.createEvent ) {
-    createEvent = ( name, obj, options ) => {
+    createEvent = ( name, obj, options = {} ) => {
         let evt = document.createEvent( 'Event' );
         if ( !evt ) {
-            return undefined;
+            return;
         }
-        if ( !options ) {
-            options = {};
-        }
-        if ( !options.canBubble ) {
+        if ( !options?.canBubble ) {
             options.canBubble = true;
         }
-        if ( !options.cancellable ) {
+        if ( !options?.cancellable ) {
             options.cancellable = true;
         }
         evt[ 'initEvent' ]( 'Event', options.canBubble, options.cancellable );
