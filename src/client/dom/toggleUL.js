@@ -8,28 +8,26 @@ import {
     queryAll
 } from '/js/client/dom/shortcuts';
 
+const HIDDEN_CLASS = 'tree_child_hidden';
+const COLLAPSED_CLASS = 'collapsed';
+const EXPANDED_CLASS = 'expanded';
+const TOP_LEVEL_SELECTOR = 'span.toplevel';
+
 export default function toggleUL( objName, hrefObj ) {
 
-    const divs = document.getElementsByTagName( 'ul' );
-    for ( let i = 0; i < divs.length; i++ ) {
-        if ( hasClass( divs[ i ], 'tree_child_hidden' ) ) {
-            divs[ i ].style.display = 'none';
-        }
-    }
+    queryAll(`ul.${HIDDEN_CLASS}`).forEach(ul => {
+        ul.style.display = 'none';
+    });
 
     const dObj = byId( objName );
     if ( dObj ) {
-        if ( dObj.style.display === 'block' ) {
-            dObj.style.display = 'none';
-        } else {
-            dObj.style.display = 'block';
-        }
+        dObj.style.display = dObj.style.display === 'block' ? 'none' : 'block';
     }
 
-    const hrefs = Array.from( queryAll( 'span.toplevel' ) );
-    for ( let i = 0; i < hrefs.length; i++ ) {
-        replaceClass( hrefs[ i ], 'expanded', 'collapsed' );
-    }
+    queryAll(TOP_LEVEL_SELECTOR).forEach(span => {
+        replaceClass(span, EXPANDED_CLASS, COLLAPSED_CLASS);
+    });
+
     if ( hrefObj ) {
         addClass( hrefObj, 'expanded' );
     }
