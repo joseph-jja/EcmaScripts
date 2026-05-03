@@ -1,27 +1,36 @@
-
 const templates = new Map();
 
-// returns a clone of a template or undefined if template does not exist
+/**
+ * Returns a clone of a template or undefined if template does not exist
+ * @param {string} templateID - The ID selector of the template
+ * @returns {DocumentFragment|undefined} A clone of the template content or undefined
+ */
 export function getTemplate(templateID) {
-
-    if (!templates.get(templateID)) {
-        const templateNode = document.querySelector(templateID);
+    let templateNode = templates.get(templateID);
+    
+    if (!templateNode) {
+        templateNode = document.querySelector(templateID);
         if (!templateNode) {
-            return undefined;
+            console.warn(`Template with ID "${templateID}" not found`);
+            return;
         }
-        templates.set(templateID,  templateNode);
+        templates.set(templateID, templateNode);
     }
-    return document.importNode(templates.get(templateID).content, true);
+    
+    return document.importNode(templateNode.content, true);
 }
 
-// deletes template from memory
+/**
+ * Removes a template from memory
+ * @param {string} templateID - The ID of the template to delete
+ */
 export function deleteTemplate(templateID) {
-    if (templates.get(templateID)) {
-        templates.delete(templateID);
-    }
+    templates.delete(templateID);
 }
 
-// deletes template from memory
+/**
+ * Clears all cached templates from memory
+ */
 export function clearAllTemplates() {
-    delete templates.clear();
+    templates.clear();
 }
