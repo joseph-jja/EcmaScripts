@@ -1,5 +1,4 @@
 import {
-    hasClass,
     replaceClass,
     addClass
 } from '/js/client/dom/CSS';
