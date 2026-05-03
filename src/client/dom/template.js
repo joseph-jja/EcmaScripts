@@ -17,7 +17,7 @@ export function getTemplate(templateID) {
 // deletes template from memory
 export function deleteTemplate(templateID) {
     if (templates.get(templateID)) {
-        delete templates.delete(templateID);
+        templates.delete(templateID);
     }
 }
 
