@@ -21,9 +21,7 @@ const addClass = function ( obj, cls ) {
 };
 
 const removeClass = function ( obj = {}, cls ) {
-    let ridx = -1,
-        i,
-        cssClasses = obj.className?.split( " " );
+    const cssClasses = obj.className?.split( " " );
 
     const classes = (cssClasses ?? []).filter( clsName => {
         return (clsName !== cls);
