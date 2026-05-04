@@ -5,8 +5,17 @@ import {
 import selector from '/js/client/dom/selector';
 import { isString } from '/js/utils/typeCheck';
 
+const hasClass = function ( element, cssClass ) {
+    let eObj = element;
+    if ( isString( element ) && element.startsWith('#')) {
+        eObj = byId( element );
+    }
+    // now we have the object
+    return eObj?.className?.split( " " )?.includes(cssClass);
+};
+
 const addClass = function ( obj, cls ) {
-    if ( obj?.className?.indexOf( cls ) === -1 ) {
+    if ( !hasClass(obj, cls ) ) {
         obj.className += " " + cls;
     }
 };
@@ -16,32 +25,15 @@ const removeClass = function ( obj = {}, cls ) {
         i,
         cssClasses = obj.className?.split( " " );
 
-    const clen = cssClasses.length;
-    for ( i = 0; i < clen; i += 1 ) {
-        if ( cssClasses[ i ] === cls ) {
-            ridx = i;
-            break;
-        }
-    }
-    if ( ridx === -1 ) {
-        return;
-    }
-    cssClasses.splice( i, 1 );
-    obj.className = cssClasses.join( " " );
+    const classes = (cssClasses ?? []).filter( clsName => {
+        return (clsName !== cls);
+    });
+    obj.className = classes.join( " " );
 };
 
 const replaceClass = function ( obj, ocls, ncls ) {
     removeClass( obj, ocls );
     addClass( obj, ncls );
-};
-
-const hasClass = function ( element, cssClass ) {
-    let eObj = element;
-    if ( isString( element ) && element.startsWith('#')) {
-        eObj = byId( element );
-    }
-    // now we have the object
-    return eObj?.className?.split( " " )?.includes(cssClass);
 };
 
 // need to get the JS style syntax instead of border-top it should be borderTop
