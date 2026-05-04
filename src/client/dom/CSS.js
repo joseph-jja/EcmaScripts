@@ -3,7 +3,7 @@ import {
     byId
 } from '/js/client/dom/shortcuts';
 import selector from '/js/client/dom/selector';
-import * as typeCheck from '/js/utils/typeCheck';
+import { isString } from '/js/utils/typeCheck';
 
 const addClass = function ( obj, cls ) {
     if ( obj?.className?.indexOf( cls ) === -1 ) {
@@ -37,26 +37,17 @@ const replaceClass = function ( obj, ocls, ncls ) {
 
 const hasClass = function ( element, cssClass ) {
     let eObj = element;
-    if ( typeCheck.isString( element ) ) {
+    if ( isString( element ) && element.startsWith('#')) {
         eObj = byId( element );
     }
-    if ( eObj && eObj.className ) {
-        // now we have the object
-        const cssClasses = eObj.className.split( " " );
-        const clen = cssClasses.length;
-        for ( let i = 0; i < clen; i += 1 ) {
-            if ( cssClasses[ i ] === cssClass ) {
-                return true;
-            }
-        }
-    }
-    return false;
+    // now we have the object
+    return eObj?.className?.split( " " )?.includes(cssClass);
 };
 
 // need to get the JS style syntax instead of border-top it should be borderTop
 const getComputedStyle = function ( el, styleProp ) {
     let y, x = el;
-    if ( typeCheck.isString( el ) ) {
+    if ( isString( el ) ) {
         x = selector( "#" + el ).get( 0 );
     }
     if ( !x ) {
