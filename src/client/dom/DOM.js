@@ -28,7 +28,7 @@ const createElement = function ( type, parent, options ) {
     }
 
     // try to get the element by id in case it exists
-    if ( options && options.id ) {
+    if ( options?.id ) {
         obj = document.getElementById( options.id );
     }
 
@@ -73,7 +73,11 @@ const html = function ( ele, content, index ) {
     }
     lele = x.get( index );
 
-    name = new String( lele.tagName ).toLowerCase();
+    if (!lele?.tagName) {
+        return;
+    }
+
+    name = lele.tagName.toLowerCase();
     if ( content || content === "" ) {
         ( function ( content, nele ) {
             if ( isString( content ) || isNumber( content ) ) {
@@ -292,7 +296,7 @@ const toggleDisplay = function ( objName ) {
         obj = selector( "#" + objName ).get( 0 );
     }
     if ( obj ) {
-        state = CSS.getComputedStyle( objName, 'display' );
+        state = CSS.getComputedStyle( obj, 'display' );
         if ( state === "block" ) {
             obj.style.display = "none";
         } else if ( state === "none" ) {
