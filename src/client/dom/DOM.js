@@ -2,14 +2,20 @@
 //
 //DOM methods
 import selector from '/js/client/dom/selector';
-import * as typeCheck from '/js/utils/typeCheck';
+import {
+    isObject,
+    isString,
+    isNumber,
+    isInput,
+    isTextarea
+} from '/js/utils/typeCheck';
 import * as CSS from '/js/client/dom/CSS';
 
 const createElement = function ( type, parent, options ) {
     let obj;
 
     let pObj = document.body;
-    if ( parent && typeCheck.isString( parent ) ) {
+    if ( parent && isString( parent ) ) {
         // must be an id
         pObj = document.getElementById( parent );
     } else if ( parent ) {
@@ -70,25 +76,25 @@ const html = function ( ele, content, index ) {
     name = new String( lele.tagName ).toLowerCase();
     if ( content || content === "" ) {
         ( function ( content, nele ) {
-            if ( typeCheck.isString( content ) || typeCheck.isNumber( content ) ) {
-                if ( typeCheck.isInput( name ) || typeCheck.isInput( nele ) ) {
+            if ( isString( content ) || isNumber( content ) ) {
+                if ( isInput( name ) || isInput( nele ) ) {
                     nele.value = content;
-                } else if ( typeCheck.isTextarea( nele ) ) {
+                } else if ( isTextarea( nele ) ) {
                     nele.value = content;
                 } else {
                     // assume innerHTML will work
                     nele.innerHTML = content;
                 }
-            } else if ( nele && typeCheck.isObject( content ) ) {
+            } else if ( nele && isObject( content ) ) {
                 nele.appendChild( content );
             }
         } )( content, lele );
     }
-    if ( typeCheck.isInput( name ) || typeCheck.isInput( lele ) ) {
+    if ( isInput( name ) || isInput( lele ) ) {
         return lele.value;
-    } else if ( typeCheck.isTextarea( lele ) ) {
+    } else if ( isTextarea( lele ) ) {
         return lele.value;
-    } else if ( typeCheck.isString( lele.innerHTML ) ) {
+    } else if ( isString( lele.innerHTML ) ) {
         return lele.innerHTML;
     }
 };
@@ -267,16 +273,22 @@ const loadScript = function ( scriptURL, options, jsonpOptions ) {
 //ok now we get an idea about the width and height of the browser window
 const screen = {
     maxx: function () {
-        return window.innerWidth || ( document.documentElement && document.documentElement.clientWidth ) || ( document.documentElement && document.documentElement.offsetWidth ) || ( document.body && document.body.clientWidth ) || ( document.body && document.body.offsetWidth ) || 0;
+        return window.innerWidth || ( document.documentElement && document.documentElement.clientWidth ) 
+            || ( document.documentElement && document.documentElement.offsetWidth ) 
+            || ( document.body && document.body.clientWidth ) 
+            || ( document.body && document.body.offsetWidth ) || 0;
     },
     maxy: function () {
-        return window.innerHeight || ( document.documentElement && document.documentElement.clientHeight ) || ( document.documentElement && document.documentElement.offsetHeight ) || ( document.body && document.body.clientHeight ) || ( document.body && document.body.offsetHeight ) || 0;
+        return window.innerHeight || ( document.documentElement && document.documentElement.clientHeight ) 
+            || ( document.documentElement && document.documentElement.offsetHeight ) 
+            || ( document.body && document.body.clientHeight ) 
+            || ( document.body && document.body.offsetHeight ) || 0;
     }
 };
 
 const toggleDisplay = function ( objName ) {
     let state, obj = objName;
-    if ( typeCheck.isString( objName ) ) {
+    if ( isString( objName ) ) {
         obj = selector( "#" + objName ).get( 0 );
     }
     if ( obj ) {
