@@ -4,7 +4,6 @@
 const fs = require( 'fs' ),
     webpack = require( 'webpack' ),
     baseDir = process.cwd(),
-    babelConfig = JSON.parse( fs.readFileSync( 'config/babel-config.json' ) ),
     webpackConfig = require( `${baseDir}/config/webpack` );
 
 const files = [],
@@ -49,7 +48,7 @@ module.exports = function ( config ) {
         frameworks: [ 'jasmine' ],
 
         preprocessors: {
-            'src/**/**.js': [ 'babel', 'webpack', 'coverage' ],
+            'src/**/**.js': [ 'webpack', 'coverage' ],
             'tests/**/**.js': [ 'webpack' ]
         },
 
@@ -58,11 +57,7 @@ module.exports = function ( config ) {
             module: {
                 rules: [ {
                     test: /\.js$/,
-                    exclude: /node_modules/,
-                    use: {
-                        loader: "babel-loader",
-                        options: babelConfig
-                    }
+                    exclude: /node_modules/
                 } ]
             },
             plugins: [],

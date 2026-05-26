@@ -1,8 +1,7 @@
 var path = require( "path" ),
     fs = require( 'fs' ),
     baseDir = process.cwd(),
-    TerserPlugin = require( 'terser-webpack-plugin' ),
-    babelConfig = JSON.parse( fs.readFileSync( `${baseDir}/config/babel-config.json` ) );
+    TerserPlugin = require( 'terser-webpack-plugin' );
 
 const eslintConfig = fs.readFileSync( path.resolve( "./config/eslint.json" ) ).toString();
 
@@ -80,14 +79,7 @@ module.exports = {
         }
     },
     module: {
-        rules: [ {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            use: {
-                loader: "babel-loader",
-                options: babelConfig
-            }
-        }, {
+        rules: [{
             loader: "eslint-loader",
             exclude: /node_modules/,
             options: esJSON
