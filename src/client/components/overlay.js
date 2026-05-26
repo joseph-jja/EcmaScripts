@@ -20,6 +20,10 @@ function createOverlay( options, content ) {
         overlay.style.height = '4em';
     }
 
+    if ( !overlay.style.zIndex ) {
+        overlay.style.zIndex = 10000;
+    }
+    
     if ( content ) {
         overlay.innerHTML = content;
     }
