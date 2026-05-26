@@ -1,5 +1,3 @@
-import "@babel/runtime/regenerator";
-
 import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import WebWindow from 'client/components/wbWindow';

@@ -1,4 +1,3 @@
-import "@babel/runtime/regenerator";
 import fetcher from 'client/net/fetcher';
 
 import * as events from 'client/dom/events';
