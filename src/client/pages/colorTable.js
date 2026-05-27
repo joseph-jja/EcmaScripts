@@ -2,9 +2,6 @@ import * as events from 'client/dom/events';
 import selector from 'client/dom/selector';
 import WebWindow from 'client/components/wbWindow';
 import * as colorTable from 'client/components/colorTable';
-import {
-    createOverlay
-} from 'client/components/overlay';
 
 function getMainWindow() {
     const mw = document.getElementById( 'main-window' );
@@ -28,13 +25,10 @@ function showColor( e ) {
         const cNode = selector( 'span', tgt ).get( 0 );
         content = cNode.dataset.hexcode;
     }
-    createOverlay( {
-        id: 'colorOverlay',
-        styles: {
-            width: 'auto',
-            height: 'auto'
-        }
-    }, `<div style="text-align: center;padding: 0.5em;">${content}</div>` );
+        
+    const wwin = getMainWindow();
+    wwin.footerArea.innerHTML = `Selected Color: ${content}`;
+
 }
 
 async function doOnloadStuff() {
@@ -58,6 +52,9 @@ async function doOnloadStuff() {
     results += '</tr></table>';
 
     content.innerHTML = results;
+
+    wwin.footerArea.innerHTML = '&nbsp;';
+
     events.addEvent( wwin.windowArea, 'click', showColor, false );
 
 }
