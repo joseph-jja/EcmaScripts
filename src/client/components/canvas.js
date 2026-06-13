@@ -12,7 +12,7 @@ function setProperties( canvas ) {
     const DEFAULT_COLOR = 'black';
 
     // find a from pythagorean
-    function reversePythaogrean( a, b ) {
+    function reversePythagorean( a, b ) {
         return Math.sqrt( square( a ) - square( b ) );
     };
 
@@ -267,7 +267,7 @@ function setProperties( canvas ) {
 
         psize = size / 2;
         // from a^2 + b^2 = c^2 solve for c
-        c = reversePythaogrean( size, psize );
+        c = reversePythagorean( size, psize );
 
         if ( orientation === "down" ) {
             this.triangle( ax, ay, ax + size, ay, ax + psize, ay + c, options );
@@ -296,7 +296,7 @@ function setProperties( canvas ) {
         stroke = ( ( fillStrokeClear ) ? fillStrokeClear : "stroke" );
 
         // from a^2 + b^2 = c^2 solve for c
-        c = reversePythaogrean( size, psize );
+        c = reversePythagorean( size, psize );
 
         cx.save();
         cx.beginPath();
