@@ -1,6 +1,6 @@
 //import selector from '/js/client/dom/selector';
 import * as events from '/js/client/dom/events';
-//import * as dom from '/jsclient/dom/DOM';
+import * as mathFunctions from '/js/utils/mathFunctions';
 import * as canvas from '/js/client/components/canvas.js';
 
 import {
@@ -29,6 +29,7 @@ async function doOnLoadStuff() {
     window.soundPlayer = new MakeSound();
 
     window.canvasRef = canvas;
+    window.mathRef = mathFunctions;
 
 }
 
