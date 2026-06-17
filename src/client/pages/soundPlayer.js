@@ -1,6 +1,7 @@
 //import selector from '/js/client/dom/selector';
 import * as events from '/js/client/dom/events';
 //import * as dom from '/jsclient/dom/DOM';
+import * as canvas from '/js/client/components/canvas.js';
 
 import {
     MakeSound
@@ -27,6 +28,7 @@ async function doOnLoadStuff() {
 
     window.soundPlayer = new MakeSound();
 
+    window.canvasRef = canvas;
 
 }
 
