@@ -349,12 +349,39 @@ function generateGUID() {
 
 };
 
+/**
+ * Calculates the area under a curve for a mathematical function.
+ * @param {Function} f - The math function, e.g., (x) => x * x
+ * @param {number} start - The lower limit of integration (a)
+ * @param {number} end - The upper limit of integration (b)
+ * @param {number} steps - Number of rectangles (higher = more accurate)
+ * @returns {number} The approximated area.
+ */
+function calculateAreaUnderCurve(f, start, end, steps = 10000) {
+  const deltaX = (end - start) / steps;
+  let totalArea = 0;
+
+  for (let i = 0; i < steps; i++) {
+    // Find the midpoint of the current rectangle
+    const x = start + (i + 0.5) * deltaX;
+    
+    // Height of the rectangle at the midpoint
+    const height = f(x); 
+    
+    totalArea += height;
+  }
+
+  // Multiply by width at the very end for better performance and precision
+  return totalArea * deltaX;
+}
+
 const MathFunctions = {
     add,
     subtract,
     multiply,
     divide,
     square,
+    calculateAreaUnderCurve,
     cube,
     computeLineLength,
     computePerimeter,
